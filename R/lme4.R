@@ -71,7 +71,9 @@ h.cullis <- function(model, genotype){
 #' @param genotype String genotype
 #' @param returnMatrices logical
 #'
-#' @return value
+#' @author Paul Schmidt
+#'
+#' @return heritability or list with matrices
 #' @export
 #'
 #' @examples

@@ -14,7 +14,7 @@ h.cullis2(model, genotype, returnMatrices = F)
 \item{returnMatrices}{logical}
 }
 \value{
-value
+heritability or list with matrices
 }
 \description{
 Cullis heritability reconstructing mixed model equation
@@ -25,4 +25,7 @@ Cullis heritability reconstructing mixed model equation
 ## random genotype effect
 # g.ran <- lme4::lmer(data  = dat, formula = yield ~ rep + (1|gen) + (1|rep:block))
 # h.cullis(g.ran, "gen")
+}
+\author{
+Paul Schmidt
 }
