@@ -12,7 +12,17 @@ Imports:
     reshape,
     dplyr,
     tidyr,
-    lme4
+    lme4,
+    Matrix,
+    broom.mixed,
+    ggpubr,
+    lmerTest,
+    plotly,
+    lattice,
+    stats,
+    magrittr
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
+Suggests: 
+    asreml

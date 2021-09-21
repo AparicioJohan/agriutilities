@@ -30,5 +30,8 @@ table with gen conection
 checkconection
 }
 \examples{
-# in process
+# library(agridat)
+# data(besag.met)
+# dat <- besag.met
+# checkConection(data = dat, genotype = "gen", trial = "county", response = "yield", all = T)
 }

@@ -4,12 +4,14 @@
 \alias{h.cullis2}
 \title{Cullis heritability reconstructing mixed model equation}
 \usage{
-h.cullis2(model, genotype)
+h.cullis2(model, genotype, returnMatrices = F)
 }
 \arguments{
 \item{model}{lmer model}
 
 \item{genotype}{String genotype}
+
+\item{returnMatrices}{logical}
 }
 \value{
 value

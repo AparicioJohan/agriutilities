@@ -99,14 +99,14 @@ ggCor <-
       cors$cols = scale(cors$value, center = T, scale = T)
       cors$cols = ifelse(abs(cors$cols) < 2, 'black', 'white')
 
-      p = ggplot(data = cors, aes(x = col, y = row, fill = value)) +
-        geom_tile(color = 'gray') + labs(x = NULL, y = NULL) +
-        theme_minimal(base_size = 13) +
-        geom_text(aes(x = col, y = row, label = value), color = cors$cols, size = 3) +
-        scale_fill_gradient(low = colours[2], high = colours[3],
+      p = ggplot2::ggplot(data = cors, ggplot2::aes(x = col, y = row, fill = value)) +
+        ggplot2::geom_tile(color = 'gray') + labs(x = NULL, y = NULL) +
+        ggplot2::theme_minimal(base_size = 13) +
+        ggplot2::geom_text(ggplot2::aes(x = col, y = row, label = value), color = cors$cols, size = 3) +
+        ggplot2::scale_fill_gradient(low = colours[2], high = colours[3],
                             limits = c(0, max(cors$value))) +
-        theme(axis.text.x = element_text(angle = 40, hjust = 1), legend.position = 'none',
-              panel.grid.minor.x = element_blank(), panel.grid.major = element_blank())
+        ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 40, hjust = 1), legend.position = 'none',
+              panel.grid.minor.x = ggplot2::element_blank(), panel.grid.major = ggplot2::element_blank())
 
       return(p)
 
@@ -162,12 +162,12 @@ ggCor <-
     if (returnTable) return(cors)
 
 
-    p = ggplot(data = cors, aes(x = col, y = row, fill = name.x)) +
-      geom_tile(color = 'gray') + labs(x = NULL, y = NULL) + theme_minimal(base_size = 13) +
-      geom_text(aes(x = col, y = row, label = label), color = cors$txtCol, size = 3) +
-      scale_fill_gradient2(low = colours[1], mid = colours[2], high = colours[3]) +
-      theme(axis.text.x = element_text(angle = 40, hjust = 1), legend.position = 'none',
-            panel.grid.minor.x = element_blank(), panel.grid.major = element_blank())
+    p = ggplot2::ggplot(data = cors, ggplot2::aes(x = col, y = row, fill = name.x)) +
+      ggplot2::geom_tile(color = 'gray') + labs(x = NULL, y = NULL) + ggplot2::theme_minimal(base_size = 13) +
+      ggplot2::geom_text(ggplot2::aes(x = col, y = row, label = label), color = cors$txtCol, size = 3) +
+      ggplot2::scale_fill_gradient2(low = colours[1], mid = colours[2], high = colours[3]) +
+      ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 40, hjust = 1), legend.position = 'none',
+            panel.grid.minor.x = ggplot2::element_blank(), panel.grid.major = ggplot2::element_blank())
 
     return(p)
   }
