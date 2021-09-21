@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1632187641966.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "799144377",
+    "id" : "1578C726",
+    "lastKnownWriteTime" : 1632187695,
+    "last_content_update" : 1632187695110,
+    "path" : "D:/OneDrive - CGIAR/2021/utilities/agriutilities/R/fa.R",
+    "project_path" : "R/fa.R",
+    "properties" : {
+        "cursorPosition" : "34,34",
+        "scrollLine" : "28",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
