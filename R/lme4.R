@@ -15,12 +15,13 @@ ran <- function(var){
 #' varG
 #'
 #' @param model lmer model
-#' @param comp String: random component to be extracted
+#' @param comp String random component to be extracted
 #'
 #' @return
 #' @export
 #'
 #' @examples
+#' # Varg(model, "gen")
 VarG <- function(model, comp){
   v <- as.data.frame(VarCorr(model))
   v <- v[v$grp==comp,"vcov"]
@@ -45,18 +46,92 @@ VarE <- function(model){
 #' Cullis heritability
 #'
 #' @param model lmer model
-#' @param gen  String genotype
+#' @param genotype  String genotype
 #'
 #' @return value
 #' @export
 #'
 #' @examples
-#' # in progress
-h.cullis <- function(model, gen){
-  aveped <- mean(attr(ranef(model,drop=T)[[gen]],"postVar"))
-  vc.g <- as.data.frame(VarCorr(model))
-  vc.g <- vc.g[vc.g$grp==gen,"vcov"]
-  ifelse(vc.g==0, 0 , round(1-aveped/vc.g,3) )
+#' # dat <- agridat::john.alpha
+#' ## fit model ---------------------------------------------------------------
+#' ## random genotype effect
+#' # g.ran <- lme4::lmer(data  = dat, formula = yield ~ rep + (1|gen) + (1|rep:block))
+#' # h.cullis(g.ran, "gen")
+h.cullis <- function(model, genotype){
+  aveped <- mean(attr(lme4::ranef(model,drop=T)[[genotype]],"postVar"))
+  vc.g <- as.data.frame(lme4::VarCorr(model))
+  vc.g <- vc.g[vc.g$grp==genotype,"vcov"]
+  ifelse(vc.g==0, 0 , 1-aveped/vc.g )
+}
+
+
+#' Cullis heritability reconstructing mixed model equation
+#'
+#' @param model lmer model
+#' @param genotype String genotype
+#'
+#' @return value
+#' @export
+#'
+#' @examples
+#' # dat <- agridat::john.alpha
+#' ## fit model ---------------------------------------------------------------
+#' ## random genotype effect
+#' # g.ran <- lme4::lmer(data  = dat, formula = yield ~ rep + (1|gen) + (1|rep:block))
+#' # h.cullis(g.ran, "gen")
+h.cullis2 <- function(model, genotype){
+
+  Gen_levels=levels(model@frame[,genotype])
+
+  vc   <- as.data.frame(lme4::VarCorr(model))
+  # Number of random effects
+  n.ran <- nrow(vc)
+  # R = varcov-matrix for error term
+  n    <- length(summary(model)$residuals) # numer of observations
+  vc.e <- vc[vc$grp=="Residual", "vcov"]        # error vc
+  R    <- diag(n)*vc.e                     # R matrix = I * vc.e
+  # names of random effects
+  nomb <- names(summary(model)$ngrps)
+  # Genotype
+  n.g <- summary(model)$ngrps[which(nomb==genotype)]
+  vc.g <- vc[vc$grp==genotype, "vcov"]
+
+  # G matrix of random effects
+  G.tmp <- list()
+  if (n.ran>=2) {
+    for (i in 1:(n.ran-1)) {   # remove the residual variance
+      n.tmp <- summary(model)$ngrps[which(nomb==nomb[i])]
+      vc.tmp <- vc[vc$grp==nomb[i], "vcov"]
+      G.tmp[[i]] <- diag(n.tmp)*vc.tmp
+    }
+  }
+
+  G <- Matrix::bdiag(G.tmp) # G is blockdiagonal with G.g and G.b
+
+  # Design Matrices
+  X <- as.matrix(getME(model, "X")) # Design matrix fixed effects
+  Z <- as.matrix(getME(model, "Z")) # Design matrix random effects
+
+  # Mixed model Equation
+  C11 <- t(X) %*% solve(R) %*% X
+  C12 <- t(X) %*% solve(R) %*% Z
+  C21 <- t(Z) %*% solve(R) %*% X
+  C22 <- t(Z) %*% solve(R) %*% Z + solve(G)
+
+  C <- as.matrix(rbind(cbind(C11, C12),  # Combine components into one matrix C
+                       cbind(C21, C22)))
+
+  # Mixed model Equation Solutions
+  C.inv <- solve(C)                                # Inverse of C
+  C22.g <- C.inv[Gen_levels, Gen_levels] # subset of C.inv that refers to genotypic BLUPs
+
+
+  # Mean variance of BLUP-difference from C22 matrix of genotypic BLUPs
+  vdBLUP.sum<- n.g*sum(diag(C22.g))-sum(C22.g)
+  vdBLUP.avg <- vdBLUP.sum * (2/(n.g*(n.g-1)))   # mean variance of BLUP-difference = divide sum by number of genotype pairs
+
+  H2Cullis <- 1 - (vdBLUP.avg / 2 / vc.g)
+  return(H2Cullis)
 }
 
 #' varG.pvalue

@@ -9,11 +9,14 @@ VarG(model, comp)
 \arguments{
 \item{model}{lmer model}
 
-\item{comp}{String: random component to be extracted}
+\item{comp}{String random component to be extracted}
 }
 \value{
 
 }
 \description{
 varG
+}
+\examples{
+# Varg(model, "gen")
 }
