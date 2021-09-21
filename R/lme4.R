@@ -59,8 +59,7 @@ VarE <- function(model){
 #' # h.cullis(g.ran, "gen")
 h.cullis <- function(model, genotype){
   aveped <- mean(attr(lme4::ranef(model,drop=T)[[genotype]],"postVar"))
-  vc.g <- as.data.frame(lme4::VarCorr(model))
-  vc.g <- vc.g[vc.g$grp==genotype,"vcov"]
+  vc.g <- VarG(model, genotype)
   ifelse(vc.g==0, 0 , 1-aveped/vc.g )
 }
 
