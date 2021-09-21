@@ -17,7 +17,7 @@ ran <- function(var){
 #' @param model lmer model
 #' @param comp String random component to be extracted
 #'
-#' @return
+#' @return variance component
 #' @export
 #'
 #' @examples
@@ -180,7 +180,7 @@ varG.pvalue <- function(model, gen){
 #' @param returnN logical value for returning the number of extreme observations
 #' @param k  number of standard desviations to define values as extremes
 #'
-#' @return
+#' @return data.frame of number of extreme observations depending on returnN
 #' @export
 #'
 #' @examples
@@ -207,7 +207,7 @@ lme4_res <- function(model, returnN = F , k = 3){
 #' @param equation formula see example below. You can use reformulate()
 #' @param var_sub string variable for subset
 #'
-#' @return
+#' @return list with models
 #' @export
 #'
 #' @examples
@@ -299,7 +299,7 @@ mult_summary <- function(models, genotype = "Name", y = "response", k = 3){
 #' @param models lmer model
 #' @param returnData  logical value. Return data with NA for extreme observations
 #' @param k number of standard desviations to define values as extremes (default = 3)
-#' @return
+#' @return data.frame
 #' @export
 #'
 #' @examples

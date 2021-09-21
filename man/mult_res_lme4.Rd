@@ -14,7 +14,7 @@ mult_res_lme4(models, returnData = F, k = 3)
 \item{k}{number of standard desviations to define values as extremes (default = 3)}
 }
 \value{
-
+data.frame
 }
 \description{
 residual data

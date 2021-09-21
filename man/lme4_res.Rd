@@ -14,7 +14,7 @@ lme4_res(model, returnN = F, k = 3)
 \item{k}{number of standard desviations to define values as extremes}
 }
 \value{
-
+data.frame of number of extreme observations depending on returnN
 }
 \description{
 residuals lme4

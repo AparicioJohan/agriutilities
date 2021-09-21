@@ -12,7 +12,7 @@ VarG(model, comp)
 \item{comp}{String random component to be extracted}
 }
 \value{
-
+variance component
 }
 \description{
 varG

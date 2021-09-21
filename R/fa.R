@@ -1,5 +1,43 @@
 
 
+#' Factor analytic variance models.
+#'
+#' @description Summarises an asreml model in which factor analytic (FA) variance structures have been fitted. The function
+#' aids in interpreting FA models fitted to genotype by environment effects in the analysis
+#' of plant breeding multi-environment trial (MET) data.
+#'
+#' @param object An asreml object.
+#' @param uniplot if TRUE (the default), pairwise plots of FA loadings are produced for k > 1.
+#' @param uniplot.tol A numeric value between 0 and 1 that affects the display of pairs of loadings in the uniplots. Those pairs with a (scaled) euclidean distance greater than uniplot.tol are drawn with solid blue lines, otherwise they appear as red dashed lines.
+#' @param uniplot.cex Character expansion (relative) size for plotting (the default is 0.5).
+#' @param trunc.char A numeric vector of length 2 specifying the truncation of loading labels for use in plotting. The default (c(1,6)) is to use the first 6 characters of the environment factor levels, otherwise if NULL the complete level names are used.
+#' @param blups 	If TRUE (the default), summaries of estimates from the asreml object are produced. These include BLUPs of genotype by environment effects and genotype scores, and REML estimates of FA variance parameters.
+#' @param regplot If TRUE (the default), regression plots of genotype by environment effects against FA loadings are produced.
+#' @param addedplot If TRUE (the default), added variable plots of genotype by environment effects against FA loadings are produced.
+#' @param g.list A character vector comprising the subset of genotype levels to be used in the regression and added variable plots. The default (NULL) is to use the complete set of genotype levels.
+#' @param heatmap If TRUE (the default), a heatmap of the estimated FA correlation matrix is produced.
+#' @param heatmap.ord A character string ("asis", "cluster") or vector of environment levels in the order desired for plotting the heatmap. The default is "asis", where the rows and columns of the correlation matrix are maintained in environment level order. The "cluster" option invokes the agnes clustering algorithm on the FA correlation matrix then orders the rows and columns accordingly.
+#' @param agnes.method Clustering strategy; the default is "average".
+#'
+#' @details The following documentation is taken from the ASExtras4 package. Please refer to this package and associated publications if you are interested in going deeper on this technique. You may be interested in reading and citing this publication if using this methodology:
+#'
+#' @references Cullis BR, Smith AB, Beek C, Cowling WA (2010). “Analysis of Yield and Oil from a Series of Canola Breeding Trials. Part II: Exploring VxE using Factor Analysis.” Genome, 53, 1002-1016. Smith AB, Cullis BR, Thompson R (2001). “Analyzing Variety by Environment Data Using Multiplicative Mixed Models and Adjustments for Spatial Field Trend.” Biometrics, 57, 1138-1147.
+#'
+#' @return list
+#' @export
+#'
+#' @examples
+#' # library(tidyverse)
+#' # library(asreml)
+#' #
+#' # dat <- dat %>% arrange(county)
+#' # model <- asreml(fixed = yield ~ 1 + county,
+#' #                 random = ~ fa(county, 2):gen + county:rep + diag(county):rep:block,
+#' #                 residual = ~ dsum(~ units | county),
+#' #                 data = dat,
+#' #                 na.action = list(x="include",y="include"))
+#' #
+#' # ASM <- fa.asreml(model, trunc.char = NULL)
 fa.asreml <- function (object, uniplot = F, uniplot.tol = 0.85, uniplot.cex = 0.5,
                        trunc.char = c(1, 6), blups = TRUE, regplot = F, addedplot = F,
                        g.list = NULL, heatmap = F, heatmap.ord = "asis", agnes.method = "average")
@@ -174,26 +212,26 @@ fa.asreml <- function (object, uniplot = F, uniplot.tol = 0.85, uniplot.cex = 0.
     if (uniplot) {
       bp.main <- names(faterms)[nt]
       if (k == 2) {
-        uniplot.lst[[nt]] <- lattice::xyplot(Lamc[, 1] ~ Lamc[,
-                                                              2], xlim = c(-1.1, 1.1), ylim = c(-1.1, 1.1),
-                                             asp = "s", xlab = "Loading 2", ylab = "Loading 1",
-                                             main = bp.main, panel = function(x, y, subscripts,
-                                                                              sn, tol, lcex, ...) {
-                                               panel.curve(sqrt(1 - x^2), from = -1, to = 1)
-                                               panel.curve(-sqrt(1 - x^2), from = -1, to = 1)
-                                               ne <- length(sn)
-                                               radius <- sqrt(x * x + y * y)
-                                               lcol <- rep("blue", ne)
-                                               ltyp <- rep(1, ne)
-                                               llwd <- rep(1.5, ne)
-                                               lcol[radius < tol] <- "red"
-                                               ltyp[radius < tol] <- 3
-                                               llwd[radius < tol] <- 1
-                                               panel.segments(rep(0, ne), rep(0, ne), x,
-                                                              y, lty = ltyp, col = lcol, lwd = llwd)
-                                               ltext(x, y, sn, cex = lcex, col = lcol,
-                                                     srt = 45)
-                                             }, sn = sn, tol = uniplot.tol, lcex = uniplot.cex)
+        uniplot.lst[[nt]] <- xyplot(Lamc[, 1] ~ Lamc[,
+                                                     2], xlim = c(-1.1, 1.1), ylim = c(-1.1, 1.1),
+                                    asp = "s", xlab = "Loading 2", ylab = "Loading 1",
+                                    main = bp.main, panel = function(x, y, subscripts,
+                                                                     sn, tol, lcex, ...) {
+                                      panel.curve(sqrt(1 - x^2), from = -1, to = 1)
+                                      panel.curve(-sqrt(1 - x^2), from = -1, to = 1)
+                                      ne <- length(sn)
+                                      radius <- sqrt(x * x + y * y)
+                                      lcol <- rep("blue", ne)
+                                      ltyp <- rep(1, ne)
+                                      llwd <- rep(1.5, ne)
+                                      lcol[radius < tol] <- "red"
+                                      ltyp[radius < tol] <- 3
+                                      llwd[radius < tol] <- 1
+                                      panel.segments(rep(0, ne), rep(0, ne), x,
+                                                     y, lty = ltyp, col = lcol, lwd = llwd)
+                                      ltext(x, y, sn, cex = lcex, col = lcol,
+                                            srt = 45)
+                                    }, sn = sn, tol = uniplot.tol, lcex = uniplot.cex)
       }
       else {
         tmp <- vector(mode = "list", length = k * (k -
@@ -202,29 +240,29 @@ fa.asreml <- function (object, uniplot = F, uniplot.tol = 0.85, uniplot.cex = 0.
         for (i in seq(1, k - 1)) {
           for (j in seq(i + 1, k)) {
             natmp <- c(natmp, paste("Ld", i, j, sep = ""))
-            tmp[[(i - 1) * (k - 1) + (j - i)]] <- lattice::xyplot(Lamc[,
-                                                                       i] ~ Lamc[, j], xlim = c(-1.1, 1.1), ylim = c(-1.1,
-                                                                                                                     1.1), asp = "s", xlab = paste("Loading",
-                                                                                                                                                   j), ylab = paste("Loading", i), main = bp.main,
-                                                                  panel = function(x, y, subscripts, sn,
-                                                                                   tol, lcex, ...) {
-                                                                    panel.curve(sqrt(1 - x^2), from = -1,
-                                                                                to = 1)
-                                                                    panel.curve(-sqrt(1 - x^2), from = -1,
-                                                                                to = 1)
-                                                                    ne <- length(sn)
-                                                                    radius <- sqrt(x * x + y * y)
-                                                                    lcol <- rep("blue", ne)
-                                                                    ltyp <- rep(1, ne)
-                                                                    llwd <- rep(1.5, ne)
-                                                                    lcol[radius < tol] <- "red"
-                                                                    ltyp[radius < tol] <- 3
-                                                                    llwd[radius < tol] <- 1
-                                                                    panel.segments(rep(0, ne), rep(0, ne),
-                                                                                   x, y, lty = ltyp, col = lcol, lwd = llwd)
-                                                                    ltext(x, y, sn, cex = lcex, col = lcol,
-                                                                          srt = 45)
-                                                                  }, sn = sn, tol = uniplot.tol, lcex = uniplot.cex)
+            tmp[[(i - 1) * (k - 1) + (j - i)]] <- xyplot(Lamc[,
+                                                              i] ~ Lamc[, j], xlim = c(-1.1, 1.1), ylim = c(-1.1,
+                                                                                                            1.1), asp = "s", xlab = paste("Loading",
+                                                                                                                                          j), ylab = paste("Loading", i), main = bp.main,
+                                                         panel = function(x, y, subscripts, sn,
+                                                                          tol, lcex, ...) {
+                                                           panel.curve(sqrt(1 - x^2), from = -1,
+                                                                       to = 1)
+                                                           panel.curve(-sqrt(1 - x^2), from = -1,
+                                                                       to = 1)
+                                                           ne <- length(sn)
+                                                           radius <- sqrt(x * x + y * y)
+                                                           lcol <- rep("blue", ne)
+                                                           ltyp <- rep(1, ne)
+                                                           llwd <- rep(1.5, ne)
+                                                           lcol[radius < tol] <- "red"
+                                                           ltyp[radius < tol] <- 3
+                                                           llwd[radius < tol] <- 1
+                                                           panel.segments(rep(0, ne), rep(0, ne),
+                                                                          x, y, lty = ltyp, col = lcol, lwd = llwd)
+                                                           ltext(x, y, sn, cex = lcex, col = lcol,
+                                                                 srt = 45)
+                                                         }, sn = sn, tol = uniplot.tol, lcex = uniplot.cex)
           }
         }
         names(tmp) <- natmp
@@ -259,7 +297,7 @@ fa.asreml <- function (object, uniplot = F, uniplot.tol = 0.85, uniplot.cex = 0.
     }
     if (blups) {
       cc <- coef(object, list = TRUE)[[names(faterms)[nt]]]
-      blup.df <- data.frame(blup = as.vector(cc))
+      blup.df <- data.frame(blup = as.vector(cc), stringsAsFactors = TRUE)
       nn <- dimnames(cc)[[1]]
       temp <- strsplit(nn, split = ":", fixed = TRUE)
       tt.inner <- sapply(temp, function(x) x[2])
@@ -268,8 +306,6 @@ fa.asreml <- function (object, uniplot = F, uniplot.tol = 0.85, uniplot.cex = 0.
                                   fixed = T), function(x) paste(x[-1], collapse = "_"))
       tt.inner <- sapply(strsplit(tt.inner, split = "_",
                                   fixed = T), function(x) paste(x[-1], collapse = "_"))
-      # tt.inner <- sapply(strsplit(tt.inner, split = "_",
-      #                             fixed = T), function(x) paste(x[-c(1,2)], collapse = "_"))
       blup.df[[outer.name]] <- tt.outer
       blup.df[[inner.name]] <- tt.inner
       score.df <- subset(blup.df, is.element(blup.df[[outer.name]],
@@ -334,14 +370,14 @@ fa.asreml <- function (object, uniplot = F, uniplot.tol = 0.85, uniplot.cex = 0.
       xform <- formula(paste("blup~", xform, "|", inner.name,
                              sep = ""))
       rp.main <- paste(names(faterms)[nt], "BLUPS")
-      regplot.lst[[nt]] <- lattice::xyplot(xform, data = regplot.df,
-                                           outer = TRUE, as.table = TRUE, par.strip.text = list(cex = 0.6),
-                                           main = rp.main, panel = function(x, y, slopes,
-                                                                            ...) {
-                                             panel.xyplot(x, y)
-                                             panel.abline(b = slopes[current.column(),
-                                                                     current.row()], a = 0)
-                                           }, slopes = score.mat)
+      regplot.lst[[nt]] <- xyplot(xform, data = regplot.df,
+                                  outer = TRUE, as.table = TRUE, par.strip.text = list(cex = 0.6),
+                                  main = rp.main, panel = function(x, y, slopes,
+                                                                   ...) {
+                                    panel.xyplot(x, y)
+                                    panel.abline(b = slopes[current.column(),
+                                                            current.row()], a = 0)
+                                  }, slopes = score.mat)
       if (addedplot) {
         Yadd <- list()
         for (kk in 1:k) {
@@ -354,16 +390,16 @@ fa.asreml <- function (object, uniplot = F, uniplot.tol = 0.85, uniplot.cex = 0.
         xform <- formula(paste("blup~", xform, "|",
                                inner.name, sep = ""))
         ap.main <- paste(names(faterms)[nt], "BLUPS")
-        addedplot.lst[[nt]] <- lattice::xyplot(xform, data = regplot.df,
-                                               outer = T, as.table = T, par.strip.text = list(cex = 0.6),
-                                               main = ap.main, panel = function(x, y, subscripts,
-                                                                                slopes, yadj, ...) {
-                                                 yadj <- yadj[[current.row()]]
-                                                 yadj <- yadj[current.column(), ]
-                                                 panel.xyplot(x, y - yadj)
-                                                 panel.abline(a = 0, b = slopes[current.column(),
-                                                                                current.row()])
-                                               }, slopes = score.mat, yadj = Yadd)
+        addedplot.lst[[nt]] <- xyplot(xform, data = regplot.df,
+                                      outer = T, as.table = T, par.strip.text = list(cex = 0.6),
+                                      main = ap.main, panel = function(x, y, subscripts,
+                                                                       slopes, yadj, ...) {
+                                        yadj <- yadj[[current.row()]]
+                                        yadj <- yadj[current.column(), ]
+                                        panel.xyplot(x, y - yadj)
+                                        panel.abline(a = 0, b = slopes[current.column(),
+                                                                       current.row()])
+                                      }, slopes = score.mat, yadj = Yadd)
       }
     }
     ide.term <- (fa.inner.fun(faterms[[nt]]) == "ide")
@@ -391,7 +427,8 @@ fa.asreml <- function (object, uniplot = F, uniplot.tol = 0.85, uniplot.cex = 0.
                                    blup = blup.lst[[nt]]$blups.inmet$blup +
                                      blup.lst[[ped.term]]$blups.inmet$blup,
                                    regblup = blup.lst[[nt]]$blups.inmet$regblup +
-                                     blup.lst[[ped.term]]$blups.inmet$regblup)
+                                     blup.lst[[ped.term]]$blups.inmet$regblup,
+                                   stringsAsFactors = TRUE)
           names(blup.inmet) <- c(outer.name, inner.name,
                                  "pres", "blup", "regblup")
           blup.lst[[total.where]] <- list(blups.inmet = blup.inmet)
@@ -449,6 +486,15 @@ fa.asreml <- function (object, uniplot = F, uniplot.tol = 0.85, uniplot.cex = 0.
 }
 
 
+#' Variance explained
+#'
+#' @param model An asreml object with Factor analytic structure (fa2)
+#'
+#' @return vector
+#' @export
+#'
+#' @examples
+#' # in progress
 var_fa <- function(model){
   ASM <- fa.asreml( model , trunc.char = NULL)
   L.star = ASM$gammas[[1]]$`rotated loads`
@@ -479,6 +525,26 @@ var_fa <- function(model){
 }
 
 
+#' biplot fa2 model
+#'
+#' @param model An asreml object with Factor analytic structure (fa2 or more)
+#' @param predictions dataframe with predicted values by site
+#' @param one c(1,-1)
+#' @param second c(1,-1)
+#' @param fscore score to visualize genotypes and avoid overlapping
+#' @param fmult in order to see the sites and genotypes in the same plot we have to play with this value
+#' @param alpha opacity segments
+#' @param alpha_site opacity sites
+#' @param alpha_ind opacity individuals
+#' @param subtitle text
+#' @param gen vector with genotypes to show (optional)
+#' @param size_ind_biplot size_ind_biplot
+#'
+#' @return list with 3 ggplots
+#' @export
+#'
+#' @examples
+#' # in progress
 biplot_fa2 <- function(model,
                        predictions,
                        one = -1,
@@ -507,17 +573,18 @@ biplot_fa2 <- function(model,
 
   # Without Standardize Loadings
   d=data.frame(x=rep(0, nrow(L.star)), y=rep(0, nrow(L.star)), vx=L.star[,1], vy=L.star[,2])
-  loadings = ggplot(faComp, aes(x = fa1, y = fa2)) +
-    geom_point(aes(colour = Vg, size = BLUE)) +
-    scale_colour_gradient(low = "pink", high = "blue") +
-    geom_label_repel(aes(label = site), nudge_y= 0.05, nudge_x=-0.03, force=1, alpha = alpha_site) +
-    ggtitle(paste0("Environment Factor Loadings ", "(",sum(percentg),"%)"), subtitle = subtitle) +
-    xlab(paste0("FA1 loading ", "(",percentg[1],"%)" )) +
-    ylab(paste0("FA2 loading ", "(",percentg[2],"%)")) +
-    theme_bw(base_size = 15)+
-    geom_vline(xintercept = 0,linetype = 2) + geom_hline(yintercept = 0,linetype = 2)+
-    geom_segment(data=d,
-                 mapping=aes(x=x, y=y, xend=x+vx, yend=y+vy),
+  loadings = ggplot2::ggplot(faComp, ggplot2::aes(x = fa1, y = fa2)) +
+    ggplot2::geom_point(ggplot2::aes(colour = Vg, size = BLUE)) +
+    ggplot2::scale_colour_gradient(low = "pink", high = "blue") +
+    ggrepel::geom_label_repel(ggplot2::aes(label = site), nudge_y= 0.05, nudge_x=-0.03, force=1, alpha = alpha_site) +
+    ggplot2::ggtitle(paste0("Environment Factor Loadings ", "(",sum(percentg),"%)"), subtitle = subtitle) +
+    ggplot2::xlab(paste0("FA1 loading ", "(",percentg[1],"%)" )) +
+    ggplot2::ylab(paste0("FA2 loading ", "(",percentg[2],"%)")) +
+    ggplot2::theme_bw(base_size = 15)+
+    ggplot2::geom_vline(xintercept = 0,linetype = 2) +
+    ggplot2::geom_hline(yintercept = 0,linetype = 2)+
+    ggplot2::geom_segment(data=d,
+                 mapping=ggplot2::aes(x=x, y=y, xend=x+vx, yend=y+vy),
                  arrow=arrow(), size=0.5, color="black", alpha= alpha)
 
   # Standardize Loadings
@@ -525,19 +592,20 @@ biplot_fa2 <- function(model,
   faCompR[,2:3] <- diag(1/sqrt(diag(Gvar))) %*% L.star
   d <- data.frame(x=rep(0, nrow(L.star)), y=rep(0, nrow(L.star)), vx=faCompR[,2], vy=faCompR[,3])
   circle <- circleFun(c(0,0),2,npoints = 100)
-  loading_C <- ggplot(faCompR, aes(x = fa1, y = fa2)) +
-    geom_point(aes(colour = Vg, size = BLUE)) +
-    scale_colour_gradient(low = "pink", high = "blue") +
-    geom_label_repel(aes(label = site), nudge_y= 0.05, nudge_x=-0.03, force=1, alpha = alpha_site) +
-    ggtitle(paste0("Environment Factor Loadings ", "(",sum(percentg),"%)"), subtitle = subtitle) +
-    xlab(paste0("FA1 loading ", "(",percentg[1],"%)" )) +
-    ylab(paste0("FA2 loading ", "(",percentg[2],"%)")) +
-    theme_bw(base_size = 15)+
-    geom_vline(xintercept = 0,linetype = 2) + geom_hline(yintercept = 0,linetype = 2)+
-    geom_segment(data=d,
-                 mapping=aes(x=x, y=y, xend=x+vx, yend=y+vy),
+  loading_C <- ggplot2::ggplot(faCompR, ggplot2::aes(x = fa1, y = fa2)) +
+    ggplot2::geom_point(ggplot2::aes(colour = Vg, size = BLUE)) +
+    ggplot2::scale_colour_gradient(low = "pink", high = "blue") +
+    ggrepel::geom_label_repel(ggplot2::aes(label = site), nudge_y= 0.05, nudge_x=-0.03, force=1, alpha = alpha_site) +
+    ggplot2::ggtitle(paste0("Environment Factor Loadings ", "(",sum(percentg),"%)"), subtitle = subtitle) +
+    ggplot2::xlab(paste0("FA1 loading ", "(",percentg[1],"%)" )) +
+    ggplot2::ylab(paste0("FA2 loading ", "(",percentg[2],"%)")) +
+    ggplot2::theme_bw(base_size = 15)+
+    ggplot2::geom_vline(xintercept = 0,linetype = 2) +
+    ggplot2::geom_hline(yintercept = 0,linetype = 2)+
+    ggplot2::geom_segment(data=d,
+                 mapping=ggplot2::aes(x=x, y=y, xend=x+vx, yend=y+vy),
                  arrow=arrow(), size=0.5, color="black", alpha=alpha) +
-    geom_path(data=circle, aes(x,y))
+    ggplot2::geom_path(data=circle, ggplot2::aes(x,y))
 
 
   # Biplot
@@ -547,6 +615,8 @@ biplot_fa2 <- function(model,
   names(fa12_scores) = c("Genotype", "fa1", "fa2")
   fa12_scores$fa1 <- fa12_scores$fa1*one
   fa12_scores$fa2 <- fa12_scores$fa2*second
+  print("fscore:")
+  print(summary(sqrt(fa12_scores$fa1^2+fa12_scores$fa2^2)))
   fa12_scores$Score <-  ifelse(sqrt(fa12_scores$fa1^2+fa12_scores$fa2^2)>fscore,1,0)
 
   if(!is.null(gen)){
@@ -556,20 +626,21 @@ biplot_fa2 <- function(model,
   }
 
   d=data.frame(x=rep(0, nrow(L.star)), y=rep(0, nrow(L.star)), vx=L.star[,1], vy=L.star[,2])
-  biplot = ggplot(faComp, aes(x = fa1, y = fa2)) +
-    geom_point(aes(colour = Vg, size = BLUE)) +
-    scale_colour_gradient(low = "pink", high = "blue") +
-    geom_label_repel(aes(label = site), nudge_y= 0.05, nudge_x=-0.03, force=1,  alpha = alpha_site) +
-    ggtitle(paste0("Environment Factor Loadings ", "(",sum(percentg),"%)"), subtitle = subtitle) +
-    xlab(paste0("FA1 loading ", "(",percentg[1],"%)" )) +
-    ylab(paste0("FA2 loading ", "(",percentg[2],"%)")) +
-    theme_bw(base_size = 15)+
-    geom_vline(xintercept = 0,linetype = 2) + geom_hline(yintercept = 0,linetype = 2)+
-    geom_segment(data=d,
-                 mapping=aes(x=x, y=y, xend=x+vx, yend=y+vy),
+  biplot = ggplot2::ggplot(faComp, ggplot2::aes(x = fa1, y = fa2)) +
+    ggplot2::geom_point(ggplot2::aes(colour = Vg, size = BLUE)) +
+    ggplot2::scale_colour_gradient(low = "pink", high = "blue") +
+    ggrepel::geom_label_repel(ggplot2::aes(label = site), nudge_y= 0.05, nudge_x=-0.03, force=1,  alpha = alpha_site) +
+    ggplot2::ggtitle(paste0("Environment Factor Loadings ", "(",sum(percentg),"%)"), subtitle = subtitle) +
+    ggplot2::xlab(paste0("FA1 loading ", "(",percentg[1],"%)" )) +
+    ggplot2::ylab(paste0("FA2 loading ", "(",percentg[2],"%)")) +
+    ggplot2::theme_bw(base_size = 15)+
+    ggplot2::geom_vline(xintercept = 0,linetype = 2) +
+    ggplot2::geom_hline(yintercept = 0,linetype = 2)+
+    ggplot2::geom_segment(data=d,
+                 mapping=ggplot2::aes(x=x, y=y, xend=x+vx, yend=y+vy),
                  arrow=arrow(), size=0.5, color="black", alpha= alpha) +
-    geom_label_repel(data = subset(fa12_scores, Score==1),
-                     aes(label = Genotype, x = fmult*fa1 , y= fmult*fa2),
+    ggrepel::geom_label_repel(data = subset(fa12_scores, Score==1),
+                              ggplot2::aes(label = Genotype, x = fmult*fa1 , y= fmult*fa2),
                      colour = "red",segment.colour = "red" , size=size_ind_biplot, alpha = alpha_ind)
 
 

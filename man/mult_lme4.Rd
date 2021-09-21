@@ -14,7 +14,7 @@ mult_lme4(data, equation, var_sub)
 \item{var_sub}{string variable for subset}
 }
 \value{
-
+list with models
 }
 \description{
 Multiple lme4 models
