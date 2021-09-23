@@ -82,14 +82,39 @@
   <a href="../index.html">
     <span class="fas fa-home fa-lg"></span>
      
+    Home
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../reference/index.html">
+    <span class="fas fa-code"></span>
+     
+    Reference
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fas fa-file-o"></span>
+     
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/SpATS.html">spATS utilties</a>
+    </li>
+  </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/AparicioJohan/agriutilities">
+    <span class="fas fa-file-o"></span>
+     
+    Github
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -104,7 +129,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>varG.pvalue</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/AparicioJohan/agriutilities/blob/master/R/lme4.R'><code>R/lme4.R</code></a></small>
     <div class="hidden name"><code>varG.pvalue.Rd</code></div>
     </div>
 
@@ -132,7 +157,11 @@
     <p>pvalue significance of random component</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'> <span class='co'># in progress</span>
+    <pre class="examples"><div class='input'><span class='co'># dat &lt;- agridat::john.alpha</span>
+<span class='co'>## fit model ---------------------------------------------------------------</span>
+<span class='co'>## random genotype effect</span>
+<span class='co'># g.ran &lt;- lme4::lmer(data  = dat, formula = yield ~ rep + (1|gen) + (1|rep:block))</span>
+<span class='co'># varG.pvalue(g.ran, "gen")</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

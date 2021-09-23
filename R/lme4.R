@@ -163,7 +163,11 @@ h.cullis2 <- function(model, genotype, returnMatrices = F){
 #' @export
 #'
 #' @examples
-#'  # in progress
+#' # dat <- agridat::john.alpha
+#' ## fit model ---------------------------------------------------------------
+#' ## random genotype effect
+#' # g.ran <- lme4::lmer(data  = dat, formula = yield ~ rep + (1|gen) + (1|rep:block))
+#' # varG.pvalue(g.ran, "gen")
 varG.pvalue <- function(model, gen){
   table <- try(suppressWarnings(broom.mixed::tidy(lmerTest::ranova(model))), silent = T)
   if(length(class(table))==1){
@@ -185,7 +189,7 @@ varG.pvalue <- function(model, gen){
 #'
 #' @examples
 #' # in progress
-lme4_res <- function(model, returnN = F , k = 3){
+res_lme4 <- function(model, returnN = F , k = 3){
   res <-  residuals(model, scaled=TRUE)
   data <- model@frame
   data$residual <- res
@@ -288,7 +292,7 @@ mult_summary <- function(models, genotype = "Name", y = "response", k = 3){
   gv <- unlist(lapply(models, VarG, genotype))
   ev <- unlist(lapply(models, VarE))
   he <- unlist(lapply(models, h.cullis, genotype ))
-  out <- unlist(lapply(models, lme4_res , k = k ))
+  out <- unlist(lapply(models, res_lme4 , k = k ))
   summ <- data.frame(Experiment=exp, y = y ,varG = gv, varE = ev, h2 = he, outliers=out , row.names = NULL)
   return(summ)
 }
@@ -327,7 +331,7 @@ mult_summary <- function(models, genotype = "Name", y = "response", k = 3){
 #' # objt <- mult_lme4(data = dataOut, equation = equation, var_sub = "Experiment")
 #' # mt_summ2 <- mult_summary(models = objt ,genotype =  "gen", y = "yield" )
 mult_res_lme4 <- function(models, returnData = F , k = 3){
-  dataOut <- lapply(models, lme4_res, T, k = k)
+  dataOut <- lapply(models, res_lme4, T, k = k)
   dataOut <- data.frame(plyr::ldply(dataOut[], data.frame, .id = "Experiment"))
   outliers <- dataOut[dataOut$Classify=="Outlier",   ]
 

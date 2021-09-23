@@ -23,7 +23,9 @@
 #'               in myData. If returnTable is TRUE, the table used to produce the figure is returned instead.
 #' @export
 #'
-#' @examples # ggCor(MM,colours = c("#db4437","white","#4285f4"), returnN = TRUE )
+#' @examples
+#'   # data(iris)
+#'   # ggCor(iris,colours = c("#db4437","white","#4285f4"), returnN = TRUE )
 #' @author Daniel Ariza
 #' @importFrom stats na.omit
 ggCor <-
@@ -100,7 +102,7 @@ ggCor <-
       cors$cols = ifelse(abs(cors$cols) < 2, 'black', 'white')
 
       p = ggplot2::ggplot(data = cors, ggplot2::aes(x = col, y = row, fill = value)) +
-        ggplot2::geom_tile(color = 'gray') + labs(x = NULL, y = NULL) +
+        ggplot2::geom_tile(color = 'gray') + ggplot2::labs(x = NULL, y = NULL) +
         ggplot2::theme_minimal(base_size = 13) +
         ggplot2::geom_text(ggplot2::aes(x = col, y = row, label = value), color = cors$cols, size = 3) +
         ggplot2::scale_fill_gradient(low = colours[2], high = colours[3],
@@ -163,7 +165,7 @@ ggCor <-
 
 
     p = ggplot2::ggplot(data = cors, ggplot2::aes(x = col, y = row, fill = name.x)) +
-      ggplot2::geom_tile(color = 'gray') + labs(x = NULL, y = NULL) + ggplot2::theme_minimal(base_size = 13) +
+      ggplot2::geom_tile(color = 'gray') + ggplot2::labs(x = NULL, y = NULL) + ggplot2::theme_minimal(base_size = 13) +
       ggplot2::geom_text(ggplot2::aes(x = col, y = row, label = label), color = cors$txtCol, size = 3) +
       ggplot2::scale_fill_gradient2(low = colours[1], mid = colours[2], high = colours[3]) +
       ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 40, hjust = 1), legend.position = 'none',

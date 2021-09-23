@@ -19,7 +19,7 @@
 #' @param heatmap.ord A character string ("asis", "cluster") or vector of environment levels in the order desired for plotting the heatmap. The default is "asis", where the rows and columns of the correlation matrix are maintained in environment level order. The "cluster" option invokes the agnes clustering algorithm on the FA correlation matrix then orders the rows and columns accordingly.
 #' @param agnes.method Clustering strategy; the default is "average".
 #'
-#' @details The following documentation is taken from the ASExtras4 package. Please refer to this package and associated publications if you are interested in going deeper on this technique. You may be interested in reading and citing this publication if using this methodology:
+#' @details The following documentation is taken from the ASExtras4 package. Please refer to this package and associated publications if you are interested in going deeper on this technique. You may be interested in reading and citing this publication if using this methodology
 #'
 #' @references Cullis BR, Smith AB, Beek C, Cowling WA (2010). “Analysis of Yield and Oil from a Series of Canola Breeding Trials. Part II: Exploring VxE using Factor Analysis.” Genome, 53, 1002-1016. Smith AB, Cullis BR, Thompson R (2001). “Analyzing Variety by Environment Data Using Multiplicative Mixed Models and Adjustments for Spatial Field Trend.” Biometrics, 57, 1138-1147.
 #'
@@ -29,6 +29,9 @@
 #' @examples
 #' # library(tidyverse)
 #' # library(asreml)
+#' # library(agridat)
+#' # data(besag.met)
+#' # dat <- besag.met
 #' #
 #' # dat <- dat %>% arrange(county)
 #' # model <- asreml(fixed = yield ~ 1 + county,
@@ -544,7 +547,27 @@ var_fa <- function(model){
 #' @export
 #'
 #' @examples
-#' # in progress
+#' # library(tidyverse)
+#' # library(asreml)
+#' # library(agridat)
+#' # data(besag.met)
+#' # dat <- besag.met
+#' #
+#' # dat <- dat %>% arrange(county)
+#' # model <- asreml(fixed = yield ~ 1 + county,
+#' #                 random = ~ fa(county, 2):gen + county:rep + diag(county):rep:block,
+#' #                 residual = ~ dsum(~ units | county),
+#' #                 data = dat,
+#' #                 na.action = list(x="include",y="include"))
+#' #
+#' # pp <- predict(model, classify = "county")$pvals
+#'
+#' # sites
+#' # p1 <- biplot_fa2(model,predictions = pp, fscore = 1, one = 1, second = 1, fmult = 5)$g1
+#' # # sites scaled
+#' # p2 <- biplot_fa2(model,predictions = pp, fscore = 1, one = 1, second = 1, fmult = 5)$g2
+#' # # biplot
+#' # p3 <- biplot_fa2(model,predictions = pp, fscore = 1, one = 1, second = 1, fmult = 5)$g3
 biplot_fa2 <- function(model,
                        predictions,
                        one = -1,
@@ -615,7 +638,7 @@ biplot_fa2 <- function(model,
   names(fa12_scores) = c("Genotype", "fa1", "fa2")
   fa12_scores$fa1 <- fa12_scores$fa1*one
   fa12_scores$fa2 <- fa12_scores$fa2*second
-  print("fscore:")
+  message("summary fscore")
   print(summary(sqrt(fa12_scores$fa1^2+fa12_scores$fa2^2)))
   fa12_scores$Score <-  ifelse(sqrt(fa12_scores$fa1^2+fa12_scores$fa2^2)>fscore,1,0)
 
@@ -646,3 +669,93 @@ biplot_fa2 <- function(model,
 
   return(list(g1=loadings, g2= loading_C, g3 = biplot))
 }
+
+
+#' Correlation Covariance heatmap
+#'
+#' @param matrix matrix
+#' @param corr logical (TRUE default, correlation matrix)
+#' @param size letter size
+#'
+#' @return ggplot
+#' @export
+#'
+#' @examples
+#' # data(iris)
+#' # M = cor(iris[,-5])
+#' # covcor_heat(M, corr = T)
+covcor_heat <- function(matrix, corr = TRUE, size = 4){
+
+  # Get lower triangle of the correlation matrix
+  get_lower_tri<-function(cormat){
+    cormat[upper.tri(cormat)] <- NA
+    return(cormat)
+  }
+  # Get upper triangle of the correlation matrix
+  get_upper_tri <- function(cormat){
+    cormat[lower.tri(cormat)]<- NA
+    return(cormat)
+  }
+
+  reorder_cormat <- function(cormat){
+    # Use correlation between variables as distance
+    dd <- as.dist((1-cormat)/2)
+    hc <- hclust(dd)
+    cormat <-cormat[hc$order, hc$order]
+  }
+
+  cormat <- reorder_cormat(matrix)
+  upper_tri <- get_upper_tri(matrix)
+  melted_cormat <- reshape2::melt(upper_tri, na.rm = TRUE)
+
+  u <- -1
+  m <- 0
+  l <- 1
+  main <- "Correlation"
+  col_pallete <- c("#db4437","white","#4285f4")
+  col_letter <- "black"
+
+  if(isFALSE(corr)){
+    u <- min(matrix, na.rm = T)
+    l <- max(matrix, na.rm = T)
+    m <- u+(l-u)/2
+    main <- "Covariance"
+    col_pallete <- c("#440154","#21908C","#FDE725")
+    col_letter <- "white"
+  }
+
+  melted_cormat$Var1 <- as.factor(melted_cormat$Var1)
+  melted_cormat$Var2 <- as.factor(melted_cormat$Var2)
+
+  ggheatmap <-
+    ggplot2::ggplot(melted_cormat, ggplot2::aes(Var2, Var1, fill = value))+
+    ggplot2::geom_tile(color = "white")+
+    ggplot2::scale_fill_gradient2(low = col_pallete[1], high = col_pallete[3], mid = col_pallete[2],  # color= c("#440154","#21908C","#FDE725")
+                         midpoint = m, limit = c(u,l), space = "Lab",
+                         name=main) +
+    ggplot2::theme_minimal()+ # minimal theme
+    ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, vjust = 1,
+                                     size = 12, hjust = 1),
+          axis.text.y = ggplot2::element_text(size = 12))
+  # coord_fixed()
+
+
+  plot <- ggheatmap +
+    ggplot2::geom_text(ggplot2::aes(Var2, Var1, label = value), color = col_letter, size = size) +
+    ggplot2::theme(
+      axis.title.x = ggplot2::element_blank(),
+      axis.title.y = ggplot2::element_blank(),
+      panel.grid.major = ggplot2::element_blank(),
+      panel.border = ggplot2::element_blank(),
+      panel.background = ggplot2::element_blank(),
+      axis.ticks = ggplot2::element_blank(),
+      legend.justification = c(1, 0),
+      legend.position = c(0.6, 0.7),
+      legend.direction = "horizontal")+
+    ggplot2::guides(fill = ggplot2::guide_colorbar(barwidth = 7, barheight = 1,
+                                 title.position = "top", title.hjust = 0.5))
+
+  return(plot)
+
+}
+

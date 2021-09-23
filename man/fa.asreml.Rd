@@ -53,11 +53,14 @@ aids in interpreting FA models fitted to genotype by environment effects in the 
 of plant breeding multi-environment trial (MET) data.
 }
 \details{
-The following documentation is taken from the ASExtras4 package. Please refer to this package and associated publications if you are interested in going deeper on this technique. You may be interested in reading and citing this publication if using this methodology:
+The following documentation is taken from the ASExtras4 package. Please refer to this package and associated publications if you are interested in going deeper on this technique. You may be interested in reading and citing this publication if using this methodology
 }
 \examples{
 # library(tidyverse)
 # library(asreml)
+# library(agridat)
+# data(besag.met)
+# dat <- besag.met
 #
 # dat <- dat \%>\% arrange(county)
 # model <- asreml(fixed = yield ~ 1 + county,

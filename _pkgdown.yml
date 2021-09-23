@@ -1,3 +1,25 @@
 template:
   params:
     bootswatch: flatly
+
+url: https://apariciojohan.github.io/agriutilities/
+
+navbar:
+  title: agriutilities
+  type: default
+  left:
+    - icon: fa-home fa-lg
+      text: Home
+      href: index.html
+    - icon: fa-code
+      text: Reference
+      href: reference/index.html
+    - icon: fa-file-o
+      text: Articles
+      menu:
+      - text: "spATS utilties"
+        href: articles/SpATS.html
+  right:
+    - icon: fa-file-o
+      text: Github
+      href: https://github.com/AparicioJohan/agriutilities

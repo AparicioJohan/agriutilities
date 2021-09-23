@@ -51,5 +51,25 @@ list with 3 ggplots
 biplot fa2 model
 }
 \examples{
-# in progress
+# library(tidyverse)
+# library(asreml)
+# library(agridat)
+# data(besag.met)
+# dat <- besag.met
+#
+# dat <- dat \%>\% arrange(county)
+# model <- asreml(fixed = yield ~ 1 + county,
+#                 random = ~ fa(county, 2):gen + county:rep + diag(county):rep:block,
+#                 residual = ~ dsum(~ units | county),
+#                 data = dat,
+#                 na.action = list(x="include",y="include"))
+#
+# pp <- predict(model, classify = "county")$pvals
+
+# sites
+# p1 <- biplot_fa2(model,predictions = pp, fscore = 1, one = 1, second = 1, fmult = 5)$g1
+# # sites scaled
+# p2 <- biplot_fa2(model,predictions = pp, fscore = 1, one = 1, second = 1, fmult = 5)$g2
+# # biplot
+# p3 <- biplot_fa2(model,predictions = pp, fscore = 1, one = 1, second = 1, fmult = 5)$g3
 }

@@ -84,14 +84,39 @@ of plant breeding multi-environment trial (MET) data." />
   <a href="../index.html">
     <span class="fas fa-home fa-lg"></span>
      
+    Home
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../reference/index.html">
+    <span class="fas fa-code"></span>
+     
+    Reference
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fas fa-file-o"></span>
+     
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/SpATS.html">spATS utilties</a>
+    </li>
+  </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/AparicioJohan/agriutilities">
+    <span class="fas fa-file-o"></span>
+     
+    Github
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -106,7 +131,7 @@ of plant breeding multi-environment trial (MET) data." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Factor analytic variance models.</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/AparicioJohan/agriutilities/blob/master/R/fa.R'><code>R/fa.R</code></a></small>
     <div class="hidden name"><code>fa.asreml.Rd</code></div>
     </div>
 
@@ -189,7 +214,7 @@ of plant breeding multi-environment trial (MET) data.</p>
     <p>list</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The following documentation is taken from the ASExtras4 package. Please refer to this package and associated publications if you are interested in going deeper on this technique. You may be interested in reading and citing this publication if using this methodology:</p>
+    <p>The following documentation is taken from the ASExtras4 package. Please refer to this package and associated publications if you are interested in going deeper on this technique. You may be interested in reading and citing this publication if using this methodology</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Cullis BR, Smith AB, Beek C, Cowling WA (2010). “Analysis of Yield and Oil from a Series of Canola Breeding Trials. Part II: Exploring VxE using Factor Analysis.” Genome, 53, 1002-1016. Smith AB, Cullis BR, Thompson R (2001). “Analyzing Variety by Environment Data Using Multiplicative Mixed Models and Adjustments for Spatial Field Trend.” Biometrics, 57, 1138-1147.</p>
@@ -197,6 +222,9 @@ of plant breeding multi-environment trial (MET) data.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># library(tidyverse)</span>
 <span class='co'># library(asreml)</span>
+<span class='co'># library(agridat)</span>
+<span class='co'># data(besag.met)</span>
+<span class='co'># dat &lt;- besag.met</span>
 <span class='co'>#</span>
 <span class='co'># dat &lt;- dat %&gt;% arrange(county)</span>
 <span class='co'># model &lt;- asreml(fixed = yield ~ 1 + county,</span>

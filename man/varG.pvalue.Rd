@@ -18,5 +18,9 @@ pvalue significance of random component
 varG.pvalue
 }
 \examples{
- # in progress
+# dat <- agridat::john.alpha
+## fit model ---------------------------------------------------------------
+## random genotype effect
+# g.ran <- lme4::lmer(data  = dat, formula = yield ~ rep + (1|gen) + (1|rep:block))
+# varG.pvalue(g.ran, "gen")
 }

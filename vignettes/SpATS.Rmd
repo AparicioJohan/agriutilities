@@ -1,0 +1,57 @@
+---
+title: "SpATS"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{SpATS}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(agriutilities)
+library(SpATS)
+```
+
+```{r}
+  data(wheatdata)
+  wheatdata$R <- as.factor(wheatdata$row)
+  wheatdata$C <- as.factor(wheatdata$col)
+  
+  wheatdata[ 1 , "yield"] <- 800  # extreme observation
+  
+  # Without nested basis
+  m1 <- SpATS(response = "yield", spatial = ~ PSANOVA(col, row, nseg = c(10,20), nest.div = 2), 
+              genotype = "geno", fixed = ~ colcode + rowcode, random = ~ R + C, data = wheatdata, 
+              control =  list(tolerance = 1e-03, monitoring = 0))
+```
+
+
+
+```{r}
+r.square(m1)
+CV.spats(m1)
+
+data_out <- res_spats(m1)
+head(data_out)
+```
+
+
+```{r}
+plot_res_index(data_out)
+```
+
+
+```{r}
+plot_res_map(data_out)
+```
+
+```{r}
+plot_res_fitted(data_out)
+```
