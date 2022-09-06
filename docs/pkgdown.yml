@@ -1,10 +1,10 @@
-pandoc: 2.7.2
-pkgdown: 1.6.1
+pandoc: 2.14.0.3
+pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
   SpATS: SpATS.html
-last_built: 2021-09-23T15:35Z
+last_built: 2022-09-06T19:39Z
 urls:
-  reference: https://apariciojohan.github.io/agriutilities//reference
-  article: https://apariciojohan.github.io/agriutilities//articles
+  reference: https://apariciojohan.github.io/agriutilities/reference
+  article: https://apariciojohan.github.io/agriutilities/articles
 
