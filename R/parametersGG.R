@@ -17,7 +17,7 @@ parameters_GG <- function(model, trait = "trait") {
   slope <- summ$coefficients[2, 1]
   se_slope <- summ$coefficients[2, 2]
   r2_lm <- summ$r.squared
-  p_value <- as.data.frame(anova(model2))$`Pr(>F)`[1]
+  p_value <- as.data.frame(anova(model))$`Pr(>F)`[1]
   table_report <- data.frame(
     trait = trait,
     first_year = first_year,
