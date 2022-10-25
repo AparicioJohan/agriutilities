@@ -4,7 +4,8 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of agriutilities is to ...
+The goal of this package is to provide some additional functions for the analysis
+of field trials in agriculture using packages such as SpATS, lme4 and ASReml-R.
 
 ## Installation
 
@@ -21,7 +22,7 @@ remotes::install_github("AparicioJohan/agriutilities")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+This is a basic example:
 
 ``` r
 library(agriutilities)

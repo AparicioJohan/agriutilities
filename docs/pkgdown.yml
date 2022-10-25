@@ -3,7 +3,7 @@ pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
   SpATS: SpATS.html
-last_built: 2022-10-25T01:25Z
+last_built: 2022-10-25T03:15Z
 urls:
   reference: https://apariciojohan.github.io/agriutilities/reference
   article: https://apariciojohan.github.io/agriutilities/articles
