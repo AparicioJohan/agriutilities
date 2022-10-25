@@ -1,10 +1,10 @@
 Package: agriutilities
 Type: Package
-Title: Utilities for modelling in agriculture  (AgriUtilities)
+Title: Utilities for data analysis in agriculture  (AgriUtilities)
 Version: 0.1.0
 Authors@R: person("Johan", "Aparicio", email = "j.aparicio@cgiar.org", role = c("aut", "cre"))
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Description: The idea of this package is to provide some additional functions for the analysis
+ of field trials in agriculture using packages such as SpATS, lme4 and ASReml-R.
 License: GPL-3
 Imports:
     ggplot2,
@@ -18,14 +18,14 @@ Imports:
     ggpubr,
     lmerTest,
     plotly,
-    lattice,
     stats,
     magrittr,
     plyr,
     ggrepel,
     reshape2,
     data.table,
-    SpATS
+    tibble,
+    rlang
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.1
