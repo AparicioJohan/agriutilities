@@ -78,7 +78,13 @@ checkConection2 <- function(data,
                             trial = "trial",
                             response = "YDHA") {
   tmp_data <- data %>%
-    dplyr::filter(!is.na(.data[[response]])) %>%
+    {
+      if (!is.null(response)) {
+        dplyr::filter(.data = ., !is.na(.data[[response]]))
+      } else {
+        .
+      }
+    } %>%
     dplyr::select(.data[[genotype]], .data[[trial]]) %>%
     unique.data.frame() %>%
     dplyr::mutate(value = 1) %>%
