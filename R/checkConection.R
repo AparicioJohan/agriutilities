@@ -19,11 +19,17 @@
 checkConection <- function(data,
                            genotype = "line",
                            trial = "Experiment",
-                           response = "YDHA",
+                           response = NULL,
                            all = FALSE) {
 
   tmp_data <- data %>%
-    dplyr::filter(!is.na(.data[[response]])) %>%
+    {
+      if (!is.null(response)) {
+        dplyr::filter(.data = ., !is.na(.data[[response]]))
+      } else {
+        .
+      }
+    } %>%
     dplyr::select(.data[[genotype]], .data[[trial]]) %>%
     unique.data.frame() %>%
     dplyr::mutate(value = 1) %>%
@@ -76,7 +82,7 @@ checkConection <- function(data,
 checkConection2 <- function(data,
                             genotype = "germplasmName",
                             trial = "trial",
-                            response = "YDHA") {
+                            response = NULL) {
   tmp_data <- data %>%
     {
       if (!is.null(response)) {
