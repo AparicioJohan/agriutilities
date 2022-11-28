@@ -21,7 +21,6 @@ checkConection <- function(data,
                            trial = "Experiment",
                            response = NULL,
                            all = FALSE) {
-
   tmp_data <- data %>%
     {
       if (!is.null(response)) {

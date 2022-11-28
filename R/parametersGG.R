@@ -3,7 +3,7 @@
 #' @param model linear regression model (lm object)
 #' @param trait string with trait evaluated to be added in the data.frame
 #'
-#' @return data.frame with some parameters from the regression
+#' @return data.frame with some parameters from the linear regression
 #' (Slope, se_Slope, Intercept, r2, Pr(>F) and Genetic_Gain%)
 #' @export
 #'

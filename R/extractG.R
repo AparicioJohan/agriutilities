@@ -12,8 +12,7 @@
 #' @examples
 #' # extractG(model, gen = "genotype" , env = "trial", vc.model = "corv")
 #' @importFrom stats cov2cor
-extractG <- function(model, gen = "genotype" , env = "trial", vc.model = "corv"){
-
+extractG <- function(model, gen = "genotype", env = "trial", vc.model = "corv") {
   sites <- data.frame(model$mf)[, env]
   s <- nlevels(sites)
 
@@ -128,11 +127,11 @@ extractG <- function(model, gen = "genotype" , env = "trial", vc.model = "corv")
     k <- 1
     for (i in 1:s) {
       for (j in 1:i) {
-        VCOV[i,j] <- vc[k,1]
-        k <- k+1
+        VCOV[i, j] <- vc[k, 1]
+        k <- k + 1
       }
     }
-    VCOV[upper.tri(VCOV)] = t(VCOV)[upper.tri(VCOV)]
+    VCOV[upper.tri(VCOV)] <- t(VCOV)[upper.tri(VCOV)]
     CORR <- cov2cor(VCOV)
   }
   if (vc.model == "rr2") {
@@ -151,6 +150,5 @@ extractG <- function(model, gen = "genotype" , env = "trial", vc.model = "corv")
   rownames(VCOV) <- levels(sites)
   rownames(CORR) <- levels(sites)
 
-  return(list(VCOV = VCOV , CORR = CORR, vc.model = vc.model))
-
+  return(list(VCOV = VCOV, CORR = CORR, vc.model = vc.model))
 }

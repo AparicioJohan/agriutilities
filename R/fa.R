@@ -963,7 +963,6 @@ fa2_summary <- function(model = NULL,
                         size_arrow = 0.2,
                         alpha_arrow = 0.2,
                         base_size = 12) {
-
   vars <- summary(model)$varcomp
   vars <- data.frame(effect = rownames(vars), vars, check.names = FALSE)
 
