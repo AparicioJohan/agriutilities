@@ -52,8 +52,8 @@ A ggplot object containing a triangular correlation figure with all numeric vari
 Return a ggplot object to plot a triangular correlation figure between 2 or more variables.
 }
 \examples{
-  # data(iris)
-  # ggCor(iris,colours = c("#db4437","white","#4285f4"), returnN = TRUE )
+# data(iris)
+# ggCor(iris,colours = c("#db4437","white","#4285f4"), returnN = TRUE )
 }
 \author{
 Daniel Ariza

@@ -8,7 +8,7 @@ checkConection2(
   data,
   genotype = "germplasmName",
   trial = "trial",
-  response = "YDHA"
+  response = NULL
 )
 }
 \arguments{

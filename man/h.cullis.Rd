@@ -2,7 +2,7 @@
 % Please edit documentation in R/lme4.R
 \name{h.cullis}
 \alias{h.cullis}
-\title{Cullis heritability}
+\title{Cullis heritability for lme4 model}
 \usage{
 h.cullis(model, genotype)
 }
@@ -15,7 +15,7 @@ h.cullis(model, genotype)
 value
 }
 \description{
-Cullis heritability
+Cullis heritability for lme4 model
 }
 \examples{
 # dat <- agridat::john.alpha

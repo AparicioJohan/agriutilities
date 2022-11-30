@@ -13,7 +13,8 @@ extractG(model, gen = "genotype", env = "trial", vc.model = "corv")
 
 \item{env}{string with genotypes}
 
-\item{vc.model}{variance covariance that you fitted}
+\item{vc.model}{variance covariance fitted. Can be ('diag', 'corv', corh',
+'corh', 'corgv', 'fa1', 'fa2', 'fa3', 'fa4', 'corgh', 'us' or 'rr2')}
 }
 \value{
 list VCOV = VCOV , CORR = CORR, vc.model = vc.model

@@ -12,7 +12,7 @@ parameters_GG(model, trait = "trait")
 \item{trait}{string with trait evaluated to be added in the data.frame}
 }
 \value{
-data.frame with some parameters from the regression
+data.frame with some parameters from the linear regression
 (Slope, se_Slope, Intercept, r2, Pr(>F) and Genetic_Gain%)
 }
 \description{

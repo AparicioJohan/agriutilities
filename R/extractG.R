@@ -1,10 +1,10 @@
-
 #' extractG
 #'
 #' @param model ASReml object
 #' @param gen string with genotypes
 #' @param env string with genotypes
-#' @param vc.model variance covariance that you fitted
+#' @param vc.model variance covariance fitted. Can be ('diag', 'corv', corh',
+#'  'corh', 'corgv', 'fa1', 'fa2', 'fa3', 'fa4', 'corgh', 'us' or 'rr2')
 #'
 #' @return list VCOV = VCOV , CORR = CORR, vc.model = vc.model
 #' @export

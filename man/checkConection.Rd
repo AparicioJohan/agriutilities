@@ -8,7 +8,7 @@ checkConection(
   data,
   genotype = "line",
   trial = "Experiment",
-  response = "YDHA",
+  response = NULL,
   all = FALSE
 )
 }
