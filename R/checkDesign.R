@@ -15,6 +15,8 @@
 #' @examples
 #' # In progress
 #' @import dplyr
+#' @importFrom stats sd median
+#' @importFrom utils type.convert
 check_design_MET <- function(data = NULL,
                              genotype = NULL,
                              trial = NULL,
@@ -149,7 +151,6 @@ check_design_MET <- function(data = NULL,
       group_by(.data[[trial]]) %>%
       summarise(var_total = sum(sd, na.rm = TRUE), .groups = "drop") %>%
       arrange(var_total)
-    head(non_var_gen)
 
     # Filter variation
     trials_to_remove_novar <- non_var_gen %>%

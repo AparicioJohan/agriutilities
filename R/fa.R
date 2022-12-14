@@ -39,6 +39,7 @@
 #' #                 na.action = list(x="include",y="include"))
 #' #
 #' # ASM <- fa.asreml(model, trunc.char = NULL)
+#' @importFrom grDevices rainbow
 fa.asreml <- function(object, uniplot = F, uniplot.tol = 0.85, uniplot.cex = 0.5,
                       trunc.char = c(1, 6), blups = TRUE, regplot = F, addedplot = F,
                       g.list = NULL, heatmap = F, heatmap.ord = "asis", agnes.method = "average") {
@@ -757,7 +758,7 @@ biplot_fa2 <- function(model,
   # Biplot
   fa12_scores <- ASM$blups[[1]]$scores
   names(fa12_scores)[2:3] <- c("comp", "Genotype")
-  fa12_scores %<>% select(-blup) %>% spread(., "comp", value = "blupr")
+  fa12_scores <- fa12_scores %>% select(-blup) %>% spread(., "comp", value = "blupr")
   names(fa12_scores) <- c("Genotype", "fa1", "fa2")
   fa12_scores$fa1 <- fa12_scores$fa1 * one
   fa12_scores$fa2 <- fa12_scores$fa2 * second

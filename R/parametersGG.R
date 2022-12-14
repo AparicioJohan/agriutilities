@@ -9,6 +9,7 @@
 #'
 #' @examples
 #' # parameters_GG(model)
+#' @importFrom stats anova
 parameters_GG <- function(model, trait = "trait") {
   summ <- summary(model)
   first_year <- min(model$model[, 2], na.rm = TRUE)
