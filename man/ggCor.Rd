@@ -2,7 +2,7 @@
 % Please edit documentation in R/ggCor.R
 \name{ggCor}
 \alias{ggCor}
-\title{ggCor}
+\title{Triangular correlation plot}
 \usage{
 ggCor(
   myData,
@@ -14,7 +14,8 @@ ggCor(
   showDiagonal = FALSE,
   Diag = NULL,
   returnTable = FALSE,
-  returnN = FALSE
+  returnN = FALSE,
+  adjusted = TRUE
 )
 }
 \arguments{
@@ -27,8 +28,8 @@ ggCor(
 \item{showSignif}{Logical scalar. Display significance values ?}
 
 \item{pBreaks}{Passed to function 'cut'. Either a numeric vector of two or more unique
-cut points or a single number (greater than or equal to 2) giving the
-number of intervals into which x is to be cut.}
+cut points or a single number (greater than or equal to 2) giving the number
+of intervals into which x is to be cut.}
 
 \item{pLabels}{Passed to function 'cut'. labels for the levels of the resulting category.
 By default, labels are constructed using "(a,b]" interval notation.
@@ -43,10 +44,13 @@ Hence, these names must be the same as the colnames of myData}
 \item{returnTable}{Return the table to display instead of a ggplot object}
 
 \item{returnN}{Return plot with shared information}
+
+\item{adjusted}{Use the adjusted p values for multiple testing instead of
+raw coeffs. TRUE by default.}
 }
 \value{
 A ggplot object containing a triangular correlation figure with all numeric variables
-              in myData. If returnTable is TRUE, the table used to produce the figure is returned instead.
+in myData. If returnTable is TRUE, the table used to produce the figure is returned instead.
 }
 \description{
 Return a ggplot object to plot a triangular correlation figure between 2 or more variables.

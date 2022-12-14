@@ -1,15 +1,15 @@
 #' Check Experimental Design
 #'
-#' @param data dataset
-#' @param genotype string with genotype column
-#' @param trial string with trial column
-#' @param traits vector with traits
-#' @param rep string with rep column
-#' @param block string with block column
-#' @param row string with row column
-#' @param col string with col column
+#' @param data A data.frame in a wide format.
+#' @param genotype A character string indicating the column in data that contains genotypes.
+#' @param trial A character string indicating the column in data that contains trials.
+#' @param traits A character vector specifying the traits for which the models should be fitted.
+#' @param rep A character string indicating the column in data that contains replicates.
+#' @param block A character string indicating the column in data that contains sub blocks.
+#' @param row A character string indicating the column in data that contains the row coordinates
+#' @param col A character string indicating the column in data that contains the column coordinates.
 #'
-#' @return list()
+#' @return An object of class checkAgri, a list of data.frames.
 #' @export
 #'
 #' @examples

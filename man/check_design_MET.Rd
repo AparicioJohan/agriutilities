@@ -16,24 +16,24 @@ check_design_MET(
 )
 }
 \arguments{
-\item{data}{dataset}
+\item{data}{A data.frame in a wide format.}
 
-\item{genotype}{string with genotype column}
+\item{genotype}{A character string indicating the column in data that contains genotypes.}
 
-\item{trial}{string with trial column}
+\item{trial}{A character string indicating the column in data that contains trials.}
 
-\item{traits}{vector with traits}
+\item{traits}{A character vector specifying the traits for which the models should be fitted.}
 
-\item{rep}{string with rep column}
+\item{rep}{A character string indicating the column in data that contains replicates.}
 
-\item{block}{string with block column}
+\item{block}{A character string indicating the column in data that contains sub blocks.}
 
-\item{row}{string with row column}
+\item{row}{A character string indicating the column in data that contains the row coordinates}
 
-\item{col}{string with col column}
+\item{col}{A character string indicating the column in data that contains the column coordinates.}
 }
 \value{
-list()
+An object of class checkAgri, a list of data.frames.
 }
 \description{
 Check Experimental Design
