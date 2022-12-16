@@ -54,6 +54,9 @@ utils::globalVariables(
     'Residuals',
     'Index',
     '..density..',
-    'alpha_lattice'
+    'alpha_lattice',
+    'trial',
+    ':=',
+    'genotype'
   )
 )
