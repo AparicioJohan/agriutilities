@@ -14,7 +14,6 @@ Imports:
     tidyr,
     lme4,
     Matrix,
-    broom.mixed,
     ggpubr,
     lmerTest,
     plotly,
@@ -26,7 +25,9 @@ Imports:
     data.table,
     tibble,
     rlang,
-    statgenSTA
+    statgenSTA,
+    lattice,
+    cluster
 Encoding: UTF-8
 RoxygenNote: 7.2.3
 URL: https://github.com/AparicioJohan/agriutilities

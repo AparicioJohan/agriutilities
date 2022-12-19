@@ -4,12 +4,6 @@
     <loc>https://apariciojohan.github.io/agriutilities/404.html</loc>
   </url>
   <url>
-    <loc>https://apariciojohan.github.io/agriutilities/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://apariciojohan.github.io/agriutilities/articles/SpATS.html</loc>
-  </url>
-  <url>
     <loc>https://apariciojohan.github.io/agriutilities/authors.html</loc>
   </url>
   <url>
@@ -34,6 +28,9 @@
     <loc>https://apariciojohan.github.io/agriutilities/reference/CV.spats.html</loc>
   </url>
   <url>
+    <loc>https://apariciojohan.github.io/agriutilities/reference/CV_SpATS.html</loc>
+  </url>
+  <url>
     <loc>https://apariciojohan.github.io/agriutilities/reference/extractG.html</loc>
   </url>
   <url>
@@ -53,6 +50,12 @@
   </url>
   <url>
     <loc>https://apariciojohan.github.io/agriutilities/reference/heritability_fa.html</loc>
+  </url>
+  <url>
+    <loc>https://apariciojohan.github.io/agriutilities/reference/h_cullis.html</loc>
+  </url>
+  <url>
+    <loc>https://apariciojohan.github.io/agriutilities/reference/h_cullis_MME.html</loc>
   </url>
   <url>
     <loc>https://apariciojohan.github.io/agriutilities/reference/index.html</loc>
@@ -95,6 +98,9 @@
   </url>
   <url>
     <loc>https://apariciojohan.github.io/agriutilities/reference/res_spats.html</loc>
+  </url>
+  <url>
+    <loc>https://apariciojohan.github.io/agriutilities/reference/r_square.html</loc>
   </url>
   <url>
     <loc>https://apariciojohan.github.io/agriutilities/reference/single_model_analysis.html</loc>

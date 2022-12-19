@@ -7,7 +7,7 @@
 #'
 #' @examples
 #' # in progress
-r.square <- function(model) {
+r_square <- function(model) {
   response <- model$data[, model$model$response]
   mean.response <- mean(response, na.rm = T)
   fitted <- model$fitted
@@ -27,7 +27,7 @@ r.square <- function(model) {
 #'
 #' @examples
 #' # in progress
-CV.spats <- function(model) {
+CV_SpATS <- function(model) {
   response <- model$data[, model$model$response]
   mean.response <- mean(response, na.rm = T)
   fitted <- model$fitted
@@ -74,7 +74,7 @@ res_spats <- function(model, k = 3) {
 #' @param data_out res_spats data.frame
 #'
 #' @return plotly
-#' @export
+#' @noRd
 #'
 #' @examples
 #' # in progress
@@ -95,7 +95,7 @@ plot_res_index <- function(data_out) {
 #' @param data_out res_spats data.frame
 #'
 #' @return plotly
-#' @export
+#' @noRd
 #'
 #' @examples
 #' # in progress
@@ -113,7 +113,7 @@ plot_res_map <- function(data_out) {
 #' @param data_out res_spats data.frame
 #'
 #' @return plotly
-#' @export
+#' @noRd
 #'
 #' @examples
 #' # in progress
@@ -175,7 +175,6 @@ check_gen_SpATS <- function(gen, data, check_gen = c("ci", "st", "wa")) {
 }
 
 # MSA
-
 VarG_msa <- function(model) {
   gen <- model$model$geno$genotype
   gen_ran <- model$model$geno$as.random
@@ -184,9 +183,6 @@ VarG_msa <- function(model) {
     names(vargen) <- "Var_Gen"
     return(vargen)
   } else {
-    # pred <- predict(model,which = gen)[,"predicted.values"]
-    # CV <- round(sd(pred)/mean(pred),3)
-    # names(CV) <- "CV"
     CV <- NA
     return(CV)
   }
@@ -219,8 +215,8 @@ msa_table <- function(models, gen_ran, y) {
   ev <- unlist(lapply(models, VarE_msa))
   he <- unlist(lapply(models, h_msa))
   out <- unlist(lapply(models, msa_residuals))
-  r2 <- unlist(lapply(models, R.square))
-  cv <- unlist(lapply(models, CV.spats))
+  r2 <- unlist(lapply(models, r_square))
+  cv <- unlist(lapply(models, CV_spats))
   summ <- data.frame(Experiment = exp, y = y, varG = gv, varE = ev, h2 = he, outliers = out, r2 = r2, cv = cv, row.names = NULL)
   return(summ)
 }
@@ -269,7 +265,6 @@ table_outlier <- function(models, id = "trait") {
 
 
 # Weights
-
 weight_SpATS <- function(model) {
   rand <- model$model$geno$as.random
   if (rand) {
@@ -339,7 +334,7 @@ lik_ratio_test <- function(Model_nested, Model_full) {
   cat("========================================================")
 }
 
-varComp <- function(object, which = "variances") {
+var_comp_SpATS <- function(object, which = "variances") {
   which <- match.arg(which)
   var.comp <- object$var.comp
   psi <- object$psi[1]
@@ -447,8 +442,7 @@ varComp <- function(object, which = "variances") {
 }
 
 # SpATS coefficients
-
-coef.SpATS <- function(model) {
+coef_SpATS <- function(model) {
   # coefficients
   coef_spats <- model$coeff
   coef_random <- attr(coef_spats, "random")
@@ -465,11 +459,4 @@ coef.SpATS <- function(model) {
     dplyr::arrange(coef_random)
   coef_spats <- coef_spats[, c("level", "solution", "std.error", "z.ratio", "coef_random")]
   return(coef_spats)
-}
-
-
-clean_data_SpATS <- function(models) {
-  data <- lapply(models, res_raw_data)
-  data <- data.table::data.table(plyr::ldply(data[], data.frame))
-  return(data)
 }

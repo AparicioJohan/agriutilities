@@ -48,7 +48,7 @@ utils::globalVariables(
     'predicted.values',
     'standard.errors',
     'checks',
-    'R.square',
+    'r_square',
     'Classify',
     'fit',
     'Residuals',
@@ -57,6 +57,8 @@ utils::globalVariables(
     'alpha_lattice',
     'trial',
     ':=',
-    'genotype'
+    'genotype',
+    'coef',
+    'CV_spats'
   )
 )
