@@ -35,7 +35,7 @@ heritability_fa <- function(model_fa = NULL,
   )$VCOV
   Gvar <- mean(G[upper.tri(G, diag = FALSE)])
   pr <- suppressWarnings(
-    predict(model_fa, classify = genotype, sed = TRUE, trace = 0)
+    asreml::predict.asreml(model_fa, classify = genotype, sed = TRUE, trace = 0)
   )
   vdBLUP.mat <- pr$sed^2
   vdBLUP.avg <- mean(vdBLUP.mat[upper.tri(vdBLUP.mat, diag = FALSE)])

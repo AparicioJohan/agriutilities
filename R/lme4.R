@@ -169,7 +169,7 @@ h_cullis_MME <- function(model, genotype, returnMatrices = F) {
 #' @examples
 #' # in progress
 res_lme4 <- function(model, returnN = F, k = 3) {
-  res <- residuals(model, scaled = TRUE)
+  res <- stats::residuals(model, scaled = TRUE)
   data <- model@frame
   data$residual <- res
   data$Classify <- NA
@@ -330,7 +330,7 @@ res_qqplot <- function(data_out, title = NULL) {
     ggpubr::ggqqplot(
       x = "Residuals",
       fill = "Classify",
-      ggtheme = theme_ipsum(),
+      # ggtheme = theme_ipsum(),
       ylab = "Sample Quantile",
       xlab = "Theoretical Quantile", title = title
     )

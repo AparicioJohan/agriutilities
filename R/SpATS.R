@@ -53,7 +53,9 @@ CV_SpATS <- function(model) {
 res_spats <- function(model, k = 3) {
   dt <- model$data
   VarE <- model$psi[1]
-  Data <- data.frame(Index = 1:length(residuals(model)), Residuals = residuals(model))
+  Data <- data.frame(
+    Index = 1:length(stats::residuals(model)),
+    Residuals = stats::residuals(model))
   u <- +k * sqrt(VarE)
   l <- -k * sqrt(VarE)
   Data$Classify <- NA
@@ -64,7 +66,7 @@ res_spats <- function(model, k = 3) {
   Data$gen <- dt[, model$model$geno$genotype]
   Data$col <- dt[, model$terms$spatial$terms.formula$x.coord]
   Data$row <- dt[, model$terms$spatial$terms.formula$y.coord]
-  Data$fit <- fitted.values(model)
+  Data$fit <- stats::fitted.values(model)
   Data$response <- dt[, model$model$response]
   return(Data)
 }
@@ -142,9 +144,8 @@ res_hist <- function(data_out) {
 
 res_compare <- function(Model, variable, factor) {
   data <- Model$data
-  data$Residuals <- residuals(Model)
+  data$Residuals <- stats::residuals(Model)
   data <- type.convert(data)
-  req(variable)
   label <- class(data[, variable])
   if (factor) {
     data[, variable] <- as.factor(data[, variable])
@@ -175,7 +176,7 @@ check_gen_SpATS <- function(gen, data, check_gen = c("ci", "st", "wa")) {
 }
 
 # MSA
-VarG_msa <- function(model) {
+VarG_SpATS <- function(model) {
   gen <- model$model$geno$genotype
   gen_ran <- model$model$geno$as.random
   if (gen_ran) {
@@ -194,76 +195,6 @@ VarE_msa <- function(model) {
   return(v)
 }
 
-h_msa <- function(model) {
-  gen_ran <- model$model$geno$as.random
-  if (gen_ran) {
-    h <- getHeritability(model)
-    return(h)
-  } else {
-    return(NA)
-  }
-}
-
-msa_residuals <- function(model) {
-  value <- sum(res_spats(model)$Classify == "Outlier", na.rm = T)
-  return(value)
-}
-
-msa_table <- function(models, gen_ran, y) {
-  exp <- names(models)
-  gv <- unlist(lapply(models, VarG_msa))
-  ev <- unlist(lapply(models, VarE_msa))
-  he <- unlist(lapply(models, h_msa))
-  out <- unlist(lapply(models, msa_residuals))
-  r2 <- unlist(lapply(models, r_square))
-  cv <- unlist(lapply(models, CV_spats))
-  summ <- data.frame(Experiment = exp, y = y, varG = gv, varE = ev, h2 = he, outliers = out, r2 = r2, cv = cv, row.names = NULL)
-  return(summ)
-}
-
-msa_effects <- function(model) {
-  gen <- model$model$geno$genotype
-
-  ind <- sum(grepl("checks", model$model$fixed, fixed = TRUE)) != 0
-  if (ind) {
-    PP <- predict(model, which = gen, predFixed = "marginal") %>% dplyr::select(.data[[gen]], predicted.values, standard.errors)
-    PP$type <- "test"
-    PC <- predict(model, which = "checks", predFixed = "marginal") %>% dplyr::select(checks, predicted.values, standard.errors)
-    PC <- PC[PC$checks != "_NoCheck", ]
-    PC$type <- "check"
-    names(PC)[1] <- gen
-    effects <- rbind(PP, PC) %>%
-      dplyr::mutate_if(is.numeric, round, 3) %>%
-      data.frame()
-  } else {
-    effects <- predict(model, which = gen, predFixed = "marginal")[, c(gen, "predicted.values", "standard.errors")] %>%
-      dplyr::mutate_if(is.numeric, round, 3) %>%
-      data.frame()
-  }
-
-  # effects <- predict(model, which = gen)[,c(gen, "predicted.values", "standard.errors")] %>%
-  #            dplyr::mutate_if(is.numeric, round, 3) %>% data.frame()
-  if (!model$model$geno$as.random) {
-    effects <- weight_SpATS(model)$data_weights
-  }
-  return(effects)
-}
-
-multi_msa_effects <- function(models) {
-  blups <- lapply(models, msa_effects)
-  blups <- data.table::data.table(plyr::ldply(blups[], data.frame, .id = "Experiment"))
-  return(blups)
-}
-
-
-table_outlier <- function(models, id = "trait") {
-  dt <- lapply(models, res_spats)
-  dt <- data.table::data.table(plyr::ldply(dt[], data.frame, .id = id))
-  dt <- dt[dt$Classify == "Outlier", ] %>% dplyr::mutate_if(is.numeric, round, 3)
-  return(dt)
-}
-
-
 # Weights
 weight_SpATS <- function(model) {
   rand <- model$model$geno$as.random
@@ -278,7 +209,7 @@ weight_SpATS <- function(model) {
   gen_mat <- colnames(model$vcov$C11_inv)
 
   genotype <- model$model$geno$genotype
-  dt <- predict(model, which = genotype, predFixed = "marginal") %>%
+  dt <- SpATS::predict.SpATS(model, which = genotype, predFixed = "marginal") %>%
     droplevels() %>%
     dplyr::mutate_if(is.numeric, round, 3)
   gen_lvls <- as.factor(unique(as.character(dt[, genotype])))
@@ -295,17 +226,32 @@ weight_SpATS <- function(model) {
   L[, 1] <- 1
   Se2 <- diag(L %*% vcov %*% t(L))
 
-  data_weights <- data.frame(gen = names(diag_vcov), vcov = diag_vcov, inv_vcov = 1 / diag_vcov, weights = 1 / Se2)
-  data_weights <- merge(dt, data_weights, by.x = genotype, by.y = "gen", sort = F)
+  data_weights <- data.frame(
+    gen = names(diag_vcov),
+    vcov = diag_vcov,
+    inv_vcov = 1 / diag_vcov,
+    weights = 1 / Se2
+  )
+  data_weights <- merge(
+    x = dt,
+    y = data_weights,
+    by.x = genotype,
+    by.y = "gen",
+    sort = F
+  )
   data_weights <- data_weights[, c(genotype, "predicted.values", "standard.errors", "weights")] # "vcov","inv_vcov",
 
   return(list(
-    vcov = vcov, diag = diag_vcov, diag_inv = 1 / diag_vcov,
-    se2 = Se2, se = sqrt(Se2), data_weights = data_weights
+    vcov = vcov,
+    diag = diag_vcov,
+    diag_inv = 1 / diag_vcov,
+    se2 = Se2,
+    se = sqrt(Se2),
+    data_weights = data_weights
   ))
 }
 
-lik_ratio_test <- function(Model_nested, Model_full) {
+lrt_SpATS <- function(Model_nested, Model_full) {
   lo.lik1 <- Model_nested / -2
   lo.lik2 <- Model_full / -2
 

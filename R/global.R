@@ -59,6 +59,7 @@ utils::globalVariables(
     ':=',
     'genotype',
     'coef',
-    'CV_spats'
+    'CV_spats',
+    'outlier'
   )
 )

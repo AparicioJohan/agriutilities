@@ -22,18 +22,18 @@ Imports:
     plyr,
     ggrepel,
     reshape2,
-    data.table,
     tibble,
     rlang,
     statgenSTA,
-    lattice,
-    cluster
+    SpATS
+Enhances: asreml
 Encoding: UTF-8
 RoxygenNote: 7.2.3
 URL: https://github.com/AparicioJohan/agriutilities
 BugReports: https://github.com/AparicioJohan/agriutilities/issues
 Suggests: 
     knitr,
-    asreml,
+    lattice,
+    cluster,
     rmarkdown
 VignetteBuilder: knitr
