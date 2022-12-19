@@ -17,7 +17,7 @@
 #' @param heatmap.ord A character string ("asis", "cluster") or vector of environment levels in the order desired for plotting the heatmap. The default is "asis", where the rows and columns of the correlation matrix are maintained in environment level order. The "cluster" option invokes the agnes clustering algorithm on the FA correlation matrix then orders the rows and columns accordingly.
 #' @param agnes.method Clustering strategy; the default is "average".
 #'
-#' @details The following documentation is taken from the ASExtras4 package. Please refer to this package and associated publications if you are interested in going deeper on this technique. You may be interested in reading and citing this publication if using this methodology
+#' @details The following function is taken from the ASExtras4 package. Please refer to this package and associated publications if you are interested in going deeper on this technique. You may be interested in reading and citing this publication if using this methodology
 #'
 #' @references Cullis BR, Smith AB, Beek C, Cowling WA (2010). “Analysis of Yield and Oil from a Series of Canola Breeding Trials. Part II: Exploring VxE using Factor Analysis.” Genome, 53, 1002-1016. Smith AB, Cullis BR, Thompson R (2001). “Analyzing Variety by Environment Data Using Multiplicative Mixed Models and Adjustments for Spatial Field Trend.” Biometrics, 57, 1138-1147.
 #'
@@ -825,8 +825,8 @@ covcor_heat <- function(matrix, corr = TRUE, size = 4) {
 
   reorder_cormat <- function(cormat) {
     # Use correlation between variables as distance
-    dd <- as.dist((1 - cormat) / 2)
-    hc <- hclust(dd)
+    dd <- stats::as.dist((1 - cormat) / 2)
+    hc <- stats::hclust(dd)
     cormat <- cormat[hc$order, hc$order]
   }
 

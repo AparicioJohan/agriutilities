@@ -130,7 +130,7 @@ plot_res_fitted <- function(data_out) {
 
 
 res_hist <- function(data_out) {
-  hi <- hist(data_out[, "Residuals"], plot = FALSE)
+  hi <- graphics::hist(data_out[, "Residuals"], plot = FALSE)
   br <- hi$breaks
   p <- ggplot(data_out, aes(x = Residuals)) +
     geom_histogram(aes(y = ..density..), alpha = 0.8, breaks = c(br), na.rm = T) +
@@ -173,22 +173,6 @@ check_gen_SpATS <- function(gen, data, check_gen = c("ci", "st", "wa")) {
   }
   return(data)
 }
-
-
-res_raw_data <- function(Model) {
-  dt <- Model$data
-  VarE <- Model$psi[1]
-  Data <- data.frame(Index = 1:length(residuals(Model)), Residuals = residuals(Model))
-  u <- +3 * sqrt(VarE)
-  l <- -3 * sqrt(VarE)
-  Data$Classify <- NA
-  Data$Classify[which(abs(Data$Residuals) >= u)] <- "Outlier"
-  Data$Classify[which(abs(Data$Residuals) < u)] <- "Normal"
-
-  dt$Classify <- Data$Classify
-  return(dt)
-}
-
 
 # MSA
 
@@ -326,13 +310,13 @@ weight_SpATS <- function(model) {
   ))
 }
 
-Lik.ratio.test <- function(Model_nested, Model_full) {
+lik_ratio_test <- function(Model_nested, Model_full) {
   lo.lik1 <- Model_nested / -2
   lo.lik2 <- Model_full / -2
 
   d <- 2 * (lo.lik2 - lo.lik1)
 
-  p.value1 <- round(1 - pchisq(d, 1), 3)
+  p.value1 <- round(1 - stats::pchisq(d, 1), 3)
 
   siglevel <- 0
   if (abs(p.value1) < 0.05) {

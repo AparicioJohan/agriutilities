@@ -53,7 +53,7 @@ aids in interpreting FA models fitted to genotype by environment effects in the 
 of plant breeding multi-environment trial (MET) data.
 }
 \details{
-The following documentation is taken from the ASExtras4 package. Please refer to this package and associated publications if you are interested in going deeper on this technique. You may be interested in reading and citing this publication if using this methodology
+The following function is taken from the ASExtras4 package. Please refer to this package and associated publications if you are interested in going deeper on this technique. You may be interested in reading and citing this publication if using this methodology
 }
 \examples{
 # library(tidyverse)
