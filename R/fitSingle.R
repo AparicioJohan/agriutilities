@@ -40,6 +40,7 @@ single_model_analysis <- function(results = NULL,
 
   traits <- results$inputs$traits
 
+  fitted_models <- list()
   resum_fitted_model <- list()
   outliers <- list()
   blues_blups <- list()
@@ -76,7 +77,7 @@ single_model_analysis <- function(results = NULL,
           colCoord = results$inputs$col,
           trDesign = "res.rowcol"
         )
-        m_models_res_row_col[[i]] <- fitTD(
+        m_models_res_row_col <- fitTD(
           TD = td_res_row_col,
           traits = i,
           what = c("fixed", "random"),
@@ -87,7 +88,7 @@ single_model_analysis <- function(results = NULL,
 
         # Residuals
         outliers_res_row_col <- outlierSTA(
-          STA = m_models_res_row_col[[i]],
+          STA = m_models_res_row_col,
           traits = i,
           rLimit = 3,
           verbose = FALSE
@@ -131,7 +132,7 @@ single_model_analysis <- function(results = NULL,
             colCoord = results$inputs$col,
             trDesign = "res.rowcol"
           )
-          m_models_res_row_col[[i]] <- fitTD(
+          m_models_res_row_col <- fitTD(
             TD = td_res_row_col,
             traits = i,
             what = c("fixed", "random"),
@@ -142,21 +143,21 @@ single_model_analysis <- function(results = NULL,
         }
         # Heritability
         h2_cullis_res_row_col <- extractSTA(
-          STA = m_models_res_row_col[[i]],
+          STA = m_models_res_row_col,
           what = "heritability"
         )
         # VarComps
         VarG_res_row_col <- extractSTA(
-          STA = m_models_res_row_col[[i]],
+          STA = m_models_res_row_col,
           what = "varGen"
         )
         VarE_res_row_col <- extractSTA(
-          STA = m_models_res_row_col[[i]],
+          STA = m_models_res_row_col,
           what = "varErr"
         )
         # CV
         CV_res_row_col <- extractSTA(
-          STA = m_models_res_row_col[[i]],
+          STA = m_models_res_row_col,
           what = "CV"
         )
 
@@ -172,13 +173,15 @@ single_model_analysis <- function(results = NULL,
         ) %>%
           mutate(design = "res_row_col")
 
+        fitted_models[[i]] <- m_models_res_row_col
+
         resum_fitted_model[[i]] <- rbind(
           resum_fitted_model[[i]],
           resum_fitted_model_res_row_col
         )
 
         # BLUES
-        blues_TD_res_row_col <- STAtoTD(m_models_res_row_col[[i]],
+        blues_TD_res_row_col <- STAtoTD(m_models_res_row_col,
           keep = c("trial"),
           addWt = TRUE
         )
@@ -187,7 +190,7 @@ single_model_analysis <- function(results = NULL,
 
         # standardized residuals
         stdRes_res_row_col <- extractSTA(
-          STA = m_models_res_row_col[[i]],
+          STA = m_models_res_row_col,
           what = "stdResR"
         )
         std_residuals[[i]] <- stdRes_res_row_col
@@ -223,7 +226,7 @@ single_model_analysis <- function(results = NULL,
           colCoord = results$inputs$col,
           trDesign = "rowcol"
         )
-        m_models_row_col[[i]] <- fitTD(
+        m_models_row_col <- fitTD(
           TD = td_row_col,
           traits = i,
           what = c("fixed", "random"),
@@ -234,7 +237,7 @@ single_model_analysis <- function(results = NULL,
 
         # Residuals
         outliers_row_col <- outlierSTA(
-          STA = m_models_row_col[[i]],
+          STA = m_models_row_col,
           traits = i,
           rLimit = 3,
           verbose = FALSE
@@ -278,7 +281,7 @@ single_model_analysis <- function(results = NULL,
             colCoord = results$inputs$col,
             trDesign = "rowcol"
           )
-          m_models_row_col[[i]] <- fitTD(
+          m_models_row_col <- fitTD(
             TD = td_row_col,
             traits = i,
             what = c("fixed", "random"),
@@ -289,21 +292,21 @@ single_model_analysis <- function(results = NULL,
         }
         # Heritability
         h2_cullis_row_col <- extractSTA(
-          STA = m_models_row_col[[i]],
+          STA = m_models_row_col,
           what = "heritability"
         )
         # VarComps
         VarG_row_col <- extractSTA(
-          STA = m_models_row_col[[i]],
+          STA = m_models_row_col,
           what = "varGen"
         )
         VarE_row_col <- extractSTA(
-          STA = m_models_row_col[[i]],
+          STA = m_models_row_col,
           what = "varErr"
         )
         # CV
         CV_row_col <- extractSTA(
-          STA = m_models_row_col[[i]],
+          STA = m_models_row_col,
           what = "CV"
         )
 
@@ -319,13 +322,15 @@ single_model_analysis <- function(results = NULL,
         ) %>%
           mutate(design = "row_col")
 
+        fitted_models[[i]] <- m_models_row_col
+
         resum_fitted_model[[i]] <- rbind(
           resum_fitted_model[[i]],
           resum_fitted_model_row_col
         )
 
         # BLUES
-        blues_TD_row_col <- STAtoTD(m_models_row_col[[i]],
+        blues_TD_row_col <- STAtoTD(m_models_row_col,
           keep = c("trial"),
           addWt = TRUE
         )
@@ -334,7 +339,7 @@ single_model_analysis <- function(results = NULL,
 
         # standardized residuals
         stdRes_row_col <- extractSTA(
-          STA = m_models_row_col[[i]],
+          STA = m_models_row_col,
           what = "stdResR"
         )
         std_residuals[[i]] <- stdRes_row_col
@@ -370,7 +375,7 @@ single_model_analysis <- function(results = NULL,
           subBlock = results$inputs$block,
           trDesign = "ibd"
         )
-        m_models_alpha[[i]] <- fitTD(
+        m_models_alpha <- fitTD(
           TD = td_alpha,
           traits = i,
           what = c("fixed", "random"),
@@ -381,7 +386,7 @@ single_model_analysis <- function(results = NULL,
 
         # Residuals
         outliers_alpha <- outlierSTA(
-          STA = m_models_alpha[[i]],
+          STA = m_models_alpha,
           traits = i,
           rLimit = 3,
           verbose = FALSE
@@ -424,7 +429,7 @@ single_model_analysis <- function(results = NULL,
             subBlock = results$inputs$block,
             trDesign = "ibd"
           )
-          m_models_alpha[[i]] <- fitTD(
+          m_models_alpha <- fitTD(
             TD = td_alpha,
             traits = i,
             what = c("fixed", "random"),
@@ -435,21 +440,21 @@ single_model_analysis <- function(results = NULL,
         }
         # Heritability
         h2_cullis_alpha <- extractSTA(
-          STA = m_models_alpha[[i]],
+          STA = m_models_alpha,
           what = "heritability"
         )
         # VarComps
         VarG_alpha <- extractSTA(
-          STA = m_models_alpha[[i]],
+          STA = m_models_alpha,
           what = "varGen"
         )
         VarE_alpha <- extractSTA(
-          STA = m_models_alpha[[i]],
+          STA = m_models_alpha,
           what = "varErr"
         )
         # CV
         CV_alpha <- extractSTA(
-          STA = m_models_alpha[[i]],
+          STA = m_models_alpha,
           what = "CV"
         )
 
@@ -465,13 +470,15 @@ single_model_analysis <- function(results = NULL,
         ) %>%
           mutate(design = "alpha_lattice")
 
+        fitted_models[[i]] <- m_models_alpha
+
         resum_fitted_model[[i]] <- rbind(
           resum_fitted_model[[i]],
           resum_fitted_model_alpha
         )
 
         # BLUES
-        blues_TD_alpha <- STAtoTD(m_models_alpha[[i]],
+        blues_TD_alpha <- STAtoTD(m_models_alpha,
           keep = c("trial"),
           addWt = TRUE
         )
@@ -480,7 +487,7 @@ single_model_analysis <- function(results = NULL,
 
         # standardized residuals
         stdRes_alpha <- extractSTA(
-          STA = m_models_alpha[[i]],
+          STA = m_models_alpha,
           what = "stdResR"
         )
         std_residuals[[i]] <- stdRes_alpha
@@ -516,7 +523,7 @@ single_model_analysis <- function(results = NULL,
           subBlock = results$inputs$block,
           trDesign = "rcbd"
         )
-        m_models_rcbd[[i]] <- fitTD(
+        m_models_rcbd <- fitTD(
           TD = td_rcbd,
           traits = i,
           what = c("fixed", "random"),
@@ -527,7 +534,7 @@ single_model_analysis <- function(results = NULL,
 
         # Residuals
         outliers_rcbd <- outlierSTA(
-          STA = m_models_rcbd[[i]],
+          STA = m_models_rcbd,
           traits = i,
           rLimit = 3,
           verbose = FALSE
@@ -570,7 +577,7 @@ single_model_analysis <- function(results = NULL,
             subBlock = results$inputs$block,
             trDesign = "rcbd"
           )
-          m_models_rcbd[[i]] <- fitTD(
+          m_models_rcbd <- fitTD(
             TD = td_rcbd,
             traits = i,
             what = c("fixed", "random"),
@@ -581,21 +588,21 @@ single_model_analysis <- function(results = NULL,
         }
         # Heritability
         h2_cullis_rcbd <- extractSTA(
-          STA = m_models_rcbd[[i]],
+          STA = m_models_rcbd,
           what = "heritability"
         )
         # VarComps
         VarG_rcbd <- extractSTA(
-          STA = m_models_rcbd[[i]],
+          STA = m_models_rcbd,
           what = "varGen"
         )
         VarE_rcbd <- extractSTA(
-          STA = m_models_rcbd[[i]],
+          STA = m_models_rcbd,
           what = "varErr"
         )
         # CV
         CV_rcbd <- extractSTA(
-          STA = m_models_rcbd[[i]],
+          STA = m_models_rcbd,
           what = "CV"
         )
 
@@ -611,13 +618,15 @@ single_model_analysis <- function(results = NULL,
         ) %>%
           mutate(design = "rcbd")
 
+        fitted_models[[i]] <- m_models_rcbd
+
         resum_fitted_model[[i]] <- rbind(
           resum_fitted_model[[i]],
           resum_fitted_model_rcbd
         )
 
         # BLUES
-        blues_TD_rcbd <- STAtoTD(m_models_rcbd[[i]],
+        blues_TD_rcbd <- STAtoTD(m_models_rcbd,
           keep = c("trial"),
           addWt = TRUE
         )
@@ -626,7 +635,7 @@ single_model_analysis <- function(results = NULL,
 
         # standardized residuals
         stdRes_rcbd <- extractSTA(
-          STA = m_models_rcbd[[i]],
+          STA = m_models_rcbd,
           what = "stdResR"
         )
         std_residuals[[i]] <- stdRes_rcbd
@@ -636,6 +645,7 @@ single_model_analysis <- function(results = NULL,
 
   return(
     list(
+      fitted_models = fitted_models,
       resum_fitted_model = resum_fitted_model,
       outliers = outliers,
       blues_blups = blues_blups,
