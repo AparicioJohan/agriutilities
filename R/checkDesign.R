@@ -13,7 +13,20 @@
 #' @export
 #'
 #' @examples
-#' # In progress
+#' # library(agridat)
+#' # library(agriutilities)
+#' # data(besag.met)
+#' # dat <- besag.met
+#' # results <- check_design_MET(
+#' #   data = dat,
+#' #   genotype = "gen",
+#' #   trial = "county",
+#' #   traits = c("yield"),
+#' #   rep = "rep",
+#' #   block = "block",
+#' #   col = "col",
+#' #   row = "row"
+#' # )
 #' @import dplyr
 #' @importFrom stats sd median
 #' @importFrom utils type.convert
