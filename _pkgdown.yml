@@ -14,12 +14,50 @@ navbar:
     - icon: fa-code
       text: Reference
       href: reference/index.html
-    - icon: fa-file-o
-      text: Articles
-      menu:
-      - text: "spATS utilties"
-        href: articles/SpATS.html
   right:
-    - icon: fa-file-o
+    - icon: fa-github
       text: Github
       href: https://github.com/AparicioJohan/agriutilities
+
+
+reference:
+- title: Pipeline Automatic
+  desc:  Identify the design and fit the models automatically
+- contents:
+  - 'checkConection'
+  - 'checkConection2'
+  - '`check_design_MET`'
+  - '`single_model_analysis`'
+- title: Lme4
+  desc: Additional functions for lme4 models
+- contents:
+  - 'h_cullis'
+  - 'h_cullis_MME'
+  - 'mult_lme4'
+  - 'mult_res_lme4'
+  - 'mult_summary'
+  - 'ran'
+  - 'res_lme4'
+  - 'VarE'
+  - 'VarG'
+- title: SpATS
+  desc:  Additional functions for SpATS models
+- contents:
+  - 'CV_SpATS'
+  - 'res_spats'
+  - 'r_square'
+- title: ASReml
+  desc:  Additional functions for ASReml models
+- contents:
+  - 'biplot_fa2'
+  - 'extractG'
+  - 'fa.asreml'
+  - 'fa2_summary'
+  - 'heritability_fa'
+  - 'var_fa'
+- title: Others
+- contents:
+  - 'covcor_heat'
+  - 'ggCor'
+  - 'parameters_GG'
+
