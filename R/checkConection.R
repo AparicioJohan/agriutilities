@@ -1,4 +1,4 @@
-#' checkconection
+#' check_connectivity
 #'
 #' @param data MET dataset
 #' @param genotype string
@@ -13,10 +13,10 @@
 #' # library(agridat)
 #' # data(besag.met)
 #' # dat <- besag.met
-#' # checkConection(data = dat, genotype = "gen", trial = "county", response = "yield", all = T)
+#' # check_connectivity(data = dat, genotype = "gen", trial = "county", response = "yield", all = T)
 #' @importFrom rlang .data
 #' @import dplyr
-checkConection <- function(data,
+check_connectivity <- function(data,
                            genotype = "line",
                            trial = "Experiment",
                            response = NULL,
@@ -49,7 +49,7 @@ checkConection <- function(data,
 }
 
 
-#' checkConection2
+#' connectivity_matrix
 #' @description This function generates a (n_trial x n_trial) matrix  with the
 #'  amount of genotypes shared between each pair of trial.
 #'
@@ -65,7 +65,7 @@ checkConection <- function(data,
 #' # library(agridat)
 #' # data(besag.met)
 #' # dat <- besag.met
-#' # conn <- checkConection2(data = dat, genotype = "gen", trial = "county", response = "yield")
+#' # conn <- connectivity_matrix(data = dat, genotype = "gen", trial = "county", response = "yield")
 #' # heatmap(conn)
 #' # res <- factoextra::hcut(conn, k = 3, stand = FALSE)
 #' # factoextra::fviz_dend(
@@ -78,7 +78,7 @@ checkConection <- function(data,
 #' # )
 #' @importFrom rlang .data
 #' @import dplyr tidyr tibble
-checkConection2 <- function(data,
+connectivity_matrix <- function(data,
                             genotype = "germplasmName",
                             trial = "trial",
                             response = NULL) {

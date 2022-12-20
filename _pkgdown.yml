@@ -24,8 +24,8 @@ reference:
 - title: Pipeline Automatic
   desc:  Identify the design and fit the models automatically
 - contents:
-  - 'checkConection'
-  - 'checkConection2'
+  - 'check_connectivity'
+  - 'connectivity_matrix'
   - '`check_design_MET`'
   - '`single_model_analysis`'
 - title: Lme4

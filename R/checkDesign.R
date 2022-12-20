@@ -209,14 +209,14 @@ check_design_MET <- function(data = NULL,
     relocate(id)
 
   # Conectivity
-  conn1 <- checkConection(
+  conn1 <- check_connectivity(
     data = data,
     genotype = genotype,
     trial = trial,
     response = NULL
   )
 
-  conn2 <- checkConection2(
+  conn2 <- connectivity_matrix(
     data = data,
     genotype = genotype,
     trial = trial,
@@ -228,8 +228,8 @@ check_design_MET <- function(data = NULL,
     exp_design_resum = exp_design_resum,
     filter = filters_summary,
     exp_design_list = design,
-    conectivity = conn1,
-    conn_matrix = conn2,
+    check_connectivity = conn1,
+    connectivity_matrix = conn2,
     data_design = data_design,
     inputs = list(
       genotype = genotype,
