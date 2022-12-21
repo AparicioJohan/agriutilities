@@ -36,5 +36,6 @@ Suggests:
     knitr,
     lattice,
     cluster,
-    rmarkdown
+    rmarkdown,
+    agridat
 VignetteBuilder: knitr

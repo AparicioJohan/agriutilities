@@ -1,0 +1,63 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# agriutilities <a href="https://apariciojohan.github.io/agriutilities/"><img src="man/figures/logo.png" align="right" height="132" /></a>
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of this package is to provide some additional functions for the analysis
+of field trials in agriculture. It extends the functionalities of packages such as as SpATS, lme4, ASReml-R, and statgenSTA.
+
+## Installation
+
+You can install the development version of agriutilities from [GitHub](https://github.com/AparicioJohan/agriutilities) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("AparicioJohan/agriutilities")
+```
+
+## Example
+
+This is a basic example which shows you how to use some of the functions of the package.
+
+The function `check_design_MET` helps us to check the quality of the data and also to identify 
+the experimental design of the trials. This works as a quality check or quality control before we fit any model.
+
+```{r example}
+library(agriutilities)
+library(agridat)
+data(besag.met)
+dat <- besag.met
+results <- check_design_MET(
+  data = dat,
+  genotype = "gen",
+  trial = "county",
+  traits = "yield",
+  rep = "rep",
+  block = "block",
+  col = "col",
+  row = "row"
+)
+```
+The results of the previous function are used in `single_model_analysis` to fit single trial models.
+
+
+```{r}
+obj <- single_model_analysis(results, progress = FALSE)
+obj$resum_fitted_model
+```
+The returning object is a set of lists with trial summary, BLUEs, BLUPs, heritability, variance components, potential extreme observations, and a lot of more things.
