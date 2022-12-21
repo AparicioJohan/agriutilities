@@ -1,5 +1,6 @@
 
-# agriutilities
+# agriutilities <a href="https://apariciojohan.github.io/agriutilities/"><img src="man/figures/logo.png" align="right" height="132" /></a>
+
 
 <!-- badges: start -->
 <!-- badges: end -->
