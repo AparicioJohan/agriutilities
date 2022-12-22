@@ -2,7 +2,7 @@ pandoc: 2.19.2
 pkgdown: 2.0.6
 pkgdown_sha: ~
 articles: {}
-last_built: 2022-12-21T21:36Z
+last_built: 2022-12-22T01:07Z
 urls:
   reference: https://apariciojohan.github.io/agriutilities/reference
   article: https://apariciojohan.github.io/agriutilities/articles

@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# agriutilities <a href="https://apariciojohan.github.io/agriutilities/"><img src="man/figures/logo.png" align="right" height="132" /></a>
+# agriutilities <a href="https://apariciojohan.github.io/agriutilities/"><img src="man/figures/logo.png" align="right" width="120" /></a>
 
 <!-- badges: start -->
 <!-- badges: end -->
