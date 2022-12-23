@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 <!-- badges: end -->
 
 The goal of this package is to provide some additional functions for the analysis
-of field trials in agriculture. It extends the functionalities of packages such as as SpATS, lme4, ASReml-R, and statgenSTA.
+of field trials in agriculture. It extends the functionalities of packages such as SpATS, lme4, ASReml-R, and statgenSTA.
 
 ## Installation
 
@@ -53,6 +53,13 @@ results <- check_design_MET(
   row = "row"
 )
 ```
+Some of the outputs are:
+```{r}
+results$exp_design_list
+results$connectivity_matrix
+```
+
+
 The results of the previous function are used in `single_model_analysis` to fit single trial models.
 
 

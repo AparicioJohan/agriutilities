@@ -8,7 +8,7 @@
 
 The goal of this package is to provide some additional functions for the
 analysis of field trials in agriculture. It extends the functionalities
-of packages such as as SpATS, lme4, ASReml-R, and statgenSTA.
+of packages such as SpATS, lme4, ASReml-R, and statgenSTA.
 
 ## Installation
 
@@ -44,6 +44,29 @@ results <- check_design_MET(
   col = "col",
   row = "row"
 )
+```
+
+Some of the outputs are:
+
+``` r
+results$exp_design_list
+#> # A tibble: 6 × 2
+#>   county exp_design 
+#>   <fct>  <chr>      
+#> 1 C1     res_row_col
+#> 2 C2     res_row_col
+#> 3 C3     res_row_col
+#> 4 C4     res_row_col
+#> 5 C5     res_row_col
+#> 6 C6     res_row_col
+results$connectivity_matrix
+#>    C1 C2 C3 C4 C5 C6
+#> C1 64 64 64 64 64 64
+#> C2 64 64 64 64 64 64
+#> C3 64 64 64 64 64 64
+#> C4 64 64 64 64 64 64
+#> C5 64 64 64 64 64 64
+#> C6 64 64 64 64 64 64
 ```
 
 The results of the previous function are used in `single_model_analysis`
