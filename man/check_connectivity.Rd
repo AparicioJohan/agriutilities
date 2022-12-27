@@ -33,5 +33,11 @@ check_connectivity
 # library(agridat)
 # data(besag.met)
 # dat <- besag.met
-# check_connectivity(data = dat, genotype = "gen", trial = "county", response = "yield", all = T)
+# check_connectivity(
+#  data = dat,
+#  genotype = "gen",
+#  trial = "county",
+#  response = "yield",
+#  all = T
+#  )
 }

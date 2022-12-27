@@ -31,7 +31,12 @@ This function generates a (n_trial x n_trial) matrix  with the
 # library(agridat)
 # data(besag.met)
 # dat <- besag.met
-# conn <- connectivity_matrix(data = dat, genotype = "gen", trial = "county", response = "yield")
+# conn <- connectivity_matrix(
+#  data = dat,
+#  genotype = "gen",
+#  trial = "county",
+#  response = "yield"
+# )
 # heatmap(conn)
 # res <- factoextra::hcut(conn, k = 3, stand = FALSE)
 # factoextra::fviz_dend(

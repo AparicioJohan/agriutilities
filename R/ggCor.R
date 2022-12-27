@@ -1,28 +1,34 @@
 #' Triangular correlation plot
 #'
-#' @description Return a ggplot object to plot a triangular correlation figure between 2 or more variables.
+#' @description Return a ggplot object to plot a triangular correlation figure
+#' between 2 or more variables.
 #'
-#' @param myData A data.frame with numerical columns for each variable to be compared.
-#' @param colours A vector of size three with the colors to be used for values -1, 0 and 1.
-#' @param blackLabs A numeric vector of size two, with min and max correlation coefficient
+#' @param myData A data.frame with numerical columns for each variable to be
+#' compared.
+#' @param colours A vector of size three with the colors to be used for values
+#' -1, 0 and 1.
+#' @param blackLabs A numeric vector of size two, with min and max correlation
+#' coefficient
 #' @param showSignif Logical scalar. Display significance values ?
-#' @param pBreaks Passed to function 'cut'. Either a numeric vector of two or more unique
-#' cut points or a single number (greater than or equal to 2) giving the number
-#' of intervals into which x is to be cut.
-#' @param pLabels Passed to function 'cut'. labels for the levels of the resulting category.
-#' By default, labels are constructed using "(a,b]" interval notation.
-#' If pLabels = FALSE, simple integer codes are returned instead of a factor.
+#' @param pBreaks Passed to function 'cut'. Either a numeric vector of two or
+#' more unique cut points or a single number (greater than or equal to 2) giving
+#' the number of intervals into which x is to be cut.
+#' @param pLabels Passed to function 'cut'. labels for the levels of the
+#' resulting category. By default, labels are constructed using "(a,b]" interval
+#' notation. If pLabels = FALSE, simple integer codes are returned instead of a
+#' factor.
 #' @param showDiagonal Logical scalar. Display main diagonal values ?
-#' @param Diag A named vector of labels to display in the main diagonal. The names are
-#' used to place each value in the corresponding coordinates of the diagonal.
-#' Hence, these names must be the same as the colnames of myData
+#' @param Diag A named vector of labels to display in the main diagonal. The
+#' names are used to place each value in the corresponding coordinates of the
+#' diagonal. Hence, these names must be the same as the colnames of myData.
 #' @param returnTable Return the table to display instead of a ggplot object
 #' @param returnN Return plot with shared information
 #' @param adjusted Use the adjusted p values for multiple testing instead of
 #' raw coeffs. TRUE by default.
 #'
-#' @return A ggplot object containing a triangular correlation figure with all numeric variables
-#' in myData. If returnTable is TRUE, the table used to produce the figure is returned instead.
+#' @return A ggplot object containing a triangular correlation figure with all
+#' numeric variables in myData. If returnTable is TRUE, the table used to
+#' produce the figure is returned instead.
 #' @export
 #'
 #' @examples
@@ -59,9 +65,10 @@ ggCor <- function(myData,
   cors <- psych::corr.test(myData, use = "pairwise.complete.obs")
 
   # Use the adjusted p values for multiple testing instead of raw coeffs
-  if(adjusted) cors$p = t(cors$p)
+  if(adjusted) cors$p <- t(cors$p)
 
-  # Keep only the matrices with correlation coefficients, p values and N shared samples
+  # Keep only the matrices with correlation coefficients, p values and N shared
+  # samples
   cors <- cors[c(1, 2, 4)]
 
   # Make sure you have a full matrix of N shared samples
@@ -112,7 +119,7 @@ ggCor <- function(myData,
       return(cors)
     }
 
-    cors$cols <- scale(cors$value, center = T, scale = T)
+    cors$cols <- scale(cors$value, center = TRUE, scale = TRUE)
     cors$cols <- ifelse(abs(cors$cols) < 2, "black", "white")
 
     p <- ggplot2::ggplot(data = cors, ggplot2::aes(x = col, y = row, fill = value)) +
@@ -136,7 +143,7 @@ ggCor <- function(myData,
 
     # Create a categorical variable for p values as defined by pBreaks
     cors$signi <- cut(
-      x = cors$value.y, right = F,
+      x = cors$value.y, right = FALSE,
       breaks = pBreaks, labels = pLabels
     )
 
@@ -154,7 +161,8 @@ ggCor <- function(myData,
     # Check the names in Diag are the same than colnames of myData
     if (sum(!names(Diag) %in% colnames(myData))) {
       warning(
-        "These elements in 'Diag' do not correspond to column names in 'myData':\n",
+        "These elements in 'Diag' do not correspond to column names in
+        'myData':\n",
         paste(names(Diag)[!names(Diag) %in% colnames(myData)],
           collapse = "\t"
         )

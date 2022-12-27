@@ -19,27 +19,31 @@ ggCor(
 )
 }
 \arguments{
-\item{myData}{A data.frame with numerical columns for each variable to be compared.}
+\item{myData}{A data.frame with numerical columns for each variable to be
+compared.}
 
-\item{colours}{A vector of size three with the colors to be used for values -1, 0 and 1.}
+\item{colours}{A vector of size three with the colors to be used for values
+-1, 0 and 1.}
 
-\item{blackLabs}{A numeric vector of size two, with min and max correlation coefficient}
+\item{blackLabs}{A numeric vector of size two, with min and max correlation
+coefficient}
 
 \item{showSignif}{Logical scalar. Display significance values ?}
 
-\item{pBreaks}{Passed to function 'cut'. Either a numeric vector of two or more unique
-cut points or a single number (greater than or equal to 2) giving the number
-of intervals into which x is to be cut.}
+\item{pBreaks}{Passed to function 'cut'. Either a numeric vector of two or
+more unique cut points or a single number (greater than or equal to 2) giving
+the number of intervals into which x is to be cut.}
 
-\item{pLabels}{Passed to function 'cut'. labels for the levels of the resulting category.
-By default, labels are constructed using "(a,b]" interval notation.
-If pLabels = FALSE, simple integer codes are returned instead of a factor.}
+\item{pLabels}{Passed to function 'cut'. labels for the levels of the
+resulting category. By default, labels are constructed using "(a,b]" interval
+notation. If pLabels = FALSE, simple integer codes are returned instead of a
+factor.}
 
 \item{showDiagonal}{Logical scalar. Display main diagonal values ?}
 
-\item{Diag}{A named vector of labels to display in the main diagonal. The names are
-used to place each value in the corresponding coordinates of the diagonal.
-Hence, these names must be the same as the colnames of myData}
+\item{Diag}{A named vector of labels to display in the main diagonal. The
+names are used to place each value in the corresponding coordinates of the
+diagonal. Hence, these names must be the same as the colnames of myData.}
 
 \item{returnTable}{Return the table to display instead of a ggplot object}
 
@@ -49,11 +53,13 @@ Hence, these names must be the same as the colnames of myData}
 raw coeffs. TRUE by default.}
 }
 \value{
-A ggplot object containing a triangular correlation figure with all numeric variables
-in myData. If returnTable is TRUE, the table used to produce the figure is returned instead.
+A ggplot object containing a triangular correlation figure with all
+numeric variables in myData. If returnTable is TRUE, the table used to
+produce the figure is returned instead.
 }
 \description{
-Return a ggplot object to plot a triangular correlation figure between 2 or more variables.
+Return a ggplot object to plot a triangular correlation figure
+between 2 or more variables.
 }
 \examples{
 # data(iris)

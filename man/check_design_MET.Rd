@@ -18,19 +18,26 @@ check_design_MET(
 \arguments{
 \item{data}{A data.frame in a wide format.}
 
-\item{genotype}{A character string indicating the column in data that contains genotypes.}
+\item{genotype}{A character string indicating the column in data that
+contains genotypes.}
 
-\item{trial}{A character string indicating the column in data that contains trials.}
+\item{trial}{A character string indicating the column in data that contains
+trials.}
 
-\item{traits}{A character vector specifying the traits for which the models should be fitted.}
+\item{traits}{A character vector specifying the traits for which the models
+should be fitted.}
 
-\item{rep}{A character string indicating the column in data that contains replicates.}
+\item{rep}{A character string indicating the column in data that contains
+replicates.}
 
-\item{block}{A character string indicating the column in data that contains sub blocks.}
+\item{block}{A character string indicating the column in data that contains
+sub blocks.}
 
-\item{row}{A character string indicating the column in data that contains the row coordinates}
+\item{row}{A character string indicating the column in data that contains the
+row coordinates}
 
-\item{col}{A character string indicating the column in data that contains the column coordinates.}
+\item{col}{A character string indicating the column in data that contains the
+column coordinates.}
 }
 \value{
 An object of class checkAgri, a list of data.frames.

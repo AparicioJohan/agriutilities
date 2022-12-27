@@ -5,9 +5,9 @@
 #' @param progress Should the progress of the modeling be printed.
 #' If TRUE, for every trial a line is output indicating the traits fitted for
 #' the particular trial.
-#' @param engine A character string specifying the name of the mixed modeling engine to
-#' use, either "lme4" or "asreml". For spatial designs, "SpaTS" is used always,
-#' for other designs "asreml" as a default.
+#' @param engine A character string specifying the name of the mixed modeling
+#' engine to use, either "lme4" or "asreml". For spatial designs, "SpaTS" is
+#' always used, for other designs "asreml" as a default.
 #' @param remove_outliers Should outliers be removed? TRUE by default.
 #'
 #' @return A list of data.frames.
@@ -95,7 +95,7 @@ single_model_analysis <- function(results = NULL,
         )
 
         # Cleaning
-        if (!is.null(outliers_res_row_col$outliers) & remove_outliers) {
+        if (!is.null(outliers_res_row_col$outliers) && remove_outliers) {
           outliers_res_row_col <- outliers_res_row_col %>%
             .[["outliers"]] %>%
             dplyr::select(trial, genotype, id, outlier)
@@ -244,7 +244,7 @@ single_model_analysis <- function(results = NULL,
         )
 
         # Cleaning
-        if (!is.null(outliers_row_col$outliers) & remove_outliers) {
+        if (!is.null(outliers_row_col$outliers) && remove_outliers) {
           outliers_row_col <- outliers_row_col %>%
             .[["outliers"]] %>%
             dplyr::select(trial, genotype, id, outlier)
@@ -393,7 +393,7 @@ single_model_analysis <- function(results = NULL,
         )
 
         # Cleaning
-        if (!is.null(outliers_alpha$outliers) & remove_outliers) {
+        if (!is.null(outliers_alpha$outliers) && remove_outliers) {
           outliers_alpha <- outliers_alpha %>%
             .[["outliers"]] %>%
             dplyr::select(trial, genotype, id, outlier)
@@ -541,7 +541,7 @@ single_model_analysis <- function(results = NULL,
         )
 
         # Cleaning
-        if (!is.null(outliers_rcbd$outliers) & remove_outliers) {
+        if (!is.null(outliers_rcbd$outliers) && remove_outliers) {
           outliers_rcbd <- outliers_rcbd %>%
             .[["outliers"]] %>%
             dplyr::select(trial, genotype, id, outlier)

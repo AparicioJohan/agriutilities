@@ -13,7 +13,13 @@
 #' # library(agridat)
 #' # data(besag.met)
 #' # dat <- besag.met
-#' # check_connectivity(data = dat, genotype = "gen", trial = "county", response = "yield", all = T)
+#' # check_connectivity(
+#' #  data = dat,
+#' #  genotype = "gen",
+#' #  trial = "county",
+#' #  response = "yield",
+#' #  all = T
+#' #  )
 #' @importFrom rlang .data
 #' @import dplyr
 check_connectivity <- function(data,
@@ -34,7 +40,7 @@ check_connectivity <- function(data,
     dplyr::mutate(value = 1) %>%
     tidyr::spread(.data[[trial]], value = value) %>%
     dplyr::mutate(
-      total = rowSums(dplyr::select(., -.data[[genotype]]), na.rm = T),
+      total = rowSums(dplyr::select(., -.data[[genotype]]), na.rm = TRUE),
       n = ncol(.) - 1,
       percent = total / n
     ) %>%
@@ -65,7 +71,12 @@ check_connectivity <- function(data,
 #' # library(agridat)
 #' # data(besag.met)
 #' # dat <- besag.met
-#' # conn <- connectivity_matrix(data = dat, genotype = "gen", trial = "county", response = "yield")
+#' # conn <- connectivity_matrix(
+#' #  data = dat,
+#' #  genotype = "gen",
+#' #  trial = "county",
+#' #  response = "yield"
+#' # )
 #' # heatmap(conn)
 #' # res <- factoextra::hcut(conn, k = 3, stand = FALSE)
 #' # factoextra::fviz_dend(

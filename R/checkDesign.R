@@ -1,13 +1,20 @@
 #' Check Experimental Design
 #'
 #' @param data A data.frame in a wide format.
-#' @param genotype A character string indicating the column in data that contains genotypes.
-#' @param trial A character string indicating the column in data that contains trials.
-#' @param traits A character vector specifying the traits for which the models should be fitted.
-#' @param rep A character string indicating the column in data that contains replicates.
-#' @param block A character string indicating the column in data that contains sub blocks.
-#' @param row A character string indicating the column in data that contains the row coordinates
-#' @param col A character string indicating the column in data that contains the column coordinates.
+#' @param genotype A character string indicating the column in data that
+#' contains genotypes.
+#' @param trial A character string indicating the column in data that contains
+#' trials.
+#' @param traits A character vector specifying the traits for which the models
+#' should be fitted.
+#' @param rep A character string indicating the column in data that contains
+#' replicates.
+#' @param block A character string indicating the column in data that contains
+#' sub blocks.
+#' @param row A character string indicating the column in data that contains the
+#' row coordinates
+#' @param col A character string indicating the column in data that contains the
+#' column coordinates.
 #'
 #' @return An object of class checkAgri, a list of data.frames.
 #' @export
@@ -101,9 +108,9 @@ check_design_MET <- function(data = NULL,
     gather(data = ., key = "traits", value = "value", -.data[[trial]]) %>%
     group_by(.data[[trial]], traits) %>%
     summarise(
-      Mean = mean(value, na.rm = T),
-      Median = median(value, na.rm = T),
-      SD = sd(value, na.rm = T),
+      Mean = mean(value, na.rm = TRUE),
+      Median = median(value, na.rm = TRUE),
+      SD = sd(value, na.rm = TRUE),
       CV = SD / Mean,
       n = n(),
       n_miss = sum(is.na(value)),
@@ -123,7 +130,10 @@ check_design_MET <- function(data = NULL,
       n_col = n_distinct(.data[[col]]),
       n_row = n_distinct(.data[[row]]),
       num_of_reps = paste(sort(unique(gen_reps)), collapse = "_"),
-      num_of_gen = paste(table(gen_reps) / sort(unique(gen_reps)), collapse = "_"),
+      num_of_gen = paste(
+        table(gen_reps) / sort(unique(gen_reps)),
+        collapse = "_"
+      ),
       unrep = ifelse(n_gen == n, TRUE, FALSE),
       rcbd = ifelse(n_rep > 1, "rcbd", NA),
       alpha_lattice = ifelse(rcbd == "rcbd" & n_block > 1, "alpha", NA),
@@ -156,8 +166,8 @@ check_design_MET <- function(data = NULL,
       filter(!.data[[trial]] %in% trials_to_remove_miss) %>%
       group_by(.data[[trial]], .data[[genotype]]) %>%
       summarise(
-        mean = mean(.data[[i]], na.rm = T),
-        sd = sd(.data[[i]], na.rm = T),
+        mean = mean(.data[[i]], na.rm = TRUE),
+        sd = sd(.data[[i]], na.rm = TRUE),
         cv = sd / mean,
         .groups = "drop"
       ) %>%
@@ -205,7 +215,7 @@ check_design_MET <- function(data = NULL,
     select(.data[[trial]], exp_design)
 
   data_design <- merge(x = data, y = design, all.x = TRUE) %>%
-    mutate(id = 1:nrow(.)) %>%
+    mutate(id = seq_len(nrow(.))) %>%
     relocate(id)
 
   # Conectivity

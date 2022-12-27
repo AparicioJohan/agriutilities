@@ -18,7 +18,8 @@ heritability_fa(
 
 \item{env}{String}
 
-\item{vc.model}{variance covariance structure c("fa1", "fa2", "fa3", "fa4", "us")}
+\item{vc.model}{variance covariance structure c("fa1", "fa2", "fa3", "fa4",
+"us")}
 }
 \value{
 data.frame
@@ -35,10 +36,17 @@ Heritability for Factor Analytic Models in ASReml-R
 # dat <- besag.met
 #
 # dat <- dat \%>\% arrange(county)
-# model <- asreml(fixed = yield ~ 1 + county,
-#                 random = ~ fa(county, 2):gen + county:rep + diag(county):rep:block,
-#                 residual = ~ dsum(~ units | county),
-#                 data = dat,
-#                 na.action = list(x="include",y="include"))
-# heritability_fa(model_fa = model, genotype = "gen", env = "county", vc.model = "fa2")
+# model <- asreml(
+#   fixed = yield ~ 1 + county,
+#   random = ~ fa(county, 2):gen + county:rep + diag(county):rep:block,
+#   residual = ~ dsum(~ units | county),
+#   data = dat,
+#   na.action = list(x="include",y="include")
+# )
+# heritability_fa(
+#  model_fa = model,
+#  genotype = "gen",
+#  env = "county",
+#  vc.model = "fa2"
+# )
 }

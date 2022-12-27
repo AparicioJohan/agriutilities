@@ -19,9 +19,9 @@ check_design_MET function.}
 If TRUE, for every trial a line is output indicating the traits fitted for
 the particular trial.}
 
-\item{engine}{A character string specifying the name of the mixed modeling engine to
-use, either "lme4" or "asreml". For spatial designs, "SpaTS" is used always,
-for other designs "asreml" as a default.}
+\item{engine}{A character string specifying the name of the mixed modeling
+engine to use, either "lme4" or "asreml". For spatial designs, "SpaTS" is
+always used, for other designs "asreml" as a default.}
 
 \item{remove_outliers}{Should outliers be removed? TRUE by default.}
 }

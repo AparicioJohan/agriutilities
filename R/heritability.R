@@ -3,7 +3,8 @@
 #' @param model_fa Factor Analytic asreml model
 #' @param genotype String
 #' @param env String
-#' @param vc.model variance covariance structure c("fa1", "fa2", "fa3", "fa4", "us")
+#' @param vc.model variance covariance structure c("fa1", "fa2", "fa3", "fa4",
+#' "us")
 #'
 #' @return data.frame
 #' @export
@@ -17,12 +18,19 @@
 #' # dat <- besag.met
 #' #
 #' # dat <- dat %>% arrange(county)
-#' # model <- asreml(fixed = yield ~ 1 + county,
-#' #                 random = ~ fa(county, 2):gen + county:rep + diag(county):rep:block,
-#' #                 residual = ~ dsum(~ units | county),
-#' #                 data = dat,
-#' #                 na.action = list(x="include",y="include"))
-#' # heritability_fa(model_fa = model, genotype = "gen", env = "county", vc.model = "fa2")
+#' # model <- asreml(
+#' #   fixed = yield ~ 1 + county,
+#' #   random = ~ fa(county, 2):gen + county:rep + diag(county):rep:block,
+#' #   residual = ~ dsum(~ units | county),
+#' #   data = dat,
+#' #   na.action = list(x="include",y="include")
+#' # )
+#' # heritability_fa(
+#' #  model_fa = model,
+#' #  genotype = "gen",
+#' #  env = "county",
+#' #  vc.model = "fa2"
+#' # )
 heritability_fa <- function(model_fa = NULL,
                             genotype = "line",
                             env = "loc",
