@@ -2,25 +2,32 @@
 % Please edit documentation in R/lme4.R
 \name{h_cullis}
 \alias{h_cullis}
-\title{Cullis heritability for lme4 model}
+\title{Cullis heritability for lme4 models}
 \usage{
-h_cullis(model, genotype)
+h_cullis(model, genotype, re_MME = FALSE)
 }
 \arguments{
-\item{model}{lmer model}
+\item{model}{Object of class 'lmer' resulting of executing}
 
-\item{genotype}{String genotype}
+\item{genotype}{A character string indicating the column in data that
+contains genotypes.}
+
+\item{re_MME}{logical value to ask if we want to reconstruct the mixed models
+equations to estimate the cullis heritability.}
 }
 \value{
-value
+heritability or list with matrices
 }
 \description{
-Cullis heritability for lme4 model
+Cullis heritability for lme4 models
 }
 \examples{
 # dat <- agridat::john.alpha
 ## fit model ---------------------------------------------------------------
 ## random genotype effect
-# g.ran <- lme4::lmer(data  = dat, formula = yield ~ rep + (1|gen) + (1|rep:block))
+# g.ran <- lme4::lmer(data = dat, formula = yield ~ rep + (1|gen) + (1|rep:block))
 # h_cullis(g.ran, "gen")
+}
+\author{
+Paul Schmidt
 }
