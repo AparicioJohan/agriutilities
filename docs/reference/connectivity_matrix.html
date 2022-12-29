@@ -102,7 +102,12 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># library(agridat)</span></span></span>
 <span class="r-in"><span><span class="co"># data(besag.met)</span></span></span>
 <span class="r-in"><span><span class="co"># dat &lt;- besag.met</span></span></span>
-<span class="r-in"><span><span class="co"># conn &lt;- connectivity_matrix(data = dat, genotype = "gen", trial = "county", response = "yield")</span></span></span>
+<span class="r-in"><span><span class="co"># conn &lt;- connectivity_matrix(</span></span></span>
+<span class="r-in"><span><span class="co">#  data = dat,</span></span></span>
+<span class="r-in"><span><span class="co">#  genotype = "gen",</span></span></span>
+<span class="r-in"><span><span class="co">#  trial = "county",</span></span></span>
+<span class="r-in"><span><span class="co">#  response = "yield"</span></span></span>
+<span class="r-in"><span><span class="co"># )</span></span></span>
 <span class="r-in"><span><span class="co"># heatmap(conn)</span></span></span>
 <span class="r-in"><span><span class="co"># res &lt;- factoextra::hcut(conn, k = 3, stand = FALSE)</span></span></span>
 <span class="r-in"><span><span class="co"># factoextra::fviz_dend(</span></span></span>

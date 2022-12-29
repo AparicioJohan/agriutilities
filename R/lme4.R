@@ -3,7 +3,7 @@
 #' @param var factor to be taken as random
 #'
 #' @return string
-#' @export
+#' @noRd
 #'
 #' @examples
 #' # ran("rep")
@@ -18,7 +18,7 @@ ran <- function(var) {
 #' @param comp String random component to be extracted
 #'
 #' @return variance component
-#' @export
+#' @noRd
 #'
 #' @examples
 #' # Varg(model, "gen")
@@ -33,7 +33,7 @@ VarG <- function(model, comp) {
 #' @param model lmer model
 #'
 #' @return residual variance
-#' @export
+#' @noRd
 #'
 #' @examples
 #' # VarE(model)
@@ -43,32 +43,13 @@ VarE <- function(model) {
   return(v)
 }
 
-#' Cullis heritability for lme4 model
+#' Cullis heritability for lme4 models
 #'
-#' @param model lmer model
-#' @param genotype  String genotype
-#'
-#' @return value
-#' @export
-#'
-#' @examples
-#' # dat <- agridat::john.alpha
-#' ## fit model ---------------------------------------------------------------
-#' ## random genotype effect
-#' # g.ran <- lme4::lmer(data  = dat, formula = yield ~ rep + (1|gen) + (1|rep:block))
-#' # h_cullis(g.ran, "gen")
-h_cullis <- function(model, genotype) {
-  aveped <- mean(attr(lme4::ranef(model, drop = T)[[genotype]], "postVar"))
-  vc.g <- VarG(model, genotype)
-  ifelse(vc.g == 0, 0, 1 - aveped / vc.g)
-}
-
-
-#' Cullis heritability reconstructing mixed model equation
-#'
-#' @param model lmer model
-#' @param genotype String genotype
-#' @param returnMatrices logical
+#' @param model Object of class 'lmer' resulting of executing
+#' @param genotype A character string indicating the column in data that
+#' contains genotypes.
+#' @param re_MME logical value to ask if we want to reconstruct the mixed models
+#' equations to estimate the cullis heritability.
 #'
 #' @author Paul Schmidt
 #'
@@ -79,80 +60,83 @@ h_cullis <- function(model, genotype) {
 #' # dat <- agridat::john.alpha
 #' ## fit model ---------------------------------------------------------------
 #' ## random genotype effect
-#' # g.ran <- lme4::lmer(data  = dat, formula = yield ~ rep + (1|gen) + (1|rep:block))
-#' # h_cullis_MME(g.ran, "gen")
-h_cullis_MME <- function(model, genotype, returnMatrices = F) {
-  Gen_levels <- levels(model@frame[, genotype])
+#' # g.ran <- lme4::lmer(data = dat, formula = yield ~ rep + (1|gen) + (1|rep:block))
+#' # h_cullis(g.ran, "gen")
+h_cullis <- function(model, genotype, re_MME = FALSE) {
+  if (re_MME) {
+    Gen_levels <- levels(model@frame[, genotype])
 
-  vc <- as.data.frame(lme4::VarCorr(model))
-  # Number of random effects
-  n.ran <- nrow(vc)
-  # R = varcov-matrix for error term
-  n <- length(summary(model)$residuals) # numer of observations
-  vc.e <- vc[vc$grp == "Residual", "vcov"] # error vc
-  R <- diag(n) * vc.e # R matrix = I * vc.e
-  # names of random effects
-  nomb <- names(summary(model)$ngrps)
-  # Genotype
-  n.g <- summary(model)$ngrps[which(nomb == genotype)]
-  vc.g <- vc[vc$grp == genotype, "vcov"]
+    vc <- as.data.frame(lme4::VarCorr(model))
+    # Number of random effects
+    n.ran <- nrow(vc)
+    # R = varcov-matrix for error term
+    n <- length(summary(model)$residuals) # numer of observations
+    vc.e <- vc[vc$grp == "Residual", "vcov"] # error vc
+    R <- diag(n) * vc.e # R matrix = I * vc.e
+    # names of random effects
+    nomb <- names(summary(model)$ngrps)
+    # Genotype
+    n.g <- summary(model)$ngrps[which(nomb == genotype)]
+    vc.g <- vc[vc$grp == genotype, "vcov"]
 
-  # G matrix of random effects
-  G.tmp <- list()
-  if (n.ran >= 2) {
-    for (i in 1:(n.ran - 1)) { # remove the residual variance
-      n.tmp <- summary(model)$ngrps[which(nomb == nomb[i])]
-      vc.tmp <- vc[vc$grp == nomb[i], "vcov"]
-      G.tmp[[i]] <- diag(n.tmp) * vc.tmp
+    # G matrix of random effects
+    G.tmp <- list()
+    if (n.ran >= 2) {
+      for (i in 1:(n.ran - 1)) { # remove the residual variance
+        n.tmp <- summary(model)$ngrps[which(nomb == nomb[i])]
+        vc.tmp <- vc[vc$grp == nomb[i], "vcov"]
+        G.tmp[[i]] <- diag(n.tmp) * vc.tmp
+      }
     }
-  }
 
-  G <- Matrix::bdiag(G.tmp) # G is blockdiagonal with G.g and G.b
+    G <- Matrix::bdiag(G.tmp) # G is blockdiagonal with G.g and G.b
 
-  # Design Matrices
-  X <- as.matrix(lme4::getME(model, "X")) # Design matrix fixed effects
-  Z <- as.matrix(lme4::getME(model, "Z")) # Design matrix random effects
+    # Design Matrices
+    X <- as.matrix(lme4::getME(model, "X")) # Design matrix fixed effects
+    Z <- as.matrix(lme4::getME(model, "Z")) # Design matrix random effects
 
-  # Mixed model Equation
-  C11 <- t(X) %*% solve(R) %*% X
-  C12 <- t(X) %*% solve(R) %*% Z
-  C21 <- t(Z) %*% solve(R) %*% X
-  C22 <- t(Z) %*% solve(R) %*% Z + solve(G)
+    # Mixed model Equation
+    C11 <- t(X) %*% solve(R) %*% X
+    C12 <- t(X) %*% solve(R) %*% Z
+    C21 <- t(Z) %*% solve(R) %*% X
+    C22 <- t(Z) %*% solve(R) %*% Z + solve(G)
 
-  C <- as.matrix(rbind(
-    cbind(C11, C12), # Combine components into one matrix C
-    cbind(C21, C22)
-  ))
-
-  # Mixed model Equation Solutions
-  C.inv <- solve(C) # Inverse of C
-  C22.g <- C.inv[Gen_levels, Gen_levels] # subset of C.inv that refers to genotypic BLUPs
-
-
-  # Mean variance of BLUP-difference from C22 matrix of genotypic BLUPs
-  vdBLUP.sum <- n.g * sum(diag(C22.g)) - sum(C22.g)
-  vdBLUP.avg <- vdBLUP.sum * (2 / (n.g * (n.g - 1))) # mean variance of BLUP-difference = divide sum by number of genotype pairs
-
-  H2Cullis <- 1 - (vdBLUP.avg / 2 / vc.g)
-
-
-  if (returnMatrices) {
-    return(list(
-      X = X,
-      Z = Z,
-      G = G,
-      R = R,
-      C11 = C11,
-      C12 = C12,
-      C21 = C21,
-      C22 = C22,
-      C = C,
-      C.inv = C.inv,
-      C22.g = C22.g,
-      vdBLUP_avg = vdBLUP.avg,
-      H2Cullis = H2Cullis
+    C <- as.matrix(rbind(
+      cbind(C11, C12), # Combine components into one matrix C
+      cbind(C21, C22)
     ))
+
+    # Mixed model Equation Solutions
+    C.inv <- solve(C) # Inverse of C
+    C22.g <- C.inv[Gen_levels, Gen_levels] # subset of C.inv that refers to genotypic BLUPs
+
+    # Mean variance of BLUP-difference from C22 matrix of genotypic BLUPs
+    vdBLUP.sum <- n.g * sum(diag(C22.g)) - sum(C22.g)
+    vdBLUP.avg <- vdBLUP.sum * (2 / (n.g * (n.g - 1))) # mean variance of BLUP-difference = divide sum by number of genotype pairs
+
+    H2Cullis <- 1 - (vdBLUP.avg / 2 / vc.g)
+
+    return(
+      list(
+        X = X,
+        Z = Z,
+        G = G,
+        R = R,
+        C11 = C11,
+        C12 = C12,
+        C21 = C21,
+        C22 = C22,
+        C = C,
+        C.inv = C.inv,
+        C22.g = C22.g,
+        vdBLUP_avg = vdBLUP.avg,
+        H2Cullis = H2Cullis
+      )
+    )
   } else {
+    aveped <- mean(attr(lme4::ranef(model, drop = T)[[genotype]], "postVar"))
+    vc.g <- VarG(model, genotype)
+    H2Cullis <- ifelse(vc.g == 0, 0, 1 - aveped / vc.g)
     return(H2Cullis)
   }
 }
@@ -168,7 +152,7 @@ h_cullis_MME <- function(model, genotype, returnMatrices = F) {
 #'
 #' @examples
 #' # in progress
-res_lme4 <- function(model, returnN = F, k = 3) {
+res_lme4 <- function(model, returnN = FALSE, k = 3) {
   res <- stats::residuals(model, scaled = TRUE)
   data <- model@frame
   data$residual <- res
@@ -176,53 +160,35 @@ res_lme4 <- function(model, returnN = F, k = 3) {
   data$Classify[which(abs(data$res) >= k)] <- "Outlier"
   data$Classify[which(abs(data$res) < k)] <- "Normal"
   ix <- ifelse(length(which(abs(res) > k)) >= 1, length(which(abs(res) > k)), 0)
-  if (returnN) {
+  if (!returnN) {
     return(data)
   } else {
     return(ix)
   }
 }
 
-
-#' Multiple lme4 models
-#'
-#' @param data MET data
-#' @param equation formula see example below. You can use reformulate()
-#' @param var_sub string variable for subset
-#'
-#' @return list with models
-#' @export
-#'
-#' @examples
-#' # library(agridat)
-#' # data(besag.met)
-#' # dat <- besag.met
-#' #
-#' # # lme4 equation
-#' # equation <- reformulate(c("rep", ran("gen") ), response = "yield")
-#' #
-#' # # fitting models
-#' # objt <- mult_lme4(data = dat, equation = equation, var_sub = "county")
-#' #
-#' # # summary models
-#' # mt_summ <- mult_summary(objt , genotype = "gen", y = "yield")
-#' # mt_summ
-#' #
-#' # # outliers
-#' # mult_res_lme4(models = objt)
-#' #
-#' # # removing outliers
-#' # dataOut <- mult_res_lme4(models = objt, returnData = T)
-#' #
-#' # # refitting
-#' # objt <- mult_lme4(data = dataOut, equation = equation, var_sub = "Experiment")
-#' # mt_summ2 <- mult_summary(models = objt ,genotype =  "gen", y = "yield" )
-mult_lme4 <- function(data, equation, var_sub) {
+#' @noRd
+#' @keywords internal
+mult_models <- function(data = NULL,
+                        equation = NULL,
+                        by = NULL,
+                        mixed_model = TRUE) {
   models <- list()
-  data[, var_sub] <- as.factor(data[, var_sub])
-  for (exp in levels(data[, var_sub])) {
-    tmp_dt <- dplyr::filter(data, .data[[var_sub]] %in% exp)
-    model <- try(lmerTest::lmer(equation, data = tmp_dt, na.action = na.omit), silent = T)
+  data[[by]] <- as.factor(data[[by]])
+  lvls <- levels(data[, by])
+  for (exp in lvls) {
+    tmp_dt <- dplyr::filter(data, .data[[by]] %in% exp)
+    if (mixed_model) {
+      model <- try(
+        expr = lmerTest::lmer(equation, data = tmp_dt, na.action = na.omit),
+        silent = TRUE
+      )
+    } else {
+      model <- try(
+        expr = stats::lm(equation, data = tmp_dt, na.action = na.omit),
+        silent = TRUE
+      )
+    }
     if (inherits(model, "try-error")) {
       models[[exp]] <- NULL
     } else {
@@ -232,95 +198,156 @@ mult_lme4 <- function(data, equation, var_sub) {
   return(models)
 }
 
-#' Summary for mult_lme4
-#'
-#' @param models model from mult_lme4
-#' @param genotype string genotype
-#' @param y string response
-#' @param k number of standard desviations to define values as extremes (default = 3)
-#'
-#' @return data.frame
-#' @export
-#'
-#' @examples
-#' # library(agridat)
-#' # data(besag.met)
-#' # dat <- besag.met
-#' #
-#' # # lme4 equation
-#' # equation <- reformulate(c("rep", ran("gen") ), response = "yield")
-#' #
-#' # # fitting models
-#' # objt <- mult_lme4(data = dat, equation = equation, var_sub = "county")
-#' #
-#' # # summary models
-#' # mt_summ <- mult_summary(objt , genotype = "gen", y = "yield")
-#' # mt_summ
-#' #
-#' # # outliers
-#' # mult_res_lme4(models = objt)
-#' #
-#' # # removing outliers
-#' # dataOut <- mult_res_lme4(models = objt, returnData = T)
-#' #
-#' # # refitting
-#' # objt <- mult_lme4(data = dataOut, equation = equation, var_sub = "Experiment")
-#' # mt_summ2 <- mult_summary(models = objt ,genotype =  "gen", y = "yield" )
-mult_summary <- function(models, genotype = "Name", y = "response", k = 3) {
-  exp <- names(models)
-  gv <- unlist(lapply(models, VarG, genotype))
-  ev <- unlist(lapply(models, VarE))
-  he <- unlist(lapply(models, h_cullis, genotype))
-  out <- unlist(lapply(models, res_lme4, k = k))
-  summ <- data.frame(Experiment = exp, y = y, varG = gv, varE = ev, h2 = he, outliers = out, row.names = NULL)
+#' @noRd
+#' @keywords internal
+mult_summary <- function(models_fixed = NULL,
+                         models_rand = NULL,
+                         genotype = "Name",
+                         exp_design = "unknown") {
+  trials <- names(models_fixed)
+  gv <- unlist(lapply(models_rand, VarG, genotype))
+  ev <- unlist(lapply(models_rand, VarE))
+  he <- unlist(lapply(models_rand, h_cullis, genotype))
+  cv <- base::sapply(X = models_fixed, function(mf0) {
+    100 * summary(mf0)$sigma / mean(stats::fitted(mf0), na.rm = TRUE)
+  })
+  summ <- data.frame(
+    trial = trials,
+    heritability = he,
+    CV = cv,
+    VarGen = gv,
+    VarErr = ev,
+    design = exp_design,
+    row.names = NULL
+  )
   return(summ)
 }
 
+#' @noRd
+#' @keywords internal
+get_blup_blues <- function(models_fixed = NULL,
+                           models_rand = NULL,
+                           genotype = "gen") {
+  blues <- sapply(X = models_fixed, FUN = function(mf0) {
+    emmeans::emmeans(mf0, specs = genotype) %>%
+      as.data.frame() %>%
+      dplyr::select(1:3)
+  }, simplify = FALSE)
+  blues <- dplyr::bind_rows(blues, .id = "trial")
+  names(blues) <- c("trial", "genotype", "BLUEs", "seBLUEs")
 
-#' residual data
+  blup_func <- function(model, genotype) {
+    coefs <- coef(model)[[genotype]]
+    predvals <- data.frame(rownames(coefs), coefs[, "(Intercept)"])
+    names(predvals) <- c("genotype", "BLUPs")
+    ran_effs <- lme4::ranef(model, condVar = TRUE)[[genotype]]
+    pred_err <- data.frame(
+      rownames(ran_effs),
+      as.vector(sqrt(attr(ran_effs, "postVar")))
+    )
+    colnames(pred_err) <- c("genotype", "seBLUPs")
+    predvals <- merge(predvals, pred_err, by = "genotype", all = TRUE)
+    return(predvals)
+  }
+  blups <- sapply(
+    X = models_rand,
+    FUN = blup_func,
+    genotype = genotype,
+    simplify = FALSE
+  ) %>%
+    dplyr::bind_rows(., .id = "trial")
+
+  blues_blups <- merge(
+    x = blues,
+    y = blups,
+    by = c("genotype", "trial"),
+    all = TRUE
+  ) %>%
+    dplyr::mutate(wt = (1 / seBLUEs)^2)
+  return(blues_blups)
+}
+
+#' @noRd
+#' @keywords internal
+get_residuals <- function(models, k = 3) {
+  data_out <- lapply(models, res_lme4, TRUE, k = k) %>%
+    dplyr::bind_rows(., .id = "trial")
+  outliers <- data_out[data_out$Classify == "Outlier", ]
+  return(list(residuals = data_out, outliers = outliers))
+}
+
+
+#' Fit multiples CRD models
 #'
-#' @param models lmer model
-#' @param returnData  logical value. Return data with NA for extreme observations
-#' @param k number of standard desviations to define values as extremes (default = 3)
-#' @return data.frame
-#' @export
+#' @param data A data.frame in a wide format.
+#' @param trial A character string indicating the column in data that contains
+#' trials.
+#' @param genotype A character string indicating the column in data that
+#' contains genotypes.
+#' @param response A character vector specifying the traits for which the models
+#' should be fitted.
+#'
+#' @return a list of data.frames.
+#' @noRd
 #'
 #' @examples
 #' # library(agridat)
+#' # library(agriutilities)
 #' # data(besag.met)
 #' # dat <- besag.met
-#' #
-#' # # lme4 equation
-#' # equation <- reformulate(c("rep", ran("gen") ), response = "yield")
-#' #
-#' # # fitting models
-#' # objt <- mult_lme4(data = dat, equation = equation, var_sub = "county")
-#' #
-#' # # summary models
-#' # mt_summ <- mult_summary(objt , genotype = "gen", y = "yield")
-#' # mt_summ
-#' #
-#' # # outliers
-#' # mult_res_lme4(models = objt)
-#' #
-#' # # removing outliers
-#' # dataOut <- mult_res_lme4(models = objt, returnData = T)
-#' #
-#' # # refitting
-#' # objt <- mult_lme4(data = dataOut, equation = equation, var_sub = "Experiment")
-#' # mt_summ2 <- mult_summary(models = objt ,genotype =  "gen", y = "yield" )
-mult_res_lme4 <- function(models, returnData = F, k = 3) {
-  dataOut <- lapply(models, res_lme4, T, k = k)
-  dataOut <- data.frame(plyr::ldply(dataOut[], data.frame, .id = "Experiment"))
-  outliers <- dataOut[dataOut$Classify == "Outlier", ]
-
-  if (returnData) {
-    var <- names(models[[1]]@frame)[1]
-    dataOut[dataOut$Classify == "Outlier", var] <- NA
-    return(dataOut)
-  } else {
-    return(outliers)
-  }
+#' # res <- fit_crd(
+#' #   data = dat,
+#' #   trial = "county",
+#' #   genotype = "gen",
+#' #   response = "yield"
+#' # )
+fit_crd <- function(data = NULL,
+                    trial = NULL,
+                    genotype = NULL,
+                    response = NULL) {
+  data <- as.data.frame(data)
+  # lme4 equation
+  equation_ran <- stats::reformulate(ran(genotype), response = response)
+  # lm equation
+  equation_fixed <- stats::reformulate(genotype, response = response)
+  # fitting models
+  models_rand <- mult_models(
+    data = data,
+    equation = equation_ran,
+    by = trial,
+    mixed_model = TRUE
+  )
+  models_fixed <- mult_models(
+    data = data,
+    equation = equation_fixed,
+    by = trial,
+    mixed_model = FALSE
+  )
+  # summary
+  mt_summ <- mult_summary(
+    models_fixed = models_fixed,
+    models_rand = models_rand,
+    genotype = genotype,
+    exp_design = "CRD"
+  )
+  # BLUEs and BLUPs
+  blues_blups <- get_blup_blues(
+    models_fixed = models_fixed,
+    models_rand = models_rand,
+    genotype = genotype
+  )
+  # Residuals
+  residuals <- get_residuals(models = models_rand)
+  # results
+  output <- list(
+    models_rand = models_rand,
+    models_fixed = models_fixed,
+    resum_fitted_model = mt_summ,
+    blues_blups = blues_blups,
+    residuals = residuals$residuals,
+    outliers = residuals$outliers
+  )
+  return(output)
 }
 
 

@@ -19,7 +19,7 @@ Imports:
     plotly,
     stats,
     magrittr,
-    plyr,
+    emmeans,
     ggrepel,
     reshape2,
     tibble,

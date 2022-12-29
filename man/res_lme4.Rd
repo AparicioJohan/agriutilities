@@ -4,7 +4,7 @@
 \alias{res_lme4}
 \title{residuals lme4}
 \usage{
-res_lme4(model, returnN = F, k = 3)
+res_lme4(model, returnN = FALSE, k = 3)
 }
 \arguments{
 \item{model}{lmer model}

@@ -32,14 +32,7 @@ reference:
   desc: Additional functions for lme4 models
 - contents:
   - 'h_cullis'
-  - 'h_cullis_MME'
-  - 'mult_lme4'
-  - 'mult_res_lme4'
-  - 'mult_summary'
-  - 'ran'
   - 'res_lme4'
-  - 'VarE'
-  - 'VarG'
 - title: SpATS
   desc:  Additional functions for SpATS models
 - contents:

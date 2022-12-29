@@ -85,7 +85,8 @@
 
 
 <dt>vc.model</dt>
-<dd><p>variance covariance structure c("fa1", "fa2", "fa3", "fa4", "us")</p></dd>
+<dd><p>variance covariance structure c("fa1", "fa2", "fa3", "fa4",
+"us")</p></dd>
 
 </dl></div>
     <div id="value">
@@ -105,12 +106,19 @@
 <span class="r-in"><span><span class="co"># dat &lt;- besag.met</span></span></span>
 <span class="r-in"><span><span class="co">#</span></span></span>
 <span class="r-in"><span><span class="co"># dat &lt;- dat %&gt;% arrange(county)</span></span></span>
-<span class="r-in"><span><span class="co"># model &lt;- asreml(fixed = yield ~ 1 + county,</span></span></span>
-<span class="r-in"><span><span class="co">#                 random = ~ fa(county, 2):gen + county:rep + diag(county):rep:block,</span></span></span>
-<span class="r-in"><span><span class="co">#                 residual = ~ dsum(~ units | county),</span></span></span>
-<span class="r-in"><span><span class="co">#                 data = dat,</span></span></span>
-<span class="r-in"><span><span class="co">#                 na.action = list(x="include",y="include"))</span></span></span>
-<span class="r-in"><span><span class="co"># heritability_fa(model_fa = model, genotype = "gen", env = "county", vc.model = "fa2")</span></span></span>
+<span class="r-in"><span><span class="co"># model &lt;- asreml(</span></span></span>
+<span class="r-in"><span><span class="co">#   fixed = yield ~ 1 + county,</span></span></span>
+<span class="r-in"><span><span class="co">#   random = ~ fa(county, 2):gen + county:rep + diag(county):rep:block,</span></span></span>
+<span class="r-in"><span><span class="co">#   residual = ~ dsum(~ units | county),</span></span></span>
+<span class="r-in"><span><span class="co">#   data = dat,</span></span></span>
+<span class="r-in"><span><span class="co">#   na.action = list(x="include",y="include")</span></span></span>
+<span class="r-in"><span><span class="co"># )</span></span></span>
+<span class="r-in"><span><span class="co"># heritability_fa(</span></span></span>
+<span class="r-in"><span><span class="co">#  model_fa = model,</span></span></span>
+<span class="r-in"><span><span class="co">#  genotype = "gen",</span></span></span>
+<span class="r-in"><span><span class="co">#  env = "county",</span></span></span>
+<span class="r-in"><span><span class="co">#  vc.model = "fa2"</span></span></span>
+<span class="r-in"><span><span class="co"># )</span></span></span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
