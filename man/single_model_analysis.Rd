@@ -32,19 +32,22 @@ A list of data.frames.
 Single Trial Analysis
 }
 \examples{
-# library(agridat)
-# library(agriutilities)
-# data(besag.met)
-# dat <- besag.met
-# results <- check_design_MET(
-#   data = dat,
-#   genotype = "gen",
-#   trial = "county",
-#   traits = c("yield"),
-#   rep = "rep",
-#   block = "block",
-#   col = "col",
-#   row = "row"
-# )
-# single_model_analysis(results)
+\donttest{
+library(agridat)
+library(agriutilities)
+data(besag.met)
+dat <- besag.met
+results <- check_design_MET(
+  data = dat,
+  genotype = "gen",
+  trial = "county",
+  traits = c("yield"),
+  rep = "rep",
+  block = "block",
+  col = "col",
+  row = "row"
+)
+out <- single_model_analysis(results, progress = FALSE)
+out$resum_fitted_model
+}
 }

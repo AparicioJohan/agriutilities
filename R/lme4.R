@@ -156,9 +156,9 @@ res_lme4 <- function(model, returnN = FALSE, k = 3) {
   res <- stats::residuals(model, scaled = TRUE)
   data <- model@frame
   data$residual <- res
-  data$Classify <- NA
-  data$Classify[which(abs(data$res) >= k)] <- "Outlier"
-  data$Classify[which(abs(data$res) < k)] <- "Normal"
+  data$outlier <- NA
+  data$outlier[which(abs(data$res) >= k)] <- TRUE
+  data$outlier[which(abs(data$res) < k)] <- FALSE
   ix <- ifelse(length(which(abs(res) > k)) >= 1, length(which(abs(res) > k)), 0)
   if (!returnN) {
     return(data)
@@ -180,12 +180,16 @@ mult_models <- function(data = NULL,
     tmp_dt <- dplyr::filter(data, .data[[by]] %in% exp)
     if (mixed_model) {
       model <- try(
-        expr = lmerTest::lmer(equation, data = tmp_dt, na.action = na.omit),
+        expr = suppressMessages(
+          lmerTest::lmer(equation, data = tmp_dt, na.action = na.omit)
+        ),
         silent = TRUE
       )
     } else {
       model <- try(
-        expr = stats::lm(equation, data = tmp_dt, na.action = na.omit),
+        expr = suppressMessages(
+          stats::lm(equation, data = tmp_dt, na.action = na.omit)
+        ),
         silent = TRUE
       )
     }
@@ -270,9 +274,9 @@ get_blup_blues <- function(models_fixed = NULL,
 #' @noRd
 #' @keywords internal
 get_residuals <- function(models, k = 3) {
-  data_out <- lapply(models, res_lme4, TRUE, k = k) %>%
+  data_out <- lapply(models, res_lme4, FALSE, k = k) %>%
     dplyr::bind_rows(., .id = "trial")
-  outliers <- data_out[data_out$Classify == "Outlier", ]
+  outliers <- data_out[data_out$outlier %in% TRUE, ]
   return(list(residuals = data_out, outliers = outliers))
 }
 
@@ -338,14 +342,27 @@ fit_crd <- function(data = NULL,
   )
   # Residuals
   residuals <- get_residuals(models = models_rand)
+  outliers <- merge(
+    x = data,
+    y = residuals$outliers,
+    by.x = c(trial, genotype, response),
+    by.y = c("trial", genotype, response),
+    all.y = TRUE
+  ) %>%
+    dplyr::select(dplyr::all_of(c(trial, genotype)), id, outlier)
+  names(outliers) <- c("trial", "genotype", "id", "outlier")
+
+  residuals <- residuals$residuals %>%
+    dplyr::select(trial, all_of(genotype), residual)
+  names(residuals) <- c("trial", "genotype", response)
   # results
   output <- list(
     models_rand = models_rand,
     models_fixed = models_fixed,
     resum_fitted_model = mt_summ,
     blues_blups = blues_blups,
-    residuals = residuals$residuals,
-    outliers = residuals$outliers
+    residuals = residuals,
+    outliers = outliers
   )
   return(output)
 }

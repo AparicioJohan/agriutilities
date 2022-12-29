@@ -212,7 +212,8 @@ check_design_MET <- function(data = NULL,
         )
       )
     ) %>%
-    select(.data[[trial]], exp_design)
+    select(.data[[trial]], exp_design) %>%
+    as.data.frame()
 
   data_design <- merge(x = data, y = design, all.x = TRUE) %>%
     mutate(id = seq_len(nrow(.))) %>%

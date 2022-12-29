@@ -14,21 +14,24 @@
 #' @export
 #'
 #' @examples
-#' # library(agridat)
-#' # library(agriutilities)
-#' # data(besag.met)
-#' # dat <- besag.met
-#' # results <- check_design_MET(
-#' #   data = dat,
-#' #   genotype = "gen",
-#' #   trial = "county",
-#' #   traits = c("yield"),
-#' #   rep = "rep",
-#' #   block = "block",
-#' #   col = "col",
-#' #   row = "row"
-#' # )
-#' # single_model_analysis(results)
+#' \donttest{
+#' library(agridat)
+#' library(agriutilities)
+#' data(besag.met)
+#' dat <- besag.met
+#' results <- check_design_MET(
+#'   data = dat,
+#'   genotype = "gen",
+#'   trial = "county",
+#'   traits = c("yield"),
+#'   rep = "rep",
+#'   block = "block",
+#'   col = "col",
+#'   row = "row"
+#' )
+#' out <- single_model_analysis(results, progress = FALSE)
+#' out$resum_fitted_model
+#' }
 #' @importFrom statgenSTA createTD fitTD outlierSTA extractSTA STAtoTD
 single_model_analysis <- function(results = NULL,
                                   progress = TRUE,
@@ -373,7 +376,7 @@ single_model_analysis <- function(results = NULL,
           trial = results$inputs$trial,
           repId = results$inputs$rep,
           subBlock = results$inputs$block,
-          trDesign = "ibd"
+          trDesign = "res.ibd"
         )
         m_models_alpha <- fitTD(
           TD = td_alpha,
@@ -427,7 +430,7 @@ single_model_analysis <- function(results = NULL,
             trial = results$inputs$trial,
             repId = results$inputs$rep,
             subBlock = results$inputs$block,
-            trDesign = "ibd"
+            trDesign = "res.ibd"
           )
           m_models_alpha <- fitTD(
             TD = td_alpha,
@@ -639,6 +642,98 @@ single_model_analysis <- function(results = NULL,
           what = "stdResR"
         )
         std_residuals[[i]] <- stdRes_rcbd
+      }
+    }
+
+    # CRD ---------------------------------------------------------------------
+
+    if ("crd" %in% results$exp_design_list$exp_design) {
+      m_models_crd <- list()
+
+      exp_to_remove <- results$filter[[i]]$trials_to_remove
+
+      crd_trials <- results$data_design %>%
+        filter(
+          exp_design == "crd" &
+            !.data[[results$inputs$trial]] %in% exp_to_remove
+        ) %>%
+        pull(results$inputs$trial) %>%
+        as.character() %>%
+        unique()
+
+      data_crd <- results$data_design %>%
+        filter(.data[[results$inputs$trial]] %in% crd_trials) %>%
+        droplevels()
+
+      if (nrow(data_crd) > 0) {
+        td_crd <- fit_crd(
+          data = data_crd,
+          trial = results$inputs$trial,
+          genotype = results$inputs$genotype,
+          response = i
+        )
+        m_models_crd <- list(
+          mRand = td_crd$models_rand,
+          mFix = td_crd$models_fixed
+        )
+
+        # Residuals Cleaning
+        if (!is.null(td_crd$outliers) && remove_outliers) {
+          outliers_crd <- td_crd %>%
+            .[["outliers"]] %>%
+            dplyr::select(trial, genotype, id, outlier)
+
+          outliers[[i]] <- rbind(outliers[[i]], outliers_crd)
+
+          data_crd_clean <- data_crd %>%
+            merge(
+              x = .,
+              y = outliers_crd,
+              by.x = c(results$inputs$trial, results$inputs$genotype, "id"),
+              by.y = c("trial", "genotype", "id"),
+              all = TRUE,
+              sort = FALSE
+            ) %>%
+            mutate(
+              outlier = ifelse(is.na(outlier), FALSE, outlier),
+              !!i := ifelse(
+                test = outlier == TRUE,
+                yes = NA,
+                no = .data[[i]]
+              )
+            ) %>%
+            droplevels() %>%
+            data.frame() %>%
+            rename(outlier_crd = outlier)
+
+          td_crd <- fit_crd(
+            data = data_crd,
+            trial = results$inputs$trial,
+            genotype = results$inputs$genotype,
+            response = i
+          )
+          m_models_crd <- list(
+            mRand = td_crd$models_rand,
+            mFix = td_crd$models_fixed
+          )
+        }
+
+        resum_fitted_model_crd <- td_crd$resum_fitted_model
+
+        fitted_models[[i]] <- m_models_crd
+
+        resum_fitted_model[[i]] <- rbind(
+          resum_fitted_model[[i]],
+          resum_fitted_model_crd
+        )
+
+        # BLUES
+        blues_TD_crd <- td_crd$blues_blups
+        blues_blups[[i]] <- blues_TD_crd
+
+        # standardized residuals
+        stdRes_crd <- td_crd$residuals
+        std_residuals[[i]] <- stdRes_crd
       }
     }
   }

@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# agriutilities <a href="https://apariciojohan.github.io/agriutilities/"><img src="man/figures/logo.png" align="right" width="120" /></a>
+# agriutilities <a href="https://apariciojohan.github.io/agriutilities/"><img src="man/figures/logo.png" align="right" width="120"/></a>
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -20,10 +20,12 @@ You can install the development version of agriutilities from
 devtools::install_github("AparicioJohan/agriutilities")
 ```
 
-## Example
+## Pipeline Automatic
 
 This is a basic example which shows you how to use some of the functions
 of the package.
+
+### Identify the Experimental Design
 
 The function `check_design_MET` helps us to check the quality of the
 data and also to identify the experimental design of the trials. This
@@ -48,17 +50,11 @@ results <- check_design_MET(
 
 Some of the outputs are:
 
+<div class="row">
+
+<div class="col-md-6">
+
 ``` r
-results$exp_design_list
-#> # A tibble: 6 × 2
-#>   county exp_design 
-#>   <fct>  <chr>      
-#> 1 C1     res_row_col
-#> 2 C2     res_row_col
-#> 3 C3     res_row_col
-#> 4 C4     res_row_col
-#> 5 C5     res_row_col
-#> 6 C6     res_row_col
 results$connectivity_matrix
 #>    C1 C2 C3 C4 C5 C6
 #> C1 64 64 64 64 64 64
@@ -69,8 +65,49 @@ results$connectivity_matrix
 #> C6 64 64 64 64 64 64
 ```
 
+</div>
+
+<div class="col-md-6">
+
+``` r
+results$exp_design_list
+#>   county  exp_design
+#> 1     C1 res_row_col
+#> 2     C2 res_row_col
+#> 3     C3 res_row_col
+#> 4     C4 res_row_col
+#> 5     C5 res_row_col
+#> 6     C6 res_row_col
+```
+
+</div>
+
+</div>
+
+Summary:
+
+``` r
+results$summ_traits
+#> # A tibble: 6 × 9
+#>   county traits  Mean Median    SD    CV     n n_miss miss_perc
+#>   <fct>  <chr>  <dbl>  <dbl> <dbl> <dbl> <int>  <int>     <dbl>
+#> 1 C1     yield  149.   151.   17.7 0.119   198      6    0.0303
+#> 2 C2     yield   56.1   52.1  18.4 0.328   198      6    0.0303
+#> 3 C3     yield   87.9   89.2  19.7 0.225   198      6    0.0303
+#> 4 C4     yield  145.   143.   17.1 0.118   198      6    0.0303
+#> 5 C5     yield  115.   116.   16.4 0.142   198      6    0.0303
+#> 6 C6     yield   87.6   87.8  26.6 0.304   198      6    0.0303
+```
+
+### Fitting models based on the randomization
+
 The results of the previous function are used in `single_model_analysis`
 to fit single trial models.
+
+This function can fit, Completely Randomized Designs (**CRD**),
+Randomized Complete Block Designs (**RCBD**), Resolvable Incomplete
+Block Designs (**res-IBD**), Non-Resolvable Row-Column Designs
+(**Row-Col**) and Resolvable Row-Column Designs (**res-Row-Col**)
 
 ``` r
 obj <- single_model_analysis(results, progress = FALSE)

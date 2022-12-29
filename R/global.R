@@ -61,6 +61,7 @@ utils::globalVariables(
     'coef',
     'CV_spats',
     'outlier',
-    'seBLUEs'
+    'seBLUEs',
+    'residual'
   )
 )
