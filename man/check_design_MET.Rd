@@ -46,18 +46,21 @@ An object of class checkAgri, a list of data.frames.
 Check Experimental Design
 }
 \examples{
-# library(agridat)
-# library(agriutilities)
-# data(besag.met)
-# dat <- besag.met
-# results <- check_design_MET(
-#   data = dat,
-#   genotype = "gen",
-#   trial = "county",
-#   traits = c("yield"),
-#   rep = "rep",
-#   block = "block",
-#   col = "col",
-#   row = "row"
-# )
+\donttest{
+library(agridat)
+library(agriutilities)
+data(besag.met)
+dat <- besag.met
+results <- check_design_MET(
+  data = dat,
+  genotype = "gen",
+  trial = "county",
+  traits = c("yield"),
+  rep = "rep",
+  block = "block",
+  col = "col",
+  row = "row"
+)
+results$exp_design_resum
+}
 }

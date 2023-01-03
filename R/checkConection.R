@@ -1,32 +1,39 @@
-#' check_connectivity
+#' Check connectivity between trials
 #'
-#' @param data MET dataset
-#' @param genotype string
-#' @param trial string
-#' @param response string
-#' @param all wheater or not print all the table
+#' @param data A data.frame in a wide format.
+#' @param genotype A character string indicating the column in data that
+#' contains genotypes.
+#' @param trial A character string indicating the column in data that contains
+#' trials.
+#' @param response A character string specifying the trait.
+#' @param all Whether or not print all the table
 #'
-#' @return table with gen conection
+#' @return table with gen connectivity
 #' @export
 #'
 #' @examples
-#' # library(agridat)
-#' # data(besag.met)
-#' # dat <- besag.met
-#' # check_connectivity(
-#' #  data = dat,
-#' #  genotype = "gen",
-#' #  trial = "county",
-#' #  response = "yield",
-#' #  all = T
-#' #  )
+#' \donttest{
+#' library(agridat)
+#' library(agriutilities)
+#' data(besag.met)
+#' dat <- besag.met
+#' head(
+#'   check_connectivity(
+#'     data = dat,
+#'     genotype = "gen",
+#'     trial = "county",
+#'     response = "yield",
+#'     all = TRUE
+#'   )
+#' )
+#' }
 #' @importFrom rlang .data
 #' @import dplyr
-check_connectivity <- function(data,
-                           genotype = "line",
-                           trial = "Experiment",
-                           response = NULL,
-                           all = FALSE) {
+check_connectivity <- function(data = NULL,
+                               genotype = "line",
+                               trial = "Experiment",
+                               response = NULL,
+                               all = FALSE) {
   tmp_data <- data %>%
     {
       if (!is.null(response)) {
@@ -54,45 +61,38 @@ check_connectivity <- function(data,
   }
 }
 
-
-#' connectivity_matrix
+#' Connectivity Matrix
 #' @description This function generates a (n_trial x n_trial) matrix  with the
-#'  amount of genotypes shared between each pair of trial.
+#' amount of genotypes shared between each pair of trial.
 #'
-#' @param data MET dataset
-#' @param genotype string
-#' @param trial string
-#' @param response string
+#' @param data A data.frame in a wide format.
+#' @param genotype A character string indicating the column in data that
+#' contains genotypes.
+#' @param trial A character string indicating the column in data that contains
+#' trials.
+#' @param response A character string specifying the trait.
 #'
 #' @return matrix
 #' @export
 #'
 #' @examples
-#' # library(agridat)
-#' # data(besag.met)
-#' # dat <- besag.met
-#' # conn <- connectivity_matrix(
-#' #  data = dat,
-#' #  genotype = "gen",
-#' #  trial = "county",
-#' #  response = "yield"
-#' # )
-#' # heatmap(conn)
-#' # res <- factoextra::hcut(conn, k = 3, stand = FALSE)
-#' # factoextra::fviz_dend(
-#' #   x = res,
-#' #   rect = FALSE,
-#' #   cex = 0.5,
-#' #   lwd = 0.5,
-#' #   main = "Dendrogram",
-#' #   horiz = TRUE
-#' # )
+#' \donttest{
+#' library(agridat)
+#' data(besag.met)
+#' dat <- besag.met
+#' connectivity_matrix(
+#'   data = dat,
+#'   genotype = "gen",
+#'   trial = "county",
+#'   response = "yield"
+#' )
+#' }
 #' @importFrom rlang .data
 #' @import dplyr tidyr tibble
-connectivity_matrix <- function(data,
-                            genotype = "germplasmName",
-                            trial = "trial",
-                            response = NULL) {
+connectivity_matrix <- function(data = NULL,
+                                genotype = "germplasmName",
+                                trial = "trial",
+                                response = NULL) {
   tmp_data <- data %>%
     {
       if (!is.null(response)) {

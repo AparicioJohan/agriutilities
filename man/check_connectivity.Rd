@@ -2,10 +2,10 @@
 % Please edit documentation in R/checkConection.R
 \name{check_connectivity}
 \alias{check_connectivity}
-\title{check_connectivity}
+\title{Check connectivity between trials}
 \usage{
 check_connectivity(
-  data,
+  data = NULL,
   genotype = "line",
   trial = "Experiment",
   response = NULL,
@@ -13,31 +13,38 @@ check_connectivity(
 )
 }
 \arguments{
-\item{data}{MET dataset}
+\item{data}{A data.frame in a wide format.}
 
-\item{genotype}{string}
+\item{genotype}{A character string indicating the column in data that
+contains genotypes.}
 
-\item{trial}{string}
+\item{trial}{A character string indicating the column in data that contains
+trials.}
 
-\item{response}{string}
+\item{response}{A character string specifying the trait.}
 
-\item{all}{wheater or not print all the table}
+\item{all}{Whether or not print all the table}
 }
 \value{
-table with gen conection
+table with gen connectivity
 }
 \description{
-check_connectivity
+Check connectivity between trials
 }
 \examples{
-# library(agridat)
-# data(besag.met)
-# dat <- besag.met
-# check_connectivity(
-#  data = dat,
-#  genotype = "gen",
-#  trial = "county",
-#  response = "yield",
-#  all = T
-#  )
+\donttest{
+library(agridat)
+library(agriutilities)
+data(besag.met)
+dat <- besag.met
+head(
+  check_connectivity(
+    data = dat,
+    genotype = "gen",
+    trial = "county",
+    response = "yield",
+    all = TRUE
+  )
+)
+}
 }

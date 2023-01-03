@@ -66,7 +66,8 @@
 <span>  model_fa <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  genotype <span class="op">=</span> <span class="st">"line"</span>,</span>
 <span>  env <span class="op">=</span> <span class="st">"loc"</span>,</span>
-<span>  vc.model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"fa2"</span><span class="op">)</span></span>
+<span>  vc.model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"fa2"</span><span class="op">)</span>,</span>
+<span>  diag <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -77,23 +78,31 @@
 
 
 <dt>genotype</dt>
-<dd><p>String</p></dd>
+<dd><p>A character string indicating the column in data that
+contains genotypes.</p></dd>
 
 
 <dt>env</dt>
-<dd><p>String</p></dd>
+<dd><p>A character string indicating the column in data that contains
+trials or environments.</p></dd>
 
 
 <dt>vc.model</dt>
-<dd><p>variance covariance structure c("fa1", "fa2", "fa3", "fa4",
-"us")</p></dd>
+<dd><p>A character string indicating the variance-covariance
+structure c("fa1", "fa2", "fa3", "fa4", "us").</p></dd>
+
+
+<dt>diag</dt>
+<dd><p>TRUE or FALSE depending on the user if they want to take the
+elements on the diagonal of the variance-covariance matrix or the elements
+out of the diagonal to estimate the heritability. FALSE by default.</p></dd>
 
 </dl></div>
     <div id="value">
     <h2>Value</h2>
     
 
-<p>data.frame</p>
+<p>A list</p>
     </div>
 
     <div id="ref-examples">

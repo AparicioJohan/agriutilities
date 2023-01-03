@@ -2,49 +2,43 @@
 % Please edit documentation in R/checkConection.R
 \name{connectivity_matrix}
 \alias{connectivity_matrix}
-\title{connectivity_matrix}
+\title{Connectivity Matrix}
 \usage{
 connectivity_matrix(
-  data,
+  data = NULL,
   genotype = "germplasmName",
   trial = "trial",
   response = NULL
 )
 }
 \arguments{
-\item{data}{MET dataset}
+\item{data}{A data.frame in a wide format.}
 
-\item{genotype}{string}
+\item{genotype}{A character string indicating the column in data that
+contains genotypes.}
 
-\item{trial}{string}
+\item{trial}{A character string indicating the column in data that contains
+trials.}
 
-\item{response}{string}
+\item{response}{A character string specifying the trait.}
 }
 \value{
 matrix
 }
 \description{
 This function generates a (n_trial x n_trial) matrix  with the
- amount of genotypes shared between each pair of trial.
+amount of genotypes shared between each pair of trial.
 }
 \examples{
-# library(agridat)
-# data(besag.met)
-# dat <- besag.met
-# conn <- connectivity_matrix(
-#  data = dat,
-#  genotype = "gen",
-#  trial = "county",
-#  response = "yield"
-# )
-# heatmap(conn)
-# res <- factoextra::hcut(conn, k = 3, stand = FALSE)
-# factoextra::fviz_dend(
-#   x = res,
-#   rect = FALSE,
-#   cex = 0.5,
-#   lwd = 0.5,
-#   main = "Dendrogram",
-#   horiz = TRUE
-# )
+\donttest{
+library(agridat)
+data(besag.met)
+dat <- besag.met
+connectivity_matrix(
+  data = dat,
+  genotype = "gen",
+  trial = "county",
+  response = "yield"
+)
+}
 }
