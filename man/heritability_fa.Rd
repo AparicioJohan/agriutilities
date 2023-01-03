@@ -8,21 +8,28 @@ heritability_fa(
   model_fa = NULL,
   genotype = "line",
   env = "loc",
-  vc.model = c("fa2")
+  vc.model = c("fa2"),
+  diag = FALSE
 )
 }
 \arguments{
 \item{model_fa}{Factor Analytic asreml model}
 
-\item{genotype}{String}
+\item{genotype}{A character string indicating the column in data that
+contains genotypes.}
 
-\item{env}{String}
+\item{env}{A character string indicating the column in data that contains
+trials or environments.}
 
-\item{vc.model}{variance covariance structure c("fa1", "fa2", "fa3", "fa4",
-"us")}
+\item{vc.model}{A character string indicating the variance-covariance
+structure c("fa1", "fa2", "fa3", "fa4", "us").}
+
+\item{diag}{TRUE or FALSE depending on the user if they want to take the
+elements on the diagonal of the variance-covariance matrix or the elements
+out of the diagonal to estimate the heritability. FALSE by default.}
 }
 \value{
-data.frame
+A list
 }
 \description{
 Heritability for Factor Analytic Models in ASReml-R

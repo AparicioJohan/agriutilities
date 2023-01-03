@@ -1,12 +1,17 @@
 #' Heritability for Factor Analytic Models in ASReml-R
 #'
 #' @param model_fa Factor Analytic asreml model
-#' @param genotype String
-#' @param env String
-#' @param vc.model variance covariance structure c("fa1", "fa2", "fa3", "fa4",
-#' "us")
+#' @param genotype A character string indicating the column in data that
+#' contains genotypes.
+#' @param env A character string indicating the column in data that contains
+#' trials or environments.
+#' @param vc.model A character string indicating the variance-covariance
+#' structure c("fa1", "fa2", "fa3", "fa4", "us").
+#' @param diag TRUE or FALSE depending on the user if they want to take the
+#' elements on the diagonal of the variance-covariance matrix or the elements
+#' out of the diagonal to estimate the heritability. FALSE by default.
 #'
-#' @return data.frame
+#' @return A list
 #' @export
 #'
 #' @examples
@@ -34,14 +39,20 @@
 heritability_fa <- function(model_fa = NULL,
                             genotype = "line",
                             env = "loc",
-                            vc.model = c("fa2")) {
+                            vc.model = c("fa2"),
+                            diag = FALSE) {
   G <- extractG(
     model = model_fa,
     gen = genotype,
     env = env,
     vc.model = vc.model
   )$VCOV
-  Gvar <- mean(G[upper.tri(G, diag = FALSE)])
+
+  if(diag) {
+    Gvar <- mean(diag(G))
+  } else {
+    Gvar <- mean(G[upper.tri(G, diag = FALSE)])
+  }
   pr <- suppressWarnings(
     asreml::predict.asreml(model_fa, classify = genotype, sed = TRUE, trace = 0)
   )
