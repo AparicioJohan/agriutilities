@@ -28,6 +28,7 @@ reference:
   - 'connectivity_matrix'
   - '`check_design_MET`'
   - '`single_model_analysis`'
+  - '`stability`'
 - title: Lme4
   desc: Additional functions for lme4 models
 - contents:

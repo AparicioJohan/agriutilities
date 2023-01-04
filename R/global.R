@@ -62,6 +62,8 @@ utils::globalVariables(
     'CV_spats',
     'outlier',
     'seBLUEs',
-    'residual'
+    'residual',
+    'mean_gen',
+    'mean_trial'
   )
 )
