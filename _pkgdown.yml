@@ -29,6 +29,7 @@ reference:
   - '`check_design_MET`'
   - '`single_model_analysis`'
   - '`stability`'
+  - '`met_analysis`'
 - title: Lme4
   desc: Additional functions for lme4 models
 - contents:

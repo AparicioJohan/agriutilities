@@ -64,6 +64,9 @@ utils::globalVariables(
     'seBLUEs',
     'residual',
     'mean_gen',
-    'mean_trial'
+    'mean_trial',
+    'wt',
+    'trait',
+    'heritability'
   )
 )
