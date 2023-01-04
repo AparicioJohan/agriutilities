@@ -424,13 +424,13 @@ single_model_analysis <- function(results = NULL,
   row.names(blues_blups) <- NULL
   resum_fitted_model <- dplyr::bind_rows(resum_fitted_model, .id = "trait")
   row.names(resum_fitted_model) <- NULL
-  return(
-    list(
-      fitted_models = fitted_models,
-      resum_fitted_model = resum_fitted_model,
-      outliers = outliers,
-      blues_blups = blues_blups,
-      std_residuals = std_residuals
-    )
+  results <- list(
+    fitted_models = fitted_models,
+    resum_fitted_model = resum_fitted_model,
+    outliers = outliers,
+    blues_blups = blues_blups,
+    std_residuals = std_residuals
   )
+  class(results) <- "smaAgri"
+  return(results)
 }
