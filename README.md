@@ -20,7 +20,7 @@ You can install the development version of agriutilities from
 devtools::install_github("AparicioJohan/agriutilities")
 ```
 
-## Pipeline Automatic
+## Automatic Data Analysis Pipeline
 
 This is a basic example which shows you how to use some of the functions
 of the package.
@@ -34,6 +34,7 @@ works as a quality check or quality control before we fit any model.
 ``` r
 library(agriutilities)
 library(agridat)
+#> Warning: package 'agridat' was built under R version 4.1.3
 data(besag.met)
 dat <- besag.met
 results <- check_design_MET(
@@ -88,7 +89,7 @@ Summary:
 
 ``` r
 results$summ_traits
-#> # A tibble: 6 × 9
+#> # A tibble: 6 x 9
 #>   county traits  Mean Median    SD    CV     n n_miss miss_perc
 #>   <fct>  <chr>  <dbl>  <dbl> <dbl> <dbl> <int>  <int>     <dbl>
 #> 1 C1     yield  149.   151.   17.7 0.119   198      6    0.0303

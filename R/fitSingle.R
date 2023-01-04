@@ -7,7 +7,6 @@ fit_STA <- function(results, trait, design, remove_outliers, engine, progress) {
     "alpha_lattice" = "res.ibd",
     "rcbd" = "rcbd"
   )
-
   if (design %in% "alpha_lattice" || design %in% "rcbd") {
     results$inputs$row <- NULL
     results$inputs$col <- NULL
@@ -15,10 +14,8 @@ fit_STA <- function(results, trait, design, remove_outliers, engine, progress) {
   } else {
     spatial <- TRUE
   }
-
   m_models <- list()
   results <- results
-
   exp_to_remove <- results$filter[[trait]]$trials_to_remove
 
   trials <- results$data_design %>%
@@ -34,9 +31,63 @@ fit_STA <- function(results, trait, design, remove_outliers, engine, progress) {
     filter(.data[[results$inputs$trial]] %in% trials) %>%
     droplevels()
 
-  if (nrow(data) > 0) {
+  if (nrow(data) <= 0) {
+    message("There is no data to fit any model.")
+    return()
+  }
+  td <- createTD(
+    data = data,
+    genotype = results$inputs$genotype,
+    trial = results$inputs$trial,
+    repId = results$inputs$rep,
+    subBlock = results$inputs$block,
+    rowCoord = results$inputs$row,
+    colCoord = results$inputs$col,
+    trDesign = design_td
+  )
+  m_models <- fitTD(
+    TD = td,
+    traits = trait,
+    what = c("fixed", "random"),
+    spatial = spatial,
+    progress = progress,
+    engine = engine
+  )
+  # Residuals
+  outliers_td <- outlierSTA(
+    STA = m_models,
+    traits = trait,
+    rLimit = 3,
+    verbose = FALSE
+  )
+  # Cleaning
+  if (!is.null(outliers_td$outliers) && remove_outliers) {
+    outliers_td <- outliers_td %>%
+      .[["outliers"]] %>%
+      dplyr::select(trial, genotype, id, outlier)
+    data_clean <- data %>%
+      merge(
+        x = .,
+        y = outliers_td,
+        by.x = c(results$inputs$trial, results$inputs$genotype, "id"),
+        by.y = c("trial", "genotype", "id"),
+        all = TRUE,
+        sort = FALSE
+      ) %>%
+      mutate(
+        outlier = ifelse(is.na(outlier), FALSE, outlier),
+        !!trait := ifelse(
+          test = outlier == TRUE,
+          yes = NA,
+          no = .data[[trait]]
+        )
+      ) %>%
+      droplevels() %>%
+      data.frame() %>%
+      rename(outlier = outlier)
+
     td <- createTD(
-      data = data,
+      data = data_clean,
       genotype = results$inputs$genotype,
       trial = results$inputs$trial,
       repId = results$inputs$rep,
@@ -53,116 +104,60 @@ fit_STA <- function(results, trait, design, remove_outliers, engine, progress) {
       progress = progress,
       engine = engine
     )
-
-    # Residuals
-    outliers_td <- outlierSTA(
-      STA = m_models,
-      traits = trait,
-      rLimit = 3,
-      verbose = FALSE
-    )
-
-    # Cleaning
-    if (!is.null(outliers_td$outliers) && remove_outliers) {
-      outliers_td <- outliers_td %>%
-        .[["outliers"]] %>%
-        dplyr::select(trial, genotype, id, outlier)
-
-      data_clean <- data %>%
-        merge(
-          x = .,
-          y = outliers_td,
-          by.x = c(results$inputs$trial, results$inputs$genotype, "id"),
-          by.y = c("trial", "genotype", "id"),
-          all = TRUE,
-          sort = FALSE
-        ) %>%
-        mutate(
-          outlier = ifelse(is.na(outlier), FALSE, outlier),
-          !!trait := ifelse(
-            test = outlier == TRUE,
-            yes = NA,
-            no = .data[[trait]]
-          )
-        ) %>%
-        droplevels() %>%
-        data.frame() %>%
-        rename(outlier = outlier)
-
-      td <- createTD(
-        data = data_clean,
-        genotype = results$inputs$genotype,
-        trial = results$inputs$trial,
-        repId = results$inputs$rep,
-        subBlock = results$inputs$block,
-        rowCoord = results$inputs$row,
-        colCoord = results$inputs$col,
-        trDesign = design_td
-      )
-      m_models <- fitTD(
-        TD = td,
-        traits = trait,
-        what = c("fixed", "random"),
-        spatial = spatial,
-        progress = progress,
-        engine = engine
-      )
-    }
-    # Heritability
-    h2_cullis <- extractSTA(
-      STA = m_models,
-      what = "heritability"
-    )
-    # VarComps
-    VarG <- extractSTA(
-      STA = m_models,
-      what = "varGen"
-    )
-    VarE <- extractSTA(
-      STA = m_models,
-      what = "varErr"
-    )
-    # CV
-    CV <- extractSTA(
-      STA = m_models,
-      what = "CV"
-    )
-
-    names(h2_cullis)[2] <- "heritability"
-    names(VarG)[2] <- "VarGen"
-    names(VarE)[2] <- "VarErr"
-    names(CV)[2] <- "CV"
-
-    resum_fitted_model <- merge(
-      x = merge(x = h2_cullis, CV, by = "trial"),
-      y = merge(x = VarG, VarE, by = "trial"),
-      by = "trial"
-    ) %>%
-      mutate(design = design)
-
-    fitted_models <- m_models
-
-    # BLUES
-    blues_TD <- STAtoTD(m_models, keep = c("trial"), addWt = TRUE)
-    blues_TD <- do.call(rbind, lapply(blues_TD, as.data.frame))
-    blues_blups <- blues_TD
-
-    # standardized residuals
-    stdRes <- extractSTA(
-      STA = m_models,
-      what = "stdResR"
-    )
-    std_residuals <- stdRes
-
-    out <- list(
-      fitted_models = fitted_models,
-      resum_fitted_model = resum_fitted_model,
-      outliers = outliers_td,
-      blues_blups = blues_blups,
-      std_residuals = std_residuals
-    )
-    return(out)
   }
+  # Heritability
+  h2_cullis <- extractSTA(
+    STA = m_models,
+    what = "heritability"
+  )
+  # VarComps
+  var_gen <- extractSTA(
+    STA = m_models,
+    what = "varGen"
+  )
+  var_error <- extractSTA(
+    STA = m_models,
+    what = "varErr"
+  )
+  # CV
+  coef_var <- extractSTA(
+    STA = m_models,
+    what = "CV"
+  )
+  names(h2_cullis)[2] <- "heritability"
+  names(var_gen)[2] <- "VarGen"
+  names(var_error)[2] <- "VarErr"
+  names(coef_var)[2] <- "CV"
+  # Summary
+  resum_fitted_model <- merge(
+    x = merge(x = h2_cullis, coef_var, by = "trial"),
+    y = merge(x = var_gen, var_error, by = "trial"),
+    by = "trial"
+  ) %>%
+    mutate(design = design)
+  # Fitted Models
+  fitted_models <- m_models
+  # BLUES
+  blues_td <- STAtoTD(m_models, keep = c("trial"), addWt = TRUE)
+  blues_td <- do.call(rbind, lapply(blues_td, as.data.frame))
+  names(blues_td) <- c(
+    "genotype", "trial", "BLUEs", "seBLUEs", "BLUPs", "seBLUPs", "wt"
+  )
+  blues_blups <- blues_td
+  # standardized residuals
+  std_res <- extractSTA(
+    STA = m_models,
+    what = "stdResR"
+  )
+  std_residuals <- std_res
+  out <- list(
+    fitted_models = fitted_models,
+    resum_fitted_model = resum_fitted_model,
+    outliers = outliers_td,
+    blues_blups = blues_blups,
+    std_residuals = std_residuals
+  )
+  return(out)
 }
 
 #' Single Trial Analysis
@@ -388,7 +383,7 @@ single_model_analysis <- function(results = NULL,
             rename(outlier_crd = outlier)
 
           td_crd <- fit_crd(
-            data = data_crd,
+            data = data_crd_clean,
             trial = results$inputs$trial,
             genotype = results$inputs$genotype,
             response = i
@@ -412,19 +407,23 @@ single_model_analysis <- function(results = NULL,
         )
 
         # BLUES
-        blues_TD_crd <- td_crd$blues_blups
-        blues_blups[[i]] <- rbind(blues_blups[[i]], blues_TD_crd)
+        blues_td_crd <- td_crd$blues_blups
+        blues_blups[[i]] <- rbind(blues_blups[[i]], blues_td_crd)
 
         # standardized residuals
-        stdRes_crd <- td_crd$residuals
+        std_res_crd <- td_crd$residuals
         std_residuals[[i]] <- rbind(
           std_residuals[[i]],
-          stdRes_crd
+          std_res_crd
         )
       }
     }
   }
-
+  # stacking tables
+  blues_blups <- dplyr::bind_rows(blues_blups, .id = "trait")
+  row.names(blues_blups) <- NULL
+  resum_fitted_model <- dplyr::bind_rows(resum_fitted_model, .id = "trait")
+  row.names(resum_fitted_model) <- NULL
   return(
     list(
       fitted_models = fitted_models,

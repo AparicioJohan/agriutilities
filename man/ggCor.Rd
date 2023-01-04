@@ -5,21 +5,22 @@
 \title{Triangular correlation plot}
 \usage{
 ggCor(
-  myData,
+  data,
   colours = c("#db4437", "white", "#FF9D00"),
   blackLabs = c(-0.7, 0.7),
   showSignif = TRUE,
-  pBreaks = c(0, 1e-04, 0.001, 0.01, Inf),
+  pBreaks = c(0, 0.001, 0.01, 0.05, Inf),
   pLabels = c("***", "**", "*", "ns"),
   showDiagonal = FALSE,
   Diag = NULL,
   returnTable = FALSE,
   returnN = FALSE,
-  adjusted = TRUE
+  adjusted = TRUE,
+  label_size = 3
 )
 }
 \arguments{
-\item{myData}{A data.frame with numerical columns for each variable to be
+\item{data}{A data.frame with numerical columns for each variable to be
 compared.}
 
 \item{colours}{A vector of size three with the colors to be used for values
@@ -43,7 +44,7 @@ factor.}
 
 \item{Diag}{A named vector of labels to display in the main diagonal. The
 names are used to place each value in the corresponding coordinates of the
-diagonal. Hence, these names must be the same as the colnames of myData.}
+diagonal. Hence, these names must be the same as the colnames of data.}
 
 \item{returnTable}{Return the table to display instead of a ggplot object}
 
@@ -51,10 +52,12 @@ diagonal. Hence, these names must be the same as the colnames of myData.}
 
 \item{adjusted}{Use the adjusted p values for multiple testing instead of
 raw coeffs. TRUE by default.}
+
+\item{label_size}{Numeric value indicating the label size. 3 by default.}
 }
 \value{
 A ggplot object containing a triangular correlation figure with all
-numeric variables in myData. If returnTable is TRUE, the table used to
+numeric variables in data. If returnTable is TRUE, the table used to
 produce the figure is returned instead.
 }
 \description{
@@ -62,8 +65,14 @@ Return a ggplot object to plot a triangular correlation figure
 between 2 or more variables.
 }
 \examples{
-# data(iris)
-# ggCor(iris,colours = c("#db4437","white","#4285f4"), returnN = TRUE )
+\donttest{
+data(iris)
+ggCor(
+ data = iris,
+ colours = c("#db4437","white","#4285f4"),
+ label_size = 6
+)
+}
 }
 \author{
 Daniel Ariza

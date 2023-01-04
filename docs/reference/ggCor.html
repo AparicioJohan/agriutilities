@@ -65,23 +65,24 @@ between 2 or more variables.</p>
 
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ggCor</span><span class="op">(</span></span>
-<span>  <span class="va">myData</span>,</span>
+<span>  <span class="va">data</span>,</span>
 <span>  colours <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#db4437"</span>, <span class="st">"white"</span>, <span class="st">"#FF9D00"</span><span class="op">)</span>,</span>
 <span>  blackLabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.7</span>, <span class="fl">0.7</span><span class="op">)</span>,</span>
 <span>  showSignif <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  pBreaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1e-04</span>, <span class="fl">0.001</span>, <span class="fl">0.01</span>, <span class="cn">Inf</span><span class="op">)</span>,</span>
+<span>  pBreaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.001</span>, <span class="fl">0.01</span>, <span class="fl">0.05</span>, <span class="cn">Inf</span><span class="op">)</span>,</span>
 <span>  pLabels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"***"</span>, <span class="st">"**"</span>, <span class="st">"*"</span>, <span class="st">"ns"</span><span class="op">)</span>,</span>
 <span>  showDiagonal <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  Diag <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  returnTable <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  returnN <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  adjusted <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  adjusted <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  label_size <span class="op">=</span> <span class="fl">3</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>myData</dt>
+    <dl><dt>data</dt>
 <dd><p>A data.frame with numerical columns for each variable to be
 compared.</p></dd>
 
@@ -120,7 +121,7 @@ factor.</p></dd>
 <dt>Diag</dt>
 <dd><p>A named vector of labels to display in the main diagonal. The
 names are used to place each value in the corresponding coordinates of the
-diagonal. Hence, these names must be the same as the colnames of myData.</p></dd>
+diagonal. Hence, these names must be the same as the colnames of data.</p></dd>
 
 
 <dt>returnTable</dt>
@@ -135,13 +136,17 @@ diagonal. Hence, these names must be the same as the colnames of myData.</p></dd
 <dd><p>Use the adjusted p values for multiple testing instead of
 raw coeffs. TRUE by default.</p></dd>
 
+
+<dt>label_size</dt>
+<dd><p>Numeric value indicating the label size. 3 by default.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
     
 
 <p>A ggplot object containing a triangular correlation figure with all
-numeric variables in myData. If returnTable is TRUE, the table used to
+numeric variables in data. If returnTable is TRUE, the table used to
 produce the figure is returned instead.</p>
     </div>
     <div id="author">
@@ -151,9 +156,17 @@ produce the figure is returned instead.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># data(iris)</span></span></span>
-<span class="r-in"><span><span class="co"># ggCor(iris,colours = c("#db4437","white","#4285f4"), returnN = TRUE )</span></span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ggCor</span><span class="op">(</span></span></span>
+<span class="r-in"><span> data <span class="op">=</span> <span class="va">iris</span>,</span></span>
+<span class="r-in"><span> colours <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#db4437"</span>,<span class="st">"white"</span>,<span class="st">"#4285f4"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span> label_size <span class="op">=</span> <span class="fl">6</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Dropping non-numeric columns in the dataset:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Species</span>
+<span class="r-plt img"><img src="ggCor-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </div>

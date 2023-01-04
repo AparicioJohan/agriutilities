@@ -21,7 +21,7 @@ navbar:
 
 
 reference:
-- title: Pipeline Automatic
+- title: Data Analysis Pipeline
   desc:  Identify the design and fit the models automatically
 - contents:
   - 'check_connectivity'

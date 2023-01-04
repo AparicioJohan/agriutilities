@@ -30,7 +30,7 @@ You can install the development version of agriutilities from [GitHub](https://g
 devtools::install_github("AparicioJohan/agriutilities")
 ```
 
-## Pipeline Automatic
+## Automatic Data Analysis Pipeline 
 
 This is a basic example which shows you how to use some of the functions of the package.
 

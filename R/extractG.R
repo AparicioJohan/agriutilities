@@ -1,18 +1,23 @@
-#' extractG
+#' Extract Variance-Covariance from ASReml-R
 #'
 #' @param model ASReml object
-#' @param gen string with genotypes
-#' @param env string with genotypes
-#' @param vc.model variance covariance fitted. Can be ('diag', 'corv', corh',
-#'  'corh', 'corgv', 'fa1', 'fa2', 'fa3', 'fa4', 'corgh', 'us' or 'rr2')
-#'
+#' @param gen A character string indicating the column in data that contains
+#' genotypes.
+#' @param env A character string indicating the column in data that contains
+#' environments or trials.
+#' @param vc.model A character string indicating the variance-covariance fitted.
+#' Can be 'diag', 'corv', 'corh', 'corgv', 'fa1', 'fa2', 'fa3', 'fa4', 'corgh',
+#' 'us' or 'rr2'.
 #' @return list VCOV = VCOV , CORR = CORR, vc.model = vc.model
 #' @export
 #'
 #' @examples
 #' # extractG(model, gen = "genotype" , env = "trial", vc.model = "corv")
 #' @importFrom stats cov2cor
-extractG <- function(model, gen = "genotype", env = "trial", vc.model = "corv") {
+extractG <- function(model = NULL,
+                     gen = "genotype",
+                     env = "trial",
+                     vc.model = "corv") {
   sites <- data.frame(model$mf)[, env]
   s <- nlevels(sites)
 

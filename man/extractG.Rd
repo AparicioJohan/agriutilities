@@ -2,25 +2,28 @@
 % Please edit documentation in R/extractG.R
 \name{extractG}
 \alias{extractG}
-\title{extractG}
+\title{Extract Variance-Covariance from ASReml-R}
 \usage{
-extractG(model, gen = "genotype", env = "trial", vc.model = "corv")
+extractG(model = NULL, gen = "genotype", env = "trial", vc.model = "corv")
 }
 \arguments{
 \item{model}{ASReml object}
 
-\item{gen}{string with genotypes}
+\item{gen}{A character string indicating the column in data that contains
+genotypes.}
 
-\item{env}{string with genotypes}
+\item{env}{A character string indicating the column in data that contains
+environments or trials.}
 
-\item{vc.model}{variance covariance fitted. Can be ('diag', 'corv', corh',
-'corh', 'corgv', 'fa1', 'fa2', 'fa3', 'fa4', 'corgh', 'us' or 'rr2')}
+\item{vc.model}{A character string indicating the variance-covariance fitted.
+Can be 'diag', 'corv', 'corh', 'corgv', 'fa1', 'fa2', 'fa3', 'fa4', 'corgh',
+'us' or 'rr2'.}
 }
 \value{
 list VCOV = VCOV , CORR = CORR, vc.model = vc.model
 }
 \description{
-extractG
+Extract Variance-Covariance from ASReml-R
 }
 \examples{
 # extractG(model, gen = "genotype" , env = "trial", vc.model = "corv")

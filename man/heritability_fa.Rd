@@ -19,10 +19,10 @@ heritability_fa(
 contains genotypes.}
 
 \item{env}{A character string indicating the column in data that contains
-trials or environments.}
+environments or trials.}
 
 \item{vc.model}{A character string indicating the variance-covariance
-structure c("fa1", "fa2", "fa3", "fa4", "us").}
+structure. Can be "fa1", "fa2", "fa3", "fa4" or "us".}
 
 \item{diag}{TRUE or FALSE depending on the user if they want to take the
 elements on the diagonal of the variance-covariance matrix or the elements

@@ -4,9 +4,9 @@
 #' @param genotype A character string indicating the column in data that
 #' contains genotypes.
 #' @param env A character string indicating the column in data that contains
-#' trials or environments.
+#' environments or trials.
 #' @param vc.model A character string indicating the variance-covariance
-#' structure c("fa1", "fa2", "fa3", "fa4", "us").
+#' structure. Can be "fa1", "fa2", "fa3", "fa4" or "us".
 #' @param diag TRUE or FALSE depending on the user if they want to take the
 #' elements on the diagonal of the variance-covariance matrix or the elements
 #' out of the diagonal to estimate the heritability. FALSE by default.
@@ -48,7 +48,7 @@ heritability_fa <- function(model_fa = NULL,
     vc.model = vc.model
   )$VCOV
 
-  if(diag) {
+  if (diag) {
     Gvar <- mean(diag(G))
   } else {
     Gvar <- mean(G[upper.tri(G, diag = FALSE)])
