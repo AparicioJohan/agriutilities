@@ -60,6 +60,9 @@ fit_STA <- function(results, trait, design, remove_outliers, engine, progress) {
     rLimit = 3,
     verbose = FALSE
   )
+  if (is.null(outliers_td$outliers) || !remove_outliers) {
+    outliers_td <- NULL
+  }
   # Cleaning
   if (!is.null(outliers_td$outliers) && remove_outliers) {
     outliers_td <- outliers_td %>%
@@ -234,7 +237,7 @@ single_model_analysis <- function(results = NULL,
       )
       outliers[[i]] <- rbind(outliers[[i]], objt_res_row_col$outliers)
       blues_blups[[i]] <- rbind(blues_blups[[i]], objt_res_row_col$blues_blups)
-      std_residuals[[i]] <- rbind(
+      std_residuals[[i]] <- dplyr::bind_rows(
         std_residuals[[i]],
         objt_res_row_col$std_residuals
       )
@@ -261,7 +264,7 @@ single_model_analysis <- function(results = NULL,
       )
       outliers[[i]] <- rbind(outliers[[i]], objt_row_col$outliers)
       blues_blups[[i]] <- rbind(blues_blups[[i]], objt_row_col$blues_blups)
-      std_residuals[[i]] <- rbind(
+      std_residuals[[i]] <- dplyr::bind_rows(
         std_residuals[[i]],
         objt_row_col$std_residuals
       )
@@ -288,7 +291,7 @@ single_model_analysis <- function(results = NULL,
       )
       outliers[[i]] <- rbind(outliers[[i]], objt_alpha$outliers)
       blues_blups[[i]] <- rbind(blues_blups[[i]], objt_alpha$blues_blups)
-      std_residuals[[i]] <- rbind(
+      std_residuals[[i]] <- dplyr::bind_rows(
         std_residuals[[i]],
         objt_alpha$std_residuals
       )
@@ -315,7 +318,7 @@ single_model_analysis <- function(results = NULL,
       )
       outliers[[i]] <- rbind(outliers[[i]], objt_rcbd$outliers)
       blues_blups[[i]] <- rbind(blues_blups[[i]], objt_rcbd$blues_blups)
-      std_residuals[[i]] <- rbind(
+      std_residuals[[i]] <- dplyr::bind_rows(
         std_residuals[[i]],
         objt_rcbd$std_residuals
       )
@@ -412,7 +415,7 @@ single_model_analysis <- function(results = NULL,
 
         # standardized residuals
         std_res_crd <- td_crd$residuals
-        std_residuals[[i]] <- rbind(
+        std_residuals[[i]] <- dplyr::bind_rows(
           std_residuals[[i]],
           std_res_crd
         )
@@ -424,6 +427,11 @@ single_model_analysis <- function(results = NULL,
   row.names(blues_blups) <- NULL
   resum_fitted_model <- dplyr::bind_rows(resum_fitted_model, .id = "trait")
   row.names(resum_fitted_model) <- NULL
+  std_residuals <- dplyr::bind_rows(std_residuals, .id = "trait") %>%
+    as.data.frame(row.names = NULL)
+  outliers <- dplyr::bind_rows(outliers, .id = "trait")
+  row.names(outliers) <- NULL
+  # Output
   results <- list(
     fitted_models = fitted_models,
     resum_fitted_model = resum_fitted_model,
