@@ -66,7 +66,25 @@ stability <- function(predictions = NULL,
 #' @export
 #'
 #' @examples
-#' # In progress
+#' \donttest{
+#' library(agridat)
+#' library(agriutilities)
+#' data(besag.met)
+#' dat <- besag.met
+#' results <- check_design_MET(
+#'   data = dat,
+#'   genotype = "gen",
+#'   trial = "county",
+#'   traits = c("yield"),
+#'   rep = "rep",
+#'   block = "block",
+#'   col = "col",
+#'   row = "row"
+#' )
+#' out <- single_model_analysis(results, progress = FALSE)
+#' out$resum_fitted_model
+#' met_results <- met_analysis(out)
+#' }
 met_analysis <- function(sma_output = NULL,
                          h2_filter = 0.2,
                          workspace = "1gb",
@@ -78,7 +96,15 @@ met_analysis <- function(sma_output = NULL,
     stop("The package asreml is not loaded.")
   }
   asreml::asreml.options(trace = FALSE, workspace = workspace)
-  data_td <- sma_output$blues_blups
+  # filters
+  trials_to_keep <- sma_output$resum_fitted_model %>%
+    dplyr::filter(heritability > h2_filter) %>%
+    droplevels() %>%
+    dplyr::pull(trial) %>%
+    as.character()
+  data_td <- sma_output$blues_blups %>%
+    dplyr::filter(trial %in% trials_to_keep) %>%
+    droplevels()
   traits <- data_td %>%
     dplyr::pull("trait") %>%
     unique() %>%
@@ -91,6 +117,14 @@ met_analysis <- function(sma_output = NULL,
   if (n_trials <= 1) {
     stop("There is only one trial to fit an MET model.")
   }
+  traits_to_keep <- sma_output$blues_blups %>%
+    group_by(trait) %>%
+    summarise(n_trials = n_distinct(trial)) %>%
+    filter(n_trials > 1) %>%
+    pull(trait) %>%
+    as.character()
+  traits <- traits_to_keep
+  # Connectivity
   conn <- connectivity_matrix(
     data = data_td,
     genotype = "genotype",
@@ -114,13 +148,8 @@ met_analysis <- function(sma_output = NULL,
   stab_list <- h2_list <- list()
 
   for (var in traits) {
-    trials_to_keep <- sma_output$resum_fitted_model %>%
-      dplyr::filter(trait %in% var & heritability > h2_filter) %>%
-      droplevels() %>%
-      dplyr::pull(trial) %>%
-      as.character()
     dt <- data_td %>%
-      dplyr::filter(trait %in% var & trial %in% trials_to_keep) %>%
+      dplyr::filter(trait %in% var) %>%
       droplevels() %>%
       as.data.frame()
     equation_fix <- stats::reformulate("trial", response = "BLUEs")

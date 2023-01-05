@@ -32,5 +32,23 @@ A list with a summary of the fitted models.
 Multi-Environmental Trial Analysis
 }
 \examples{
-# In progress
+\donttest{
+library(agridat)
+library(agriutilities)
+data(besag.met)
+dat <- besag.met
+results <- check_design_MET(
+  data = dat,
+  genotype = "gen",
+  trial = "county",
+  traits = c("yield"),
+  rep = "rep",
+  block = "block",
+  col = "col",
+  row = "row"
+)
+out <- single_model_analysis(results, progress = FALSE)
+out$resum_fitted_model
+met_results <- met_analysis(out)
+}
 }

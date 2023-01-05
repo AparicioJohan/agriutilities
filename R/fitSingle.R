@@ -3,7 +3,7 @@
 fit_STA <- function(results, trait, design, remove_outliers, engine, progress) {
   design_td <- switch(design,
     "res_row_col" = "res.rowcol",
-    "row_col" = "row.col",
+    "row_col" = "rowcol",
     "alpha_lattice" = "res.ibd",
     "rcbd" = "rcbd"
   )
