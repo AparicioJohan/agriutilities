@@ -153,6 +153,24 @@ check_design_MET <- function(data = NULL,
     ) %>%
     type.convert(as.is = FALSE)
 
+  trials_spatial <- exp_design_resum %>%
+    filter(!is.na(spatial)) %>%
+    pull(trial) %>%
+    as.character()
+
+  if (!is.null(trials_spatial)) {
+    duplicates <- data %>%
+      filter(.data[[trial]] %in% trials_spatial) %>%
+      select(.data[[trial]], .data[[col]], .data[[row]]) %>%
+      na.omit() %>%
+      split(x = ., .[, trial]) %>%
+      lapply(FUN = function(x) ifelse(sum(duplicated(x)) >= 1, TRUE, FALSE)) %>%
+      unlist()
+    duplicates <- names(duplicates[which(duplicates %in% TRUE)])
+  } else {
+    duplicates <- ""
+  }
+
   filters_summary <- list()
 
   for (i in traits) {
@@ -187,7 +205,11 @@ check_design_MET <- function(data = NULL,
     filters_summary[[i]] <- list(
       "missing_50%" = trials_to_remove_miss,
       "no_variation" = trials_to_remove_novar,
-      "trials_to_remove" = union(trials_to_remove_miss, trials_to_remove_novar)
+      "row_col_dup" = duplicates,
+      "trials_to_remove" = union(
+        x = union(trials_to_remove_miss, trials_to_remove_novar),
+        y = duplicates
+      )
     )
   }
 
