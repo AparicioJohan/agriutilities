@@ -50,5 +50,6 @@ results <- check_design_MET(
 out <- single_model_analysis(results, progress = FALSE)
 out$resum_fitted_model
 met_results <- met_analysis(out)
+head(met_results$overall_BLUPs)
 }
 }

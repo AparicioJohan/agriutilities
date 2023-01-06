@@ -440,5 +440,5 @@ single_model_analysis <- function(results = NULL,
     std_residuals = std_residuals
   )
   class(results) <- "smaAgri"
-  return(results)
+  return(invisible(results))
 }

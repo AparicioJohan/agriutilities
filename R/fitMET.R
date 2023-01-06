@@ -84,6 +84,7 @@ stability <- function(predictions = NULL,
 #' out <- single_model_analysis(results, progress = FALSE)
 #' out$resum_fitted_model
 #' met_results <- met_analysis(out)
+#' head(met_results$overall_BLUPs)
 #' }
 met_analysis <- function(sma_output = NULL,
                          h2_filter = 0.2,
@@ -241,5 +242,5 @@ met_analysis <- function(sma_output = NULL,
     stability = stab_list,
     heritability = h2_list
   )
-  return(objt_out)
+  return(invisible(objt_out))
 }

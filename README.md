@@ -34,7 +34,6 @@ works as a quality check or quality control before we fit any model.
 ``` r
 library(agriutilities)
 library(agridat)
-#> Warning: package 'agridat' was built under R version 4.1.3
 data(besag.met)
 dat <- besag.met
 results <- check_design_MET(
@@ -100,10 +99,11 @@ results$summ_traits
 #> 6 C6     yield   87.6   87.8  26.6 0.304   198      6    0.0303
 ```
 
-### Fitting models based on the randomization
+### Single Trial Analysis (STA)
 
 The results of the previous function are used in `single_model_analysis`
-to fit single trial models.
+to fit single trial models. (It fits models based on the randomization
+detected)
 
 This function can fit, Completely Randomized Designs (**CRD**),
 Randomized Complete Block Designs (**RCBD**), Resolvable Incomplete
@@ -113,16 +113,31 @@ Block Designs (**res-IBD**), Non-Resolvable Row-Column Designs
 ``` r
 obj <- single_model_analysis(results, progress = FALSE)
 obj$resum_fitted_model
-#> $yield
-#>   trial heritability        CV    VarGen    VarErr      design
-#> 1    C1         0.72  6.057373  85.04747  84.80063 res_row_col
-#> 2    C2         0.34 17.906699  23.36095 110.89104 res_row_col
-#> 3    C3         0.63 12.189981  82.52294 119.34580 res_row_col
-#> 4    C4         0.38  8.222134  32.54677 142.90594 res_row_col
-#> 5    C5         0.80  6.805292 104.31185  62.88350 res_row_col
-#> 6    C6         0.51 15.267974  71.88271 178.58553 res_row_col
+#>   trait trial heritability        CV    VarGen    VarErr      design
+#> 1 yield    C1         0.72  6.057373  85.04747  84.80063 res_row_col
+#> 2 yield    C2         0.34 17.906699  23.36095 110.89104 res_row_col
+#> 3 yield    C3         0.63 12.189981  82.52294 119.34580 res_row_col
+#> 4 yield    C4         0.38  8.222134  32.54677 142.90594 res_row_col
+#> 5 yield    C5         0.80  6.805292 104.31185  62.88350 res_row_col
+#> 6 yield    C6         0.51 15.267974  71.88271 178.58553 res_row_col
 ```
 
 The returning object is a set of lists with trial summary, BLUEs, BLUPs,
 heritability, variance components, potential extreme observations, and a
 lot of more things.
+
+### Two-Stage Analysis (MET)
+
+``` r
+met_results <- met_analysis(obj)
+#> Online License checked out Fri Jan  6 16:03:32 2023
+#> Online License checked out Fri Jan  6 16:03:33 2023
+head(met_results$overall_BLUPs)
+#>   trait genotype predicted.value std.error    status
+#> 1 yield      G01        110.0104  2.531191 Estimable
+#> 2 yield      G02        111.0692  2.542598 Estimable
+#> 3 yield      G03        102.7300  2.518689 Estimable
+#> 4 yield      G04        115.5712  2.537870 Estimable
+#> 5 yield      G05        120.2970  2.544906 Estimable
+#> 6 yield      G06        109.4588  2.546752 Estimable
+```

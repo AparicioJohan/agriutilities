@@ -6,6 +6,8 @@ output: github_document
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
+  warning = FALSE,
+  message = FALSE,
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
@@ -77,9 +79,9 @@ Summary:
 results$summ_traits
 ```
 
-### Fitting models based on the randomization
+### Single Trial Analysis (STA)
 
-The results of the previous function are used in `single_model_analysis` to fit single trial models.
+The results of the previous function are used in `single_model_analysis` to fit single trial models. (It fits models based on the randomization detected)
 
 This function can fit, Completely Randomized Designs (**CRD**), Randomized Complete Block Designs (**RCBD**), Resolvable Incomplete Block Designs (**res-IBD**), Non-Resolvable Row-Column Designs (**Row-Col**) and Resolvable Row-Column Designs (**res-Row-Col**)
 
@@ -89,3 +91,10 @@ obj$resum_fitted_model
 ```
 
 The returning object is a set of lists with trial summary, BLUEs, BLUPs, heritability, variance components, potential extreme observations, and a lot of more things.
+
+### Two-Stage Analysis (MET)
+```{r}
+met_results <- met_analysis(obj)
+head(met_results$overall_BLUPs)
+```
+
