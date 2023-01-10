@@ -100,6 +100,9 @@
     <loc>https://apariciojohan.github.io/agriutilities/reference/print.checkAgri.html</loc>
   </url>
   <url>
+    <loc>https://apariciojohan.github.io/agriutilities/reference/print.metAgri.html</loc>
+  </url>
+  <url>
     <loc>https://apariciojohan.github.io/agriutilities/reference/print.smaAgri.html</loc>
   </url>
   <url>
@@ -118,7 +121,7 @@
     <loc>https://apariciojohan.github.io/agriutilities/reference/r_square.html</loc>
   </url>
   <url>
-    <loc>https://apariciojohan.github.io/agriutilities/reference/single_model_analysis.html</loc>
+    <loc>https://apariciojohan.github.io/agriutilities/reference/single_trial_analysis.html</loc>
   </url>
   <url>
     <loc>https://apariciojohan.github.io/agriutilities/reference/stability.html</loc>

@@ -13,7 +13,7 @@
 `tibble::print()` for more details.}
 }
 \description{
-Prints information about \code{check_design_MET} function.
+Prints information about \code{check_design_MET()} function.
 }
 \examples{
 \donttest{

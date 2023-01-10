@@ -56,7 +56,7 @@ print(results)
 #> ---------------------------------------------------------------------
 #> Summary Traits by Trial:
 #> ---------------------------------------------------------------------
-#> # A tibble: 6 × 9
+#> # A tibble: 6 x 9
 #>   county traits  Mean Median    SD    CV     n n_miss miss_perc
 #>   <fct>  <chr>  <dbl>  <dbl> <dbl> <dbl> <int>  <int>     <dbl>
 #> 1 C1     yield  149.   151.   17.7 0.119   198      6    0.0303
@@ -80,7 +80,7 @@ print(results)
 #> ---------------------------------------------------------------------
 #> Summary Experimental Design:
 #> ---------------------------------------------------------------------
-#> # A tibble: 6 × 9
+#> # A tibble: 6 x 9
 #>   county     n n_gen n_rep n_block n_col n_row num_of_reps num_of_gen
 #>   <fct>  <int> <int> <int>   <int> <int> <int> <fct>       <fct>     
 #> 1 C1       198    64     3       8    11    18 3_9         63_1      
@@ -104,17 +104,17 @@ print(results)
 
 ### Single Trial Analysis (STA)
 
-The results of the previous function are used in `single_model_analysis`
-to fit single trial models. (It fits models based on the randomization
-detected)
+The results of the previous function are used in
+`single_trial_analysis()` to fit single trial models. This function can
+fit, Completely Randomized Designs (**CRD**), Randomized Complete Block
+Designs (**RCBD**), Resolvable Incomplete Block Designs (**res-IBD**),
+Non-Resolvable Row-Column Designs (**Row-Col**) and Resolvable
+Row-Column Designs (**res-Row-Col**).
 
-This function can fit, Completely Randomized Designs (**CRD**),
-Randomized Complete Block Designs (**RCBD**), Resolvable Incomplete
-Block Designs (**res-IBD**), Non-Resolvable Row-Column Designs
-(**Row-Col**) and Resolvable Row-Column Designs (**res-Row-Col**)
+> **NOTE**: It fits models based on the randomization detected.
 
 ``` r
-obj <- single_model_analysis(results, progress = FALSE)
+obj <- single_trial_analysis(results, progress = FALSE)
 print(obj)
 #> ---------------------------------------------------------------------
 #> Summary Fitted Models:
@@ -155,8 +155,29 @@ lot of more things.
 
 ``` r
 met_results <- met_analysis(obj)
-#> Online License checked out Mon Jan  9 19:29:19 2023
-head(met_results$overall_BLUPs)
+#> Online License checked out Tue Jan 10 09:32:25 2023
+#> Online License checked out Tue Jan 10 09:32:26 2023
+print(met_results)
+#> ---------------------------------------------------------------------
+#> Trial Effects (BLUEs):
+#> ---------------------------------------------------------------------
+#>   trait trial predicted.value std.error    status
+#> 1 yield    C1       151.40260  1.350864 Estimable
+#> 2 yield    C2        65.78799  1.117562 Estimable
+#> 3 yield    C3        90.06915  1.477791 Estimable
+#> 4 yield    C4       148.09618  1.237939 Estimable
+#> 5 yield    C5       122.66609  1.433520 Estimable
+#> 6 yield    C6        86.80788  1.491837 Estimable
+#> 
+#> ---------------------------------------------------------------------
+#> Heritability:
+#> ---------------------------------------------------------------------
+#>   trait        h2
+#> 1 yield 0.8246931
+#> 
+#> ---------------------------------------------------------------------
+#> First Overall Predicted Values and Standard Errors (BLUPs):
+#> ---------------------------------------------------------------------
 #>   trait genotype predicted.value std.error    status
 #> 1 yield      G01        110.0104  2.531191 Estimable
 #> 2 yield      G02        111.0692  2.542598 Estimable
@@ -164,4 +185,37 @@ head(met_results$overall_BLUPs)
 #> 4 yield      G04        115.5712  2.537870 Estimable
 #> 5 yield      G05        120.2970  2.544906 Estimable
 #> 6 yield      G06        109.4588  2.546752 Estimable
+#> 
+#> ---------------------------------------------------------------------
+#> Variance-Covariance Matrix:
+#> ---------------------------------------------------------------------
+#> 
+#> Correlation Matrix ('fa2'): yield
+#>      C1   C2   C3   C4   C5   C6
+#> C1 1.00 0.60 0.68 0.67 0.92 0.34
+#> C2 0.60 1.00 0.67 0.87 0.59 0.62
+#> C3 0.68 0.67 1.00 0.67 0.71 0.39
+#> C4 0.67 0.87 0.67 1.00 0.68 0.53
+#> C5 0.92 0.59 0.71 0.68 1.00 0.32
+#> C6 0.34 0.62 0.39 0.53 0.32 1.00
+#> 
+#> Covariance Matrix ('fa2'): yield
+#>       C1    C2    C3    C4     C5    C6
+#> C1 73.82 25.48 54.16 33.71  80.09 23.90
+#> C2 25.48 24.19 30.49 25.07  29.19 25.14
+#> C3 54.16 30.49 86.30 36.04  66.79 30.12
+#> C4 33.71 25.07 36.04 33.99  40.20 25.54
+#> C5 80.09 29.19 66.79 40.20 102.38 26.82
+#> C6 23.90 25.14 30.12 25.54  26.82 68.64
+#> 
+#> ---------------------------------------------------------------------
+#> First Stability Coefficients:
+#> ---------------------------------------------------------------------
+#>   trait genotype superiority   static    wricke predicted.value
+#> 1 yield      G57    22.50744 34.36119 15.856876        92.46296
+#> 2 yield      G29    17.14532 34.50170  4.949159        99.17131
+#> 3 yield      G59    17.07740 35.07934  5.227436        99.25824
+#> 4 yield      G34    16.65776 34.42369  7.138620       100.02813
+#> 5 yield      G10    15.77535 33.70067 12.348278       102.02992
+#> 6 yield      G31    15.14259 32.05132 10.827991       102.41852
 ```

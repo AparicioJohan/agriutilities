@@ -53,7 +53,7 @@ stability <- function(predictions = NULL,
 #' Multi-Environmental Trial Analysis
 #'
 #' @param sma_output Object of class \code{smaAgri} resulting of executing
-#' \code{single_model_analysis()} function.
+#' \code{single_trial_analysis()} function.
 #' @param h2_filter Numeric value to filter trials with poor heritability.
 #' 0.2 by default.
 #' @param workspace Sets the workspace for the core \code{REML} routines in the
@@ -81,10 +81,9 @@ stability <- function(predictions = NULL,
 #'   col = "col",
 #'   row = "row"
 #' )
-#' out <- single_model_analysis(results, progress = FALSE)
-#' print(out)
+#' out <- single_trial_analysis(results, progress = FALSE)
 #' met_results <- met_analysis(out)
-#' head(met_results$overall_BLUPs)
+#' print(met_results)
 #' }
 met_analysis <- function(sma_output = NULL,
                          h2_filter = 0.2,
@@ -242,5 +241,6 @@ met_analysis <- function(sma_output = NULL,
     stability = stab_list,
     heritability = h2_list
   )
+  class(objt_out) <- "metAgri"
   return(invisible(objt_out))
 }

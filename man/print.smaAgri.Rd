@@ -7,13 +7,13 @@
 \method{print}{smaAgri}(x, ...)
 }
 \arguments{
-\item{x}{An object fitted with the function [single_model_analysis()].}
+\item{x}{An object fitted with the function \code{single_trial_analysis()}.}
 
 \item{...}{Options used by the tibble package to format the output. See
 `tibble::print()` for more details.}
 }
 \description{
-Prints information about \code{single_model_analysis} function.
+Prints information about \code{single_trial_analysis} function.
 }
 \examples{
 \donttest{
@@ -31,7 +31,7 @@ results <- check_design_MET(
   col = "col",
   row = "row"
 )
-out <- single_model_analysis(results, progress = FALSE)
+out <- single_trial_analysis(results, progress = FALSE)
 print(out)
 }
 }

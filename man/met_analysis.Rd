@@ -13,7 +13,7 @@ met_analysis(
 }
 \arguments{
 \item{sma_output}{Object of class \code{smaAgri} resulting of executing
-\code{single_model_analysis()} function.}
+\code{single_trial_analysis()} function.}
 
 \item{h2_filter}{Numeric value to filter trials with poor heritability.
 0.2 by default.}
@@ -47,9 +47,8 @@ results <- check_design_MET(
   col = "col",
   row = "row"
 )
-out <- single_model_analysis(results, progress = FALSE)
-print(out)
+out <- single_trial_analysis(results, progress = FALSE)
 met_results <- met_analysis(out)
-head(met_results$overall_BLUPs)
+print(met_results)
 }
 }

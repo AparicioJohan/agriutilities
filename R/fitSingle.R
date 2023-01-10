@@ -194,11 +194,11 @@ fit_STA <- function(results, trait, design, remove_outliers, engine, progress) {
 #'   col = "col",
 #'   row = "row"
 #' )
-#' out <- single_model_analysis(results, progress = FALSE)
+#' out <- single_trial_analysis(results, progress = FALSE)
 #' print(out)
 #' }
 #' @importFrom statgenSTA createTD fitTD outlierSTA extractSTA STAtoTD
-single_model_analysis <- function(results = NULL,
+single_trial_analysis <- function(results = NULL,
                                   progress = TRUE,
                                   engine = "asreml",
                                   remove_outliers = TRUE) {

@@ -67,12 +67,12 @@ print(results)
 
 ### Single Trial Analysis (STA)
 
-The results of the previous function are used in `single_model_analysis` to fit single trial models. (It fits models based on the randomization detected)
+The results of the previous function are used in `single_trial_analysis()` to fit single trial models. This function can fit, Completely Randomized Designs (**CRD**), Randomized Complete Block Designs (**RCBD**), Resolvable Incomplete Block Designs (**res-IBD**), Non-Resolvable Row-Column Designs (**Row-Col**) and Resolvable Row-Column Designs (**res-Row-Col**). 
 
-This function can fit, Completely Randomized Designs (**CRD**), Randomized Complete Block Designs (**RCBD**), Resolvable Incomplete Block Designs (**res-IBD**), Non-Resolvable Row-Column Designs (**Row-Col**) and Resolvable Row-Column Designs (**res-Row-Col**)
+> **NOTE**: It fits models based on the randomization detected.
 
 ```{r}
-obj <- single_model_analysis(results, progress = FALSE)
+obj <- single_trial_analysis(results, progress = FALSE)
 print(obj)
 ```
 
@@ -81,6 +81,6 @@ The returning object is a set of lists with trial summary, BLUEs, BLUPs, heritab
 ### Two-Stage Analysis (MET)
 ```{r}
 met_results <- met_analysis(obj)
-head(met_results$overall_BLUPs)
+print(met_results)
 ```
 
