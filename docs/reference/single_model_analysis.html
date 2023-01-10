@@ -73,24 +73,24 @@
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>results</dt>
-<dd><p>Object of class 'checkAgri' resulting of executing
-check_design_MET function.</p></dd>
+<dd><p>Object of class <code>checkAgri</code> resulting of executing
+<code><a href="check_design_MET.html">check_design_MET()</a></code> function.</p></dd>
 
 
 <dt>progress</dt>
 <dd><p>Should the progress of the modeling be printed.
-If TRUE, for every trial a line is output indicating the traits fitted for
-the particular trial.</p></dd>
+If <code>TRUE</code>, for every trial a line is output indicating the traits fitted
+for the particular trial.</p></dd>
 
 
 <dt>engine</dt>
 <dd><p>A character string specifying the name of the mixed modeling
-engine to use, either "lme4" or "asreml". For spatial designs, "SpaTS" is
-always used, for other designs "asreml" as a default.</p></dd>
+engine to use, either <code>lme4</code> or <code>asreml</code>. For spatial designs,
+<code>SpATS</code> is always used, for other designs <code>asreml</code> as a default.</p></dd>
 
 
 <dt>remove_outliers</dt>
-<dd><p>Should outliers be removed? TRUE by default.</p></dd>
+<dd><p>Should outliers be removed? <code>TRUE</code> by default.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -118,7 +118,10 @@ always used, for other designs "asreml" as a default.</p></dd>
 <span class="r-in"><span>  row <span class="op">=</span> <span class="st">"row"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu">single_model_analysis</span><span class="op">(</span><span class="va">results</span>, progress <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">out</span><span class="op">$</span><span class="va">resum_fitted_model</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Summary Fitted Models:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   trait trial heritability        CV    VarGen    VarErr      design</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 yield    C1         0.72  6.057373  85.04747  84.80063 res_row_col</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 yield    C2         0.34 17.906699  23.36095 110.89104 res_row_col</span>
@@ -126,6 +129,26 @@ always used, for other designs "asreml" as a default.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 yield    C4         0.38  8.222134  32.54677 142.90594 res_row_col</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 yield    C5         0.80  6.805292 104.31185  62.88350 res_row_col</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6 yield    C6         0.51 15.267974  71.88271 178.58553 res_row_col</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Outliers Removed:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   trait trial genotype   id outlier</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 yield    C1      G60   50    TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 yield    C3      G16  534    TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 yield    C6      G08 1013    TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> First Predicted Values and Standard Errors (BLUEs/BLUPs):</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   trait genotype trial    BLUEs  seBLUEs    BLUPs  seBLUPs         wt</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 yield      G01    C1 142.0021 6.678480 144.3256 5.720102 0.02242047</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 yield      G02    C1 160.7412 6.334549 157.4663 5.496182 0.02492118</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 yield      G03    C1 130.8027 6.412041 135.3259 5.558685 0.02432245</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 yield      G04    C1 155.7890 6.459256 154.2345 5.557676 0.02396818</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 yield      G05    C1 163.7357 6.666347 161.2359 5.714016 0.02250216</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 yield      G06    C1 128.2255 6.492415 133.6129 5.608807 0.02372398</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>

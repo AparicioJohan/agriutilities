@@ -40,7 +40,7 @@ row coordinates}
 column coordinates.}
 }
 \value{
-An object of class checkAgri, a list of data.frames.
+An object of class \code{checkAgri}, a list of data.frames.
 }
 \description{
 Check Experimental Design
@@ -61,6 +61,6 @@ results <- check_design_MET(
   col = "col",
   row = "row"
 )
-results$exp_design_resum
+print(results)
 }
 }

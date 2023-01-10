@@ -12,15 +12,15 @@ met_analysis(
 )
 }
 \arguments{
-\item{sma_output}{Object of class 'smaAgri' resulting of executing
-single_model_analysis function.}
+\item{sma_output}{Object of class \code{smaAgri} resulting of executing
+\code{single_model_analysis()} function.}
 
 \item{h2_filter}{Numeric value to filter trials with poor heritability.
 0.2 by default.}
 
-\item{workspace}{Sets the workspace for the core REML routines in the form of
-a number optionally followed directly by a valid measurement unit. "128mb" by
-default.}
+\item{workspace}{Sets the workspace for the core \code{REML} routines in the
+form of a number optionally followed directly by a valid measurement unit.
+"128mb" by default.}
 
 \item{trials_to_fit_fa}{Number of trials necessary to fit a Factor Analytic
 structure for the GxE interaction term. 4 by default.}
@@ -48,7 +48,7 @@ results <- check_design_MET(
   row = "row"
 )
 out <- single_model_analysis(results, progress = FALSE)
-out$resum_fitted_model
+print(out)
 met_results <- met_analysis(out)
 head(met_results$overall_BLUPs)
 }

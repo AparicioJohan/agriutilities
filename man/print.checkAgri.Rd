@@ -7,7 +7,7 @@
 \method{print}{checkAgri}(x, ...)
 }
 \arguments{
-\item{x}{An object fitted with the function [check_design_MET()].}
+\item{x}{An object fitted with the function \code{check_design_MET()}.}
 
 \item{...}{Options used by the tibble package to format the output. See
 `tibble::print()` for more details.}

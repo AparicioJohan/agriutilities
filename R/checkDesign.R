@@ -16,7 +16,7 @@
 #' @param col A character string indicating the column in data that contains the
 #' column coordinates.
 #'
-#' @return An object of class checkAgri, a list of data.frames.
+#' @return An object of class \code{checkAgri}, a list of data.frames.
 #' @export
 #'
 #' @examples
@@ -35,7 +35,7 @@
 #'   col = "col",
 #'   row = "row"
 #' )
-#' results$exp_design_resum
+#' print(results)
 #' }
 #' @import dplyr
 #' @importFrom stats sd median

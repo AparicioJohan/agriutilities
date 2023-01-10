@@ -15,13 +15,13 @@ stability(
 \arguments{
 \item{predictions}{A data.frame with one value per GxE combination.}
 
-\item{genotype}{A character string indicating the column in data that
+\item{genotype}{A character string indicating the column in predictions that
 contains genotypes.}
 
-\item{trial}{A character string indicating the column in data that contains
-trials.}
+\item{trial}{A character string indicating the column in predictions that
+contains trials.}
 
-\item{response}{A character vector specifying the response variable.}
+\item{response}{A character string specifying the response variable.}
 
 \item{best}{A character string specifying how to define the best genotype
 by numeric value ("min", "max"). "max" by default.}

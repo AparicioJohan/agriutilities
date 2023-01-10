@@ -165,15 +165,15 @@ fit_STA <- function(results, trait, design, remove_outliers, engine, progress) {
 
 #' Single Trial Analysis
 #'
-#' @param results Object of class 'checkAgri' resulting of executing
-#' check_design_MET function.
+#' @param results Object of class \code{checkAgri} resulting of executing
+#' \code{check_design_MET()} function.
 #' @param progress Should the progress of the modeling be printed.
-#' If TRUE, for every trial a line is output indicating the traits fitted for
-#' the particular trial.
+#' If \code{TRUE}, for every trial a line is output indicating the traits fitted
+#' for the particular trial.
 #' @param engine A character string specifying the name of the mixed modeling
-#' engine to use, either "lme4" or "asreml". For spatial designs, "SpaTS" is
-#' always used, for other designs "asreml" as a default.
-#' @param remove_outliers Should outliers be removed? TRUE by default.
+#' engine to use, either \code{lme4} or \code{asreml}. For spatial designs,
+#' \code{SpATS} is always used, for other designs \code{asreml} as a default.
+#' @param remove_outliers Should outliers be removed? \code{TRUE} by default.
 #'
 #' @return A list of data.frames.
 #' @export
@@ -195,7 +195,7 @@ fit_STA <- function(results, trait, design, remove_outliers, engine, progress) {
 #'   row = "row"
 #' )
 #' out <- single_model_analysis(results, progress = FALSE)
-#' out$resum_fitted_model
+#' print(out)
 #' }
 #' @importFrom statgenSTA createTD fitTD outlierSTA extractSTA STAtoTD
 single_model_analysis <- function(results = NULL,
