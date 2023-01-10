@@ -21,7 +21,9 @@ knitr::opts_chunk$set(
 
 <!-- badges: end -->
 
-The goal of this package is to provide some additional functions for the analysis of field trials in agriculture. It extends the functionalities of packages such as SpATS, lme4, ASReml-R, and statgenSTA.
+The goal of this package is to provide some additional functions for the analysis of field trials in agriculture. It integrates functionalities of packages such as `SpATS`, `lme4`, `ASReml-R`, and `statgenSTA`, to analyse multi-enviromental/trait data in a semi-automatic way.
+
+
 
 ## Installation
 
@@ -58,26 +60,10 @@ results <- check_design_MET(
 ```
 
 Some of the outputs are:
-
-::: row
-::: col-md-6
 ```{r}
-results$connectivity_matrix
+print(results)
 ```
-:::
 
-::: col-md-6
-```{r}
-results$exp_design_list
-```
-:::
-:::
-
-Summary:
-
-```{r}
-results$summ_traits
-```
 
 ### Single Trial Analysis (STA)
 
@@ -87,7 +73,7 @@ This function can fit, Completely Randomized Designs (**CRD**), Randomized Compl
 
 ```{r}
 obj <- single_model_analysis(results, progress = FALSE)
-obj$resum_fitted_model
+print(obj)
 ```
 
 The returning object is a set of lists with trial summary, BLUEs, BLUPs, heritability, variance components, potential extreme observations, and a lot of more things.

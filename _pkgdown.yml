@@ -30,6 +30,8 @@ reference:
   - '`single_model_analysis`'
   - '`stability`'
   - '`met_analysis`'
+  - '`print.checkAgri`'
+  - '`print.smaAgri`'
 - title: Lme4
   desc: Additional functions for lme4 models
 - contents:
