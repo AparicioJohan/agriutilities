@@ -148,9 +148,9 @@ print.metAgri <- function(x, ...) {
   lt <- names(x$VCOV)
   for (i in lt) {
     vc_str <- x$VCOV[[i]]$vc.model
-    cat("\nCorrelation Matrix ", "('", vc_str,"'): ", i, "\n", sep = "")
+    cat("\nCorrelation Matrix ", "('", vc_str, "'): ", i, "\n", sep = "")
     print(round(x$VCOV[[i]]$CORR, 2))
-    cat("\nCovariance Matrix ", "('", vc_str,"'): ", i, "\n", sep = "")
+    cat("\nCovariance Matrix ", "('", vc_str, "'): ", i, "\n", sep = "")
     print(round(x$VCOV[[i]]$VCOV, 2))
     cat("\n---------------------------------------------------------------------")
   }
