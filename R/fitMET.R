@@ -38,11 +38,11 @@ stability <- function(predictions = NULL,
     group_by(.data[[genotype]]) %>%
     mutate(mean_gen = mean(predicted.value, na.rm = TRUE)) %>%
     summarise(
-      superiority = sum(
+      superiority = sqrt(sum(
         (predicted.value - .data[[best_var]])^2
-      ) / (2 * n_env) %>% sqrt(),
-      static = sum((predicted.value - mean_gen)^2) / (n_env - 1) %>% sqrt(),
-      wricke = sum((predicted.value - mean_gen - mean_trial + E)^2) %>% sqrt(),
+      ) / (2 * n_env)),
+      static = sqrt(sum((predicted.value - mean_gen)^2) / (n_env - 1)),
+      wricke = sqrt(sum((predicted.value - mean_gen - mean_trial + E)^2)),
       predicted.value = mean(predicted.value, na.rm = TRUE)
     ) %>%
     arrange(predicted.value) %>%
