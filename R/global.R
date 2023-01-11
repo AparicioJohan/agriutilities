@@ -67,6 +67,8 @@ utils::globalVariables(
     "mean_trial",
     "wt",
     "trait",
-    "heritability"
+    "heritability",
+    "trial_y",
+    "trial_x"
   )
 )
