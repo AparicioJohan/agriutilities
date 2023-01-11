@@ -1,31 +1,31 @@
 template:
-  params:
-    bootswatch: flatly
-
+  bootstrap: 5
+  bootswatch: materia
+  theme: a11y-light
+  bslib:
+    pkgdown-nav-height: 100px
 url: https://apariciojohan.github.io/agriutilities/
-
 navbar:
   title: agriutilities
   type: default
+  bg: secondary
   left:
-    - icon: fa-home fa-lg
-      text: Home
-      href: index.html
-    - icon: fa-code
-      text: Reference
-      href: reference/index.html
+  - icon: fa-home fa-lg
+    text: Home
+    href: index.html
+  - icon: fa-code
+    text: Reference
+    href: reference/index.html
   right:
-    - icon: fa-github
-      text: Github
-      href: https://github.com/AparicioJohan/agriutilities
-
-
+  - icon: fa-github
+    text: Github
+    href: https://github.com/AparicioJohan/agriutilities
 reference:
 - title: Data Analysis Pipeline
-  desc:  Identify the design and fit the models automatically
+  desc: Identify the design and fit the models automatically
 - contents:
-  - 'check_connectivity'
-  - 'connectivity_matrix'
+  - check_connectivity
+  - connectivity_matrix
   - '`check_design_MET`'
   - '`single_trial_analysis`'
   - '`stability`'
@@ -36,26 +36,26 @@ reference:
 - title: Lme4
   desc: Additional functions for lme4 models
 - contents:
-  - 'h_cullis'
-  - 'res_lme4'
+  - h_cullis
+  - res_lme4
 - title: SpATS
-  desc:  Additional functions for SpATS models
+  desc: Additional functions for SpATS models
 - contents:
-  - 'CV_SpATS'
-  - 'res_spats'
-  - 'r_square'
+  - CV_SpATS
+  - res_spats
+  - r_square
 - title: ASReml
-  desc:  Additional functions for ASReml models
+  desc: Additional functions for ASReml models
 - contents:
-  - 'biplot_fa2'
-  - 'extractG'
-  - 'fa.asreml'
-  - 'fa2_summary'
-  - 'heritability_fa'
-  - 'var_fa'
+  - biplot_fa2
+  - extractG
+  - fa.asreml
+  - fa2_summary
+  - heritability_fa
+  - var_fa
 - title: Others
 - contents:
-  - 'covcor_heat'
-  - 'ggCor'
-  - 'parameters_GG'
+  - covcor_heat
+  - ggCor
+  - parameters_GG
 

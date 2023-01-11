@@ -29,7 +29,8 @@ Imports:
 Enhances: asreml
 Encoding: UTF-8
 RoxygenNote: 7.2.3
-URL: https://github.com/AparicioJohan/agriutilities
+URL: https://github.com/AparicioJohan/agriutilities,
+    https://apariciojohan.github.io/agriutilities/
 BugReports: https://github.com/AparicioJohan/agriutilities/issues
 ByteCompile: TRUE
 Suggests: 
