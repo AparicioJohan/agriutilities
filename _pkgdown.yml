@@ -26,13 +26,13 @@ reference:
 - contents:
   - check_connectivity
   - connectivity_matrix
-  - '`check_design_MET`'
-  - '`single_trial_analysis`'
-  - '`stability`'
-  - '`met_analysis`'
-  - '`print.checkAgri`'
-  - '`print.smaAgri`'
-  - '`print.metAgri`'
+  - check_design_MET
+  - single_trial_analysis
+  - stability
+  - met_analysis
+  - print.checkAgri
+  - print.smaAgri
+  - print.metAgri
 - title: Lme4
   desc: Additional functions for lme4 models
 - contents:
