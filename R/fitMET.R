@@ -59,8 +59,10 @@ stability <- function(predictions = NULL,
 #' @param workspace Sets the workspace for the core \code{REML} routines in the
 #' form of a number optionally followed directly by a valid measurement unit.
 #' "128mb" by default.
-#' @param trials_to_fit_fa Number of trials necessary to fit a Factor Analytic
-#' structure for the GxE interaction term. 4 by default.
+#' @param vcov A character string specifying the Variance-Covariance structure
+#' to be fitted. Can be "fa2", "fa1" or "us". If \code{NULL} the function will
+#' try to fit an "us" Variance-Covariance and if it fails, it will try with
+#' "fa2" and then with "fa1".
 #'
 #' @return A list with a summary of the fitted models.
 #' @export
@@ -88,7 +90,7 @@ stability <- function(predictions = NULL,
 met_analysis <- function(sma_output = NULL,
                          h2_filter = 0.2,
                          workspace = "1gb",
-                         trials_to_fit_fa = 4) {
+                         vcov = NULL) {
   if (!inherits(sma_output, "smaAgri")) {
     stop("The object should be of smaAgri class")
   }
@@ -152,27 +154,119 @@ met_analysis <- function(sma_output = NULL,
       dplyr::filter(trait %in% var) %>%
       droplevels() %>%
       as.data.frame()
+    trials <- dt %>%
+      dplyr::pull("trial") %>%
+      unique() %>%
+      as.character()
+    n_trials <- length(trials)
     equation_fix <- stats::reformulate("trial", response = "BLUEs")
-    if (n_trials < trials_to_fit_fa) {
+    if (is.null(vcov)) {
       vcov_selected <- "us"
       equation_ran <- stats::reformulate("us(trial):genotype")
-    }
-    if (n_trials >= trials_to_fit_fa) {
+      met_mod <- try(
+        suppressWarnings(
+          asreml::asreml(
+            fixed = equation_fix,
+            random = equation_ran,
+            data = dt,
+            weights = wt,
+            family = asreml::asr_gaussian(dispersion = 1),
+            na.action = list(x = "include", y = "include"),
+            trace = 0,
+            maxiter = 200
+          )
+        ),
+      )
+      if (inherits(met_mod, "try-error")) {
+        vcov_selected <- "fa2"
+        equation_ran <- stats::reformulate("fa(trial, 2):genotype")
+        met_mod <- try(
+          suppressWarnings(
+            asreml::asreml(
+              fixed = equation_fix,
+              random = equation_ran,
+              data = dt,
+              weights = wt,
+              family = asreml::asr_gaussian(dispersion = 1),
+              na.action = list(x = "include", y = "include"),
+              trace = 0,
+              maxiter = 200
+            )
+          ),
+        )
+      }
+      if (inherits(met_mod, "try-error")) {
+        vcov_selected <- "fa1"
+        equation_ran <- stats::reformulate("fa(trial, 1):genotype")
+        met_mod <- try(
+          suppressWarnings(
+            asreml::asreml(
+              fixed = equation_fix,
+              random = equation_ran,
+              data = dt,
+              weights = wt,
+              family = asreml::asr_gaussian(dispersion = 1),
+              na.action = list(x = "include", y = "include"),
+              trace = 0,
+              maxiter = 200
+            )
+          ),
+        )
+      }
+      if (inherits(met_mod, "try-error")) {
+        stop(
+          "Check the data. We couldn't fit any variance-covariance structure"
+        )
+      }
+      met_mod <- suppressWarnings(asreml::update.asreml(met_mod))
+    } else if (vcov == "fa1") {
+      vcov_selected <- "fa1"
+      equation_ran <- stats::reformulate("fa(trial, 1):genotype")
+      met_mod <- suppressWarnings(
+        asreml::asreml(
+          fixed = equation_fix,
+          random = equation_ran,
+          data = dt,
+          weights = wt,
+          family = asreml::asr_gaussian(dispersion = 1),
+          na.action = list(x = "include", y = "include"),
+          trace = 0,
+          maxiter = 200
+        )
+      )
+    } else if (vcov == "fa2") {
       vcov_selected <- "fa2"
       equation_ran <- stats::reformulate("fa(trial, 2):genotype")
-    }
-    met_mod <- suppressWarnings(
-      asreml::asreml(
-        fixed = equation_fix,
-        random = equation_ran,
-        data = dt,
-        weights = wt,
-        family = asreml::asr_gaussian(dispersion = 1),
-        na.action = list(x = "include", y = "include"),
-        trace = 0,
-        maxiter = 200
+      met_mod <- suppressWarnings(
+        asreml::asreml(
+          fixed = equation_fix,
+          random = equation_ran,
+          data = dt,
+          weights = wt,
+          family = asreml::asr_gaussian(dispersion = 1),
+          na.action = list(x = "include", y = "include"),
+          trace = 0,
+          maxiter = 200
+        )
       )
-    )
+    } else if (vcov == "us") {
+      vcov_selected <- "us"
+      equation_ran <- stats::reformulate("us(trial):genotype")
+      met_mod <- suppressWarnings(
+        asreml::asreml(
+          fixed = equation_fix,
+          random = equation_ran,
+          data = dt,
+          weights = wt,
+          family = asreml::asr_gaussian(dispersion = 1),
+          na.action = list(x = "include", y = "include"),
+          trace = 0,
+          maxiter = 200
+        )
+      )
+    } else {
+      stop(paste0("No '", vcov, "' variance-covariance structure found."))
+    }
     met_mod <- suppressWarnings(asreml::update.asreml(met_mod))
     met_models[[var]] <- met_mod
     VCOV[[var]] <- extractG(

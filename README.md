@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# agriutilities <a href="https://apariciojohan.github.io/agriutilities/"><img src="man/figures/logo.png" align="right" width="120"/></a>
+# agriutilities <img src="man/figures/logo.png" align="right" width="160px"/></a>
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -155,67 +155,67 @@ lot of more things.
 
 ``` r
 met_results <- met_analysis(obj)
-#> Online License checked out Tue Jan 10 09:32:25 2023
-#> Online License checked out Tue Jan 10 09:32:26 2023
+#> Online License checked out Wed Jan 11 12:30:38 2023
+#> Online License checked out Wed Jan 11 12:30:38 2023
 print(met_results)
 #> ---------------------------------------------------------------------
 #> Trial Effects (BLUEs):
 #> ---------------------------------------------------------------------
 #>   trait trial predicted.value std.error    status
-#> 1 yield    C1       151.40260  1.350864 Estimable
-#> 2 yield    C2        65.78799  1.117562 Estimable
-#> 3 yield    C3        90.06915  1.477791 Estimable
-#> 4 yield    C4       148.09618  1.237939 Estimable
-#> 5 yield    C5       122.66609  1.433520 Estimable
-#> 6 yield    C6        86.80788  1.491837 Estimable
+#> 1 yield    C1       151.40258  1.351961 Estimable
+#> 2 yield    C2        65.78758  1.119965 Estimable
+#> 3 yield    C3        90.06743  1.478252 Estimable
+#> 4 yield    C4       148.09868  1.241288 Estimable
+#> 5 yield    C5       122.66271  1.429107 Estimable
+#> 6 yield    C6        86.80613  1.492154 Estimable
 #> 
 #> ---------------------------------------------------------------------
 #> Heritability:
 #> ---------------------------------------------------------------------
 #>   trait        h2
-#> 1 yield 0.8246931
+#> 1 yield 0.8244552
 #> 
 #> ---------------------------------------------------------------------
 #> First Overall Predicted Values and Standard Errors (BLUPs):
 #> ---------------------------------------------------------------------
 #>   trait genotype predicted.value std.error    status
-#> 1 yield      G01        110.0104  2.531191 Estimable
-#> 2 yield      G02        111.0692  2.542598 Estimable
-#> 3 yield      G03        102.7300  2.518689 Estimable
-#> 4 yield      G04        115.5712  2.537870 Estimable
-#> 5 yield      G05        120.2970  2.544906 Estimable
-#> 6 yield      G06        109.4588  2.546752 Estimable
+#> 1 yield      G01        110.0200  2.530462 Estimable
+#> 2 yield      G02        111.1065  2.541857 Estimable
+#> 3 yield      G03        102.7181  2.517908 Estimable
+#> 4 yield      G04        115.5364  2.537029 Estimable
+#> 5 yield      G05        120.2974  2.544593 Estimable
+#> 6 yield      G06        109.4152  2.546403 Estimable
 #> 
 #> ---------------------------------------------------------------------
 #> Variance-Covariance Matrix:
 #> ---------------------------------------------------------------------
 #> 
-#> Correlation Matrix ('fa2'): yield
+#> Correlation Matrix ('us'): yield
 #>      C1   C2   C3   C4   C5   C6
-#> C1 1.00 0.60 0.68 0.67 0.92 0.34
-#> C2 0.60 1.00 0.67 0.87 0.59 0.62
-#> C3 0.68 0.67 1.00 0.67 0.71 0.39
-#> C4 0.67 0.87 0.67 1.00 0.68 0.53
-#> C5 0.92 0.59 0.71 0.68 1.00 0.32
-#> C6 0.34 0.62 0.39 0.53 0.32 1.00
+#> C1 1.00 0.65 0.58 0.64 0.94 0.40
+#> C2 0.65 1.00 0.57 0.79 0.59 0.74
+#> C3 0.58 0.57 1.00 0.87 0.74 0.33
+#> C4 0.64 0.79 0.87 1.00 0.66 0.41
+#> C5 0.94 0.59 0.74 0.66 1.00 0.31
+#> C6 0.40 0.74 0.33 0.41 0.31 1.00
 #> 
-#> Covariance Matrix ('fa2'): yield
+#> Covariance Matrix ('us'): yield
 #>       C1    C2    C3    C4     C5    C6
-#> C1 73.82 25.48 54.16 33.71  80.09 23.90
-#> C2 25.48 24.19 30.49 25.07  29.19 25.14
-#> C3 54.16 30.49 86.30 36.04  66.79 30.12
-#> C4 33.71 25.07 36.04 33.99  40.20 25.54
-#> C5 80.09 29.19 66.79 40.20 102.38 26.82
-#> C6 23.90 25.14 30.12 25.54  26.82 68.64
+#> C1 74.02 27.52 46.28 32.19  81.34 28.63
+#> C2 27.52 24.49 26.31 22.83  29.21 30.15
+#> C3 46.28 26.31 86.39 47.71  69.12 25.64
+#> C4 32.19 22.83 47.71 34.48  39.07 19.73
+#> C5 81.34 29.21 69.12 39.07 101.57 25.94
+#> C6 28.63 30.15 25.64 19.73  25.94 68.68
 #> 
 #> ---------------------------------------------------------------------
 #> First Stability Coefficients:
 #> ---------------------------------------------------------------------
 #>   trait genotype superiority   static    wricke predicted.value
-#> 1 yield      G57    22.50744 34.36119 15.856876        92.46296
-#> 2 yield      G29    17.14532 34.50170  4.949159        99.17131
-#> 3 yield      G59    17.07740 35.07934  5.227436        99.25824
-#> 4 yield      G34    16.65776 34.42369  7.138620       100.02813
-#> 5 yield      G10    15.77535 33.70067 12.348278       102.02992
-#> 6 yield      G31    15.14259 32.05132 10.827991       102.41852
+#> 1 yield      G57    22.49186 34.03947 15.764319        92.48602
+#> 2 yield      G29    17.19476 34.67881  5.207048        99.16798
+#> 3 yield      G59    17.07438 35.32410  4.801998        99.29619
+#> 4 yield      G34    16.69884 34.35385  8.138613       100.06035
+#> 5 yield      G10    15.76951 33.54824 11.883009       102.00207
+#> 6 yield      G31    15.16212 32.21745 10.316367       102.40940
 ```

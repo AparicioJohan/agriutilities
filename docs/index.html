@@ -80,8 +80,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header">
-<img src="logo.png" class="logo" alt=""><h1 id="agriutilities-">agriutilities 
-<a class="anchor" aria-label="anchor" href="#agriutilities-"></a>
+<img src="logo.png" class="logo" alt=""><h1 id="agriutilities-">agriutilities <a class="anchor" aria-label="anchor" href="#agriutilities-"></a>
 </h1>
 </div>
 <!-- badges: start --><!-- badges: end --><p>The goal of this package is to provide some additional functions for the analysis of field trials in agriculture. It integrates functionalities of packages such as <code>SpATS</code>, <code>lme4</code>, <code>ASReml-R</code>, and <code>statgenSTA</code>, to analyse multi-enviromental/trait data in a semi-automatic way.</p>
@@ -211,69 +210,69 @@
 </h3>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">met_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/met_analysis.html">met_analysis</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Online License checked out Tue Jan 10 09:32:25 2023</span></span>
-<span><span class="co">#&gt; Online License checked out Tue Jan 10 09:32:26 2023</span></span>
+<span><span class="co">#&gt; Online License checked out Wed Jan 11 12:27:23 2023</span></span>
+<span><span class="co">#&gt; Online License checked out Wed Jan 11 12:27:23 2023</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">met_results</span><span class="op">)</span></span>
 <span><span class="co">#&gt; ---------------------------------------------------------------------</span></span>
 <span><span class="co">#&gt; Trial Effects (BLUEs):</span></span>
 <span><span class="co">#&gt; ---------------------------------------------------------------------</span></span>
 <span><span class="co">#&gt;   trait trial predicted.value std.error    status</span></span>
-<span><span class="co">#&gt; 1 yield    C1       151.40260  1.350864 Estimable</span></span>
-<span><span class="co">#&gt; 2 yield    C2        65.78799  1.117562 Estimable</span></span>
-<span><span class="co">#&gt; 3 yield    C3        90.06915  1.477791 Estimable</span></span>
-<span><span class="co">#&gt; 4 yield    C4       148.09618  1.237939 Estimable</span></span>
-<span><span class="co">#&gt; 5 yield    C5       122.66609  1.433520 Estimable</span></span>
-<span><span class="co">#&gt; 6 yield    C6        86.80788  1.491837 Estimable</span></span>
+<span><span class="co">#&gt; 1 yield    C1       151.40258  1.351961 Estimable</span></span>
+<span><span class="co">#&gt; 2 yield    C2        65.78758  1.119965 Estimable</span></span>
+<span><span class="co">#&gt; 3 yield    C3        90.06743  1.478252 Estimable</span></span>
+<span><span class="co">#&gt; 4 yield    C4       148.09868  1.241288 Estimable</span></span>
+<span><span class="co">#&gt; 5 yield    C5       122.66271  1.429107 Estimable</span></span>
+<span><span class="co">#&gt; 6 yield    C6        86.80613  1.492154 Estimable</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ---------------------------------------------------------------------</span></span>
 <span><span class="co">#&gt; Heritability:</span></span>
 <span><span class="co">#&gt; ---------------------------------------------------------------------</span></span>
 <span><span class="co">#&gt;   trait        h2</span></span>
-<span><span class="co">#&gt; 1 yield 0.8246931</span></span>
+<span><span class="co">#&gt; 1 yield 0.8244552</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ---------------------------------------------------------------------</span></span>
 <span><span class="co">#&gt; First Overall Predicted Values and Standard Errors (BLUPs):</span></span>
 <span><span class="co">#&gt; ---------------------------------------------------------------------</span></span>
 <span><span class="co">#&gt;   trait genotype predicted.value std.error    status</span></span>
-<span><span class="co">#&gt; 1 yield      G01        110.0104  2.531191 Estimable</span></span>
-<span><span class="co">#&gt; 2 yield      G02        111.0692  2.542598 Estimable</span></span>
-<span><span class="co">#&gt; 3 yield      G03        102.7300  2.518689 Estimable</span></span>
-<span><span class="co">#&gt; 4 yield      G04        115.5712  2.537870 Estimable</span></span>
-<span><span class="co">#&gt; 5 yield      G05        120.2970  2.544906 Estimable</span></span>
-<span><span class="co">#&gt; 6 yield      G06        109.4588  2.546752 Estimable</span></span>
+<span><span class="co">#&gt; 1 yield      G01        110.0200  2.530462 Estimable</span></span>
+<span><span class="co">#&gt; 2 yield      G02        111.1065  2.541857 Estimable</span></span>
+<span><span class="co">#&gt; 3 yield      G03        102.7181  2.517908 Estimable</span></span>
+<span><span class="co">#&gt; 4 yield      G04        115.5364  2.537029 Estimable</span></span>
+<span><span class="co">#&gt; 5 yield      G05        120.2974  2.544593 Estimable</span></span>
+<span><span class="co">#&gt; 6 yield      G06        109.4152  2.546403 Estimable</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ---------------------------------------------------------------------</span></span>
 <span><span class="co">#&gt; Variance-Covariance Matrix:</span></span>
 <span><span class="co">#&gt; ---------------------------------------------------------------------</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Correlation Matrix ('fa2'): yield</span></span>
+<span><span class="co">#&gt; Correlation Matrix ('us'): yield</span></span>
 <span><span class="co">#&gt;      C1   C2   C3   C4   C5   C6</span></span>
-<span><span class="co">#&gt; C1 1.00 0.60 0.68 0.67 0.92 0.34</span></span>
-<span><span class="co">#&gt; C2 0.60 1.00 0.67 0.87 0.59 0.62</span></span>
-<span><span class="co">#&gt; C3 0.68 0.67 1.00 0.67 0.71 0.39</span></span>
-<span><span class="co">#&gt; C4 0.67 0.87 0.67 1.00 0.68 0.53</span></span>
-<span><span class="co">#&gt; C5 0.92 0.59 0.71 0.68 1.00 0.32</span></span>
-<span><span class="co">#&gt; C6 0.34 0.62 0.39 0.53 0.32 1.00</span></span>
+<span><span class="co">#&gt; C1 1.00 0.65 0.58 0.64 0.94 0.40</span></span>
+<span><span class="co">#&gt; C2 0.65 1.00 0.57 0.79 0.59 0.74</span></span>
+<span><span class="co">#&gt; C3 0.58 0.57 1.00 0.87 0.74 0.33</span></span>
+<span><span class="co">#&gt; C4 0.64 0.79 0.87 1.00 0.66 0.41</span></span>
+<span><span class="co">#&gt; C5 0.94 0.59 0.74 0.66 1.00 0.31</span></span>
+<span><span class="co">#&gt; C6 0.40 0.74 0.33 0.41 0.31 1.00</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Covariance Matrix ('fa2'): yield</span></span>
+<span><span class="co">#&gt; Covariance Matrix ('us'): yield</span></span>
 <span><span class="co">#&gt;       C1    C2    C3    C4     C5    C6</span></span>
-<span><span class="co">#&gt; C1 73.82 25.48 54.16 33.71  80.09 23.90</span></span>
-<span><span class="co">#&gt; C2 25.48 24.19 30.49 25.07  29.19 25.14</span></span>
-<span><span class="co">#&gt; C3 54.16 30.49 86.30 36.04  66.79 30.12</span></span>
-<span><span class="co">#&gt; C4 33.71 25.07 36.04 33.99  40.20 25.54</span></span>
-<span><span class="co">#&gt; C5 80.09 29.19 66.79 40.20 102.38 26.82</span></span>
-<span><span class="co">#&gt; C6 23.90 25.14 30.12 25.54  26.82 68.64</span></span>
+<span><span class="co">#&gt; C1 74.02 27.52 46.28 32.19  81.34 28.63</span></span>
+<span><span class="co">#&gt; C2 27.52 24.49 26.31 22.83  29.21 30.15</span></span>
+<span><span class="co">#&gt; C3 46.28 26.31 86.39 47.71  69.12 25.64</span></span>
+<span><span class="co">#&gt; C4 32.19 22.83 47.71 34.48  39.07 19.73</span></span>
+<span><span class="co">#&gt; C5 81.34 29.21 69.12 39.07 101.57 25.94</span></span>
+<span><span class="co">#&gt; C6 28.63 30.15 25.64 19.73  25.94 68.68</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ---------------------------------------------------------------------</span></span>
 <span><span class="co">#&gt; First Stability Coefficients:</span></span>
 <span><span class="co">#&gt; ---------------------------------------------------------------------</span></span>
 <span><span class="co">#&gt;   trait genotype superiority   static    wricke predicted.value</span></span>
-<span><span class="co">#&gt; 1 yield      G57    22.50744 34.36119 15.856876        92.46296</span></span>
-<span><span class="co">#&gt; 2 yield      G29    17.14532 34.50170  4.949159        99.17131</span></span>
-<span><span class="co">#&gt; 3 yield      G59    17.07740 35.07934  5.227436        99.25824</span></span>
-<span><span class="co">#&gt; 4 yield      G34    16.65776 34.42369  7.138620       100.02813</span></span>
-<span><span class="co">#&gt; 5 yield      G10    15.77535 33.70067 12.348278       102.02992</span></span>
-<span><span class="co">#&gt; 6 yield      G31    15.14259 32.05132 10.827991       102.41852</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 yield      G57    22.49186 34.03947 15.764319        92.48602</span></span>
+<span><span class="co">#&gt; 2 yield      G29    17.19476 34.67881  5.207048        99.16798</span></span>
+<span><span class="co">#&gt; 3 yield      G59    17.07438 35.32410  4.801998        99.29619</span></span>
+<span><span class="co">#&gt; 4 yield      G34    16.69884 34.35385  8.138613       100.06035</span></span>
+<span><span class="co">#&gt; 5 yield      G10    15.76951 33.54824 11.883009       102.00207</span></span>
+<span><span class="co">#&gt; 6 yield      G31    15.16212 32.21745 10.316367       102.40940</span></span></code></pre></div>
 </div>
 </div>
 </div>

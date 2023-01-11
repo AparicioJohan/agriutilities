@@ -8,7 +8,7 @@ met_analysis(
   sma_output = NULL,
   h2_filter = 0.2,
   workspace = "1gb",
-  trials_to_fit_fa = 4
+  vcov = NULL
 )
 }
 \arguments{
@@ -22,8 +22,10 @@ met_analysis(
 form of a number optionally followed directly by a valid measurement unit.
 "128mb" by default.}
 
-\item{trials_to_fit_fa}{Number of trials necessary to fit a Factor Analytic
-structure for the GxE interaction term. 4 by default.}
+\item{vcov}{A character string specifying the Variance-Covariance structure
+to be fitted. Can be "fa2", "fa1" or "us". If \code{NULL} the function will
+try to fit an "us" Variance-Covariance and if it fails, it will try with
+"fa2" and then with "fa1".}
 }
 \value{
 A list with a summary of the fitted models.
