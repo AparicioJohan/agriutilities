@@ -187,6 +187,8 @@ fit_STA <- function(results, trait, design, remove_outliers, engine, progress) {
 #' in each trial.}
 #' \item{std_residuals}{A data.frame containing the standardized residuals for
 #' the model with genotype as random component.}
+#' \item{data}{A data.frame containing the data used. If \code{remove_outliers}
+#' is \code{TRUE}, data will have missing values for the outliers detected.}
 #' @export
 #'
 #' @examples
@@ -442,13 +444,30 @@ single_trial_analysis <- function(results = NULL,
     as.data.frame(row.names = NULL)
   outliers <- dplyr::bind_rows(outliers, .id = "trait")
   row.names(outliers) <- NULL
+  # data used
+  if (!is.null(outliers)) {
+    traits_out <- outliers %>%
+      dplyr::pull(trait) %>%
+      unique()
+    data_objt <- results$data_design
+    for (k in traits_out) {
+      indx_out <- outliers %>%
+        dplyr::filter(trait %in% k) %>%
+        dplyr::pull(id)
+      data_objt[data_objt$id %in% indx_out, k] <- NA
+      data_objt[data_objt$id %in% indx_out, "outliers"] <- TRUE
+    }
+  } else {
+    data_objt <- results$data_design
+  }
   # Output
   results <- list(
     fitted_models = fitted_models,
     resum_fitted_model = resum_fitted_model,
     outliers = outliers,
     blues_blups = blues_blups,
-    std_residuals = std_residuals
+    std_residuals = std_residuals,
+    data = data_objt
   )
   class(results) <- "smaAgri"
   return(invisible(results))

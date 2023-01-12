@@ -38,6 +38,8 @@ observations removed.}
 in each trial.}
 \item{std_residuals}{A data.frame containing the standardized residuals for
 the model with genotype as random component.}
+\item{data}{A data.frame containing the data used. If \code{remove_outliers}
+is \code{TRUE}, data will have missing values for the outliers detected.}
 }
 \description{
 Single Trial Analysis
