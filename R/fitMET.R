@@ -60,11 +60,19 @@ stability <- function(predictions = NULL,
 #' form of a number optionally followed directly by a valid measurement unit.
 #' "128mb" by default.
 #' @param vcov A character string specifying the Variance-Covariance structure
-#' to be fitted. Can be "fa2", "fa1" or "us". If \code{NULL} the function will
-#' try to fit an "us" Variance-Covariance and if it fails, it will try with
-#' "fa2" and then with "fa1".
+#' to be fitted. Can be "fa2", "fa1", "us", or "corh". If \code{NULL} the
+#' function will try to fit an "us" Variance-Covariance and if it fails, it will
+#' try with "fa2" and then with "fa1".
 #'
-#' @return A list with a summary of the fitted models.
+#' @return  An object of class \code{metAgri}, with a list of:
+#' \item{trial_effects}{A data.frame containing Trial BLUEs.}
+#' \item{overall_BLUPs}{A data.frame containing Genotypic BLUPs across trials,
+#' by trait.}
+#' \item{BLUPs_GxE}{A data.frame containing Genotypic BLUPs by trial/trait.}
+#' \item{VCOV}{A list by trait contanining the variance-covariance fitted.}
+#' \item{stability}{A data.frame containing several Stability coefficients
+#' resulting of executing the function \code{stability()}.}
+#' \item{heritability}{A data.frame containing overall heritabilities by trait.}
 #' @export
 #'
 #' @examples
@@ -154,11 +162,6 @@ met_analysis <- function(sma_output = NULL,
       dplyr::filter(trait %in% var) %>%
       droplevels() %>%
       as.data.frame()
-    trials <- dt %>%
-      dplyr::pull("trial") %>%
-      unique() %>%
-      as.character()
-    n_trials <- length(trials)
     equation_fix <- stats::reformulate("trial", response = "BLUEs")
     if (is.null(vcov)) {
       vcov_selected <- "us"
@@ -215,58 +218,37 @@ met_analysis <- function(sma_output = NULL,
       }
       if (inherits(met_mod, "try-error")) {
         stop(
-          "Check the data. We couldn't fit any variance-covariance structure"
+          "Trait '", var, "'\n",
+          "We couldn't fit any variance-covariance structure."
         )
       }
-      met_mod <- suppressWarnings(asreml::update.asreml(met_mod))
     } else if (vcov == "fa1") {
       vcov_selected <- "fa1"
       equation_ran <- stats::reformulate("fa(trial, 1):genotype")
-      met_mod <- suppressWarnings(
-        asreml::asreml(
-          fixed = equation_fix,
-          random = equation_ran,
-          data = dt,
-          weights = wt,
-          family = asreml::asr_gaussian(dispersion = 1),
-          na.action = list(x = "exclude", y = "include"),
-          trace = 0,
-          maxiter = 200
-        )
-      )
     } else if (vcov == "fa2") {
       vcov_selected <- "fa2"
       equation_ran <- stats::reformulate("fa(trial, 2):genotype")
-      met_mod <- suppressWarnings(
-        asreml::asreml(
-          fixed = equation_fix,
-          random = equation_ran,
-          data = dt,
-          weights = wt,
-          family = asreml::asr_gaussian(dispersion = 1),
-          na.action = list(x = "exclude", y = "include"),
-          trace = 0,
-          maxiter = 200
-        )
-      )
     } else if (vcov == "us") {
       vcov_selected <- "us"
       equation_ran <- stats::reformulate("us(trial):genotype")
-      met_mod <- suppressWarnings(
-        asreml::asreml(
-          fixed = equation_fix,
-          random = equation_ran,
-          data = dt,
-          weights = wt,
-          family = asreml::asr_gaussian(dispersion = 1),
-          na.action = list(x = "exclude", y = "include"),
-          trace = 0,
-          maxiter = 200
-        )
-      )
+    } else if (vcov == "corh") {
+      vcov_selected <- "corh"
+      equation_ran <- stats::reformulate("corh(trial):genotype")
     } else {
       stop(paste0("No '", vcov, "' variance-covariance structure found."))
     }
+    met_mod <- suppressWarnings(
+      asreml::asreml(
+        fixed = equation_fix,
+        random = equation_ran,
+        data = dt,
+        weights = wt,
+        family = asreml::asr_gaussian(dispersion = 1),
+        na.action = list(x = "exclude", y = "include"),
+        trace = 0,
+        maxiter = 200
+      )
+    )
     met_mod <- suppressWarnings(asreml::update.asreml(met_mod))
     met_models[[var]] <- met_mod
     VCOV[[var]] <- extractG(

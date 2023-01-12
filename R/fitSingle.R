@@ -175,7 +175,18 @@ fit_STA <- function(results, trait, design, remove_outliers, engine, progress) {
 #' \code{SpATS} is always used, for other designs \code{asreml} as a default.
 #' @param remove_outliers Should outliers be removed? \code{TRUE} by default.
 #'
-#' @return A list of data.frames.
+#' @return An object of class \code{smaAgri}, with a list of:
+#' \item{fitted_models}{A list containing the fitted models. (Both models, the
+#' one with Genotype as Random and the one with Genotype as Fixed)}
+#' \item{resum_fitted_model}{A data.frame containing a summary of the fitted
+#' models.}
+#' \item{outliers}{A data.frame containing extreme observations. If
+#' \code{remove_outliers} is \code{TRUE}, this data.frame will contain the
+#' observations removed.}
+#' \item{blues_blups}{A data.frame containing BLUPs/BLUEs for all the genotypes
+#' in each trial.}
+#' \item{std_residuals}{A data.frame containing the standardized residuals for
+#' the model with genotype as random component.}
 #' @export
 #'
 #' @examples
