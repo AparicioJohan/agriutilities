@@ -36,6 +36,10 @@
 #'   row = "row"
 #' )
 #' print(results)
+#' # Plotting Connectivity Matrix
+#' plot(results, type = "connectivity")
+#' # Plotting Missing Data
+#' plot(results, type = "missing")
 #' }
 #' @import dplyr
 #' @importFrom stats sd median

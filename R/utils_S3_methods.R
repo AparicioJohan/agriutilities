@@ -205,13 +205,24 @@ plot.checkAgri <- function(x,
                            text_size = 5, ...) {
   type <- match.arg(type)
   if (type == "connectivity") {
-    MM <- x$connectivity_matrix %>%
+    reorder_cormat <- function(cormat) {
+      dd <- stats::dist(cormat)
+      hc <- stats::hclust(dd)
+      cormat <- cormat[hc$order, hc$order]
+    }
+    conn <- reorder_cormat(x$connectivity_matrix)
+    order_trials_x <- rownames(conn)
+    order_trials_y <- colnames(conn)
+    MM <- conn %>%
       as.data.frame() %>%
       tibble::rownames_to_column(var = "trial_x") %>%
       tidyr::gather(data = ., key = "trial_y", value = "n", -trial_x) %>%
       dplyr::mutate(n = ifelse(n == 0, NA, n)) %>%
-      dplyr::filter(!is.na(n))
-
+      dplyr::filter(!is.na(n)) %>%
+      dplyr::mutate(
+        trial_x = factor(trial_x, levels = order_trials_x),
+        trial_y = factor(trial_y, levels = order_trials_y)
+      )
     colours <- c("#db4437", "white", "#4285f4")
     g_plot <- MM %>%
       ggplot(
@@ -248,6 +259,7 @@ plot.checkAgri <- function(x,
       ) +
       labs(title = "Connectivity Matrix")
     g_plot
+
   }
 
   if (type == "missing") {
