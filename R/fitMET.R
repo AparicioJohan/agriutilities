@@ -171,7 +171,7 @@ met_analysis <- function(sma_output = NULL,
             data = dt,
             weights = wt,
             family = asreml::asr_gaussian(dispersion = 1),
-            na.action = list(x = "include", y = "include"),
+            na.action = list(x = "exclude", y = "include"),
             trace = 0,
             maxiter = 200
           )
@@ -188,7 +188,7 @@ met_analysis <- function(sma_output = NULL,
               data = dt,
               weights = wt,
               family = asreml::asr_gaussian(dispersion = 1),
-              na.action = list(x = "include", y = "include"),
+              na.action = list(x = "exclude", y = "include"),
               trace = 0,
               maxiter = 200
             )
@@ -206,7 +206,7 @@ met_analysis <- function(sma_output = NULL,
               data = dt,
               weights = wt,
               family = asreml::asr_gaussian(dispersion = 1),
-              na.action = list(x = "include", y = "include"),
+              na.action = list(x = "exclude", y = "include"),
               trace = 0,
               maxiter = 200
             )
@@ -229,7 +229,7 @@ met_analysis <- function(sma_output = NULL,
           data = dt,
           weights = wt,
           family = asreml::asr_gaussian(dispersion = 1),
-          na.action = list(x = "include", y = "include"),
+          na.action = list(x = "exclude", y = "include"),
           trace = 0,
           maxiter = 200
         )
@@ -244,7 +244,7 @@ met_analysis <- function(sma_output = NULL,
           data = dt,
           weights = wt,
           family = asreml::asr_gaussian(dispersion = 1),
-          na.action = list(x = "include", y = "include"),
+          na.action = list(x = "exclude", y = "include"),
           trace = 0,
           maxiter = 200
         )
@@ -259,7 +259,7 @@ met_analysis <- function(sma_output = NULL,
           data = dt,
           weights = wt,
           family = asreml::asr_gaussian(dispersion = 1),
-          na.action = list(x = "include", y = "include"),
+          na.action = list(x = "exclude", y = "include"),
           trace = 0,
           maxiter = 200
         )
