@@ -23,12 +23,20 @@ form of a number optionally followed directly by a valid measurement unit.
 "128mb" by default.}
 
 \item{vcov}{A character string specifying the Variance-Covariance structure
-to be fitted. Can be "fa2", "fa1" or "us". If \code{NULL} the function will
-try to fit an "us" Variance-Covariance and if it fails, it will try with
-"fa2" and then with "fa1".}
+to be fitted. Can be "fa2", "fa1", "us", or "corh". If \code{NULL} the
+function will try to fit an "us" Variance-Covariance and if it fails, it will
+try with "fa2" and then with "fa1".}
 }
 \value{
-A list with a summary of the fitted models.
+An object of class \code{metAgri}, with a list of:
+\item{trial_effects}{A data.frame containing Trial BLUEs.}
+\item{overall_BLUPs}{A data.frame containing Genotypic BLUPs across trials,
+by trait.}
+\item{BLUPs_GxE}{A data.frame containing Genotypic BLUPs by trial/trait.}
+\item{VCOV}{A list by trait contanining the variance-covariance fitted.}
+\item{stability}{A data.frame containing several Stability coefficients
+resulting of executing the function \code{stability()}.}
+\item{heritability}{A data.frame containing overall heritabilities by trait.}
 }
 \description{
 Multi-Environmental Trial Analysis

@@ -95,8 +95,29 @@ engine to use, either <code>lme4</code> or <code>asreml</code>. For spatial desi
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>A list of data.frames.</p>
-    </div>
+<p>An object of class <code>smaAgri</code>, with a list of:</p>
+<dl><dt>fitted_models</dt>
+<dd><p>A list containing the fitted models. (Both models, the
+one with Genotype as Random and the one with Genotype as Fixed)</p></dd>
+
+<dt>resum_fitted_model</dt>
+<dd><p>A data.frame containing a summary of the fitted
+models.</p></dd>
+
+<dt>outliers</dt>
+<dd><p>A data.frame containing extreme observations. If
+<code>remove_outliers</code> is <code>TRUE</code>, this data.frame will contain the
+observations removed.</p></dd>
+
+<dt>blues_blups</dt>
+<dd><p>A data.frame containing BLUPs/BLUEs for all the genotypes
+in each trial.</p></dd>
+
+<dt>std_residuals</dt>
+<dd><p>A data.frame containing the standardized residuals for
+the model with genotype as random component.</p></dd>
+
+</dl></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>

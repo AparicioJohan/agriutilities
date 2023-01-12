@@ -26,7 +26,18 @@ engine to use, either \code{lme4} or \code{asreml}. For spatial designs,
 \item{remove_outliers}{Should outliers be removed? \code{TRUE} by default.}
 }
 \value{
-A list of data.frames.
+An object of class \code{smaAgri}, with a list of:
+\item{fitted_models}{A list containing the fitted models. (Both models, the
+one with Genotype as Random and the one with Genotype as Fixed)}
+\item{resum_fitted_model}{A data.frame containing a summary of the fitted
+models.}
+\item{outliers}{A data.frame containing extreme observations. If
+\code{remove_outliers} is \code{TRUE}, this data.frame will contain the
+observations removed.}
+\item{blues_blups}{A data.frame containing BLUPs/BLUEs for all the genotypes
+in each trial.}
+\item{std_residuals}{A data.frame containing the standardized residuals for
+the model with genotype as random component.}
 }
 \description{
 Single Trial Analysis
