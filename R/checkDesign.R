@@ -108,6 +108,10 @@ check_design_MET <- function(data = NULL,
     if (!i %in% names(data)) {
       stop(paste("No '", i, "' column found"))
     }
+    class <- data[[i]] %>% class
+    if (class != "numeric"){
+      stop(paste("Error: The class of the trait '", i, "' should be numeric "))
+    }
   }
 
   summ_traits <- data %>%
