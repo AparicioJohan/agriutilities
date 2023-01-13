@@ -134,28 +134,32 @@ check_design_MET <- function(data = NULL,
   exp_design_resum <- data %>%
     group_by(.data[[trial]], .data[[genotype]]) %>%
     mutate(gen_reps = n()) %>%
+    group_by(.data[[trial]], .data[[rep]]) %>%
+    mutate(size_reps = n()) %>%
     group_by(.data[[trial]]) %>%
     summarise(
       n = n(),
-      n_gen = n_distinct(.data[[genotype]]),
-      n_rep = n_distinct(.data[[rep]]),
-      n_block = n_distinct(.data[[block]]),
-      n_col = n_distinct(.data[[col]]),
-      n_row = n_distinct(.data[[row]]),
+      n_gen = n_distinct(.data[[genotype]], na.rm = TRUE),
+      n_rep = n_distinct(.data[[rep]], na.rm = TRUE),
+      n_block = n_distinct(.data[[block]], na.rm = TRUE),
+      n_col = n_distinct(.data[[col]], na.rm = TRUE),
+      n_row = n_distinct(.data[[row]], na.rm = TRUE),
       num_of_reps = paste(sort(unique(gen_reps)), collapse = "_"),
       num_of_gen = paste(
         table(gen_reps) / sort(unique(gen_reps)),
         collapse = "_"
       ),
+      reps_size = paste(unique(size_reps), collapse = "_"),
+      reps_equal = length(unique(size_reps)) == 1,
       unrep = ifelse(n_gen == n, TRUE, FALSE),
-      rcbd = ifelse(n_rep > 1, "rcbd", NA),
+      rcbd = ifelse(reps_equal && n_rep > 1, "rcbd", NA),
       alpha_lattice = ifelse(rcbd == "rcbd" & n_block > 1, "alpha", NA),
       prep = ifelse(nchar(num_of_reps) > 1, "prep", NA),
       spatial = ifelse(
-        test = n_col > 1 & n_row > 1 & n_rep <= 1,
+        test = n_col > 1 & n_row > 1 & ! rcbd %in% "rcbd",
         yes = "row_col",
         no = ifelse(
-          test = n_col > 1 & n_row > 1 & n_rep > 1,
+          test = n_col > 1 & n_row > 1 & rcbd %in% "rcbd",
           yes = "res_row_col",
           no = NA
         )
