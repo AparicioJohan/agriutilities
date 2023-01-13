@@ -142,7 +142,7 @@ fit_STA <- function(results, trait, design, remove_outliers, engine, progress) {
   fitted_models <- m_models
   # BLUES
   blues_td <- STAtoTD(m_models, keep = c("trial"), addWt = TRUE)
-  blues_td <- do.call(rbind, lapply(blues_td, as.data.frame))
+  blues_td <- data.table::rbindlist(blues_td)
   names(blues_td) <- c(
     "genotype", "trial", "BLUEs", "seBLUEs", "BLUPs", "seBLUPs", "wt"
   )
@@ -244,12 +244,24 @@ single_trial_analysis <- function(results = NULL,
         fitted_models[[i]],
         objt_res_row_col$fitted_models
       )
-      resum_fitted_model[[i]] <- rbind(
-        resum_fitted_model[[i]],
-        objt_res_row_col$resum_fitted_model
+      resum_fitted_model[[i]] <- data.table::rbindlist(
+        l = list(
+          resum_fitted_model[[i]],
+          objt_res_row_col$resum_fitted_model
+        )
       )
-      outliers[[i]] <- rbind(outliers[[i]], objt_res_row_col$outliers)
-      blues_blups[[i]] <- rbind(blues_blups[[i]], objt_res_row_col$blues_blups)
+      outliers[[i]] <- data.table::rbindlist(
+        l = list(
+          outliers[[i]],
+          objt_res_row_col$outliers
+        )
+      )
+      blues_blups[[i]] <- data.table::rbindlist(
+        l = list(
+          blues_blups[[i]],
+          objt_res_row_col$blues_blups
+        )
+      )
       std_residuals[[i]] <- dplyr::bind_rows(
         std_residuals[[i]],
         objt_res_row_col$std_residuals
@@ -271,12 +283,24 @@ single_trial_analysis <- function(results = NULL,
         fitted_models[[i]],
         objt_row_col$fitted_models
       )
-      resum_fitted_model[[i]] <- rbind(
-        resum_fitted_model[[i]],
-        objt_row_col$resum_fitted_model
+      resum_fitted_model[[i]] <- data.table::rbindlist(
+        l = list(
+          resum_fitted_model[[i]],
+          objt_row_col$resum_fitted_model
+        )
       )
-      outliers[[i]] <- rbind(outliers[[i]], objt_row_col$outliers)
-      blues_blups[[i]] <- rbind(blues_blups[[i]], objt_row_col$blues_blups)
+      outliers[[i]] <- data.table::rbindlist(
+        l = list(
+          outliers[[i]],
+          objt_row_col$outliers
+        )
+      )
+      blues_blups[[i]] <- data.table::rbindlist(
+        l = list(
+          blues_blups[[i]],
+          objt_row_col$blues_blups
+        )
+      )
       std_residuals[[i]] <- dplyr::bind_rows(
         std_residuals[[i]],
         objt_row_col$std_residuals
@@ -298,12 +322,24 @@ single_trial_analysis <- function(results = NULL,
         fitted_models[[i]],
         objt_alpha$fitted_models
       )
-      resum_fitted_model[[i]] <- rbind(
-        resum_fitted_model[[i]],
-        objt_alpha$resum_fitted_model
+      resum_fitted_model[[i]] <- data.table::rbindlist(
+        l = list(
+          resum_fitted_model[[i]],
+          objt_alpha$resum_fitted_model
+        )
       )
-      outliers[[i]] <- rbind(outliers[[i]], objt_alpha$outliers)
-      blues_blups[[i]] <- rbind(blues_blups[[i]], objt_alpha$blues_blups)
+      outliers[[i]] <- data.table::rbindlist(
+        l = list(
+          outliers[[i]],
+          objt_alpha$outliers
+        )
+      )
+      blues_blups[[i]] <- data.table::rbindlist(
+        l = list(
+          blues_blups[[i]],
+          objt_alpha$blues_blups
+        )
+      )
       std_residuals[[i]] <- dplyr::bind_rows(
         std_residuals[[i]],
         objt_alpha$std_residuals
@@ -325,12 +361,24 @@ single_trial_analysis <- function(results = NULL,
         fitted_models[[i]],
         objt_rcbd$fitted_models
       )
-      resum_fitted_model[[i]] <- rbind(
-        resum_fitted_model[[i]],
-        objt_rcbd$resum_fitted_model
+      resum_fitted_model[[i]] <- data.table::rbindlist(
+        l = list(
+          resum_fitted_model[[i]],
+          objt_rcbd$resum_fitted_model
+        )
       )
-      outliers[[i]] <- rbind(outliers[[i]], objt_rcbd$outliers)
-      blues_blups[[i]] <- rbind(blues_blups[[i]], objt_rcbd$blues_blups)
+      outliers[[i]] <- data.table::rbindlist(
+        l = list(
+          outliers[[i]],
+          objt_rcbd$outliers
+        )
+      )
+      blues_blups[[i]] <- data.table::rbindlist(
+        l = list(
+          blues_blups[[i]],
+          objt_rcbd$blues_blups
+        )
+      )
       std_residuals[[i]] <- dplyr::bind_rows(
         std_residuals[[i]],
         objt_rcbd$std_residuals
@@ -375,8 +423,12 @@ single_trial_analysis <- function(results = NULL,
             .[["outliers"]] %>%
             dplyr::select(trial, genotype, id, outlier)
 
-          outliers[[i]] <- rbind(outliers[[i]], outliers_crd)
-
+          outliers[[i]] <- data.table::rbindlist(
+            l = list(
+              outliers[[i]],
+              outliers_crd
+            )
+          )
           data_crd_clean <- data_crd %>%
             merge(
               x = .,
@@ -397,7 +449,6 @@ single_trial_analysis <- function(results = NULL,
             droplevels() %>%
             data.frame() %>%
             rename(outlier_crd = outlier)
-
           td_crd <- fit_crd(
             data = data_crd_clean,
             trial = results$inputs$trial,
@@ -409,23 +460,26 @@ single_trial_analysis <- function(results = NULL,
             mFix = td_crd$models_fixed
           )
         }
-
-        resum_fitted_model_crd <- td_crd$resum_fitted_model
-
         fitted_models[[i]] <- c(
           fitted_models[[i]],
           m_models_crd
         )
-
-        resum_fitted_model[[i]] <- rbind(
-          resum_fitted_model[[i]],
-          resum_fitted_model_crd
+        # summary fitted models
+        resum_fitted_model_crd <- td_crd$resum_fitted_model
+        resum_fitted_model[[i]] <- data.table::rbindlist(
+          l = list(
+            resum_fitted_model[[i]],
+            resum_fitted_model_crd
+          )
         )
-
         # BLUES
         blues_td_crd <- td_crd$blues_blups
-        blues_blups[[i]] <- rbind(blues_blups[[i]], blues_td_crd)
-
+        blues_blups[[i]] <- data.table::rbindlist(
+          l = list(
+            blues_blups[[i]],
+            blues_td_crd
+          )
+        )
         # standardized residuals
         std_res_crd <- td_crd$residuals
         std_residuals[[i]] <- dplyr::bind_rows(
@@ -436,16 +490,19 @@ single_trial_analysis <- function(results = NULL,
     }
   }
   # stacking tables
-  blues_blups <- dplyr::bind_rows(blues_blups, .id = "trait")
-  row.names(blues_blups) <- NULL
-  resum_fitted_model <- dplyr::bind_rows(resum_fitted_model, .id = "trait")
-  row.names(resum_fitted_model) <- NULL
-  std_residuals <- dplyr::bind_rows(std_residuals, .id = "trait") %>%
-    as.data.frame(row.names = NULL)
-  outliers <- dplyr::bind_rows(outliers, .id = "trait")
-  row.names(outliers) <- NULL
+  blues_blups <- data.table::rbindlist(blues_blups, idcol = "trait")
+  resum_fitted_model <- data.table::rbindlist(
+    l = resum_fitted_model,
+    idcol = "trait"
+  )
+  std_residuals <- data.table::rbindlist(
+    l = std_residuals,
+    idcol = "trait",
+    fill = TRUE
+  )
+  outliers <- data.table::rbindlist(outliers, idcol = "trait")
   # data used
-  if (!is.null(outliers)) {
+  if (!is.null(outliers) && remove_outliers) {
     traits_out <- outliers %>%
       dplyr::pull(trait) %>%
       unique()
