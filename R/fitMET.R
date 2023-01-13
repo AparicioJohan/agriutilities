@@ -143,15 +143,16 @@ met_analysis <- function(sma_output = NULL,
   ceros <- which(conn == 0, arr.ind = TRUE)
   if (nrow(ceros) > 1) {
     warning(
-      "Some trials have zero connectivity: \t",
-      paste(rownames(ceros), collapse = ", ")
+      "Some trials have zero connectivity: \n",
+      paste(unique(rownames(ceros)), collapse = ", "),
+      "\n"
     )
   }
   minimun_req <- which(conn < 20, arr.ind = TRUE)
   if (nrow(minimun_req) > 1) {
-    message(
-      "Some trials could have poor connectivity: \t",
-      paste(rownames(ceros), collapse = ", ")
+    warning(
+      "Some trials could have poor connectivity: \n",
+      paste(unique(rownames(ceros)), collapse = ", ")
     )
   }
   met_models <- VCOV <- trial_effects <- overall_BLUPs <- BLUPs_GxE <- list()
@@ -237,18 +238,26 @@ met_analysis <- function(sma_output = NULL,
     } else {
       stop(paste0("No '", vcov, "' variance-covariance structure found."))
     }
-    met_mod <- suppressWarnings(
-      asreml::asreml(
-        fixed = equation_fix,
-        random = equation_ran,
-        data = dt,
-        weights = wt,
-        family = asreml::asr_gaussian(dispersion = 1),
-        na.action = list(x = "exclude", y = "include"),
-        trace = 0,
-        maxiter = 200
+    met_mod <- try(
+      suppressWarnings(
+        asreml::asreml(
+          fixed = equation_fix,
+          random = equation_ran,
+          data = dt,
+          weights = wt,
+          family = asreml::asr_gaussian(dispersion = 1),
+          na.action = list(x = "exclude", y = "include"),
+          trace = 0,
+          maxiter = 200
+        )
       )
     )
+    if (inherits(met_mod, "try-error")) {
+      stop(
+        "Trait '", var, "'\n",
+        "We couldn't fit any variance-covariance structure."
+      )
+    }
     met_mod <- suppressWarnings(asreml::update.asreml(met_mod))
     met_models[[var]] <- met_mod
     VCOV[[var]] <- extractG(
