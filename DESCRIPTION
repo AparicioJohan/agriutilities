@@ -16,7 +16,7 @@ Imports:
     Matrix,
     ggpubr,
     lmerTest,
-    plotly,
+    data.table,
     stats,
     magrittr,
     emmeans,

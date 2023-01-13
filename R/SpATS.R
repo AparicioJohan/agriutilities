@@ -75,7 +75,7 @@ res_spats <- function(model, k = 3) {
 #'
 #' @param data_out res_spats data.frame
 #'
-#' @return plotly
+#' @return ggplot
 #' @noRd
 #'
 #' @examples
@@ -89,14 +89,14 @@ plot_res_index <- function(data_out) {
     ggplot2::geom_hline(yintercept = data_out$u, color = "red") +
     ggplot2::geom_hline(yintercept = data_out$l, color = "red") +
     ggplot2::geom_hline(yintercept = 0, linetype = "dashed")
-  plotly::ggplotly(k)
+  k
 }
 
 #' Interactive residuals plot in the field SpATS
 #'
 #' @param data_out res_spats data.frame
 #'
-#' @return plotly
+#' @return ggplot
 #' @noRd
 #'
 #' @examples
@@ -107,14 +107,14 @@ plot_res_map <- function(data_out) {
     ggplot2::geom_point(size = 2, na.rm = T) +
     ggplot2::theme_bw() +
     ggplot2::scale_color_manual(values = c("grey80", "red"))
-  plotly::ggplotly(k)
+  k
 }
 
 #' Interactive residuals vs fitted values SpATS
 #'
 #' @param data_out res_spats data.frame
 #'
-#' @return plotly
+#' @return ggplot
 #' @noRd
 #'
 #' @examples
@@ -127,7 +127,7 @@ plot_res_fitted <- function(data_out) {
     ggplot2::scale_color_manual(values = c("grey80", "red")) +
     ggplot2::xlab("Fitted Values") +
     ggplot2::geom_hline(yintercept = 0, linetype = "dashed")
-  plotly::ggplotly(k)
+  k
 }
 
 
@@ -139,7 +139,7 @@ res_hist <- function(data_out) {
     theme_bw() +
     geom_density(alpha = 0.5, na.rm = T) +
     geom_vline(xintercept = c(data_out$u, data_out$l), linetype = 2, color = "red")
-  plotly::ggplotly(p)
+  p
 }
 
 res_compare <- function(Model, variable, factor) {
@@ -158,7 +158,7 @@ res_compare <- function(Model, variable, factor) {
       geom_point(size = 2, alpha = 0.5, color = "grey80", na.rm = T) +
       theme_bw()
   }
-  plotly::ggplotly(p)
+  k
 }
 
 
