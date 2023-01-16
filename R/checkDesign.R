@@ -109,12 +109,19 @@ check_design_MET <- function(data = NULL,
       stop(paste("No '", i, "' column found"))
     }
     class_trait <- data[[i]] %>% class()
-    if (!class_trait %in% c("numeric", "integer")){
+    if (!class_trait %in% c("numeric", "integer")) {
       stop(
         paste0("The class of the trait '", i, "' should be numeric or integer.")
       )
     }
   }
+  trait_issue <- traits[make.names(traits) != traits]
+  traits <- traits[make.names(traits) == traits]
+  message(
+    "Issues in variables names. The trait '",
+    paste(trait_issue, collapse = " - "),
+    "' has been removed."
+  )
 
   summ_traits <- data %>%
     dplyr::select(.data[[trial]], all_of(traits)) %>%
@@ -156,7 +163,7 @@ check_design_MET <- function(data = NULL,
       alpha_lattice = ifelse(rcbd == "rcbd" & n_block > 1, "alpha", NA),
       prep = ifelse(nchar(num_of_reps) > 1, "prep", NA),
       spatial = ifelse(
-        test = n_col > 1 & n_row > 1 & ! rcbd %in% "rcbd",
+        test = n_col > 1 & n_row > 1 & !rcbd %in% "rcbd",
         yes = "row_col",
         no = ifelse(
           test = n_col > 1 & n_row > 1 & rcbd %in% "rcbd",
