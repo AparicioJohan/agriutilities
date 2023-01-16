@@ -221,6 +221,10 @@ single_trial_analysis <- function(results = NULL,
 
   traits <- results$inputs$traits
 
+  trait_issue = traits[make.names(traits) != traits]
+  traits = traits[make.names(traits) == traits]
+  message("Issues in variables names. The trait '", trait_issue, "' has been removed.")
+
   fitted_models <- list()
   resum_fitted_model <- list()
   outliers <- list()
