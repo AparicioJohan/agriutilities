@@ -106,57 +106,10 @@ met_analysis <- function(sma_output = NULL,
     stop("The package asreml is not loaded.")
   }
   asreml::asreml.options(trace = FALSE, workspace = workspace)
-  # filters
-  trials_to_keep <- sma_output$resum_fitted_model %>%
-    dplyr::filter(heritability > h2_filter) %>%
-    droplevels() %>%
-    dplyr::pull(trial) %>%
-    as.character()
-  data_td <- sma_output$blues_blups %>%
-    dplyr::filter(trial %in% trials_to_keep) %>%
-    droplevels()
-  traits <- data_td %>%
-    dplyr::pull("trait") %>%
-    unique() %>%
-    as.character()
-  trials <- data_td %>%
-    dplyr::pull("trial") %>%
-    unique() %>%
-    as.character()
-  n_trials <- length(trials)
-  if (n_trials <= 1) {
-    stop("There is only one trial to fit an MET model.")
-  }
-  traits_to_keep <- sma_output$blues_blups %>%
-    group_by(trait) %>%
-    summarise(n_trials = n_distinct(trial)) %>%
-    filter(n_trials > 1) %>%
-    pull(trait) %>%
-    as.character()
-  traits <- traits_to_keep
-  # Connectivity
-  conn <- connectivity_matrix(
-    data = data_td,
-    genotype = "genotype",
-    trial = "trial"
-  )
-  ceros <- which(conn == 0, arr.ind = TRUE)
-  if (nrow(ceros) > 1) {
-    warning(
-      "Some trials have zero connectivity: \n",
-      paste(unique(rownames(ceros)), collapse = ", "),
-      "\n"
-    )
-  }
-  minimun_req <- which(conn < 20, arr.ind = TRUE)
-  if (nrow(minimun_req) > 1) {
-    warning(
-      "Some trials could have poor connectivity: \n",
-      paste(unique(rownames(ceros)), collapse = ", ")
-    )
-  }
   met_models <- VCOV <- trial_effects <- overall_BLUPs <- BLUPs_GxE <- list()
   stab_list <- h2_list <- list()
+
+  data_td <- sma_output$blues_blups
 
   for (var in traits) {
 
@@ -165,10 +118,39 @@ met_analysis <- function(sma_output = NULL,
       droplevels() %>%
       dplyr::pull(trial) %>%
       as.character()
+
+    n_trials <- length(trials_to_keep)
+    if (n_trials <= 1) {
+      stop("There is only one trial to fit an MET model in '", var, "'")
+    }
+
     dt <- data_td %>%
       dplyr::filter(trait %in% var & trial %in% trials_to_keep) %>%
       droplevels() %>%
       as.data.frame()
+
+    conn <- connectivity_matrix(
+      data = data_td,
+      genotype = "genotype",
+      trial = "trial",
+      response = "BLUEs"
+    )
+    ceros <- which(conn == 0, arr.ind = TRUE)
+    if (nrow(ceros) > 1) {
+      warning(
+        "Some trials have zero connectivity: \n",
+        paste(unique(rownames(ceros)), collapse = ", "),
+        "\n"
+      )
+    }
+    minimun_req <- which(conn < 20, arr.ind = TRUE)
+    if (nrow(minimun_req) > 1) {
+      warning(
+        "Some trials could have poor connectivity: \n",
+        paste(unique(rownames(ceros)), collapse = ", ")
+      )
+    }
+
     equation_fix <- stats::reformulate("trial", response = "BLUEs")
     if (is.null(vcov)) {
       vcov_selected <- "us"
