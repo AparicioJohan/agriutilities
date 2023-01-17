@@ -123,6 +123,9 @@ check_design_MET <- function(data = NULL,
       paste(trait_issue, collapse = " - "),
       "' has been removed."
     )
+    if (length(traits) == 0) {
+      stop("Check the variable names.")
+    }
   }
 
   summ_traits <- data %>%
