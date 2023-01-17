@@ -159,8 +159,14 @@ met_analysis <- function(sma_output = NULL,
   stab_list <- h2_list <- list()
 
   for (var in traits) {
+
+    trials_to_keep <- sma_output$resum_fitted_model %>%
+      dplyr::filter(heritability > h2_filter & trait %in% var) %>%
+      droplevels() %>%
+      dplyr::pull(trial) %>%
+      as.character()
     dt <- data_td %>%
-      dplyr::filter(trait %in% var) %>%
+      dplyr::filter(trait %in% var & trial %in% trials_to_keep) %>%
       droplevels() %>%
       as.data.frame()
     equation_fix <- stats::reformulate("trial", response = "BLUEs")
