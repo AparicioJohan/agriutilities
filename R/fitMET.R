@@ -94,6 +94,7 @@ stability <- function(predictions = NULL,
 #' out <- single_trial_analysis(results, progress = FALSE)
 #' met_results <- met_analysis(out)
 #' print(met_results)
+#' covcor_heat(matrix = met_results$VCOV$yield$CORR)
 #' }
 met_analysis <- function(sma_output = NULL,
                          h2_filter = 0.2,
@@ -110,6 +111,11 @@ met_analysis <- function(sma_output = NULL,
   stab_list <- h2_list <- list()
 
   data_td <- sma_output$blues_blups
+
+  traits <- data_td %>%
+    dplyr::pull("trait") %>%
+    unique() %>%
+    as.character()
 
   for (var in traits) {
 

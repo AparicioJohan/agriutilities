@@ -60,5 +60,6 @@ results <- check_design_MET(
 out <- single_trial_analysis(results, progress = FALSE)
 met_results <- met_analysis(out)
 print(met_results)
+covcor_heat(matrix = met_results$VCOV$yield$CORR)
 }
 }
