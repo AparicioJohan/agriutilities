@@ -117,11 +117,13 @@ check_design_MET <- function(data = NULL,
   }
   trait_issue <- traits[make.names(traits) != traits]
   traits <- traits[make.names(traits) == traits]
-  message(
-    "Issues in variables names. The trait '",
-    paste(trait_issue, collapse = " - "),
-    "' has been removed."
-  )
+  if(length(trait_issue) != 0) {
+    message(
+      "Issues in variables names. The trait '",
+      paste(trait_issue, collapse = " - "),
+      "' has been removed."
+    )
+  }
 
   summ_traits <- data %>%
     dplyr::select(.data[[trial]], all_of(traits)) %>%
