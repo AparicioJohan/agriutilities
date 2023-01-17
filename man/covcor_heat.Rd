@@ -4,7 +4,7 @@
 \alias{covcor_heat}
 \title{Correlation Covariance heatmap}
 \usage{
-covcor_heat(matrix, corr = TRUE, size = 4)
+covcor_heat(matrix, corr = TRUE, size = 4, digits = 3)
 }
 \arguments{
 \item{matrix}{matrix}
@@ -12,6 +12,8 @@ covcor_heat(matrix, corr = TRUE, size = 4)
 \item{corr}{logical (TRUE default, correlation matrix)}
 
 \item{size}{letter size}
+
+\item{digits}{integer}
 }
 \value{
 ggplot

@@ -812,6 +812,7 @@ biplot_fa2 <- function(model,
 #' @param matrix matrix
 #' @param corr logical (TRUE default, correlation matrix)
 #' @param size letter size
+#' @param digits integer
 #'
 #' @return ggplot
 #' @export
@@ -820,7 +821,9 @@ biplot_fa2 <- function(model,
 #' # data(iris)
 #' # M = cor(iris[,-5])
 #' # covcor_heat(M, corr = T)
-covcor_heat <- function(matrix, corr = TRUE, size = 4) {
+covcor_heat <- function(matrix, corr = TRUE, size = 4, digits = 3) {
+
+  matrix <- round(x = matrix, digits = 3)
 
   # Get lower triangle of the correlation matrix
   get_lower_tri <- function(cormat) {
@@ -839,8 +842,9 @@ covcor_heat <- function(matrix, corr = TRUE, size = 4) {
     hc <- stats::hclust(dd)
     cormat <- cormat[hc$order, hc$order]
   }
-
-  cormat <- reorder_cormat(matrix)
+  if (corr) {
+    matrix <- reorder_cormat(matrix)
+  }
   upper_tri <- get_upper_tri(matrix)
   melted_cormat <- reshape2::melt(upper_tri, na.rm = TRUE)
 
