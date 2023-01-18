@@ -229,6 +229,9 @@ met_analysis <- function(sma_output = NULL,
     } else if (vcov == "corh") {
       vcov_selected <- "corh"
       equation_ran <- stats::reformulate("corh(trial):genotype")
+    } else if (vcov == "corv") {
+      vcov_selected <- "corv"
+      equation_ran <- stats::reformulate("corv(trial):genotype")
     } else {
       stop(paste0("No '", vcov, "' variance-covariance structure found."))
     }
