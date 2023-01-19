@@ -197,6 +197,7 @@ print.metAgri <- function(x, ...) {
 #'   row = "row"
 #' )
 #' plot(results, type = "missing")
+#' plot(results, type = "boxplot")
 #' }
 #'
 plot.checkAgri <- function(x,
