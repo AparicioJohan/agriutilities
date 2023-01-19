@@ -172,8 +172,8 @@ print.metAgri <- function(x, ...) {
 #' @aliases plot.checkAgri
 #' @param x An object inheriting from class \code{checkAgri} resulting of
 #' executing the function \code{check_design_MET()}
-#' @param type A character string specifiying the type of plot. "connectivity"
-#' or "missing".
+#' @param type A character string specifiying the type of plot. "connectivity",
+#' "missing" or "boxplot".
 #' @param ... Further graphical parameters. For future improvements.
 #' @param axis_size Numeric input to define the axis size.
 #' @param text_size Numeric input to define the text size.
@@ -200,7 +200,7 @@ print.metAgri <- function(x, ...) {
 #' }
 #'
 plot.checkAgri <- function(x,
-                           type = c("connectivity", "missing"),
+                           type = c("connectivity", "missing", "boxplot"),
                            axis_size = 15,
                            text_size = 5, ...) {
   type <- match.arg(type)
@@ -259,7 +259,6 @@ plot.checkAgri <- function(x,
       ) +
       labs(title = "Connectivity Matrix")
     g_plot
-
   }
 
   if (type == "missing") {
@@ -300,6 +299,44 @@ plot.checkAgri <- function(x,
       ) +
       geom_hline(yintercept = 0.5, color = "black", linetype = 2) +
       ylim(c(0, 1))
+    g_plot
+  }
+
+  if (type == "boxplot") {
+    g_plot <- x$data_design %>%
+      dplyr::select(.data[[x$inputs$trial]], all_of(x$inputs$traits)) %>%
+      tidyr::gather(
+        data = .,
+        key = "traits",
+        value = "value",
+        -.data[[x$inputs$trial]]
+      ) %>%
+      ggplot(
+        aes(x = .data[[x$inputs$trial]], y = value, fill = .data[[x$inputs$trial]])
+      ) +
+      geom_boxplot() +
+      labs(title = "", y = "Boxplot", x = "Trials") +
+      theme_bw() +
+      theme(
+        axis.text.x = element_text(
+          angle = 90,
+          vjust = 0.6,
+          color = "black",
+          size = axis_size
+        ),
+        axis.text.y = element_text(size = axis_size)
+      ) +
+      facet_wrap(~traits, scales = "free_y") +
+      theme(
+        plot.title = element_text(
+          color = "black",
+          size = axis_size,
+          hjust = 0.5
+        ),
+        axis.title.x = element_text(color = "black", size = axis_size),
+        axis.title.y = element_text(color = "black", size = axis_size),
+        legend.position = "bottom"
+      )
     g_plot
   }
   return(g_plot)
