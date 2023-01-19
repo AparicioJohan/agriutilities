@@ -501,7 +501,7 @@ single_trial_analysis <- function(results = NULL,
   )
   outliers <- data.table::rbindlist(outliers, idcol = "trait")
   # data used
-  if (!is.null(outliers) && remove_outliers) {
+  if (nrow(outliers) != 0 && remove_outliers) {
     traits_out <- outliers %>%
       dplyr::pull(trait) %>%
       unique()
