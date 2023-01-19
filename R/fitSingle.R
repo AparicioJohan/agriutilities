@@ -32,7 +32,7 @@ fit_STA <- function(results, trait, design, remove_outliers, engine, progress) {
     droplevels()
 
   if (nrow(data) <= 0) {
-    message("There is no data to fit any model.")
+    message("There is no data to fit any model for some experiments in:", trait)
     return()
   }
   td <- createTD(
