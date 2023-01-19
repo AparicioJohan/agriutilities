@@ -43,6 +43,8 @@ check_connectivity <- function(data = NULL,
       }
     } %>%
     dplyr::select(.data[[genotype]], .data[[trial]]) %>%
+    filter(! .data[[genotype]] %in% NA) %>%
+    filter(! .data[[trial]] %in% NA) %>%
     unique.data.frame() %>%
     dplyr::mutate(value = 1) %>%
     tidyr::spread(.data[[trial]], value = value) %>%
@@ -102,6 +104,8 @@ connectivity_matrix <- function(data = NULL,
       }
     } %>%
     dplyr::select(.data[[genotype]], .data[[trial]]) %>%
+    filter(! .data[[genotype]] %in% NA) %>%
+    filter(! .data[[trial]] %in% NA) %>%
     unique.data.frame() %>%
     dplyr::mutate(value = 1) %>%
     tidyr::spread(.data[[trial]], value = value) %>%
