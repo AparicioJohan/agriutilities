@@ -110,7 +110,11 @@ met_analysis <- function(sma_output = NULL,
   met_models <- VCOV <- trial_effects <- overall_BLUPs <- BLUPs_GxE <- list()
   stab_list <- h2_list <- list()
 
-  data_td <- sma_output$blues_blups
+  data_td <- sma_output$blues_blups %>%
+    dplyr::mutate(
+      trial = as.factor(trial),
+      genotype = as.factor(genotype)
+    )
 
   traits <- data_td %>%
     dplyr::pull("trait") %>%
