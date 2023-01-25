@@ -6,7 +6,7 @@
 \usage{
 \method{plot}{checkAgri}(
   x,
-  type = c("connectivity", "missing"),
+  type = c("connectivity", "missing", "boxplot"),
   axis_size = 15,
   text_size = 5,
   ...
@@ -16,8 +16,8 @@
 \item{x}{An object inheriting from class \code{checkAgri} resulting of
 executing the function \code{check_design_MET()}}
 
-\item{type}{A character string specifiying the type of plot. "connectivity"
-or "missing".}
+\item{type}{A character string specifiying the type of plot. "connectivity",
+"missing" or "boxplot".}
 
 \item{axis_size}{Numeric input to define the axis size.}
 

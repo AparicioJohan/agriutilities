@@ -69,6 +69,8 @@ utils::globalVariables(
     "trait",
     "heritability",
     "trial_y",
-    "trial_x"
+    "trial_x",
+    "size_reps",
+    "reps_equal"
   )
 )
