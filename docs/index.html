@@ -83,7 +83,9 @@
 <img src="logo.png" class="logo" alt=""><h1 id="agriutilities-">agriutilities <a class="anchor" aria-label="anchor" href="#agriutilities-"></a>
 </h1>
 </div>
-<!-- badges: start --><!-- badges: end --><p>The goal of this package is to provide some additional functions for the analysis of field trials in agriculture. It integrates functionalities of packages such as <code>SpATS</code>, <code>lme4</code>, <code>ASReml-R</code>, and <code>statgenSTA</code>, to analyse multi-enviromental/trait data in a semi-automatic way.</p>
+<!-- badges: start -->
+<!-- badges: end -->
+<p>The goal of this package is to provide some additional functions for the analysis of field trials in agriculture. It integrates functionalities of packages such as <code>SpATS</code>, <code>lme4</code>, <code>ASReml-R</code>, and <code>statgenSTA</code>, to analyse multi-enviromental/trait data in a semi-automatic way.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -180,7 +182,9 @@
 <h3 id="single-trial-analysis-sta">Single Trial Analysis (STA)<a class="anchor" aria-label="anchor" href="#single-trial-analysis-sta"></a>
 </h3>
 <p>The results of the previous function are used in <code><a href="reference/single_trial_analysis.html">single_trial_analysis()</a></code> to fit single trial models. This function can fit, Completely Randomized Designs (<strong>CRD</strong>), Randomized Complete Block Designs (<strong>RCBD</strong>), Resolvable Incomplete Block Designs (<strong>res-IBD</strong>), Non-Resolvable Row-Column Designs (<strong>Row-Col</strong>) and Resolvable Row-Column Designs (<strong>res-Row-Col</strong>).</p>
-<blockquote><p><strong>NOTE</strong>: It fits models based on the randomization detected.</p></blockquote>
+<blockquote>
+<p><strong>NOTE</strong>: It fits models based on the randomization detected.</p>
+</blockquote>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/single_trial_analysis.html">single_trial_analysis</a></span><span class="op">(</span><span class="va">results</span>, progress <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span></span>

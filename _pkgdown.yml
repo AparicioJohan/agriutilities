@@ -48,12 +48,9 @@ reference:
 - title: ASReml
   desc: Additional functions for ASReml models
 - contents:
-  - biplot_fa2
   - extractG
-  - fa.asreml
   - fa2_summary
   - heritability_fa
-  - var_fa
 - title: Others
 - contents:
   - covcor_heat

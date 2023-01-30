@@ -6,9 +6,9 @@
 #' @param trial A character string indicating the column in data that contains
 #' trials.
 #' @param response A character string specifying the trait.
-#' @param all Whether or not print all the table
+#' @param all Whether or not print all the table.
 #'
-#' @return table with gen connectivity
+#' @return Table with the genotype connectivity.
 #' @export
 #'
 #' @examples
@@ -43,8 +43,6 @@ check_connectivity <- function(data = NULL,
       }
     } %>%
     dplyr::select(.data[[genotype]], .data[[trial]]) %>%
-    filter(! .data[[genotype]] %in% NA) %>%
-    filter(! .data[[trial]] %in% NA) %>%
     unique.data.frame() %>%
     dplyr::mutate(value = 1) %>%
     tidyr::spread(.data[[trial]], value = value) %>%
@@ -64,8 +62,7 @@ check_connectivity <- function(data = NULL,
 }
 
 #' Connectivity Matrix
-#' @description This function generates a (n_trial x n_trial) matrix  with the
-#' amount of genotypes shared between each pair of trial.
+#' @description Check the amount of genotypes shared between each pair of trial.
 #'
 #' @param data A data.frame in a wide format.
 #' @param genotype A character string indicating the column in data that
@@ -74,7 +71,8 @@ check_connectivity <- function(data = NULL,
 #' trials.
 #' @param response A character string specifying the trait.
 #'
-#' @return matrix
+#' @return This function generates a (n_trial x n_trial) matrix with the amount
+#' of genotypes shared between each pair of trial.
 #' @export
 #'
 #' @examples
@@ -104,8 +102,6 @@ connectivity_matrix <- function(data = NULL,
       }
     } %>%
     dplyr::select(.data[[genotype]], .data[[trial]]) %>%
-    filter(! .data[[genotype]] %in% NA) %>%
-    filter(! .data[[trial]] %in% NA) %>%
     unique.data.frame() %>%
     dplyr::mutate(value = 1) %>%
     tidyr::spread(.data[[trial]], value = value) %>%

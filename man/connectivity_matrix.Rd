@@ -23,11 +23,11 @@ trials.}
 \item{response}{A character string specifying the trait.}
 }
 \value{
-matrix
+This function generates a (n_trial x n_trial) matrix with the amount
+of genotypes shared between each pair of trial.
 }
 \description{
-This function generates a (n_trial x n_trial) matrix  with the
-amount of genotypes shared between each pair of trial.
+Check the amount of genotypes shared between each pair of trial.
 }
 \examples{
 \donttest{

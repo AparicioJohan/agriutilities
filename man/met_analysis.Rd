@@ -23,7 +23,7 @@ form of a number optionally followed directly by a valid measurement unit.
 "128mb" by default.}
 
 \item{vcov}{A character string specifying the Variance-Covariance structure
-to be fitted. Can be "fa2", "fa1", "us", or "corh". If \code{NULL} the
+to be fitted. Can be "fa2", "fa1", "us", "corh" or "corv". If \code{NULL} the
 function will try to fit an "us" Variance-Covariance and if it fails, it will
 try with "fa2" and then with "fa1".}
 }

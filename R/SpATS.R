@@ -158,7 +158,7 @@ res_compare <- function(Model, variable, factor) {
       geom_point(size = 2, alpha = 0.5, color = "grey80", na.rm = T) +
       theme_bw()
   }
-  k
+  p
 }
 
 

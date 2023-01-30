@@ -23,10 +23,10 @@ trials.}
 
 \item{response}{A character string specifying the trait.}
 
-\item{all}{Whether or not print all the table}
+\item{all}{Whether or not print all the table.}
 }
 \value{
-table with gen connectivity
+Table with the genotype connectivity.
 }
 \description{
 Check connectivity between trials
