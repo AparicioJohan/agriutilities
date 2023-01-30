@@ -1,11 +1,19 @@
 Package: agriutilities
 Type: Package
-Title: Utilities for data analysis in agriculture  (AgriUtilities)
+Title: Utilities for Data Analysis in Agriculture
 Version: 0.1.0
-Authors@R: person("Johan", "Aparicio", email = "j.aparicio@cgiar.org", role = c("aut", "cre"))
+Authors@R: 
+    c(person(given = "Johan",
+             family = "Aparicio",
+             role = c("aut", "cre"),
+             email = "j.aparicio@cgiar.org"),
+      person(given = "Alexia",
+             family = "Bornhorst",
+             role = "aut",
+             email = "alexiabornhorst@gmail.com"))
 Description: The idea of this package is to provide some additional functions for the analysis
  of field trials in agriculture using packages such as SpATS, lme4 and ASReml-R.
-License: GPL-3
+License: MIT + file LICENSE
 Imports:
     ggplot2,
     psych,

@@ -38,13 +38,6 @@ reference:
   desc: Additional functions for lme4 models
 - contents:
   - h_cullis
-  - res_lme4
-- title: SpATS
-  desc: Additional functions for SpATS models
-- contents:
-  - CV_SpATS
-  - res_spats
-  - r_square
 - title: ASReml
   desc: Additional functions for ASReml models
 - contents:

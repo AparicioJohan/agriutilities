@@ -41,7 +41,7 @@
 #'  label_size = 6
 #' )
 #' }
-#' @author Daniel Ariza
+#' @author Daniel Ariza, Johan Aparicio.
 #' @importFrom stats na.omit
 ggCor <- function(data,
                   colours = c("#db4437", "white", "#FF9D00"),

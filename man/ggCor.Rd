@@ -75,5 +75,5 @@ ggCor(
 }
 }
 \author{
-Daniel Ariza
+Daniel Ariza, Johan Aparicio.
 }

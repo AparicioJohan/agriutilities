@@ -11,18 +11,22 @@
 
 #' Correlation Covariance heatmap
 #'
-#' @param matrix matrix
-#' @param corr logical (TRUE default, correlation matrix)
-#' @param size letter size
-#' @param digits integer
+#' @param matrix A numeric matrix.
+#' @param corr A logical value indicating if the matrix is in a scaled form
+#'  (\code{TRUE} by default, correlation matrix)
+#' @param size A numeric value to define the letter size.
+#' @param digits A numeric integer to define the number of digits to plot.
 #'
-#' @return ggplot
+#' @return A ggplot object showing the upper triangular elements of the matrix.
 #' @export
 #'
 #' @examples
-#' # data(iris)
-#' # M = cor(iris[,-5])
-#' # covcor_heat(M, corr = T)
+#' \donttest{
+#' library(agriutilites)
+#' data(iris)
+#' M <-  cor(iris[,-5])
+#' covcor_heat(matrix = M, corr = TRUE)
+#' }
 covcor_heat <- function(matrix, corr = TRUE, size = 4, digits = 3) {
 
   matrix <- round(x = matrix, digits = 3)
@@ -70,18 +74,28 @@ covcor_heat <- function(matrix, corr = TRUE, size = 4, digits = 3) {
   melted_cormat$Var2 <- as.factor(melted_cormat$Var2)
 
   ggheatmap <-
-    ggplot2::ggplot(melted_cormat, ggplot2::aes(Var2, Var1, fill = value)) +
+    ggplot2::ggplot(
+      data = melted_cormat,
+      mapping = ggplot2::aes(Var2, Var1, fill = value)
+    ) +
     ggplot2::geom_tile(color = "white") +
     ggplot2::scale_fill_gradient2(
-      low = col_pallete[1], high = col_pallete[3], mid = col_pallete[2], # color= c("#440154","#21908C","#FDE725")
-      midpoint = m, limit = c(u, l), space = "Lab",
+      low = col_pallete[1],
+      high = col_pallete[3],
+      mid = col_pallete[2],
+      # color= c("#440154","#21908C","#FDE725")
+      midpoint = m,
+      limit = c(u, l),
+      space = "Lab",
       name = main
     ) +
     ggplot2::theme_minimal() + # minimal theme
     ggplot2::theme(
       axis.text.x = ggplot2::element_text(
-        angle = 45, vjust = 1,
-        size = 12, hjust = 1
+        angle = 45,
+        vjust = 1,
+        size = 12,
+        hjust = 1
       ),
       axis.text.y = ggplot2::element_text(size = 12)
     )
@@ -89,7 +103,11 @@ covcor_heat <- function(matrix, corr = TRUE, size = 4, digits = 3) {
 
 
   plot <- ggheatmap +
-    ggplot2::geom_text(ggplot2::aes(Var2, Var1, label = value), color = col_letter, size = size) +
+    ggplot2::geom_text(
+      mapping = ggplot2::aes(Var2, Var1, label = value),
+      color = col_letter,
+      size = size
+    ) +
     ggplot2::theme(
       axis.title.x = ggplot2::element_blank(),
       axis.title.y = ggplot2::element_blank(),
@@ -101,10 +119,14 @@ covcor_heat <- function(matrix, corr = TRUE, size = 4, digits = 3) {
       legend.position = c(0.6, 0.7),
       legend.direction = "horizontal"
     ) +
-    ggplot2::guides(fill = ggplot2::guide_colorbar(
-      barwidth = 7, barheight = 1,
-      title.position = "top", title.hjust = 0.5
-    ))
+    ggplot2::guides(
+      fill = ggplot2::guide_colorbar(
+      barwidth = 7,
+      barheight = 1,
+      title.position = "top",
+      title.hjust = 0.5
+      )
+    )
 
   return(plot)
 }

@@ -3,7 +3,7 @@
 #' @param model SpATS object
 #'
 #' @return value
-#' @export
+#' @noRd
 #'
 #' @examples
 #' # in progress
@@ -23,7 +23,7 @@ r_square <- function(model) {
 #' @param model SpATS object
 #'
 #' @return value
-#' @export
+#' @noRd
 #'
 #' @examples
 #' # in progress
@@ -46,7 +46,7 @@ CV_SpATS <- function(model) {
 #' @param k number of standard desviations to define values as extremes (default = 3)
 #'
 #' @return data.frame
-#' @export
+#' @noRd
 #'
 #' @examples
 #' # in progress
@@ -130,7 +130,7 @@ plot_res_fitted <- function(data_out) {
   k
 }
 
-
+#' @noRd
 res_hist <- function(data_out) {
   hi <- graphics::hist(data_out[, "Residuals"], plot = FALSE)
   br <- hi$breaks
@@ -142,6 +142,7 @@ res_hist <- function(data_out) {
   p
 }
 
+#' @noRd
 res_compare <- function(Model, variable, factor) {
   data <- Model$data
   data$Residuals <- stats::residuals(Model)
@@ -161,7 +162,7 @@ res_compare <- function(Model, variable, factor) {
   p
 }
 
-
+#' @noRd
 check_gen_SpATS <- function(gen, data, check_gen = c("ci", "st", "wa")) {
   data <- as.data.frame(data)
   indx <- sum(check_gen %in% data[, gen]) >= 1
@@ -176,6 +177,7 @@ check_gen_SpATS <- function(gen, data, check_gen = c("ci", "st", "wa")) {
 }
 
 # MSA
+#' @noRd
 VarG_SpATS <- function(model) {
   gen <- model$model$geno$genotype
   gen_ran <- model$model$geno$as.random
@@ -189,13 +191,14 @@ VarG_SpATS <- function(model) {
   }
 }
 
+#' @noRd
 VarE_msa <- function(model) {
   v <- round(model$psi[1], 3)
   names(v) <- "Var_Res"
   return(v)
 }
 
-# Weights
+#' @noRd
 weight_SpATS <- function(model) {
   rand <- model$model$geno$as.random
   if (rand) {
@@ -251,6 +254,7 @@ weight_SpATS <- function(model) {
   ))
 }
 
+#' @noRd
 lrt_SpATS <- function(Model_nested, Model_full) {
   lo.lik1 <- Model_nested / -2
   lo.lik2 <- Model_full / -2
@@ -388,6 +392,7 @@ var_comp_SpATS <- function(object, which = "variances") {
 }
 
 # SpATS coefficients
+#' @noRd
 coef_SpATS <- function(model) {
   # coefficients
   coef_spats <- model$coeff

@@ -7,7 +7,7 @@
 h_cullis(model, genotype, re_MME = FALSE)
 }
 \arguments{
-\item{model}{Object of class 'lmer' resulting of executing}
+\item{model}{Object of class 'lmer'.}
 
 \item{genotype}{A character string indicating the column in data that
 contains genotypes.}
@@ -22,11 +22,16 @@ heritability or list with matrices
 Cullis heritability for lme4 models
 }
 \examples{
-# dat <- agridat::john.alpha
-## fit model ---------------------------------------------------------------
-## random genotype effect
-# g.ran <- lme4::lmer(data = dat, formula = yield ~ rep + (1|gen) + (1|rep:block))
-# h_cullis(g.ran, "gen")
+\donttest{
+# fit model
+# random genotype effect
+dat <- agridat::john.alpha
+g.ran <- lme4::lmer(
+  data = dat,
+  formula = yield ~ rep + (1|gen) + (1|rep:block)
+ )
+h_cullis(g.ran, "gen")
+}
 }
 \author{
 Paul Schmidt

@@ -45,7 +45,7 @@ VarE <- function(model) {
 
 #' Cullis heritability for lme4 models
 #'
-#' @param model Object of class 'lmer' resulting of executing
+#' @param model Object of class 'lmer'.
 #' @param genotype A character string indicating the column in data that
 #' contains genotypes.
 #' @param re_MME logical value to ask if we want to reconstruct the mixed models
@@ -57,11 +57,16 @@ VarE <- function(model) {
 #' @export
 #'
 #' @examples
-#' # dat <- agridat::john.alpha
-#' ## fit model ---------------------------------------------------------------
-#' ## random genotype effect
-#' # g.ran <- lme4::lmer(data = dat, formula = yield ~ rep + (1|gen) + (1|rep:block))
-#' # h_cullis(g.ran, "gen")
+#' \donttest{
+#' # fit model
+#' # random genotype effect
+#' dat <- agridat::john.alpha
+#' g.ran <- lme4::lmer(
+#'   data = dat,
+#'   formula = yield ~ rep + (1|gen) + (1|rep:block)
+#'  )
+#' h_cullis(g.ran, "gen")
+#' }
 h_cullis <- function(model, genotype, re_MME = FALSE) {
   if (re_MME) {
     Gen_levels <- levels(model@frame[, genotype])
@@ -148,7 +153,7 @@ h_cullis <- function(model, genotype, re_MME = FALSE) {
 #' @param k  number of standard desviations to define values as extremes
 #'
 #' @return data.frame of number of extreme observations depending on returnN
-#' @export
+#' @noRd
 #'
 #' @examples
 #' # in progress
