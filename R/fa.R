@@ -156,36 +156,38 @@ covcor_heat <- function(matrix, corr = TRUE, size = 4, digits = 3) {
 #' @export
 #'
 #' @examples
-#' # library(tidyverse)
-#' # library(asreml)
-#' # library(agridat)
-#' # data(besag.met)
-#' # dat <- besag.met
-#' #
-#' # dat <- dat %>% arrange(county)
-#' # model <- asreml(fixed = yield ~ 1 + county,
-#' #                 random = ~ fa(county, 2):gen + county:rep + diag(county):rep:block,
-#' #                 residual = ~ dsum(~ units | county),
-#' #                 data = dat,
-#' #                 na.action = list(x="include",y="include"))
-#' #
-#' # pp <- predict(model, classify = "county")$pvals
-#' # fa2_summary(
-#' #  model = model,
-#' #  trial = "county",
-#' #  genotype = "gen",
-#' #  BLUEs_trial = pp,
-#' #  mult_fa1 = -1,
-#' #  mult_fa2 = -1,
-#' #  filter_score = 1,
-#' #  k_biplot = 10,
-#' #  size_label_var = 3,
-#' #  alpha_label_var = 0.5,
-#' #  size_label_ind = 3,
-#' #  alpha_label_ind = 0.8,
-#' #  size_arrow = 0.2,
-#' #  alpha_arrow = 0.1
-#' # )
+#' \donttest{
+#' library(tidyverse)
+#' library(asreml)
+#' library(agridat)
+#' data(besag.met)
+#' dat <- besag.met
+#'
+#' dat <- dat %>% arrange(county)
+#' model <- asreml(fixed = yield ~ 1 + county,
+#'                  random = ~ fa(county, 2):gen + county:rep + diag(county):rep:block,
+#'                  residual = ~ dsum(~ units | county),
+#'                  data = dat,
+#'                  na.action = list(x="include",y="include"))
+#'
+#'  pp <- predict(model, classify = "county")$pvals
+#'  fa2_summary(
+#'   model = model,
+#'   trial = "county",
+#'   genotype = "gen",
+#'   BLUEs_trial = pp,
+#'   mult_fa1 = -1,
+#'   mult_fa2 = -1,
+#'   filter_score = 1,
+#'   k_biplot = 10,
+#'   size_label_var = 3,
+#'   alpha_label_var = 0.5,
+#'   size_label_ind = 3,
+#'   alpha_label_ind = 0.8,
+#'   size_arrow = 0.2,
+#'   alpha_arrow = 0.1
+#'  )
+#'  }
 #' @import ggplot2 ggrepel
 fa2_summary <- function(model = NULL,
                         trial = "trial",

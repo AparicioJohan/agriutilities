@@ -15,27 +15,29 @@
 #' @export
 #'
 #' @examples
-#' # library(tidyverse)
-#' # library(asreml)
-#' # library(agridat)
-#' # library(agriutilities)
-#' # data(besag.met)
-#' # dat <- besag.met
-#' #
-#' # dat <- dat %>% arrange(county)
-#' # model <- asreml(
-#' #   fixed = yield ~ 1 + county,
-#' #   random = ~ fa(county, 2):gen + county:rep + diag(county):rep:block,
-#' #   residual = ~ dsum(~ units | county),
-#' #   data = dat,
-#' #   na.action = list(x="include",y="include")
-#' # )
-#' # heritability_fa(
-#' #  model_fa = model,
-#' #  genotype = "gen",
-#' #  env = "county",
-#' #  vc.model = "fa2"
-#' # )
+#' \donttest{
+#' library(tidyverse)
+#' library(asreml)
+#' library(agridat)
+#' library(agriutilities)
+#' data(besag.met)
+#' dat <- besag.met
+#'
+#' dat <- dat %>% arrange(county)
+#' model <- asreml(
+#'    fixed = yield ~ 1 + county,
+#'    random = ~ fa(county, 2):gen + county:rep + diag(county):rep:block,
+#'    residual = ~ dsum(~ units | county),
+#'    data = dat,
+#'    na.action = list(x="include",y="include")
+#'  )
+#'  heritability_fa(
+#'   model_fa = model,
+#'   genotype = "gen",
+#'   env = "county",
+#'   vc.model = "fa2"
+#'  )
+#' }
 heritability_fa <- function(model_fa = NULL,
                             genotype = "line",
                             env = "loc",
