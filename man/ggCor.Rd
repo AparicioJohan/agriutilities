@@ -66,6 +66,7 @@ between 2 or more variables.
 }
 \examples{
 \donttest{
+library(agriutilities)
 data(iris)
 ggCor(
  data = iris,

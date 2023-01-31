@@ -24,7 +24,7 @@ Correlation Covariance heatmap
 }
 \examples{
 \donttest{
-library(agriutilites)
+library(agriutilities)
 data(iris)
 M <-  cor(iris[,-5])
 covcor_heat(matrix = M, corr = TRUE)

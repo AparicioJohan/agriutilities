@@ -26,7 +26,7 @@ trials.}
 \item{all}{Whether or not print all the table.}
 }
 \value{
-Table with the genotype connectivity.
+Data frame with the genotype connectivity.
 }
 \description{
 Check connectivity between trials
