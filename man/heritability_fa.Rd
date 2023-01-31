@@ -8,7 +8,7 @@ heritability_fa(
   model_fa = NULL,
   genotype = "line",
   env = "loc",
-  vc.model = c("fa2"),
+  vc_model = c("fa2"),
   diag = FALSE
 )
 }
@@ -21,7 +21,7 @@ contains genotypes.}
 \item{env}{A character string indicating the column in data that contains
 environments or trials.}
 
-\item{vc.model}{A character string indicating the variance-covariance
+\item{vc_model}{A character string indicating the variance-covariance
 structure. Can be "fa1", "fa2", "fa3", "fa4" or "us".}
 
 \item{diag}{TRUE or FALSE depending on the user if they want to take the
@@ -45,17 +45,17 @@ dat <- besag.met
 
 dat <- dat \%>\% arrange(county)
 model <- asreml(
-   fixed = yield ~ 1 + county,
-   random = ~ fa(county, 2):gen + county:rep + diag(county):rep:block,
-   residual = ~ dsum(~ units | county),
-   data = dat,
-   na.action = list(x="include",y="include")
- )
- heritability_fa(
+  fixed = yield ~ 1 + county,
+  random = ~ fa(county, 2):gen + county:rep + diag(county):rep:block,
+  residual = ~ dsum(~ units | county),
+  data = dat,
+  na.action = list(x = "include", y = "include")
+)
+heritability_fa(
   model_fa = model,
   genotype = "gen",
   env = "county",
-  vc.model = "fa2"
- )
+  vc_model = "fa2"
+)
 }
 }

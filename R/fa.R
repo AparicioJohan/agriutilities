@@ -9,7 +9,7 @@
 }
 
 
-#' Correlation Covariance heatmap
+#' Correlation Covariance Heatmap
 #'
 #' @param matrix A numeric matrix.
 #' @param corr A logical value indicating if the matrix is in a scaled form
@@ -24,18 +24,12 @@
 #' \donttest{
 #' library(agriutilities)
 #' data(iris)
-#' M <-  cor(iris[,-5])
+#' M <- cor(iris[, -5])
 #' covcor_heat(matrix = M, corr = TRUE)
 #' }
 covcor_heat <- function(matrix, corr = TRUE, size = 4, digits = 3) {
-
   matrix <- round(x = matrix, digits = 3)
 
-  # Get lower triangle of the correlation matrix
-  get_lower_tri <- function(cormat) {
-    cormat[upper.tri(cormat)] <- NA
-    return(cormat)
-  }
   # Get upper triangle of the correlation matrix
   get_upper_tri <- function(cormat) {
     cormat[lower.tri(cormat)] <- NA
@@ -62,8 +56,8 @@ covcor_heat <- function(matrix, corr = TRUE, size = 4, digits = 3) {
   col_letter <- "black"
 
   if (isFALSE(corr)) {
-    u <- min(matrix, na.rm = T)
-    l <- max(matrix, na.rm = T)
+    u <- min(matrix, na.rm = TRUE)
+    l <- max(matrix, na.rm = TRUE)
     m <- u + (l - u) / 2
     main <- "Covariance"
     col_pallete <- c("#440154", "#21908C", "#FDE725")
@@ -83,13 +77,12 @@ covcor_heat <- function(matrix, corr = TRUE, size = 4, digits = 3) {
       low = col_pallete[1],
       high = col_pallete[3],
       mid = col_pallete[2],
-      # color= c("#440154","#21908C","#FDE725")
       midpoint = m,
       limit = c(u, l),
       space = "Lab",
       name = main
     ) +
-    ggplot2::theme_minimal() + # minimal theme
+    ggplot2::theme_minimal() +
     ggplot2::theme(
       axis.text.x = ggplot2::element_text(
         angle = 45,
@@ -99,8 +92,6 @@ covcor_heat <- function(matrix, corr = TRUE, size = 4, digits = 3) {
       ),
       axis.text.y = ggplot2::element_text(size = 12)
     )
-  # coord_fixed()
-
 
   plot <- ggheatmap +
     ggplot2::geom_text(
@@ -121,10 +112,10 @@ covcor_heat <- function(matrix, corr = TRUE, size = 4, digits = 3) {
     ) +
     ggplot2::guides(
       fill = ggplot2::guide_colorbar(
-      barwidth = 7,
-      barheight = 1,
-      title.position = "top",
-      title.hjust = 0.5
+        barwidth = 7,
+        barheight = 1,
+        title.position = "top",
+        title.hjust = 0.5
       )
     )
 
@@ -157,21 +148,24 @@ covcor_heat <- function(matrix, corr = TRUE, size = 4, digits = 3) {
 #'
 #' @examples
 #' \donttest{
-#' library(tidyverse)
+#' library(dplyr)
 #' library(asreml)
 #' library(agridat)
 #' data(besag.met)
 #' dat <- besag.met
 #'
 #' dat <- dat %>% arrange(county)
-#' model <- asreml(fixed = yield ~ 1 + county,
-#'                  random = ~ fa(county, 2):gen + county:rep + diag(county):rep:block,
-#'                  residual = ~ dsum(~ units | county),
-#'                  data = dat,
-#'                  na.action = list(x="include",y="include"))
+#' model <- asreml(
+#'   fixed = yield ~ 1 + county,
+#'   random = ~ fa(county, 2):gen + county:rep + diag(county):rep:block,
+#'   residual = ~ dsum(~ units | county),
+#'   data = dat,
+#'   na.action = list(x = "include", y = "include"),
+#'   trace = 0
+#' )
 #'
-#'  pp <- predict(model, classify = "county")$pvals
-#'  fa2_summary(
+#' pp <- predict(model, classify = "county")$pvals
+#' fa_summary(
 #'   model = model,
 #'   trial = "county",
 #'   genotype = "gen",
@@ -186,24 +180,24 @@ covcor_heat <- function(matrix, corr = TRUE, size = 4, digits = 3) {
 #'   alpha_label_ind = 0.8,
 #'   size_arrow = 0.2,
 #'   alpha_arrow = 0.1
-#'  )
-#'  }
+#' )
+#' }
 #' @import ggplot2 ggrepel
-fa2_summary <- function(model = NULL,
-                        trial = "trial",
-                        genotype = "genotype",
-                        BLUEs_trial = NULL,
-                        mult_fa1 = -1,
-                        mult_fa2 = 1,
-                        filter_score = 1.5,
-                        k_biplot = 1,
-                        size_label_var = 2,
-                        alpha_label_var = 0.2,
-                        size_label_ind = 2,
-                        alpha_label_ind = 0.8,
-                        size_arrow = 0.2,
-                        alpha_arrow = 0.2,
-                        base_size = 12) {
+fa_summary <- function(model = NULL,
+                       trial = "trial",
+                       genotype = "genotype",
+                       BLUEs_trial = NULL,
+                       mult_fa1 = -1,
+                       mult_fa2 = 1,
+                       filter_score = 1.5,
+                       k_biplot = 1,
+                       size_label_var = 2,
+                       alpha_label_var = 0.2,
+                       size_label_ind = 2,
+                       alpha_label_ind = 0.8,
+                       size_arrow = 0.2,
+                       alpha_arrow = 0.2,
+                       base_size = 12) {
   vars <- summary(model)$varcomp
   vars <- data.frame(effect = rownames(vars), vars, check.names = FALSE)
 
@@ -249,7 +243,8 @@ fa2_summary <- function(model = NULL,
     Vg = diag(Gvar),
     BLUE = BLUEs_trial$predicted.value
   )
-  faComp[, c("fa1_scaled", "fa2_scaled")] <- diag(1 / sqrt(diag(Gvar))) %*% L_star
+  sqrt_diag <- sqrt(diag(Gvar))
+  faComp[, c("fa1_scaled", "fa2_scaled")] <- diag(1 / sqrt_diag) %*% L_star
   row.names(L) <- row.names(L_star) <- snam
   row.names(Gvar) <- colnames(Gvar) <- row.names(Cmat) <- colnames(Cmat) <- snam
   # Scores by Genotype

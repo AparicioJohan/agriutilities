@@ -26,7 +26,7 @@ reference:
 - contents:
   - check_connectivity
   - connectivity_matrix
-  - check_design_MET
+  - check_design_met
   - single_trial_analysis
   - stability
   - met_analysis
@@ -41,12 +41,12 @@ reference:
 - title: ASReml
   desc: Additional functions for ASReml models
 - contents:
-  - extractG
-  - fa2_summary
+  - extract_vcov
+  - fa_summary
   - heritability_fa
 - title: Others
 - contents:
   - covcor_heat
-  - ggCor
-  - parameters_GG
+  - gg_cor
+  - parameters_gg
 

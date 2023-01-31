@@ -7,13 +7,13 @@
 \method{print}{checkAgri}(x, ...)
 }
 \arguments{
-\item{x}{An object fitted with the function \code{check_design_MET()}.}
+\item{x}{An object fitted with the function \code{check_design_met()}.}
 
 \item{...}{Options used by the tibble package to format the output. See
 `tibble::print()` for more details.}
 }
 \description{
-Prints information about \code{check_design_MET()} function.
+Prints information about \code{check_design_met()} function.
 }
 \examples{
 \donttest{
@@ -21,7 +21,7 @@ library(agridat)
 library(agriutilities)
 data(besag.met)
 dat <- besag.met
-results <- check_design_MET(
+results <- check_design_met(
   data = dat,
   genotype = "gen",
   trial = "county",

@@ -28,8 +28,8 @@ Cullis heritability for lme4 models
 dat <- agridat::john.alpha
 g.ran <- lme4::lmer(
   data = dat,
-  formula = yield ~ rep + (1|gen) + (1|rep:block)
- )
+  formula = yield ~ rep + (1 | gen) + (1 | rep:block)
+)
 h_cullis(g.ran, "gen")
 }
 }

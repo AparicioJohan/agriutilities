@@ -21,7 +21,7 @@ library(agridat)
 library(agriutilities)
 data(besag.met)
 dat <- besag.met
-results <- check_design_MET(
+results <- check_design_met(
   data = dat,
   genotype = "gen",
   trial = "county",

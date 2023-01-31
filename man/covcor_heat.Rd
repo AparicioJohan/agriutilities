@@ -2,7 +2,7 @@
 % Please edit documentation in R/fa.R
 \name{covcor_heat}
 \alias{covcor_heat}
-\title{Correlation Covariance heatmap}
+\title{Correlation Covariance Heatmap}
 \usage{
 covcor_heat(matrix, corr = TRUE, size = 4, digits = 3)
 }
@@ -20,13 +20,13 @@ covcor_heat(matrix, corr = TRUE, size = 4, digits = 3)
 A ggplot object showing the upper triangular elements of the matrix.
 }
 \description{
-Correlation Covariance heatmap
+Correlation Covariance Heatmap
 }
 \examples{
 \donttest{
 library(agriutilities)
 data(iris)
-M <-  cor(iris[,-5])
+M <- cor(iris[, -5])
 covcor_heat(matrix = M, corr = TRUE)
 }
 }

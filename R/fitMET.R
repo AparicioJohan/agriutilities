@@ -81,7 +81,7 @@ stability <- function(predictions = NULL,
 #' library(agriutilities)
 #' data(besag.met)
 #' dat <- besag.met
-#' results <- check_design_MET(
+#' results <- check_design_met(
 #'   data = dat,
 #'   genotype = "gen",
 #'   trial = "county",
@@ -122,7 +122,6 @@ met_analysis <- function(sma_output = NULL,
     as.character()
 
   for (var in traits) {
-
     trials_to_keep <- sma_output$resum_fitted_model %>%
       dplyr::filter(heritability > h2_filter & trait %in% var) %>%
       droplevels() %>%
@@ -261,11 +260,11 @@ met_analysis <- function(sma_output = NULL,
     }
     met_mod <- suppressWarnings(asreml::update.asreml(met_mod))
     met_models[[var]] <- met_mod
-    VCOV[[var]] <- extractG(
+    VCOV[[var]] <- extract_vcov(
       model = met_mod,
       gen = "genotype",
       env = "trial",
-      vc.model = vcov_selected
+      vc_model = vcov_selected
     )
     # trial effects
     trial_effects[[var]] <- rbind(

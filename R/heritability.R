@@ -5,7 +5,7 @@
 #' contains genotypes.
 #' @param env A character string indicating the column in data that contains
 #' environments or trials.
-#' @param vc.model A character string indicating the variance-covariance
+#' @param vc_model A character string indicating the variance-covariance
 #' structure. Can be "fa1", "fa2", "fa3", "fa4" or "us".
 #' @param diag TRUE or FALSE depending on the user if they want to take the
 #' elements on the diagonal of the variance-covariance matrix or the elements
@@ -25,29 +25,29 @@
 #'
 #' dat <- dat %>% arrange(county)
 #' model <- asreml(
-#'    fixed = yield ~ 1 + county,
-#'    random = ~ fa(county, 2):gen + county:rep + diag(county):rep:block,
-#'    residual = ~ dsum(~ units | county),
-#'    data = dat,
-#'    na.action = list(x="include",y="include")
-#'  )
-#'  heritability_fa(
+#'   fixed = yield ~ 1 + county,
+#'   random = ~ fa(county, 2):gen + county:rep + diag(county):rep:block,
+#'   residual = ~ dsum(~ units | county),
+#'   data = dat,
+#'   na.action = list(x = "include", y = "include")
+#' )
+#' heritability_fa(
 #'   model_fa = model,
 #'   genotype = "gen",
 #'   env = "county",
-#'   vc.model = "fa2"
-#'  )
+#'   vc_model = "fa2"
+#' )
 #' }
 heritability_fa <- function(model_fa = NULL,
                             genotype = "line",
                             env = "loc",
-                            vc.model = c("fa2"),
+                            vc_model = c("fa2"),
                             diag = FALSE) {
-  G <- extractG(
+  G <- extract_vcov(
     model = model_fa,
     gen = genotype,
     env = env,
-    vc.model = vc.model
+    vc_model = vc_model
   )$VCOV
 
   if (diag) {

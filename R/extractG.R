@@ -5,19 +5,19 @@
 #' genotypes.
 #' @param env A character string indicating the column in data that contains
 #' environments or trials.
-#' @param vc.model A character string indicating the variance-covariance fitted.
+#' @param vc_model A character string indicating the variance-covariance fitted.
 #' Can be 'diag', 'corv', 'corh', 'corgv', 'fa1', 'fa2', 'fa3', 'fa4', 'corgh',
 #' 'us' or 'rr2'.
-#' @return list VCOV = VCOV , CORR = CORR, vc.model = vc.model
+#' @return list VCOV = VCOV , CORR = CORR, vc_model = vc_model
 #' @export
 #'
 #' @examples
-#' # extractG(model, gen = "genotype" , env = "trial", vc.model = "corv")
+#' # extract_vcov(model, gen = "genotype" , env = "trial", vc_model = "corv")
 #' @importFrom stats cov2cor
-extractG <- function(model = NULL,
-                     gen = "genotype",
-                     env = "trial",
-                     vc.model = "corv") {
+extract_vcov <- function(model = NULL,
+                         gen = "genotype",
+                         env = "trial",
+                         vc_model = "corv") {
   sites <- data.frame(model$mf)[, env]
   s <- nlevels(sites)
 
@@ -28,11 +28,11 @@ extractG <- function(model = NULL,
 
   gxe <- paste(env, gen, sep = ":")
 
-  if (vc.model == "diag") {
+  if (vc_model == "diag") {
     vc <- vc[grep(gxe, rownames(vc)), ]
     diag(VCOV) <- vc[, 1]
   }
-  if (vc.model == "corv") {
+  if (vc_model == "corv") {
     vc <- vc[grep(gxe, rownames(vc)), ]
     CORR <- matrix(1, ncol = s, nrow = s)
     CORR <- vc[1, 1] * CORR
@@ -40,7 +40,7 @@ extractG <- function(model = NULL,
     D <- rep(vc[2, 1], s)
     VCOV <- diag(sqrt(D)) %*% CORR %*% diag(sqrt(D))
   }
-  if (vc.model == "corh") {
+  if (vc_model == "corh") {
     vc <- vc[grep(gxe, rownames(vc)), ]
     CORR <- matrix(1, ncol = s, nrow = s)
     CORR <- vc[1, 1] * CORR
@@ -48,7 +48,7 @@ extractG <- function(model = NULL,
     D <- vc[2:(s + 1), 1]
     VCOV <- diag(sqrt(D)) %*% CORR %*% diag(sqrt(D))
   }
-  if (vc.model == "corgv") {
+  if (vc_model == "corgv") {
     vc.corr <- vc[grep(".cor", rownames(vc)), ]
     vc.var <- vc[-grep(".cor", rownames(vc)), ]
     k <- 1
@@ -64,7 +64,7 @@ extractG <- function(model = NULL,
     D <- rep(vc.var[1, 1], s)
     VCOV <- diag(sqrt(D)) %*% CORR %*% diag(sqrt(D))
   }
-  if (vc.model == "fa1") {
+  if (vc_model == "fa1") {
     vc.var <- vc[grep("!var", rownames(vc)), ]
     vc.fa1 <- vc[grep("!fa1", rownames(vc)), ]
     R <- vc.var[, 1]
@@ -72,7 +72,7 @@ extractG <- function(model = NULL,
     VCOV <- L %*% t(L) + diag(R)
     CORR <- cov2cor(VCOV)
   }
-  if (vc.model == "fa2") {
+  if (vc_model == "fa2") {
     vc.var <- vc[grep("!var", rownames(vc)), ]
     vc.fa1 <- vc[grep("!fa1", rownames(vc)), ]
     vc.fa2 <- vc[grep("!fa2", rownames(vc)), ]
@@ -83,7 +83,7 @@ extractG <- function(model = NULL,
     VCOV <- L %*% t(L) + diag(R)
     CORR <- cov2cor(VCOV)
   }
-  if (vc.model == "fa3") {
+  if (vc_model == "fa3") {
     vc.var <- vc[grep("!var", rownames(vc)), ]
     vc.fa1 <- vc[grep("!fa1", rownames(vc)), ]
     vc.fa2 <- vc[grep("!fa2", rownames(vc)), ]
@@ -96,7 +96,7 @@ extractG <- function(model = NULL,
     VCOV <- L %*% t(L) + diag(R)
     CORR <- cov2cor(VCOV)
   }
-  if (vc.model == "fa4") {
+  if (vc_model == "fa4") {
     vc.var <- vc[grep("!var", rownames(vc)), ]
     vc.fa1 <- vc[grep("!fa1", rownames(vc)), ]
     vc.fa2 <- vc[grep("!fa2", rownames(vc)), ]
@@ -111,7 +111,7 @@ extractG <- function(model = NULL,
     VCOV <- L %*% t(L) + diag(R)
     CORR <- cov2cor(VCOV)
   }
-  if (vc.model == "corgh") {
+  if (vc_model == "corgh") {
     vc.corr <- vc[grep(".cor", rownames(vc)), ]
     vc.var <- vc[-grep(".cor", rownames(vc)), ]
     k <- 1
@@ -127,7 +127,7 @@ extractG <- function(model = NULL,
     D <- vc.var[1:s, 1]
     VCOV <- diag(sqrt(D)) %*% CORR %*% diag(sqrt(D))
   }
-  if (vc.model == "us") {
+  if (vc_model == "us") {
     vc <- vc[grep(gxe, rownames(vc)), ]
     k <- 1
     for (i in 1:s) {
@@ -139,7 +139,7 @@ extractG <- function(model = NULL,
     VCOV[upper.tri(VCOV)] <- t(VCOV)[upper.tri(VCOV)]
     CORR <- cov2cor(VCOV)
   }
-  if (vc.model == "rr2") {
+  if (vc_model == "rr2") {
     vc.var <- vc[grep("!var", rownames(vc)), ]
     vc.fa1 <- vc[grep("!fa1", rownames(vc)), ]
     vc.fa2 <- vc[grep("!fa2", rownames(vc)), ]
@@ -155,5 +155,5 @@ extractG <- function(model = NULL,
   rownames(VCOV) <- levels(sites)
   rownames(CORR) <- levels(sites)
 
-  return(list(VCOV = VCOV, CORR = CORR, vc.model = vc.model))
+  return(list(VCOV = VCOV, CORR = CORR, vc_model = vc_model))
 }

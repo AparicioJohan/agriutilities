@@ -9,10 +9,10 @@
 #' # in progress
 r_square <- function(model) {
   response <- model$data[, model$model$response]
-  mean.response <- mean(response, na.rm = T)
+  mean.response <- mean(response, na.rm = TRUE)
   fitted <- model$fitted
-  SS.fitted <- sum((response - fitted)^2, na.rm = T)
-  SS.response <- sum((response - mean.response)^2, na.rm = T)
+  SS.fitted <- sum((response - fitted)^2, na.rm = TRUE)
+  SS.response <- sum((response - mean.response)^2, na.rm = TRUE)
   R <- 1 - SS.fitted / SS.response
   names(R) <- "r.square"
   return(round(R, 3))
@@ -29,9 +29,9 @@ r_square <- function(model) {
 #' # in progress
 CV_SpATS <- function(model) {
   response <- model$data[, model$model$response]
-  mean.response <- mean(response, na.rm = T)
+  mean.response <- mean(response, na.rm = TRUE)
   fitted <- model$fitted
-  MSE <- mean((response - fitted)^2, na.rm = T)
+  MSE <- mean((response - fitted)^2, na.rm = TRUE)
   RMSE <- sqrt(MSE)
   NRMSE <- RMSE / mean.response
   cv_prcnt <- NRMSE * 100
@@ -54,8 +54,9 @@ res_spats <- function(model, k = 3) {
   dt <- model$data
   VarE <- model$psi[1]
   Data <- data.frame(
-    Index = 1:length(stats::residuals(model)),
-    Residuals = stats::residuals(model))
+    Index = seq_along(stats::residuals(model)),
+    Residuals = stats::residuals(model)
+  )
   u <- +k * sqrt(VarE)
   l <- -k * sqrt(VarE)
   Data$Classify <- NA
@@ -83,7 +84,7 @@ res_spats <- function(model, k = 3) {
 plot_res_index <- function(data_out) {
   k <- dplyr::filter(data_out, !is.na(Classify)) %>%
     ggplot2::ggplot(ggplot2::aes(x = Index, y = Residuals, color = Classify)) +
-    ggplot2::geom_point(size = 2, alpha = 0.5, na.rm = T) +
+    ggplot2::geom_point(size = 2, alpha = 0.5, na.rm = TRUE) +
     ggplot2::theme_bw() +
     ggplot2::scale_color_manual(values = c("grey80", "red")) +
     ggplot2::geom_hline(yintercept = data_out$u, color = "red") +
@@ -104,7 +105,7 @@ plot_res_index <- function(data_out) {
 plot_res_map <- function(data_out) {
   k <- dplyr::filter(data_out, !is.na(Classify)) %>%
     ggplot2::ggplot(ggplot2::aes(x = col, y = row, color = Classify)) +
-    ggplot2::geom_point(size = 2, na.rm = T) +
+    ggplot2::geom_point(size = 2, na.rm = TRUE) +
     ggplot2::theme_bw() +
     ggplot2::scale_color_manual(values = c("grey80", "red"))
   k
@@ -122,7 +123,7 @@ plot_res_map <- function(data_out) {
 plot_res_fitted <- function(data_out) {
   k <- dplyr::filter(data_out, !is.na(Classify)) %>%
     ggplot2::ggplot(ggplot2::aes(x = fit, y = Residuals, color = Classify)) +
-    ggplot2::geom_point(size = 2, alpha = 0.5, na.rm = T) +
+    ggplot2::geom_point(size = 2, alpha = 0.5, na.rm = TRUE) +
     ggplot2::theme_bw() +
     ggplot2::scale_color_manual(values = c("grey80", "red")) +
     ggplot2::xlab("Fitted Values") +
@@ -135,9 +136,9 @@ res_hist <- function(data_out) {
   hi <- graphics::hist(data_out[, "Residuals"], plot = FALSE)
   br <- hi$breaks
   p <- ggplot(data_out, aes(x = Residuals)) +
-    geom_histogram(aes(y = ..density..), alpha = 0.8, breaks = c(br), na.rm = T) +
+    geom_histogram(aes(y = ..density..), alpha = 0.8, breaks = c(br), na.rm = TRUE) +
     theme_bw() +
-    geom_density(alpha = 0.5, na.rm = T) +
+    geom_density(alpha = 0.5, na.rm = TRUE) +
     geom_vline(xintercept = c(data_out$u, data_out$l), linetype = 2, color = "red")
   p
 }
@@ -147,16 +148,15 @@ res_compare <- function(Model, variable, factor) {
   data <- Model$data
   data$Residuals <- stats::residuals(Model)
   data <- type.convert(data)
-  label <- class(data[, variable])
   if (factor) {
     data[, variable] <- as.factor(data[, variable])
     p <- ggplot(data, aes_string(x = variable, y = "Residuals", fill = variable)) +
-      geom_boxplot(na.rm = T) +
+      geom_boxplot(na.rm = TRUE) +
       theme_bw()
   } else {
     data[, variable] <- as.numeric(data[, variable])
     p <- ggplot(data, aes_string(x = variable, y = "Residuals")) +
-      geom_point(size = 2, alpha = 0.5, color = "grey80", na.rm = T) +
+      geom_point(size = 2, alpha = 0.5, color = "grey80", na.rm = TRUE) +
       theme_bw()
   }
   p
@@ -240,7 +240,7 @@ weight_SpATS <- function(model) {
     y = data_weights,
     by.x = genotype,
     by.y = "gen",
-    sort = F
+    sort = FALSE
   )
   data_weights <- data_weights[, c(genotype, "predicted.values", "standard.errors", "weights")] # "vcov","inv_vcov",
 
@@ -403,7 +403,7 @@ coef_SpATS <- function(model) {
   C_inv <- as.matrix(rbind(cbind(model$vcov$C11_inv, model$vcov$C12_inv), cbind(model$vcov$C21_inv, model$vcov$C22_inv)))
   se <- sqrt(diag(C_inv))
   C_inv <- data.frame(level = names(se), std.error = se, row.names = NULL)
-  coef_spats <- merge(coef_spats, C_inv, by = "level", all = T)
+  coef_spats <- merge(coef_spats, C_inv, by = "level", all = TRUE)
   coef_spats <- coef_spats %>%
     dplyr::mutate(z.ratio = solution / std.error) %>%
     dplyr::mutate_if(is.numeric, round, 4) %>%

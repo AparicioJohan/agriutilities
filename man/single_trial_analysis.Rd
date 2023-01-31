@@ -13,7 +13,7 @@ single_trial_analysis(
 }
 \arguments{
 \item{results}{Object of class \code{checkAgri} resulting of executing
-\code{check_design_MET()} function.}
+\code{check_design_met()} function.}
 
 \item{progress}{Should the progress of the modeling be printed.
 If \code{TRUE}, for every trial a line is output indicating the traits fitted
@@ -50,7 +50,7 @@ library(agridat)
 library(agriutilities)
 data(besag.met)
 dat <- besag.met
-results <- check_design_MET(
+results <- check_design_met(
   data = dat,
   genotype = "gen",
   trial = "county",

@@ -39,7 +39,7 @@
 #' library(agriutilities)
 #' data(besag.met)
 #' dat <- besag.met
-#' results <- check_design_MET(
+#' results <- check_design_met(
 #'   data = dat,
 #'   genotype = "gen",
 #'   trial = "county",
@@ -58,7 +58,7 @@
 #' @import dplyr
 #' @importFrom stats sd median
 #' @importFrom utils type.convert
-check_design_MET <- function(data = NULL,
+check_design_met <- function(data = NULL,
                              genotype = NULL,
                              trial = NULL,
                              traits = NULL,
@@ -131,7 +131,7 @@ check_design_MET <- function(data = NULL,
   }
   trait_issue <- traits[make.names(traits) != traits]
   traits <- traits[make.names(traits) == traits]
-  if(length(trait_issue) != 0) {
+  if (length(trait_issue) != 0) {
     message(
       "Issues in variables names. The trait '",
       paste(trait_issue, collapse = " - "),

@@ -63,8 +63,8 @@ VarE <- function(model) {
 #' dat <- agridat::john.alpha
 #' g.ran <- lme4::lmer(
 #'   data = dat,
-#'   formula = yield ~ rep + (1|gen) + (1|rep:block)
-#'  )
+#'   formula = yield ~ rep + (1 | gen) + (1 | rep:block)
+#' )
 #' h_cullis(g.ran, "gen")
 #' }
 h_cullis <- function(model, genotype, re_MME = FALSE) {
@@ -139,7 +139,7 @@ h_cullis <- function(model, genotype, re_MME = FALSE) {
       )
     )
   } else {
-    aveped <- mean(attr(lme4::ranef(model, drop = T)[[genotype]], "postVar"))
+    aveped <- mean(attr(lme4::ranef(model, drop = TRUE)[[genotype]], "postVar"))
     vc.g <- VarG(model, genotype)
     H2Cullis <- ifelse(vc.g == 0, 0, 1 - aveped / vc.g)
     return(H2Cullis)
@@ -379,7 +379,6 @@ res_qqplot <- function(data_out, title = NULL) {
     ggpubr::ggqqplot(
       x = "Residuals",
       fill = "Classify",
-      # ggtheme = theme_ipsum(),
       ylab = "Sample Quantile",
       xlab = "Theoretical Quantile", title = title
     )

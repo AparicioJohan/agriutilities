@@ -166,7 +166,7 @@ fit_STA <- function(results, trait, design, remove_outliers, engine, progress) {
 #' Single Trial Analysis
 #'
 #' @param results Object of class \code{checkAgri} resulting of executing
-#' \code{check_design_MET()} function.
+#' \code{check_design_met()} function.
 #' @param progress Should the progress of the modeling be printed.
 #' If \code{TRUE}, for every trial a line is output indicating the traits fitted
 #' for the particular trial.
@@ -197,7 +197,7 @@ fit_STA <- function(results, trait, design, remove_outliers, engine, progress) {
 #' library(agriutilities)
 #' data(besag.met)
 #' dat <- besag.met
-#' results <- check_design_MET(
+#' results <- check_design_met(
 #'   data = dat,
 #'   genotype = "gen",
 #'   trial = "county",

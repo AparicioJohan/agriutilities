@@ -14,7 +14,7 @@
 }
 \arguments{
 \item{x}{An object inheriting from class \code{checkAgri} resulting of
-executing the function \code{check_design_MET()}}
+executing the function \code{check_design_met()}}
 
 \item{type}{A character string specifiying the type of plot. "connectivity",
 "missing" or "boxplot".}
@@ -34,7 +34,7 @@ library(agridat)
 library(agriutilities)
 data(besag.met)
 dat <- besag.met
-results <- check_design_MET(
+results <- check_design_met(
   data = dat,
   genotype = "gen",
   trial = "county",

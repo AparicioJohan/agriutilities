@@ -1,10 +1,10 @@
 #' Print an object of class \code{checkAgri}
 #'
-#' @description Prints information about \code{check_design_MET()} function.
+#' @description Prints information about \code{check_design_met()} function.
 #'
 #' @aliases print.checkAgri
 #' @usage \method{print}{checkAgri}(x, ...)
-#' @param x An object fitted with the function \code{check_design_MET()}.
+#' @param x An object fitted with the function \code{check_design_met()}.
 #' @param ... Options used by the tibble package to format the output. See
 #' `tibble::print()` for more details.
 #' @author Johan Aparicio [aut]
@@ -17,7 +17,7 @@
 #' library(agriutilities)
 #' data(besag.met)
 #' dat <- besag.met
-#' results <- check_design_MET(
+#' results <- check_design_met(
 #'   data = dat,
 #'   genotype = "gen",
 #'   trial = "county",
@@ -34,19 +34,27 @@ print.checkAgri <- function(x, ...) {
   cat("Summary Traits by Trial:\n")
   cat("---------------------------------------------------------------------\n")
   print(x$summ_traits, ...)
-  cat("\n---------------------------------------------------------------------\n")
+  cat(
+    "\n---------------------------------------------------------------------\n"
+  )
   cat("Experimental Design Detected:\n")
   cat("---------------------------------------------------------------------\n")
   print(x$exp_design_list)
-  cat("\n---------------------------------------------------------------------\n")
+  cat(
+    "\n---------------------------------------------------------------------\n"
+  )
   cat("Summary Experimental Design:\n")
   cat("---------------------------------------------------------------------\n")
   print(x$exp_design_resum[, 1:9], ...)
-  cat("\n---------------------------------------------------------------------\n")
+  cat(
+    "\n---------------------------------------------------------------------\n"
+  )
   cat("Connectivity Matrix:\n")
   cat("---------------------------------------------------------------------\n")
   print(x$connectivity_matrix)
-  cat("\n---------------------------------------------------------------------\n")
+  cat(
+    "\n---------------------------------------------------------------------\n"
+  )
   cat("Filters Applied:\n")
   cat("---------------------------------------------------------------------\n")
   str(x$filter)
@@ -72,7 +80,7 @@ print.checkAgri <- function(x, ...) {
 #' library(agriutilities)
 #' data(besag.met)
 #' dat <- besag.met
-#' results <- check_design_MET(
+#' results <- check_design_met(
 #'   data = dat,
 #'   genotype = "gen",
 #'   trial = "county",
@@ -90,11 +98,15 @@ print.smaAgri <- function(x, ...) {
   cat("Summary Fitted Models:\n")
   cat("---------------------------------------------------------------------\n")
   print(x$resum_fitted_model, ...)
-  cat("\n---------------------------------------------------------------------\n")
+  cat(
+    "\n---------------------------------------------------------------------\n"
+  )
   cat("Outliers Removed:\n")
   cat("---------------------------------------------------------------------\n")
   print(x$outliers, ...)
-  cat("\n---------------------------------------------------------------------\n")
+  cat(
+    "\n---------------------------------------------------------------------\n"
+  )
   cat("First Predicted Values and Standard Errors (BLUEs/BLUPs):\n")
   cat("---------------------------------------------------------------------\n")
   print(head(x$blues_blups))
@@ -120,7 +132,7 @@ print.smaAgri <- function(x, ...) {
 #' library(agriutilities)
 #' data(besag.met)
 #' dat <- besag.met
-#' results <- check_design_MET(
+#' results <- check_design_met(
 #'   data = dat,
 #'   genotype = "gen",
 #'   trial = "county",
@@ -139,25 +151,33 @@ print.metAgri <- function(x, ...) {
   cat("Trial Effects (BLUEs):\n")
   cat("---------------------------------------------------------------------\n")
   print(x$trial_effects, ...)
-  cat("\n---------------------------------------------------------------------\n")
+  cat(
+    "\n---------------------------------------------------------------------\n"
+  )
   cat("Heritability:\n")
   cat("---------------------------------------------------------------------\n")
   print(x$heritability, ...)
-  cat("\n---------------------------------------------------------------------\n")
+  cat(
+    "\n---------------------------------------------------------------------\n"
+  )
   cat("First Overall Predicted Values and Standard Errors (BLUPs):\n")
   cat("---------------------------------------------------------------------\n")
   print(head(x$overall_BLUPs))
-  cat("\n---------------------------------------------------------------------\n")
+  cat(
+    "\n---------------------------------------------------------------------\n"
+  )
   cat("Variance-Covariance Matrix:\n")
   cat("---------------------------------------------------------------------\n")
   lt <- names(x$VCOV)
   for (i in lt) {
-    vc_str <- x$VCOV[[i]]$vc.model
+    vc_str <- x$VCOV[[i]]$vc_model
     cat("\nCorrelation Matrix ", "('", vc_str, "'): ", i, "\n", sep = "")
     print(round(x$VCOV[[i]]$CORR, 2))
     cat("\nCovariance Matrix ", "('", vc_str, "'): ", i, "\n", sep = "")
     print(round(x$VCOV[[i]]$VCOV, 2))
-    cat("\n---------------------------------------------------------------------")
+    cat(
+      "\n---------------------------------------------------------------------"
+    )
   }
   cat("\nFirst Stability Coefficients:\n")
   cat("---------------------------------------------------------------------\n")
@@ -171,7 +191,7 @@ print.metAgri <- function(x, ...) {
 #' @description Create several plots for an object of class \code{checkAgri}
 #' @aliases plot.checkAgri
 #' @param x An object inheriting from class \code{checkAgri} resulting of
-#' executing the function \code{check_design_MET()}
+#' executing the function \code{check_design_met()}
 #' @param type A character string specifiying the type of plot. "connectivity",
 #' "missing" or "boxplot".
 #' @param ... Further graphical parameters. For future improvements.
@@ -186,7 +206,7 @@ print.metAgri <- function(x, ...) {
 #' library(agriutilities)
 #' data(besag.met)
 #' dat <- besag.met
-#' results <- check_design_MET(
+#' results <- check_design_met(
 #'   data = dat,
 #'   genotype = "gen",
 #'   trial = "county",
@@ -313,7 +333,11 @@ plot.checkAgri <- function(x,
         -.data[[x$inputs$trial]]
       ) %>%
       ggplot(
-        aes(x = .data[[x$inputs$trial]], y = value, fill = .data[[x$inputs$trial]])
+        aes(
+          x = .data[[x$inputs$trial]],
+          y = value,
+          fill = .data[[x$inputs$trial]]
+        )
       ) +
       geom_boxplot() +
       labs(title = "", y = "Boxplot", x = "Trials") +

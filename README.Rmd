@@ -40,14 +40,14 @@ This is a basic example which shows you how to use some of the functions of the 
 
 ### Identify the Experimental Design
 
-The function `check_design_MET` helps us to check the quality of the data and also to identify the experimental design of the trials. This works as a quality check or quality control before we fit any model.
+The function `check_design_met` helps us to check the quality of the data and also to identify the experimental design of the trials. This works as a quality check or quality control before we fit any model.
 
 ```{r example}
 library(agriutilities)
 library(agridat)
 data(besag.met)
 dat <- besag.met
-results <- check_design_MET(
+results <- check_design_met(
   data = dat,
   genotype = "gen",
   trial = "county",

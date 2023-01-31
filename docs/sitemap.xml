@@ -16,15 +16,6 @@
     <loc>https://apariciojohan.github.io/agriutilities/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://apariciojohan.github.io/agriutilities/reference/biplot_fa2.html</loc>
-  </url>
-  <url>
-    <loc>https://apariciojohan.github.io/agriutilities/reference/checkConection.html</loc>
-  </url>
-  <url>
-    <loc>https://apariciojohan.github.io/agriutilities/reference/checkConection2.html</loc>
-  </url>
-  <url>
     <loc>https://apariciojohan.github.io/agriutilities/reference/check_connectivity.html</loc>
   </url>
   <url>
@@ -37,28 +28,19 @@
     <loc>https://apariciojohan.github.io/agriutilities/reference/covcor_heat.html</loc>
   </url>
   <url>
-    <loc>https://apariciojohan.github.io/agriutilities/reference/CV.spats.html</loc>
-  </url>
-  <url>
-    <loc>https://apariciojohan.github.io/agriutilities/reference/CV_SpATS.html</loc>
-  </url>
-  <url>
-    <loc>https://apariciojohan.github.io/agriutilities/reference/extractG.html</loc>
-  </url>
-  <url>
-    <loc>https://apariciojohan.github.io/agriutilities/reference/fa.asreml.html</loc>
+    <loc>https://apariciojohan.github.io/agriutilities/reference/extract_vcov.html</loc>
   </url>
   <url>
     <loc>https://apariciojohan.github.io/agriutilities/reference/fa2_summary.html</loc>
   </url>
   <url>
+    <loc>https://apariciojohan.github.io/agriutilities/reference/fa_summary.html</loc>
+  </url>
+  <url>
     <loc>https://apariciojohan.github.io/agriutilities/reference/ggCor.html</loc>
   </url>
   <url>
-    <loc>https://apariciojohan.github.io/agriutilities/reference/h.cullis.html</loc>
-  </url>
-  <url>
-    <loc>https://apariciojohan.github.io/agriutilities/reference/h.cullis2.html</loc>
+    <loc>https://apariciojohan.github.io/agriutilities/reference/gg_cor.html</loc>
   </url>
   <url>
     <loc>https://apariciojohan.github.io/agriutilities/reference/heritability_fa.html</loc>
@@ -67,25 +49,10 @@
     <loc>https://apariciojohan.github.io/agriutilities/reference/h_cullis.html</loc>
   </url>
   <url>
-    <loc>https://apariciojohan.github.io/agriutilities/reference/h_cullis_MME.html</loc>
-  </url>
-  <url>
     <loc>https://apariciojohan.github.io/agriutilities/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://apariciojohan.github.io/agriutilities/reference/lme4_res.html</loc>
-  </url>
-  <url>
     <loc>https://apariciojohan.github.io/agriutilities/reference/met_analysis.html</loc>
-  </url>
-  <url>
-    <loc>https://apariciojohan.github.io/agriutilities/reference/mult_lme4.html</loc>
-  </url>
-  <url>
-    <loc>https://apariciojohan.github.io/agriutilities/reference/mult_res_lme4.html</loc>
-  </url>
-  <url>
-    <loc>https://apariciojohan.github.io/agriutilities/reference/mult_summary.html</loc>
   </url>
   <url>
     <loc>https://apariciojohan.github.io/agriutilities/reference/parameters_GG.html</loc>
@@ -97,15 +64,6 @@
     <loc>https://apariciojohan.github.io/agriutilities/reference/plot.checkAgri.html</loc>
   </url>
   <url>
-    <loc>https://apariciojohan.github.io/agriutilities/reference/plot_res_fitted.html</loc>
-  </url>
-  <url>
-    <loc>https://apariciojohan.github.io/agriutilities/reference/plot_res_index.html</loc>
-  </url>
-  <url>
-    <loc>https://apariciojohan.github.io/agriutilities/reference/plot_res_map.html</loc>
-  </url>
-  <url>
     <loc>https://apariciojohan.github.io/agriutilities/reference/print.checkAgri.html</loc>
   </url>
   <url>
@@ -115,36 +73,9 @@
     <loc>https://apariciojohan.github.io/agriutilities/reference/print.smaAgri.html</loc>
   </url>
   <url>
-    <loc>https://apariciojohan.github.io/agriutilities/reference/r.square.html</loc>
-  </url>
-  <url>
-    <loc>https://apariciojohan.github.io/agriutilities/reference/ran.html</loc>
-  </url>
-  <url>
-    <loc>https://apariciojohan.github.io/agriutilities/reference/res_lme4.html</loc>
-  </url>
-  <url>
-    <loc>https://apariciojohan.github.io/agriutilities/reference/res_spats.html</loc>
-  </url>
-  <url>
-    <loc>https://apariciojohan.github.io/agriutilities/reference/r_square.html</loc>
-  </url>
-  <url>
     <loc>https://apariciojohan.github.io/agriutilities/reference/single_trial_analysis.html</loc>
   </url>
   <url>
     <loc>https://apariciojohan.github.io/agriutilities/reference/stability.html</loc>
-  </url>
-  <url>
-    <loc>https://apariciojohan.github.io/agriutilities/reference/VarE.html</loc>
-  </url>
-  <url>
-    <loc>https://apariciojohan.github.io/agriutilities/reference/VarG.html</loc>
-  </url>
-  <url>
-    <loc>https://apariciojohan.github.io/agriutilities/reference/varG.pvalue.html</loc>
-  </url>
-  <url>
-    <loc>https://apariciojohan.github.io/agriutilities/reference/var_fa.html</loc>
   </url>
 </urlset>

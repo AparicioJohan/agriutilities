@@ -1,4 +1,4 @@
-#' Genetic Gain parameters
+#' Genetic Gain Parameters
 #'
 #' @param model linear regression model (lm object)
 #' @param trait string with trait evaluated to be added in the data.frame
@@ -8,9 +8,9 @@
 #' @export
 #'
 #' @examples
-#' # parameters_GG(model)
+#' # parameters_gg(model)
 #' @importFrom stats anova
-parameters_GG <- function(model, trait = "trait") {
+parameters_gg <- function(model, trait = "trait") {
   summ <- summary(model)
   first_year <- min(model$model[, 2], na.rm = TRUE)
   last_year <- max(model$model[, 2], na.rm = TRUE)

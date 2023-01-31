@@ -1,4 +1,4 @@
-#' Triangular correlation plot
+#' Triangular Correlation Plot
 #'
 #' @description Return a ggplot object to plot a triangular correlation figure
 #' between 2 or more variables.
@@ -36,26 +36,26 @@
 #' \donttest{
 #' library(agriutilities)
 #' data(iris)
-#' ggCor(
-#'  data = iris,
-#'  colours = c("#db4437","white","#4285f4"),
-#'  label_size = 6
+#' gg_cor(
+#'   data = iris,
+#'   colours = c("#db4437", "white", "#4285f4"),
+#'   label_size = 6
 #' )
 #' }
 #' @author Daniel Ariza, Johan Aparicio.
 #' @importFrom stats na.omit
-ggCor <- function(data,
-                  colours = c("#db4437", "white", "#FF9D00"),
-                  blackLabs = c(-0.7, 0.7),
-                  showSignif = TRUE,
-                  pBreaks = c(0, .001, .01, .05, Inf),
-                  pLabels = c("***", "**", "*", "ns"),
-                  showDiagonal = FALSE,
-                  Diag = NULL,
-                  returnTable = FALSE,
-                  returnN = FALSE,
-                  adjusted = TRUE,
-                  label_size = 3) {
+gg_cor <- function(data,
+                   colours = c("#db4437", "white", "#FF9D00"),
+                   blackLabs = c(-0.7, 0.7),
+                   showSignif = TRUE,
+                   pBreaks = c(0, .001, .01, .05, Inf),
+                   pLabels = c("***", "**", "*", "ns"),
+                   showDiagonal = FALSE,
+                   Diag = NULL,
+                   returnTable = FALSE,
+                   returnN = FALSE,
+                   adjusted = TRUE,
+                   label_size = 3) {
 
   # Drop non numeric columns in the dataset
   if (sum(!sapply(data, is.numeric))) {
@@ -181,7 +181,7 @@ ggCor <- function(data,
   # Show darker tiles with white labels for clarity
   cors$txtCol <- ifelse(
     test = cors$name.x > blackLabs[1] & cors$name.x < blackLabs[2],
-    yes =  "black",
+    yes = "black",
     no = "white"
   )
   # Do not show tile labels for empty tiles.
