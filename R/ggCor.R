@@ -34,6 +34,7 @@
 #'
 #' @examples
 #' \donttest{
+#' library(agriutilities)
 #' data(iris)
 #' ggCor(
 #'  data = iris,

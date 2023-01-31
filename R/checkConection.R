@@ -8,7 +8,7 @@
 #' @param response A character string specifying the trait.
 #' @param all Whether or not print all the table.
 #'
-#' @return Table with the genotype connectivity.
+#' @return Data frame with the genotype connectivity.
 #' @export
 #'
 #' @examples
