@@ -40,7 +40,21 @@ row coordinates}
 column coordinates.}
 }
 \value{
-An object of class \code{checkAgri}, a list of data.frames.
+An object of class \code{checkAgri}, with a list of:
+\item{summ_traits}{A data.frame containing a summary of the traits.}
+\item{exp_design_resum}{A data.frame containing a summary of the experimental
+ design.}
+\item{filter}{A list by trait containing the filtered trials.}
+\item{exp_design_list}{A data.frame containing the experimental design of
+each trial.}
+\item{check_connectivity}{A data.frame with the genotype connectivity.}
+\item{connectivity_matrix}{A matrix with the amount of genotypes shared
+between each pair of trial.}
+\item{data_design}{A data frame containing the data used with an additional
+column of the experimental design.}
+\item{inputs}{A list containing the character string that indicates the
+column in data that contains the genotype, trial, traits, rep, block, row
+and col.}
 }
 \description{
 Check Experimental Design
