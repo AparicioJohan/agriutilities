@@ -50,8 +50,8 @@ each trial.}
 \item{check_connectivity}{A data.frame with the genotype connectivity.}
 \item{connectivity_matrix}{A matrix with the amount of genotypes shared
 between each pair of trial.}
-\item{data_design}{A data frame containing the data used with an additional
-column of the experimental design.}
+\item{data_design}{A data frame containing the data used with two additional
+columns, one realted to the experimental design and a sequential number (id)}
 \item{inputs}{A list containing the character string that indicates the
 column in data that contains the genotype, trial, traits, rep, block, row
 and col.}
