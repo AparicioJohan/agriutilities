@@ -138,11 +138,12 @@ met_analysis <- function(sma_output = NULL,
       droplevels() %>%
       as.data.frame()
 
-    conn <- connectivity_matrix(
+    conn <- check_connectivity(
       data = data_td,
       genotype = "genotype",
       trial = "trial",
-      response = "BLUEs"
+      response = "BLUEs",
+      return_matrix = TRUE
     )
     ceros <- which(conn == 0, arr.ind = TRUE)
     if (nrow(ceros) > 1) {

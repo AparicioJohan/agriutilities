@@ -9,7 +9,7 @@
 The goal of this package is to provide some additional functions for the
 analysis of field trials in agriculture. It integrates functionalities
 of packages such as `SpATS`, `lme4`, `ASReml-R`, and `statgenSTA`, to
-analyse multi-enviromental/trait data in a semi-automatic way.
+analyse multi-enviromental and multi-trait data in a semi-automatic way.
 
 ## Installation
 
@@ -56,7 +56,7 @@ print(results)
 #> ---------------------------------------------------------------------
 #> Summary Traits by Trial:
 #> ---------------------------------------------------------------------
-#> # A tibble: 6 x 9
+#> # A tibble: 6 × 9
 #>   county traits  Mean Median    SD    CV     n n_miss miss_perc
 #>   <fct>  <chr>  <dbl>  <dbl> <dbl> <dbl> <int>  <int>     <dbl>
 #> 1 C1     yield  149.   151.   17.7 0.119   198      6    0.0303
@@ -80,7 +80,7 @@ print(results)
 #> ---------------------------------------------------------------------
 #> Summary Experimental Design:
 #> ---------------------------------------------------------------------
-#> # A tibble: 6 x 9
+#> # A tibble: 6 × 9
 #>   county     n n_gen n_rep n_block n_col n_row num_of_reps num_of_gen
 #>   <fct>  <int> <int> <int>   <int> <int> <int> <fct>       <fct>     
 #> 1 C1       198    64     3       8    11    18 3_9         63_1      
@@ -163,8 +163,7 @@ lot of more things.
 
 ``` r
 met_results <- met_analysis(obj)
-#> Online License checked out Tue Jan 31 15:01:24 2023
-#> Online License checked out Tue Jan 31 15:01:25 2023
+#> Online License checked out Tue Jan 31 22:30:43 2023
 print(met_results)
 #> ---------------------------------------------------------------------
 #> Trial Effects (BLUEs):

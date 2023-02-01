@@ -25,7 +25,6 @@ reference:
   desc: Identify the design and fit the models automatically
 - contents:
   - check_connectivity
-  - connectivity_matrix
   - check_design_met
   - single_trial_analysis
   - stability

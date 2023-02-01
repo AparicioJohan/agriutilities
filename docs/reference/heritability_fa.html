@@ -106,24 +106,7 @@ out of the diagonal to estimate the heritability. FALSE by default.</p></dd>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
-<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> -- <span style="font-weight: bold;">Attaching packages</span> --------------------------------------- tidyverse 1.3.1 --</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">v</span> <span style="color: #0000BB;">ggplot2</span> 3.4.0     <span style="color: #00BB00;">v</span> <span style="color: #0000BB;">purrr  </span> 0.3.4</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">v</span> <span style="color: #0000BB;">tibble </span> 3.1.8     <span style="color: #00BB00;">v</span> <span style="color: #0000BB;">stringr</span> 1.4.1</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">v</span> <span style="color: #0000BB;">tidyr  </span> 1.2.1     <span style="color: #00BB00;">v</span> <span style="color: #0000BB;">forcats</span> 0.5.2</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">v</span> <span style="color: #0000BB;">readr  </span> 2.1.2     </span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>package 'ggplot2' was built under R version 4.1.3</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>package 'tibble' was built under R version 4.1.3</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>package 'tidyr' was built under R version 4.1.3</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>package 'readr' was built under R version 4.1.3</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>package 'stringr' was built under R version 4.1.3</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>package 'forcats' was built under R version 4.1.3</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> -- <span style="font-weight: bold;">Conflicts</span> ------------------------------------------ tidyverse_conflicts() --</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">x</span> <span style="color: #0000BB;">tidyr</span>::<span style="color: #00BB00;">expand()</span> masks <span style="color: #0000BB;">Matrix</span>::expand()</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">x</span> <span style="color: #0000BB;">dplyr</span>::<span style="color: #00BB00;">filter()</span> masks <span style="color: #0000BB;">stats</span>::filter()</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">x</span> <span style="color: #0000BB;">dplyr</span>::<span style="color: #00BB00;">lag()</span>    masks <span style="color: #0000BB;">stats</span>::lag()</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">x</span> <span style="color: #0000BB;">tidyr</span>::<span style="color: #00BB00;">pack()</span>   masks <span style="color: #0000BB;">Matrix</span>::pack()</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">x</span> <span style="color: #0000BB;">tidyr</span>::<span style="color: #00BB00;">unpack()</span> masks <span style="color: #0000BB;">Matrix</span>::unpack()</span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">asreml</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://kwstat.github.io/agridat/" class="external-link">agridat</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/AparicioJohan/agriutilities" class="external-link">agriutilities</a></span><span class="op">)</span></span></span>
@@ -136,28 +119,16 @@ out of the diagonal to estimate the heritability. FALSE by default.</p></dd>
 <span class="r-in"><span>  random <span class="op">=</span> <span class="op">~</span> <span class="fu">fa</span><span class="op">(</span><span class="va">county</span>, <span class="fl">2</span><span class="op">)</span><span class="op">:</span><span class="va">gen</span> <span class="op">+</span> <span class="va">county</span><span class="op">:</span><span class="va">rep</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">county</span><span class="op">)</span><span class="op">:</span><span class="va">rep</span><span class="op">:</span><span class="va">block</span>,</span></span>
 <span class="r-in"><span>  residual <span class="op">=</span> <span class="op">~</span> <span class="fu">dsum</span><span class="op">(</span><span class="op">~</span> <span class="va">units</span> <span class="op">|</span> <span class="va">county</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  data <span class="op">=</span> <span class="va">dat</span>,</span></span>
-<span class="r-in"><span>  na.action <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"include"</span>, y <span class="op">=</span> <span class="st">"include"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  na.action <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"include"</span>, y <span class="op">=</span> <span class="st">"include"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  trace <span class="op">=</span> <span class="fl">0</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Multi-section model using the sigma parameterization.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ASReml 4.1.0 Tue Jan 31 15:06:00 2023</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           LogLik        Sigma2     DF     wall    cpu</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1     -3830.371           1.0   1146 15:06:00    0.0 (1 restrained)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2     -3819.386           1.0   1146 15:06:00    0.0 (1 restrained)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3     -3791.327           1.0   1146 15:06:00    0.0 (2 restrained)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4     -3768.018           1.0   1146 15:06:00    0.0 (4 restrained)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5     -3757.398           1.0   1146 15:06:01    0.0 (4 restrained)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6     -3754.643           1.0   1146 15:06:01    0.0 (3 restrained)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7     -3753.990           1.0   1146 15:06:01    0.0 (2 restrained)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8     -3753.866           1.0   1146 15:06:01    0.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9     -3753.863           1.0   1146 15:06:01    0.0</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Some components changed by more than 1% on the last iteration.</span>
-<span class="r-in"><span><span class="fu">heritability_fa</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  model_fa <span class="op">=</span> <span class="va">model</span>,</span></span>
-<span class="r-in"><span>  genotype <span class="op">=</span> <span class="st">"gen"</span>,</span></span>
-<span class="r-in"><span>  env <span class="op">=</span> <span class="st">"county"</span>,</span></span>
-<span class="r-in"><span>  vc_model <span class="op">=</span> <span class="st">"fa2"</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in asreml(fixed = yield ~ 1 + county, random = ~fa(county, 2):gen +     county:rep + diag(county):rep:block, residual = ~dsum(~units |     county), data = dat, na.action = list(x = "include", y = "include"),     predict = list(classify = "gen", levels = list(), present = list(),         ignore = character(0), use = character(0), except = character(0),         only = character(0), associate = list(), margin = FALSE,         average = list(), as.average = list(), vcov = FALSE,         sed = TRUE, parallel = FALSE, inrandom = TRUE, exrandom = FALSE,         aliased = FALSE, estimable = FALSE, design.points = list()),     trace = 0, R.param = model_fa$R.param, G.param = model_fa$G.param):</span> object 'dat' not found</span>
+<span class="r-in"><span><span class="co"># heritability_fa(</span></span></span>
+<span class="r-in"><span><span class="co">#   model_fa = model,</span></span></span>
+<span class="r-in"><span><span class="co">#   genotype = "gen",</span></span></span>
+<span class="r-in"><span><span class="co">#   env = "county",</span></span></span>
+<span class="r-in"><span><span class="co">#   vc_model = "fa2"</span></span></span>
+<span class="r-in"><span><span class="co"># )</span></span></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>

@@ -65,7 +65,8 @@
 <span>  genotype <span class="op">=</span> <span class="st">"line"</span>,</span>
 <span>  trial <span class="op">=</span> <span class="st">"Experiment"</span>,</span>
 <span>  response <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  all <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  all <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  return_matrix <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -92,19 +93,26 @@ trials.</p></dd>
 <dt>all</dt>
 <dd><p>Whether or not print all the table.</p></dd>
 
+
+<dt>return_matrix</dt>
+<dd><p>A logical value indicating if the user wants to return
+a (n_trial x n_trial) matrix with the amount of genotypes shared between each
+pair of trial. (<code>FALSE</code> by default)</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>Data frame with the genotype connectivity.</p>
+<p>A data.frame with the genotype connectivity. If return_matrix is TRUE,
+it will return a n_trial x n_trial matrix with the amount of genotypes shared
+between each pair of trial.</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://kwstat.github.io/agridat/" class="external-link">agridat</a></span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>package 'agridat' was built under R version 4.1.3</span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/AparicioJohan/agriutilities" class="external-link">agriutilities</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">besag.met</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">besag.met</span></span></span>

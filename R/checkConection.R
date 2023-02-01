@@ -7,8 +7,13 @@
 #' trials.
 #' @param response A character string specifying the trait.
 #' @param all Whether or not print all the table.
+#' @param return_matrix A logical value indicating if the user wants to return
+#' a (n_trial x n_trial) matrix with the amount of genotypes shared between each
+#' pair of trial. (\code{FALSE} by default)
 #'
-#' @return Data frame with the genotype connectivity.
+#' @return A data.frame with the genotype connectivity. If return_matrix is TRUE,
+#' it will return a n_trial x n_trial matrix with the amount of genotypes shared
+#' between each pair of trial.
 #' @export
 #'
 #' @examples
@@ -28,86 +33,50 @@
 #' )
 #' }
 #' @importFrom rlang .data
-#' @import dplyr
+#' @import dplyr tidyr tibble
 check_connectivity <- function(data = NULL,
                                genotype = "line",
                                trial = "Experiment",
                                response = NULL,
-                               all = FALSE) {
+                               all = FALSE,
+                               return_matrix = FALSE) {
   tmp_data <- data %>%
     {
       if (!is.null(response)) {
-        dplyr::filter(.data = ., !is.na(.data[[response]]))
+        filter(.data = ., !is.na(.data[[response]]))
       } else {
         .
       }
     } %>%
-    dplyr::select(.data[[genotype]], .data[[trial]]) %>%
+    select(all_of(c(genotype, trial))) %>%
     unique.data.frame() %>%
-    dplyr::mutate(value = 1) %>%
-    tidyr::spread(.data[[trial]], value = value) %>%
-    dplyr::mutate(
-      total = rowSums(dplyr::select(., -.data[[genotype]]), na.rm = TRUE),
-      n = ncol(.) - 1,
-      percent = total / n
-    ) %>%
-    dplyr::arrange(dplyr::desc(total))
+    mutate(value = 1) %>%
+    tidyr::spread(all_of(trial), value = value)
 
-  if (all) {
-    tmp_data
+  if (return_matrix) {
+    conn <- tmp_data %>%
+      tibble::column_to_rownames(genotype) %>%
+      as.matrix()
+    conn[is.na(conn)] <- 0
+    conectivity <- t(conn) %*% conn
+    return(conectivity)
   } else {
-    tmp_data %>%
-      dplyr::select(.data[[genotype]], total, n, percent)
+    connection_table <- tmp_data %>%
+      mutate(
+        total = rowSums(
+          x = select(., -all_of(genotype)),
+          na.rm = TRUE
+        ),
+        n = ncol(.) - 1,
+        percent = total / n
+      ) %>%
+      arrange(desc(total))
+    if (all) {
+      return(connection_table)
+    } else {
+      connection_table <- connection_table %>%
+        select(all_of(genotype), total, n, percent)
+      return(connection_table)
+    }
   }
-}
-
-#' Connectivity Matrix
-#' @description Check the amount of genotypes shared between each pair of trial.
-#'
-#' @param data A data.frame in a wide format.
-#' @param genotype A character string indicating the column in data that
-#' contains genotypes.
-#' @param trial A character string indicating the column in data that contains
-#' trials.
-#' @param response A character string specifying the trait.
-#'
-#' @return This function generates a (n_trial x n_trial) matrix with the amount
-#' of genotypes shared between each pair of trial.
-#' @export
-#'
-#' @examples
-#' \donttest{
-#' library(agridat)
-#' data(besag.met)
-#' dat <- besag.met
-#' connectivity_matrix(
-#'   data = dat,
-#'   genotype = "gen",
-#'   trial = "county",
-#'   response = "yield"
-#' )
-#' }
-#' @importFrom rlang .data
-#' @import dplyr tidyr tibble
-connectivity_matrix <- function(data = NULL,
-                                genotype = "germplasmName",
-                                trial = "trial",
-                                response = NULL) {
-  tmp_data <- data %>%
-    {
-      if (!is.null(response)) {
-        dplyr::filter(.data = ., !is.na(.data[[response]]))
-      } else {
-        .
-      }
-    } %>%
-    dplyr::select(.data[[genotype]], .data[[trial]]) %>%
-    unique.data.frame() %>%
-    dplyr::mutate(value = 1) %>%
-    tidyr::spread(.data[[trial]], value = value) %>%
-    tibble::column_to_rownames(genotype) %>%
-    as.matrix()
-  tmp_data[is.na(tmp_data)] <- 0
-  conectivity <- t(tmp_data) %*% tmp_data
-  return(conectivity)
 }

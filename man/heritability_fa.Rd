@@ -36,7 +36,7 @@ Heritability for Factor Analytic Models in ASReml-R
 }
 \examples{
 \donttest{
-library(tidyverse)
+library(dplyr)
 library(asreml)
 library(agridat)
 library(agriutilities)
@@ -49,13 +49,14 @@ model <- asreml(
   random = ~ fa(county, 2):gen + county:rep + diag(county):rep:block,
   residual = ~ dsum(~ units | county),
   data = dat,
-  na.action = list(x = "include", y = "include")
+  na.action = list(x = "include", y = "include"),
+  trace = 0
 )
-heritability_fa(
-  model_fa = model,
-  genotype = "gen",
-  env = "county",
-  vc_model = "fa2"
-)
+# heritability_fa(
+#   model_fa = model,
+#   genotype = "gen",
+#   env = "county",
+#   vc_model = "fa2"
+# )
 }
 }

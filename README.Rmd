@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: end -->
 
-The goal of this package is to provide some additional functions for the analysis of field trials in agriculture. It integrates functionalities of packages such as `SpATS`, `lme4`, `ASReml-R`, and `statgenSTA`, to analyse multi-enviromental/trait data in a semi-automatic way.
+The goal of this package is to provide some additional functions for the analysis of field trials in agriculture. It integrates functionalities of packages such as `SpATS`, `lme4`, `ASReml-R`, and `statgenSTA`, to analyse multi-enviromental and multi-trait data in a semi-automatic way.
 
 
 

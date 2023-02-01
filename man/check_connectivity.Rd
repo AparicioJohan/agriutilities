@@ -9,7 +9,8 @@ check_connectivity(
   genotype = "line",
   trial = "Experiment",
   response = NULL,
-  all = FALSE
+  all = FALSE,
+  return_matrix = FALSE
 )
 }
 \arguments{
@@ -24,9 +25,15 @@ trials.}
 \item{response}{A character string specifying the trait.}
 
 \item{all}{Whether or not print all the table.}
+
+\item{return_matrix}{A logical value indicating if the user wants to return
+a (n_trial x n_trial) matrix with the amount of genotypes shared between each
+pair of trial. (\code{FALSE} by default)}
 }
 \value{
-Data frame with the genotype connectivity.
+A data.frame with the genotype connectivity. If return_matrix is TRUE,
+it will return a n_trial x n_trial matrix with the amount of genotypes shared
+between each pair of trial.
 }
 \description{
 Check connectivity between trials

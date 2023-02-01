@@ -292,11 +292,12 @@ check_design_met <- function(data = NULL,
     response = NULL
   )
 
-  conn2 <- connectivity_matrix(
+  conn2 <- check_connectivity(
     data = data,
     genotype = genotype,
     trial = trial,
-    response = NULL
+    response = NULL,
+    return_matrix = TRUE
   )
 
   objt <- list(
