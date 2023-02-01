@@ -58,7 +58,7 @@
 #' @import dplyr
 #' @importFrom stats sd median
 #' @importFrom utils type.convert
-check_design_met <- function(data = NULL,
+check_design_met_1 <- function(data = NULL,
                              genotype = NULL,
                              trial = NULL,
                              traits = NULL,

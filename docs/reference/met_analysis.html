@@ -127,7 +127,7 @@ resulting of executing the function <code><a href="stability.html">stability()</
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/AparicioJohan/agriutilities" class="external-link">agriutilities</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">besag.met</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">besag.met</span></span></span>
-<span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="check_design_met.html">check_design_met</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">check_design_met</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  data <span class="op">=</span> <span class="va">dat</span>,</span></span>
 <span class="r-in"><span>  genotype <span class="op">=</span> <span class="st">"gen"</span>,</span></span>
 <span class="r-in"><span>  trial <span class="op">=</span> <span class="st">"county"</span>,</span></span>
@@ -137,22 +137,11 @@ resulting of executing the function <code><a href="stability.html">stability()</
 <span class="r-in"><span>  col <span class="op">=</span> <span class="st">"col"</span>,</span></span>
 <span class="r-in"><span>  row <span class="op">=</span> <span class="st">"row"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in check_design_met(data = dat, genotype = "gen", trial = "county",     traits = c("yield"), rep = "rep", block = "block", col = "col",     row = "row"):</span> could not find function "check_design_met"</span>
 <span class="r-in"><span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="single_trial_analysis.html">single_trial_analysis</a></span><span class="op">(</span><span class="va">results</span>, progress <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in single_trial_analysis(results, progress = FALSE):</span> object 'results' not found</span>
 <span class="r-in"><span><span class="va">met_results</span> <span class="op">&lt;-</span> <span class="fu">met_analysis</span><span class="op">(</span><span class="va">out</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> No License found Wed Feb  1 11:33:57 2023</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Error in asreml::asreml(fixed = equation_fix, random = equation_ran, data = dt,  : </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   License error: Communications error with license server (-17)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> No License found Wed Feb  1 11:34:07 2023</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Error in asreml::asreml(fixed = equation_fix, random = equation_ran, data = dt,  : </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   License error: Communications error with license server (-17)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> No License found Wed Feb  1 11:34:19 2023</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Error in asreml::asreml(fixed = equation_fix, random = equation_ran, data = dt,  : </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   License error: Communications error with license server (-17)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in met_analysis(out):</span> Trait 'yield'</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> We couldn't fit any variance-covariance structure.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in met_analysis(out):</span> object 'out' not found</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">met_results</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'x' in selecting a method for function 'print': object 'met_results' not found</span>
 <span class="r-in"><span><span class="fu"><a href="covcor_heat.html">covcor_heat</a></span><span class="op">(</span>matrix <span class="op">=</span> <span class="va">met_results</span><span class="op">$</span><span class="va">VCOV</span><span class="op">$</span><span class="va">yield</span><span class="op">$</span><span class="va">CORR</span><span class="op">)</span></span></span>
