@@ -10,7 +10,7 @@
 #' @examples
 #' # parameters_gg(model)
 #' @importFrom stats anova
-parameters_gg <- function(model, trait = "trait") {
+parameters_gg_1<- function(model, trait = "trait") {
   summ <- summary(model)
   first_year <- min(model$model[, 2], na.rm = TRUE)
   last_year <- max(model$model[, 2], na.rm = TRUE)
