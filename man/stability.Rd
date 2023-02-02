@@ -35,5 +35,31 @@ variance) and "wricke" (Wricke's ecovalence)
 Stability Coefficients
 }
 \examples{
-# in progress
+\donttest{
+library(agridat)
+library(agriutilities)
+
+data(besag.met)
+dat <- besag.met
+results <- check_design_met(
+ data = dat,
+ genotype = "gen",
+ trial = "county",
+ traits = c("yield"),
+ rep = "rep",
+ block = "block",
+ col = "col",
+ row = "row"
+)
+out <- single_trial_analysis(results, progress = FALSE)
+met_results <- met_analysis(out)
+
+# Stability
+stability(
+ predictions = met_results$BLUPs_GxE,
+ genotype = "genotype",
+ trial = "trial",
+ response = "predicted.value"
+)
+}
 }

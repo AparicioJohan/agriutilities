@@ -53,11 +53,11 @@ model <- asreml(
   na.action = list(x = "include", y = "include"),
   trace = 0
 )
-heritability_fa(
-   model_fa = model,
-   genotype = "gen",
-   env = "county",
-   vc_model = "fa2"
- )
+# heritability_fa(
+#    model_fa = model,
+#    genotype = "gen",
+#    env = "county",
+#    vc_model = "fa2"
+#  )
 }
 }

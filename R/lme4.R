@@ -54,7 +54,8 @@ VarE <- function(model) {
 #' @author Paul Schmidt
 #'
 #' @return A numerical value of the Cullis heritability estimate. If
-#' \code{re_MME} is \code{TRUE}, a list with matrices is returned.
+#' \code{re_MME} is \code{TRUE}, a list with matrices of the mixed models
+#' equations is returned.
 #' @export
 #'
 #' @examples

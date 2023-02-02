@@ -33,12 +33,12 @@
 #'   na.action = list(x = "include", y = "include"),
 #'   trace = 0
 #' )
-#' heritability_fa(
-#'    model_fa = model,
-#'    genotype = "gen",
-#'    env = "county",
-#'    vc_model = "fa2"
-#'  )
+#'# heritability_fa(
+#'#    model_fa = model,
+#'#    genotype = "gen",
+#'#    env = "county",
+#'#    vc_model = "fa2"
+#'#  )
 #' }
 heritability_fa <- function(model_fa = NULL,
                             genotype = "line",
@@ -68,5 +68,5 @@ heritability_fa <- function(model_fa = NULL,
     summarise(mean = mean(std.error^2)) %>%
     as.numeric()
   h2_js <- 1 - avsed / Gvar
-  return(list(H2Cullis = H2Cullis, h2_js = h2_js))
+  return(list(H2Cullis = H2Cullis, h2_se = h2_js))
 }

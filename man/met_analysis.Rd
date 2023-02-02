@@ -37,6 +37,7 @@ by trait.}
 \item{stability}{A data.frame containing several Stability coefficients
 resulting of executing the function \code{stability()}.}
 \item{heritability}{A data.frame containing overall heritabilities by trait.}
+\item{met_models}{A list by trait containing the fitted models.}
 }
 \description{
 Multi-Environmental Trial Analysis

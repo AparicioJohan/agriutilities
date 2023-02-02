@@ -15,7 +15,33 @@
 #' @export
 #'
 #' @examples
-#' # in progress
+#' \donttest{
+#' library(agridat)
+#' library(agriutilities)
+#'
+#' data(besag.met)
+#' dat <- besag.met
+#' results <- check_design_met(
+#'  data = dat,
+#'  genotype = "gen",
+#'  trial = "county",
+#'  traits = c("yield"),
+#'  rep = "rep",
+#'  block = "block",
+#'  col = "col",
+#'  row = "row"
+#' )
+#' out <- single_trial_analysis(results, progress = FALSE)
+#' met_results <- met_analysis(out)
+#'
+#' # Stability
+#' stability(
+#'  predictions = met_results$BLUPs_GxE,
+#'  genotype = "genotype",
+#'  trial = "trial",
+#'  response = "predicted.value"
+#' )
+#' }
 stability <- function(predictions = NULL,
                       genotype = NULL,
                       trial = NULL,
@@ -73,6 +99,7 @@ stability <- function(predictions = NULL,
 #' \item{stability}{A data.frame containing several Stability coefficients
 #' resulting of executing the function \code{stability()}.}
 #' \item{heritability}{A data.frame containing overall heritabilities by trait.}
+#' \item{met_models}{A list by trait containing the fitted models.}
 #' @export
 #'
 #' @examples
@@ -325,7 +352,8 @@ met_analysis <- function(sma_output = NULL,
     BLUPs_GxE = BLUPs_GxE,
     VCOV = VCOV,
     stability = stab_list,
-    heritability = h2_list
+    heritability = h2_list,
+    met_models = met_models
   )
   class(objt_out) <- "metAgri"
   return(invisible(objt_out))
