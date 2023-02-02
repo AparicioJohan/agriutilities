@@ -34,7 +34,7 @@ replicates.}
 sub blocks.}
 
 \item{row}{A character string indicating the column in data that contains the
-row coordinates}
+row coordinates.}
 
 \item{col}{A character string indicating the column in data that contains the
 column coordinates.}

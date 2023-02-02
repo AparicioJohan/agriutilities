@@ -28,7 +28,8 @@
 #'     genotype = "gen",
 #'     trial = "county",
 #'     response = "yield",
-#'     all = TRUE
+#'     all = TRUE,
+#'     return_matrix = FALSE
 #'   )
 #' )
 #' }

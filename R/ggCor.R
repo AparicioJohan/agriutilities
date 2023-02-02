@@ -8,7 +8,7 @@
 #' @param colours A vector of size three with the colors to be used for values
 #' -1, 0 and 1.
 #' @param blackLabs A numeric vector of size two, with min and max correlation
-#' coefficient
+#' coefficient.
 #' @param showSignif Logical scalar. Display significance values ?
 #' @param pBreaks Passed to function 'cut'. Either a numeric vector of two or
 #' more unique cut points or a single number (greater than or equal to 2) giving
@@ -21,8 +21,8 @@
 #' @param Diag A named vector of labels to display in the main diagonal. The
 #' names are used to place each value in the corresponding coordinates of the
 #' diagonal. Hence, these names must be the same as the colnames of data.
-#' @param returnTable Return the table to display instead of a ggplot object
-#' @param returnN Return plot with shared information
+#' @param returnTable Return the table to display instead of a ggplot object.
+#' @param returnN Return plot with shared information.
 #' @param adjusted Use the adjusted p values for multiple testing instead of
 #' raw coeffs. TRUE by default.
 #' @param label_size Numeric value indicating the label size. 3 by default.

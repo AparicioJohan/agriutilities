@@ -27,7 +27,7 @@ compared.}
 -1, 0 and 1.}
 
 \item{blackLabs}{A numeric vector of size two, with min and max correlation
-coefficient}
+coefficient.}
 
 \item{showSignif}{Logical scalar. Display significance values ?}
 
@@ -46,9 +46,9 @@ factor.}
 names are used to place each value in the corresponding coordinates of the
 diagonal. Hence, these names must be the same as the colnames of data.}
 
-\item{returnTable}{Return the table to display instead of a ggplot object}
+\item{returnTable}{Return the table to display instead of a ggplot object.}
 
-\item{returnN}{Return plot with shared information}
+\item{returnN}{Return plot with shared information.}
 
 \item{adjusted}{Use the adjusted p values for multiple testing instead of
 raw coeffs. TRUE by default.}
