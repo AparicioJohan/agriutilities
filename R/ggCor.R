@@ -15,8 +15,8 @@
 #' the number of intervals into which x is to be cut.
 #' @param pLabels Passed to function 'cut'. labels for the levels of the
 #' resulting category. By default, labels are constructed using "(a,b]" interval
-#' notation. If pLabels = FALSE, simple integer codes are returned instead of a
-#' factor.
+#' notation. If \code{pLabels = FALSE}, simple integer codes are returned
+#' instead of a factor.
 #' @param showDiagonal Logical scalar. Display main diagonal values ?
 #' @param Diag A named vector of labels to display in the main diagonal. The
 #' names are used to place each value in the corresponding coordinates of the
@@ -24,11 +24,11 @@
 #' @param returnTable Return the table to display instead of a ggplot object.
 #' @param returnN Return plot with shared information.
 #' @param adjusted Use the adjusted p values for multiple testing instead of
-#' raw coeffs. TRUE by default.
+#' raw coeffs. \code{TRUE} by default.
 #' @param label_size Numeric value indicating the label size. 3 by default.
 #'
 #' @return A ggplot object containing a triangular correlation figure with all
-#' numeric variables in data. If returnTable is TRUE, the table used to
+#' numeric variables in data. If returnTable is \code{TRUE}, the table used to
 #' produce the figure is returned instead.
 #' @export
 #'

@@ -37,8 +37,8 @@ the number of intervals into which x is to be cut.}
 
 \item{pLabels}{Passed to function 'cut'. labels for the levels of the
 resulting category. By default, labels are constructed using "(a,b]" interval
-notation. If pLabels = FALSE, simple integer codes are returned instead of a
-factor.}
+notation. If \code{pLabels = FALSE}, simple integer codes are returned
+instead of a factor.}
 
 \item{showDiagonal}{Logical scalar. Display main diagonal values ?}
 
@@ -51,13 +51,13 @@ diagonal. Hence, these names must be the same as the colnames of data.}
 \item{returnN}{Return plot with shared information.}
 
 \item{adjusted}{Use the adjusted p values for multiple testing instead of
-raw coeffs. TRUE by default.}
+raw coeffs. \code{TRUE} by default.}
 
 \item{label_size}{Numeric value indicating the label size. 3 by default.}
 }
 \value{
 A ggplot object containing a triangular correlation figure with all
-numeric variables in data. If returnTable is TRUE, the table used to
+numeric variables in data. If returnTable is \code{TRUE}, the table used to
 produce the figure is returned instead.
 }
 \description{

@@ -7,17 +7,17 @@
 h_cullis(model, genotype, re_MME = FALSE)
 }
 \arguments{
-\item{model}{Object of class 'lmer'.}
+\item{model}{Object of class \code{lmer}.}
 
 \item{genotype}{A character string indicating the column in data that
 contains genotypes.}
 
 \item{re_MME}{A logical value to ask if we want to reconstruct the mixed models
-equations to estimate the Cullis heritability. (FALSE by default)}
+equations to estimate the Cullis heritability. (\code{FALSE} by default)}
 }
 \value{
-A numerical value of the Cullis heritability estimate. If re_MME is
-TRUE, a list with matrices is returned.
+A numerical value of the Cullis heritability estimate. If
+\code{re_MME} is \code{TRUE}, a list with matrices is returned.
 }
 \description{
 Cullis heritability for lme4 models

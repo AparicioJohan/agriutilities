@@ -45,16 +45,16 @@ VarE <- function(model) {
 
 #' Cullis heritability for lme4 models
 #'
-#' @param model Object of class 'lmer'.
+#' @param model Object of class \code{lmer}.
 #' @param genotype A character string indicating the column in data that
 #' contains genotypes.
 #' @param re_MME A logical value to ask if we want to reconstruct the mixed models
-#' equations to estimate the Cullis heritability. (FALSE by default)
+#' equations to estimate the Cullis heritability. (\code{FALSE} by default)
 #'
 #' @author Paul Schmidt
 #'
-#' @return A numerical value of the Cullis heritability estimate. If re_MME is
-#' TRUE, a list with matrices is returned.
+#' @return A numerical value of the Cullis heritability estimate. If
+#' \code{re_MME} is \code{TRUE}, a list with matrices is returned.
 #' @export
 #'
 #' @examples

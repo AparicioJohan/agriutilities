@@ -8,11 +8,32 @@
 #' @param vc_model A character string indicating the variance-covariance fitted.
 #' Can be 'diag', 'corv', 'corh', 'corgv', 'fa1', 'fa2', 'fa3', 'fa4', 'corgh',
 #' 'us' or 'rr2'.
-#' @return list VCOV = VCOV , CORR = CORR, vc_model = vc_model
+#' @return An object with a list of:
+#' \item{VCOV}{A matrix of the estimated covariances between trials.}
+#' \item{CORR}{A n_trial x n_trial matrix with the correlation between trials.}
+#' \item{vc_model}{A character string indicating the variance-covariance fitted.}
 #' @export
 #'
 #' @examples
-#' # extract_vcov(model, gen = "genotype" , env = "trial", vc_model = "corv")
+#' \donttest{
+#' library(agridat)
+#' library(asreml)
+#' library(agriutilities)
+#'
+#' data(besag.met)
+#' dat <- besag.met
+#' dat <- dat %>% arrange(county)
+#'
+#'model <- asreml(
+#'  fixed = yield ~ 1 + county,
+#'  random = ~ fa(county, 2):gen + county:rep + diag(county):rep:block,
+#'  residual = ~ dsum(~ units | county),
+#'  data = dat,
+#'  na.action = list(x = "include", y = "include"),
+#'  trace = 0
+#' )
+#' extract_vcov(model, gen = "gen" , env = "county", vc_model = "corv")
+#' }
 #' @importFrom stats cov2cor
 extract_vcov <- function(model = NULL,
                          gen = "genotype",
