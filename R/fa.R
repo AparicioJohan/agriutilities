@@ -125,21 +125,30 @@ covcor_heat <- function(matrix, corr = TRUE, size = 4, digits = 3) {
 
 #' Factor Analytic Summary
 #'
-#' @param model factor analytic model (asreml object)
-#' @param trial string
-#' @param genotype string
-#' @param BLUEs_trial data.frame with trial BLUEs
-#' @param mult_fa1 c(1,-1) (-1 by default)
-#' @param mult_fa2 c(1,-1) (1 by default)
-#' @param filter_score value to filter genotypes by the distance from the origin
-#' @param k_biplot factor to multiply the scores in the biplot
-#' @param size_label_var double
-#' @param alpha_label_var (0,1)
-#' @param size_label_ind double
-#' @param alpha_label_ind (0,1)
-#' @param size_arrow double
-#' @param alpha_arrow (0,1)
-#' @param base_size double
+#' @param model Factor Analytic Model (ASReml object)
+#' @param trial A character string indicating the column in data that contains
+#' trials.
+#' @param genotype A character string indicating the column in data that
+#' contains genotypes.
+#' @param BLUEs_trial A data.frame containing BLUEs for each trial.
+#' @param mult_fa1 A constant to multiply the first loading. Must be 1 or -1.
+#'  (-1 by default)
+#' @param mult_fa2 A constant to multiply the second loading. Must be 1 or -1.
+#' (1 by default)
+#' @param filter_score A numeric value to filter genotypes by the distance from
+#' the origin.
+#' @param k_biplot A numeric value to multiply the scores in the biplot.
+#' @param size_label_var A numeric value to define the label size for the
+#' variables.
+#' @param alpha_label_var A numeric value between (0,1) to define the label for
+#' the variables.
+#' @param size_label_ind A numeric value to define the label size for the
+#' individuals.
+#' @param alpha_label_ind A numeric value between (0,1) to define the label for
+#'  the individuals.
+#' @param size_arrow A numeric value to define the arrow size.
+#' @param alpha_arrow A numeric value between (0,1) to define the arrow.
+#' @param base_size A numeric value to define the base size.
 #'
 #' @return list with  loadings = L, loading_star,
 #' Gvar, Cmat, summary_loadings, paf_site, var_tot, scores,

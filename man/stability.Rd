@@ -29,7 +29,7 @@ by numeric value ("min", "max"). "max" by default.}
 \value{
 A data.frame with several stability measures.
 "superiority" (cultivar-superiority measure), "static" (Shukla's stability
-variance) and "wricke" (Wricke's ecovalence)
+variance) and "wricke" (Wricke's ecovalence).
 }
 \description{
 Stability Coefficients

@@ -23,35 +23,44 @@ fa_summary(
 )
 }
 \arguments{
-\item{model}{factor analytic model (asreml object)}
+\item{model}{Factor Analytic Model (ASReml object)}
 
-\item{trial}{string}
+\item{trial}{A character string indicating the column in data that contains
+trials.}
 
-\item{genotype}{string}
+\item{genotype}{A character string indicating the column in data that
+contains genotypes.}
 
-\item{BLUEs_trial}{data.frame with trial BLUEs}
+\item{BLUEs_trial}{A data.frame containing BLUEs for each trial.}
 
-\item{mult_fa1}{c(1,-1) (-1 by default)}
+\item{mult_fa1}{A constant to multiply the first loading. Must be 1 or -1.
+(-1 by default)}
 
-\item{mult_fa2}{c(1,-1) (1 by default)}
+\item{mult_fa2}{A constant to multiply the second loading. Must be 1 or -1.
+(1 by default)}
 
-\item{filter_score}{value to filter genotypes by the distance from the origin}
+\item{filter_score}{A numeric value to filter genotypes by the distance from
+the origin.}
 
-\item{k_biplot}{factor to multiply the scores in the biplot}
+\item{k_biplot}{A numeric value to multiply the scores in the biplot.}
 
-\item{size_label_var}{double}
+\item{size_label_var}{A numeric value to define the label size for the
+variables.}
 
-\item{alpha_label_var}{(0,1)}
+\item{alpha_label_var}{A numeric value between (0,1) to define the label for
+the variables.}
 
-\item{size_label_ind}{double}
+\item{size_label_ind}{A numeric value to define the label size for the
+individuals.}
 
-\item{alpha_label_ind}{(0,1)}
+\item{alpha_label_ind}{A numeric value between (0,1) to define the label for
+the individuals.}
 
-\item{size_arrow}{double}
+\item{size_arrow}{A numeric value to define the arrow size.}
 
-\item{alpha_arrow}{(0,1)}
+\item{alpha_arrow}{A numeric value between (0,1) to define the arrow.}
 
-\item{base_size}{double}
+\item{base_size}{A numeric value to define the base size.}
 }
 \value{
 list with  loadings = L, loading_star,
