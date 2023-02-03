@@ -7,13 +7,14 @@
 parameters_gg(model, trait = "trait")
 }
 \arguments{
-\item{model}{linear regression model (lm object)}
+\item{model}{Linear regression model (lm object)}
 
-\item{trait}{string with trait evaluated to be added in the data.frame}
+\item{trait}{A character string indicating the column in data that contains
+trials.}
 }
 \value{
-data.frame with some parameters from the linear regression
-(Slope, se_Slope, Intercept, r2, Pr(>F) and Genetic_Gain%)
+A data.frame with some parameters from the linear regression (Slope,
+se_Slope, Intercept, r2, Pr(>F)) and the percentage of Genetic Gain.
 }
 \description{
 Genetic Gain Parameters

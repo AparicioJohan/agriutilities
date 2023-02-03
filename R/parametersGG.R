@@ -1,10 +1,11 @@
 #' Genetic Gain Parameters
 #'
-#' @param model linear regression model (lm object)
-#' @param trait string with trait evaluated to be added in the data.frame
+#' @param model Linear regression model (lm object)
+#' @param trait A character string indicating the column in data that contains
+#' trials.
 #'
-#' @return data.frame with some parameters from the linear regression
-#' (Slope, se_Slope, Intercept, r2, Pr(>F) and Genetic_Gain%)
+#' @return A data.frame with some parameters from the linear regression (Slope,
+#' se_Slope, Intercept, r2, Pr(>F)) and the percentage of Genetic Gain.
 #' @export
 #'
 #' @examples

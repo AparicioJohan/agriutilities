@@ -150,9 +150,20 @@ covcor_heat <- function(matrix, corr = TRUE, size = 4, digits = 3) {
 #' @param alpha_arrow A numeric value between (0,1) to define the arrow.
 #' @param base_size A numeric value to define the base size.
 #'
-#' @return list with  loadings = L, loading_star,
-#' Gvar, Cmat, summary_loadings, paf_site, var_tot, scores,
-#' plots = list(loadings, biplot,  biplot_scaled,  loadings_c)
+#' @return An object with a list of:
+#' \item{loadings}{A data.frame containing the first and second loading for each
+#'  trial.}
+#' \item{loading_star}{A data.frame containing the first and second loading
+#' rotated for each trial.}
+#' \item{Gvar}{A matrix of the estimated variance-covariance between trials.}
+#' \item{Cmat}{A matrix of the correlation between trials.}
+#' \item{summary_loading}{A data.frame containing a summary of the loadings.}
+#' \item{paf_site}{A data.frame containing the percentage of variance explained
+#'  for each component and for each trial.}
+#' \item{var_tot}{A numeric value of the total variance.}
+#' \item{scores}{A data.frame containing the scores for each genotype.}
+#' \item{plots}{A list with diferent plots. Includes a plot for the loadings,
+#'  biplot, biplot_scaled and loadings_c.}
 #' @export
 #'
 #' @examples
