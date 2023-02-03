@@ -13,7 +13,7 @@
 #'  default.
 #'
 #' @return An object with a list of:
-#' \item{H2Cullis}{A numerical value of the Cullis heritability estimate.}
+#' \item{h2_cullis}{A numerical value of the Cullis heritability estimate.}
 #' \item{h2_se}{A numerical value of the Cullis heritability estimate based on
 #'  the standard error.}
 #' @export
@@ -65,11 +65,11 @@ heritability_fa <- function(model_fa = NULL,
   )
   vdBLUP.mat <- pr$sed^2
   vdBLUP.avg <- mean(vdBLUP.mat[upper.tri(vdBLUP.mat, diag = FALSE)])
-  H2Cullis <- 1 - (vdBLUP.avg / 2 / Gvar)
-  H2Cullis
+  h2_cullis <- 1 - (vdBLUP.avg / 2 / Gvar)
+  h2_cullis
   avsed <- pr$pvals %>%
     summarise(mean = mean(std.error^2)) %>%
     as.numeric()
   h2_js <- 1 - avsed / Gvar
-  return(list(H2Cullis = H2Cullis, h2_se = h2_js))
+  return(list(h2_cullis = h2_cullis, h2_se = h2_js))
 }

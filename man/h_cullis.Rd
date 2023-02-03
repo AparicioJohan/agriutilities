@@ -38,5 +38,5 @@ h_cullis(model = g.ran, genotype = "gen")
 }
 }
 \author{
-Paul Schmidt
+Paul Schmidt, Johan Aparicio.
 }

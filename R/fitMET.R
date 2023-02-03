@@ -35,11 +35,13 @@
 #' met_results <- met_analysis(out)
 #'
 #' # Stability
-#' stability(
-#'   predictions = met_results$BLUPs_GxE,
-#'   genotype = "genotype",
-#'   trial = "trial",
-#'   response = "predicted.value"
+#' head(
+#'   stability(
+#'     predictions = met_results$BLUPs_GxE,
+#'     genotype = "genotype",
+#'     trial = "trial",
+#'     response = "predicted.value"
+#'   )
 #' )
 #' }
 stability <- function(predictions = NULL,

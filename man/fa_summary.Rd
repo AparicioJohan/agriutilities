@@ -75,7 +75,7 @@ rotated for each trial.}
  for each component and for each trial.}
 \item{var_tot}{A numeric value of the total variance.}
 \item{scores}{A data.frame containing the scores for each genotype.}
-\item{plots}{A list with diferent plots. Includes a plot for the loadings,
+\item{plots}{A list with different plots. Includes a plot for the loadings,
  biplot, biplot_scaled and loadings_c.}
 }
 \description{

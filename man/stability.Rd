@@ -55,11 +55,13 @@ out <- single_trial_analysis(results, progress = FALSE)
 met_results <- met_analysis(out)
 
 # Stability
-stability(
-  predictions = met_results$BLUPs_GxE,
-  genotype = "genotype",
-  trial = "trial",
-  response = "predicted.value"
+head(
+  stability(
+    predictions = met_results$BLUPs_GxE,
+    genotype = "genotype",
+    trial = "trial",
+    response = "predicted.value"
+  )
 )
 }
 }

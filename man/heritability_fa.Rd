@@ -31,7 +31,7 @@ default.}
 }
 \value{
 An object with a list of:
-\item{H2Cullis}{A numerical value of the Cullis heritability estimate.}
+\item{h2_cullis}{A numerical value of the Cullis heritability estimate.}
 \item{h2_se}{A numerical value of the Cullis heritability estimate based on
  the standard error.}
 }

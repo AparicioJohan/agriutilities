@@ -51,7 +51,7 @@ VarE <- function(model) {
 #' @param re_MME A logical value to ask if we want to reconstruct the mixed models
 #' equations to estimate the Cullis heritability. (\code{FALSE} by default)
 #'
-#' @author Paul Schmidt
+#' @author Paul Schmidt, Johan Aparicio.
 #'
 #' @return A numerical value of the Cullis heritability estimate. If
 #' \code{re_MME} is \code{TRUE}, a list with matrices of the mixed models

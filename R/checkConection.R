@@ -11,9 +11,9 @@
 #' a (n_trial x n_trial) matrix with the amount of genotypes shared between each
 #' pair of trial. (\code{FALSE} by default)
 #'
-#' @return A data.frame with the genotype connectivity. If return_matrix is TRUE,
-#' it will return a n_trial x n_trial matrix with the amount of genotypes shared
-#' between each pair of trial.
+#' @return A data.frame with the genotype connectivity. If return_matrix is
+#' \code{TRUE}, it will return a n_trial x n_trial matrix with the amount of
+#' genotypes shared between each pair of trial.
 #' @export
 #'
 #' @examples
