@@ -19,5 +19,27 @@ data.frame with some parameters from the linear regression
 Genetic Gain Parameters
 }
 \examples{
-# parameters_gg(model)
+\donttest{
+library(ggplot2)
+library(agridat)
+library(dplyr)
+library(agriutilities)
+
+data(baker.barley.uniformity)
+dat <- baker.barley.uniformity
+head(dat)
+
+model <- lm(yield ~ year, dat)
+
+dat \%>\%
+  ggplot(
+    aes(x = year, y = yield)
+  ) +
+  geom_point()+
+  geom_smooth(method = "lm") +
+  theme_bw()
+
+parameters_gg(model = model, trait = "yield")
+}
+
 }
