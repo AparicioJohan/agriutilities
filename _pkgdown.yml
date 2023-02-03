@@ -24,10 +24,8 @@ reference:
 - title: Data Analysis Pipeline
   desc: Identify the design and fit the models automatically
 - contents:
-  - check_connectivity
   - check_design_met
   - single_trial_analysis
-  - stability
   - met_analysis
   - print.checkAgri
   - print.smaAgri
@@ -45,7 +43,9 @@ reference:
   - heritability_fa
 - title: Others
 - contents:
+  - check_connectivity
   - covcor_heat
   - gg_cor
   - parameters_gg
+  - stability
 
