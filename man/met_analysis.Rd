@@ -8,7 +8,9 @@ met_analysis(
   sma_output = NULL,
   h2_filter = 0.2,
   workspace = "1gb",
-  vcov = NULL
+  vcov = NULL,
+  filter_traits = NULL,
+  remove_trials = NULL
 )
 }
 \arguments{
@@ -26,6 +28,12 @@ form of a number optionally followed directly by a valid measurement unit.
 to be fitted. Can be "fa2", "fa1", "us", "corh" or "corv". If \code{NULL} the
 function will try to fit an "us" Variance-Covariance and if it fails, it will
 try with "fa2" and then with "fa1".}
+
+\item{filter_traits}{A character vector with traits to filter. \code{NULL} by
+default.}
+
+\item{remove_trials}{A character vector with trials to remove. \code{NULL} by
+default.}
 }
 \value{
 An object of class \code{metAgri}, with a list of:

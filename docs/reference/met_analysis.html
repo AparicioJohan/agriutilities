@@ -64,7 +64,9 @@
 <span>  sma_output <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  h2_filter <span class="op">=</span> <span class="fl">0.2</span>,</span>
 <span>  workspace <span class="op">=</span> <span class="st">"1gb"</span>,</span>
-<span>  vcov <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  vcov <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  filter_traits <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  remove_trials <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -91,6 +93,16 @@ form of a number optionally followed directly by a valid measurement unit.
 to be fitted. Can be "fa2", "fa1", "us", "corh" or "corv". If <code>NULL</code> the
 function will try to fit an "us" Variance-Covariance and if it fails, it will
 try with "fa2" and then with "fa1".</p></dd>
+
+
+<dt>filter_traits</dt>
+<dd><p>A character vector with traits to filter. <code>NULL</code> by
+default.</p></dd>
+
+
+<dt>remove_trials</dt>
+<dd><p>A character vector with trials to remove. <code>NULL</code> by
+default.</p></dd>
 
 </dl></div>
     <div class="section level2">

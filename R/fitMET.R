@@ -22,24 +22,24 @@
 #' data(besag.met)
 #' dat <- besag.met
 #' results <- check_design_met(
-#'  data = dat,
-#'  genotype = "gen",
-#'  trial = "county",
-#'  traits = c("yield"),
-#'  rep = "rep",
-#'  block = "block",
-#'  col = "col",
-#'  row = "row"
+#'   data = dat,
+#'   genotype = "gen",
+#'   trial = "county",
+#'   traits = c("yield"),
+#'   rep = "rep",
+#'   block = "block",
+#'   col = "col",
+#'   row = "row"
 #' )
 #' out <- single_trial_analysis(results, progress = FALSE)
 #' met_results <- met_analysis(out)
 #'
 #' # Stability
 #' stability(
-#'  predictions = met_results$BLUPs_GxE,
-#'  genotype = "genotype",
-#'  trial = "trial",
-#'  response = "predicted.value"
+#'   predictions = met_results$BLUPs_GxE,
+#'   genotype = "genotype",
+#'   trial = "trial",
+#'   response = "predicted.value"
 #' )
 #' }
 stability <- function(predictions = NULL,
@@ -89,6 +89,10 @@ stability <- function(predictions = NULL,
 #' to be fitted. Can be "fa2", "fa1", "us", "corh" or "corv". If \code{NULL} the
 #' function will try to fit an "us" Variance-Covariance and if it fails, it will
 #' try with "fa2" and then with "fa1".
+#' @param filter_traits A character vector with traits to filter. \code{NULL} by
+#' default.
+#' @param remove_trials A character vector with trials to remove. \code{NULL} by
+#' default.
 #'
 #' @return  An object of class \code{metAgri}, with a list of:
 #' \item{trial_effects}{A data.frame containing Trial BLUEs.}
@@ -126,7 +130,9 @@ stability <- function(predictions = NULL,
 met_analysis <- function(sma_output = NULL,
                          h2_filter = 0.2,
                          workspace = "1gb",
-                         vcov = NULL) {
+                         vcov = NULL,
+                         filter_traits = NULL,
+                         remove_trials = NULL) {
   if (!inherits(sma_output, "smaAgri")) {
     stop("The object should be of smaAgri class")
   }
@@ -144,13 +150,32 @@ met_analysis <- function(sma_output = NULL,
     )
 
   traits <- data_td %>%
+    {
+      if (!is.null(filter_traits)) {
+        dplyr::filter(.data = ., trait %in% filter_traits)
+      } else {
+        .
+      }
+    } %>%
     dplyr::pull("trait") %>%
     unique() %>%
     as.character()
 
+  n_traits <- length(traits)
+  if (n_traits == 0) {
+    stop("Please provide a valid trait when filter_traits")
+  }
+
   for (var in traits) {
     trials_to_keep <- sma_output$resum_fitted_model %>%
       dplyr::filter(heritability > h2_filter & trait %in% var) %>%
+      {
+        if (!is.null(remove_trials)) {
+          dplyr::filter(.data = ., !trial %in% remove_trials)
+        } else {
+          .
+        }
+      } %>%
       droplevels() %>%
       dplyr::pull(trial) %>%
       as.character()

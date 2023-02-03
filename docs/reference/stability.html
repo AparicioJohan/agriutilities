@@ -112,24 +112,24 @@ variance) and "wricke" (Wricke's ecovalence)</p>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">besag.met</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">besag.met</span></span></span>
 <span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="check_design_met.html">check_design_met</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span> data <span class="op">=</span> <span class="va">dat</span>,</span></span>
-<span class="r-in"><span> genotype <span class="op">=</span> <span class="st">"gen"</span>,</span></span>
-<span class="r-in"><span> trial <span class="op">=</span> <span class="st">"county"</span>,</span></span>
-<span class="r-in"><span> traits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"yield"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span> rep <span class="op">=</span> <span class="st">"rep"</span>,</span></span>
-<span class="r-in"><span> block <span class="op">=</span> <span class="st">"block"</span>,</span></span>
-<span class="r-in"><span> col <span class="op">=</span> <span class="st">"col"</span>,</span></span>
-<span class="r-in"><span> row <span class="op">=</span> <span class="st">"row"</span></span></span>
+<span class="r-in"><span>  data <span class="op">=</span> <span class="va">dat</span>,</span></span>
+<span class="r-in"><span>  genotype <span class="op">=</span> <span class="st">"gen"</span>,</span></span>
+<span class="r-in"><span>  trial <span class="op">=</span> <span class="st">"county"</span>,</span></span>
+<span class="r-in"><span>  traits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"yield"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  rep <span class="op">=</span> <span class="st">"rep"</span>,</span></span>
+<span class="r-in"><span>  block <span class="op">=</span> <span class="st">"block"</span>,</span></span>
+<span class="r-in"><span>  col <span class="op">=</span> <span class="st">"col"</span>,</span></span>
+<span class="r-in"><span>  row <span class="op">=</span> <span class="st">"row"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="single_trial_analysis.html">single_trial_analysis</a></span><span class="op">(</span><span class="va">results</span>, progress <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">met_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="met_analysis.html">met_analysis</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Stability</span></span></span>
 <span class="r-in"><span><span class="fu">stability</span><span class="op">(</span></span></span>
-<span class="r-in"><span> predictions <span class="op">=</span> <span class="va">met_results</span><span class="op">$</span><span class="va">BLUPs_GxE</span>,</span></span>
-<span class="r-in"><span> genotype <span class="op">=</span> <span class="st">"genotype"</span>,</span></span>
-<span class="r-in"><span> trial <span class="op">=</span> <span class="st">"trial"</span>,</span></span>
-<span class="r-in"><span> response <span class="op">=</span> <span class="st">"predicted.value"</span></span></span>
+<span class="r-in"><span>  predictions <span class="op">=</span> <span class="va">met_results</span><span class="op">$</span><span class="va">BLUPs_GxE</span>,</span></span>
+<span class="r-in"><span>  genotype <span class="op">=</span> <span class="st">"genotype"</span>,</span></span>
+<span class="r-in"><span>  trial <span class="op">=</span> <span class="st">"trial"</span>,</span></span>
+<span class="r-in"><span>  response <span class="op">=</span> <span class="st">"predicted.value"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    genotype superiority   static    wricke predicted.value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1       G57   22.675030 32.45871 13.962970        92.45997</span>
