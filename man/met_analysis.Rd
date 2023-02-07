@@ -10,7 +10,8 @@ met_analysis(
   workspace = "1gb",
   vcov = NULL,
   filter_traits = NULL,
-  remove_trials = NULL
+  remove_trials = NULL,
+  progress = TRUE
 )
 }
 \arguments{
@@ -34,6 +35,10 @@ default.}
 
 \item{remove_trials}{A character vector with trials to remove. \code{NULL} by
 default.}
+
+\item{progress}{Should the progress of the modeling be printed.
+If \code{TRUE}, for every trait a line is output indicating that the model is
+being fitted.}
 }
 \value{
 An object of class \code{metAgri}, with a list of:

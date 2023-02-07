@@ -95,6 +95,9 @@ stability <- function(predictions = NULL,
 #' default.
 #' @param remove_trials A character vector with trials to remove. \code{NULL} by
 #' default.
+#' @param progress Should the progress of the modeling be printed.
+#' If \code{TRUE}, for every trait a line is output indicating that the model is
+#' being fitted.
 #'
 #' @return  An object of class \code{metAgri}, with a list of:
 #' \item{trial_effects}{A data.frame containing Trial BLUEs.}
@@ -134,7 +137,8 @@ met_analysis <- function(sma_output = NULL,
                          workspace = "1gb",
                          vcov = NULL,
                          filter_traits = NULL,
-                         remove_trials = NULL) {
+                         remove_trials = NULL,
+                         progress = TRUE) {
   if (!inherits(sma_output, "smaAgri")) {
     stop("The object should be of smaAgri class")
   }
@@ -213,6 +217,10 @@ met_analysis <- function(sma_output = NULL,
         "Some trials could have poor connectivity: \n",
         paste(unique(rownames(ceros)), collapse = ", ")
       )
+    }
+
+    if (progress) {
+      cat(paste0("Fitting MET model for ", var, ".\n"))
     }
 
     equation_fix <- stats::reformulate("trial", response = "BLUEs")
