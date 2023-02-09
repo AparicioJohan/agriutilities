@@ -99,7 +99,9 @@ fit_STA <- function(results, trait, design, remove_outliers, engine, progress) {
       colCoord = results$inputs$col,
       trDesign = design_td
     )
-    cat("Removing outliers...\n")
+    if (progress) {
+      cat("Removing outliers...\n")
+    }
     m_models <- fitTD(
       TD = td,
       traits = trait,
@@ -463,7 +465,9 @@ single_trial_analysis <- function(results = NULL,
             droplevels() %>%
             data.frame() %>%
             rename(outlier_crd = outlier)
-          cat("Removing outliers...\n")
+          if (progress) {
+            cat("Removing outliers...\n")
+          }
           td_crd <- fit_crd(
             data = data_crd_clean,
             trial = results$inputs$trial,
