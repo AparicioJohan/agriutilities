@@ -9,7 +9,7 @@ knitr::opts_chunk$set(
   warning = FALSE,
   message = FALSE,
   collapse = TRUE,
-  comment = "#>",
+  comment = "",
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
@@ -21,13 +21,19 @@ knitr::opts_chunk$set(
 
 <!-- badges: end -->
 
-The goal of this package is to provide some additional functions for the analysis of field trials in agriculture. It integrates functionalities of packages such as `SpATS`, `lme4`, `ASReml-R`, and `statgenSTA`, to analyse multi-enviromental and multi-trait data in a semi-automatic way.
-
-
+`agriutilities` is an `R` package designed to make the analysis of
+field trials easier and more accessible for everyone working in plant breeding.
+It provides a simple and intuitive interface for conducting **single** and
+**multi-environmental** trial analysis, with minimal coding required. Whether 
+you're a beginner or an experienced user, agriUtilities will help you quickly
+and easily carry out complex analyses with confidence. With built-in functions
+for fitting Linear Mixed Models (**LMM**), agriUtilities is the ideal choice for
+anyone who wants to save time and focus on interpreting their results.
 
 ## Installation
 
-You can install the development version of agriutilities from [GitHub](https://github.com/AparicioJohan/agriutilities) with:
+You can install the development version of agriutilities from
+[GitHub](https://github.com/AparicioJohan/agriutilities) with:
 
 ``` r
 # install.packages("devtools")
@@ -36,11 +42,14 @@ devtools::install_github("AparicioJohan/agriutilities")
 
 ## Automatic Data Analysis Pipeline 
 
-This is a basic example which shows you how to use some of the functions of the package.
+This is a basic example which shows you how to use some of the functions of the
+package.
 
 ### Identify the Experimental Design
 
-The function `check_design_met` helps us to check the quality of the data and also to identify the experimental design of the trials. This works as a quality check or quality control before we fit any model.
+The function `check_design_met` helps us to check the quality of the data and
+also to identify the experimental design of the trials. This works as a quality
+check or quality control before we fit any model.
 
 ```{r example}
 library(agriutilities)
@@ -59,28 +68,47 @@ results <- check_design_met(
 )
 ```
 
-Some of the outputs are:
-```{r}
-print(results)
-```
-
-
 ### Single Trial Analysis (STA)
 
-The results of the previous function are used in `single_trial_analysis()` to fit single trial models. This function can fit, Completely Randomized Designs (**CRD**), Randomized Complete Block Designs (**RCBD**), Resolvable Incomplete Block Designs (**res-IBD**), Non-Resolvable Row-Column Designs (**Row-Col**) and Resolvable Row-Column Designs (**res-Row-Col**). 
+The results of the previous function are used in `single_trial_analysis()` to 
+fit single trial models. This function can fit, Completely Randomized Designs
+(**CRD**), Randomized Complete Block Designs (**RCBD**), Resolvable Incomplete
+Block Designs (**res-IBD**), Non-Resolvable Row-Column Designs (**Row-Col**) 
+and Resolvable Row-Column Designs (**res-Row-Col**). 
 
 > **NOTE**: It fits models based on the randomization detected.
 
 ```{r}
 obj <- single_trial_analysis(results, progress = FALSE)
+```
+
+The returning object is a set of lists with trial summary, BLUEs, BLUPs,
+heritability, variance components, potential extreme observations, residuals,
+the models fitted and the data used.
+
+### Two-Stage Analysis (MET)
+The results of the previous function are used in `met_analysis()` to 
+fit multi-environmental trial models.
+
+```{r}
+met_results <- met_analysis(obj)
+```
+
+### Inspect the Outputs
+
+```{r}
+print(results)
+```
+
+<hr>
+
+```{r}
 print(obj)
 ```
 
-The returning object is a set of lists with trial summary, BLUEs, BLUPs, heritability, variance components, potential extreme observations, and a lot of more things.
+<hr>
 
-### Two-Stage Analysis (MET)
 ```{r}
-met_results <- met_analysis(obj)
 print(met_results)
 ```
 

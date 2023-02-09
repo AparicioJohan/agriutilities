@@ -1,0 +1,61 @@
+---
+title: "How to Start"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How to Start}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Identify the Experimental Design
+
+The function `check_design_met` helps us to check the quality of the data and
+also to identify the experimental design of the trials. This works as a quality
+check or quality control before we fit any model.
+
+```{r setup}
+library(agriutilities)
+library(agridat)
+data(besag.met)
+dat <- besag.met
+results <- check_design_met(
+  data = dat,
+  genotype = "gen",
+  trial = "county",
+  traits = "yield",
+  rep = "rep",
+  block = "block",
+  col = "col",
+  row = "row"
+)
+```
+
+```{r}
+print(results)
+```
+
+# Single Trial Analysis
+The results of the previous function are used in `single_trial_analysis()` to 
+fit single trial models.
+
+```{r}
+obj <- single_trial_analysis(results, progress = FALSE)
+print(obj)
+```
+
+# Multi-Environmental Trial Analysis
+The results of the previous function are used in `met_analysis()` to 
+fit multi-environmental trial models.
+
+```{r}
+met_results <- met_analysis(obj)
+print(met_results)
+```
+
