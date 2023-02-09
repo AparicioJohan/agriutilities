@@ -67,6 +67,7 @@ Row-Column Designs (**res-Row-Col**).
 
 ``` r
 obj <- single_trial_analysis(results, progress = FALSE)
+Removing outliers...
 ```
 
 The returning object is a set of lists with trial summary, BLUEs, BLUPs,
@@ -80,9 +81,9 @@ multi-environmental trial models.
 
 ``` r
 met_results <- met_analysis(obj)
-Online License checked out Thu Feb  9 09:29:59 2023
+Online License checked out Thu Feb  9 15:18:54 2023
 Fitting MET model for yield.
-Online License checked out Thu Feb  9 09:30:00 2023
+Online License checked out Thu Feb  9 15:18:54 2023
 ```
 
 ### Inspect the Outputs

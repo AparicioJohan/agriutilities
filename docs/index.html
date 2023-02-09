@@ -143,8 +143,8 @@
 </h3>
 <p>The results of the previous function are used in <code><a href="reference/single_trial_analysis.html">single_trial_analysis()</a></code> to fit single trial models. This function can fit, Completely Randomized Designs (<strong>CRD</strong>), Randomized Complete Block Designs (<strong>RCBD</strong>), Resolvable Incomplete Block Designs (<strong>res-IBD</strong>), Non-Resolvable Row-Column Designs (<strong>Row-Col</strong>) and Resolvable Row-Column Designs (<strong>res-Row-Col</strong>).</p>
 <blockquote><p><strong>NOTE</strong>: It fits models based on the randomization detected.</p></blockquote>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/single_trial_analysis.html">single_trial_analysis</a></span><span class="op">(</span><span class="va">results</span>, progress <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>obj <span class="ot">&lt;-</span> <span class="fu">single_trial_analysis</span>(results, <span class="at">progress =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>Removing outliers...</span></code></pre></div>
 <p>The returning object is a set of lists with trial summary, BLUEs, BLUPs, heritability, variance components, potential extreme observations, residuals, the models fitted and the data used.</p>
 </div>
 <div class="section level3">
@@ -152,9 +152,9 @@
 </h3>
 <p>The results of the previous function are used in <code><a href="reference/met_analysis.html">met_analysis()</a></code> to fit multi-environmental trial models.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>met_results <span class="ot">&lt;-</span> <span class="fu">met_analysis</span>(obj)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>Online License checked out Thu Feb  <span class="dv">9</span> <span class="dv">09</span><span class="sc">:</span><span class="dv">29</span><span class="sc">:</span><span class="dv">59</span> <span class="dv">2023</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>Online License checked out Thu Feb  <span class="dv">9</span> <span class="dv">15</span><span class="sc">:</span><span class="dv">18</span><span class="sc">:</span><span class="dv">54</span> <span class="dv">2023</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>Fitting MET model <span class="cf">for</span> yield.</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>Online License checked out Thu Feb  <span class="dv">9</span> <span class="dv">09</span><span class="sc">:</span><span class="dv">30</span><span class="sc">:</span><span class="dv">00</span> <span class="dv">2023</span></span></code></pre></div>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>Online License checked out Thu Feb  <span class="dv">9</span> <span class="dv">15</span><span class="sc">:</span><span class="dv">18</span><span class="sc">:</span><span class="dv">54</span> <span class="dv">2023</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="inspect-the-outputs">Inspect the Outputs<a class="anchor" aria-label="anchor" href="#inspect-the-outputs"></a>
