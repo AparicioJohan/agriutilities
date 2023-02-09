@@ -6,3 +6,4 @@
 ^README\.Rmd$
 ^\.github$
 ^LICENSE\.md$
+^cran-comments\.md$

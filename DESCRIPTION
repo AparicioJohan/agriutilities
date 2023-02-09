@@ -10,7 +10,9 @@ Authors@R:
       person(given = "Alexia",
              family = "Bornhorst",
              role = "aut",
-             email = "alexiabornhorst@gmail.com"))
+             email = "alexiabornhorst@gmail.com"),
+      person(given = "The Alliance of Bioversity International and CIAT",
+             role = "cph"))
 Description: agriUtilities is an R package designed to make the analysis of
  field trials easier and more accessible for everyone working in plant breeding.
  It provides a simple and intuitive interface for conducting single and
