@@ -80,6 +80,11 @@ stability <- function(predictions = NULL,
 
 #' Multi-Environmental Trial Analysis
 #'
+#' @description The results of the \code{single_trial_analysis()} function are
+#' used in \code{met_analysis()} to fit multi-environmental trial models.
+#' Returns an object of class \code{metAgri}, with a list of trial effects,
+#' BLUPs, heritability, variance components, stability and the models fitted.
+#'
 #' @param sma_output Object of class \code{smaAgri} resulting of executing
 #' \code{single_trial_analysis()} function.
 #' @param h2_filter Numeric value to filter trials with poor heritability.

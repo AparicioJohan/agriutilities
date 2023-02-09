@@ -42,7 +42,18 @@ the model with genotype as random component.}
 is \code{TRUE}, data will have missing values for the outliers detected.}
 }
 \description{
-Single Trial Analysis
+The results of the \code{check_design_met()} function are used in
+\code{single_trial_analysis()} to fit single trial models. This function can
+fit, Completely Randomized Designs (CRD), Randomized Complete Block Designs
+(RCBD), Resolvable Incomplete Block Designs (res-IBD), Non-Resolvable
+Row-Column Designs (Row-Col) and Resolvable Row-Column Designs (res-Row-Col).
+
+Returns an object of class \code{smaAgri}, with a list of trial summary,
+BLUEs, BLUPs, heritability, variance components, potential extreme
+observations, residuals,
+the models fitted and the data used.
+This function will generate the required output to be used in the two-stage
+analysis.
 }
 \examples{
 \donttest{

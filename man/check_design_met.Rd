@@ -57,7 +57,10 @@ column in data that contains the genotype, trial, traits, rep, block, row
 and col.}
 }
 \description{
-Check Experimental Design
+This function helps to identify the experimental design of each
+trial, filters the data and then provide a summary for the traits and the
+experimental design. This works as a quality check before we fit any model.
+Returns an object of class \code{checkAgri}.
 }
 \examples{
 \donttest{

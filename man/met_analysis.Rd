@@ -53,7 +53,10 @@ resulting of executing the function \code{stability()}.}
 \item{met_models}{A list by trait containing the fitted models.}
 }
 \description{
-Multi-Environmental Trial Analysis
+The results of the \code{single_trial_analysis()} function are
+used in \code{met_analysis()} to fit multi-environmental trial models.
+Returns an object of class \code{metAgri}, with a list of trial effects,
+BLUPs, heritability, variance components, stability and the models fitted.
 }
 \examples{
 \donttest{

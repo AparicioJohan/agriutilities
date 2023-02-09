@@ -165,6 +165,19 @@ fit_STA <- function(results, trait, design, remove_outliers, engine, progress) {
 
 #' Single Trial Analysis
 #'
+#' @description The results of the \code{check_design_met()} function are used in
+#' \code{single_trial_analysis()} to fit single trial models. This function can
+#' fit, Completely Randomized Designs (CRD), Randomized Complete Block Designs
+#' (RCBD), Resolvable Incomplete Block Designs (res-IBD), Non-Resolvable
+#' Row-Column Designs (Row-Col) and Resolvable Row-Column Designs (res-Row-Col).
+#'
+#' Returns an object of class \code{smaAgri}, with a list of trial summary,
+#' BLUEs, BLUPs, heritability, variance components, potential extreme
+#' observations, residuals,
+#' the models fitted and the data used.
+#' This function will generate the required output to be used in the two-stage
+#' analysis.
+#'
 #' @param results Object of class \code{checkAgri} resulting of executing
 #' \code{check_design_met()} function.
 #' @param progress Should the progress of the modeling be printed.

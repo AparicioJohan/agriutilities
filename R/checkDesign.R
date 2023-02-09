@@ -1,5 +1,10 @@
 #' Check Experimental Design
 #'
+#' @description This function helps to identify the experimental design of each
+#' trial, filters the data and then provide a summary for the traits and the
+#' experimental design. This works as a quality check before we fit any model.
+#' Returns an object of class \code{checkAgri}.
+#'
 #' @param data A data.frame in a wide format.
 #' @param genotype A character string indicating the column in data that
 #' contains genotypes.
