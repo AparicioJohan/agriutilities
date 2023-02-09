@@ -181,12 +181,20 @@ res_lme4 <- function(model, returnN = FALSE, k = 3) {
 mult_models <- function(data = NULL,
                         equation = NULL,
                         by = NULL,
-                        mixed_model = TRUE) {
+                        mixed_model = TRUE,
+                        progress = TRUE) {
   models <- list()
   data[[by]] <- as.factor(data[[by]])
   lvls <- levels(data[, by])
   for (exp in lvls) {
     tmp_dt <- dplyr::filter(data, .data[[by]] %in% exp)
+
+    if (progress) {
+      trait <- all.vars(equation)[1]
+      cat(paste0("Fitting models for ", paste(trait, collapse = ", "),
+                 " in ", exp, ".\n"))
+    }
+
     if (mixed_model) {
       model <- try(
         expr = suppressMessages(
@@ -317,7 +325,8 @@ get_residuals <- function(models, k = 3) {
 fit_crd <- function(data = NULL,
                     trial = NULL,
                     genotype = NULL,
-                    response = NULL) {
+                    response = NULL,
+                    progress = TRUE) {
   data <- as.data.frame(data)
   # lme4 equation
   equation_ran <- stats::reformulate(ran(genotype), response = response)
@@ -328,13 +337,15 @@ fit_crd <- function(data = NULL,
     data = data,
     equation = equation_ran,
     by = trial,
-    mixed_model = TRUE
+    mixed_model = TRUE,
+    progress = progress
   )
   models_fixed <- mult_models(
     data = data,
     equation = equation_fixed,
     by = trial,
-    mixed_model = FALSE
+    mixed_model = FALSE,
+    progress = FALSE
   )
   # summary
   mt_summ <- mult_summary(
