@@ -55,7 +55,9 @@ The results of the previous function are used in `met_analysis()` to
 fit multi-environmental trial models.
 
 ```{r}
-met_results <- met_analysis(obj)
-print(met_results)
+if (requireNamespace("asreml", quietly = TRUE)) {
+  met_results <- met_analysis(obj)
+  print(met_results)
+}
 ```
 

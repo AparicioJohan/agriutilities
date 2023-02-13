@@ -15,7 +15,7 @@
 #' @export
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' library(agridat)
 #' library(agriutilities)
 #'

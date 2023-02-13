@@ -36,7 +36,7 @@ dat \%>\%
   ggplot(
     aes(x = year, y = yield)
   ) +
-  geom_point()+
+  geom_point() +
   geom_smooth(method = "lm") +
   theme_bw()
 

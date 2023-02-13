@@ -29,27 +29,27 @@ An object with a list of:
 Extract Variance-Covariance from ASReml-R
 }
 \examples{
-\donttest{
+\dontrun{
 library(agridat)
 library(agriutilities)
 
 data(besag.met)
 dat <- besag.met
 results <- check_design_met(
- data = dat,
- genotype = "gen",
- trial = "county",
- traits = c("yield"),
- rep = "rep",
- block = "block",
- col = "col",
- row = "row"
+  data = dat,
+  genotype = "gen",
+  trial = "county",
+  traits = c("yield"),
+  rep = "rep",
+  block = "block",
+  col = "col",
+  row = "row"
 )
 out <- single_trial_analysis(results, progress = FALSE)
 met_results <- met_analysis(out, progress = FALSE)
 extract_vcov(
- model = met_results$met_models$yield,
- vc_model = "us"
+  model = met_results$met_models$yield,
+  vc_model = "us"
 )
 }
 }

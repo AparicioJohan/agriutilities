@@ -220,11 +220,13 @@
 </h2>
 <p>The results of the previous function are used in <code><a href="../reference/met_analysis.html">met_analysis()</a></code> to fit multi-environmental trial models.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">met_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/met_analysis.html">met_analysis</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Online License checked out Mon Feb 13 10:30:46 2023</span></span>
+<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"asreml"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">met_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/met_analysis.html">met_analysis</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">met_results</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="co">#&gt; Online License checked out Mon Feb 13 11:41:21 2023</span></span>
 <span><span class="co">#&gt; Fitting MET model for yield.</span></span>
-<span><span class="co">#&gt; Online License checked out Mon Feb 13 10:30:46 2023</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">met_results</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Online License checked out Mon Feb 13 11:41:22 2023</span></span>
 <span><span class="co">#&gt; ---------------------------------------------------------------------</span></span>
 <span><span class="co">#&gt; Trial Effects (BLUEs):</span></span>
 <span><span class="co">#&gt; ---------------------------------------------------------------------</span></span>
