@@ -56,6 +56,7 @@ This function will generate the required output to be used in the two-stage
 analysis.
 }
 \examples{
+\donttest{
 library(agridat)
 library(agriutilities)
 data(besag.met)
@@ -72,4 +73,5 @@ results <- check_design_met(
 )
 out <- single_trial_analysis(results, progress = FALSE)
 print(out)
+}
 }

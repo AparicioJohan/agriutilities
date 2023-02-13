@@ -208,6 +208,7 @@ fit_STA <- function(results, trait, design, remove_outliers, engine, progress) {
 #' @export
 #'
 #' @examples
+#' \donttest{
 #' library(agridat)
 #' library(agriutilities)
 #' data(besag.met)
@@ -224,6 +225,7 @@ fit_STA <- function(results, trait, design, remove_outliers, engine, progress) {
 #' )
 #' out <- single_trial_analysis(results, progress = FALSE)
 #' print(out)
+#' }
 #' @importFrom statgenSTA createTD fitTD outlierSTA extractSTA STAtoTD
 single_trial_analysis <- function(results = NULL,
                                   progress = TRUE,

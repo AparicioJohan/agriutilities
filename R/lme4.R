@@ -59,6 +59,7 @@ VarE <- function(model) {
 #' @export
 #'
 #' @examples
+#' \donttest{
 #' library(lme4)
 #' library(agridat)
 #' library(agriutilities)
@@ -68,6 +69,7 @@ VarE <- function(model) {
 #'   data = dat
 #' )
 #' h_cullis(model = g.ran, genotype = "gen")
+#' }
 h_cullis <- function(model, genotype, re_MME = FALSE) {
   if (re_MME) {
     Gen_levels <- levels(model@frame[, genotype])

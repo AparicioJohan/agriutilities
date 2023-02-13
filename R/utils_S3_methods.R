@@ -73,6 +73,7 @@ print.checkAgri <- function(x, ...) {
 #' @importFrom utils head
 #' @export
 #' @examples
+#' \donttest{
 #' library(agridat)
 #' library(agriutilities)
 #' data(besag.met)
@@ -89,6 +90,7 @@ print.checkAgri <- function(x, ...) {
 #' )
 #' out <- single_trial_analysis(results, progress = FALSE)
 #' print(out)
+#' }
 print.smaAgri <- function(x, ...) {
   cat("---------------------------------------------------------------------\n")
   cat("Summary Fitted Models:\n")

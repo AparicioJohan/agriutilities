@@ -24,6 +24,7 @@ equations is returned.
 Cullis heritability for lme4 models
 }
 \examples{
+\donttest{
 library(lme4)
 library(agridat)
 library(agriutilities)
@@ -33,6 +34,7 @@ g.ran <- lmer(
   data = dat
 )
 h_cullis(model = g.ran, genotype = "gen")
+}
 }
 \author{
 Paul Schmidt, Johan Aparicio.
