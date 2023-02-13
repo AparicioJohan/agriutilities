@@ -59,7 +59,7 @@ Returns an object of class \code{metAgri}, with a list of trial effects,
 BLUPs, heritability, variance components, stability and the models fitted.
 }
 \examples{
-\donttest{
+\dontrun{
 library(agridat)
 library(agriutilities)
 data(besag.met)

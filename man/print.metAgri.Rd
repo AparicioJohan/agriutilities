@@ -16,7 +16,7 @@
 Prints information about \code{met_analysis()} function.
 }
 \examples{
-\donttest{
+\dontrun{
 library(agridat)
 library(agriutilities)
 data(besag.met)

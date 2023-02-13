@@ -15,7 +15,7 @@
 #' @export
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' library(agridat)
 #' library(agriutilities)
 #'
@@ -116,7 +116,7 @@ stability <- function(predictions = NULL,
 #' @export
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' library(agridat)
 #' library(agriutilities)
 #' data(besag.met)

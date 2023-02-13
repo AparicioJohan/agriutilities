@@ -35,7 +35,7 @@ variance) and "wricke" (Wricke's ecovalence).
 Stability Coefficients
 }
 \examples{
-\donttest{
+\dontrun{
 library(agridat)
 library(agriutilities)
 

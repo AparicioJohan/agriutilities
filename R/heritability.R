@@ -19,7 +19,7 @@
 #' @export
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' library(agridat)
 #' library(agriutilities)
 #' data(besag.met)
@@ -37,12 +37,12 @@
 #' out <- single_trial_analysis(results, progress = FALSE)
 #' met_results <- met_analysis(out, progress = FALSE)
 #' model <- met_results$met_models$yield
-#'# heritability_fa(
-#'#    model_fa = model,
-#'#    genotype = "genotype",
-#'#    env = "trial",
-#'#    vc_model = "us"
-#'#  )
+#' # heritability_fa(
+#' #    model_fa = model,
+#' #    genotype = "genotype",
+#' #    env = "trial",
+#' #    vc_model = "us"
+#' #  )
 #' }
 heritability_fa <- function(model_fa = NULL,
                             genotype = "line",

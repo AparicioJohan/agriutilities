@@ -13,7 +13,7 @@ Authors@R:
              email = "alexiabornhorst@gmail.com"),
       person(given = "The Alliance of Bioversity International and CIAT",
              role = "cph"))
-Description: A package designed to make the analysis of
+Description: Utilities designed to make the analysis of
  field trials easier and more accessible for everyone working in plant breeding.
  It provides a simple and intuitive interface for conducting single and
  multi-environmental trial analysis, with minimal coding required. Whether 

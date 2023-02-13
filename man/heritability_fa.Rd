@@ -39,7 +39,7 @@ An object with a list of:
 Heritability for Factor Analytic Models in ASReml-R
 }
 \examples{
-\donttest{
+\dontrun{
 library(agridat)
 library(agriutilities)
 data(besag.met)

@@ -188,8 +188,10 @@ mult_models <- function(data = NULL,
 
     if (progress) {
       trait <- all.vars(equation)[1]
-      cat(paste0("Fitting models for ", paste(trait, collapse = ", "),
-                 " in ", exp, ".\n"))
+      cat(paste0(
+        "Fitting models for ", paste(trait, collapse = ", "),
+        " in ", exp, ".\n"
+      ))
     }
 
     if (mixed_model) {

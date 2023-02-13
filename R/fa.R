@@ -165,7 +165,7 @@ covcor_heat <- function(matrix, corr = TRUE, size = 4, digits = 3) {
 #' @export
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' library(agridat)
 #' library(agriutilities)
 #' data(besag.met)

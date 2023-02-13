@@ -82,7 +82,7 @@ rotated for each trial.}
 Factor Analytic Summary
 }
 \examples{
-\donttest{
+\dontrun{
 library(agridat)
 library(agriutilities)
 data(besag.met)

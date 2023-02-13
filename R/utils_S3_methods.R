@@ -123,7 +123,7 @@ print.smaAgri <- function(x, ...) {
 #' @importFrom utils head
 #' @export
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' library(agridat)
 #' library(agriutilities)
 #' data(besag.met)
