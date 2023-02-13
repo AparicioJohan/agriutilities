@@ -16,7 +16,6 @@
 Prints information about \code{check_design_met()} function.
 }
 \examples{
-\donttest{
 library(agridat)
 library(agriutilities)
 data(besag.met)
@@ -32,7 +31,6 @@ results <- check_design_met(
   row = "row"
 )
 print(results)
-}
 }
 \author{
 Johan Aparicio [aut]

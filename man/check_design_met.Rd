@@ -63,7 +63,6 @@ experimental design. This works as a quality check before we fit any model.
 Returns an object of class \code{checkAgri}.
 }
 \examples{
-\donttest{
 library(agridat)
 library(agriutilities)
 data(besag.met)
@@ -79,9 +78,6 @@ results <- check_design_met(
   row = "row"
 )
 print(results)
-# Plotting Connectivity Matrix
 plot(results, type = "connectivity")
-# Plotting Missing Data
 plot(results, type = "missing")
-}
 }

@@ -21,12 +21,10 @@
 #' @export
 #'
 #' @examples
-#' \donttest{
 #' library(agriutilities)
 #' data(iris)
 #' M <- cor(iris[, -5])
 #' covcor_heat(matrix = M, corr = TRUE)
-#' }
 covcor_heat <- function(matrix, corr = TRUE, size = 4, digits = 3) {
   matrix <- round(x = matrix, digits = 3)
 
@@ -168,27 +166,29 @@ covcor_heat <- function(matrix, corr = TRUE, size = 4, digits = 3) {
 #'
 #' @examples
 #' \donttest{
-#' library(dplyr)
-#' library(asreml)
 #' library(agridat)
+#' library(agriutilities)
 #' data(besag.met)
 #' dat <- besag.met
-#'
-#' dat <- dat %>% arrange(county)
-#' model <- asreml(
-#'   fixed = yield ~ 1 + county,
-#'   random = ~ fa(county, 2):gen + county:rep + diag(county):rep:block,
-#'   residual = ~ dsum(~ units | county),
+#' results <- check_design_met(
 #'   data = dat,
-#'   na.action = list(x = "include", y = "include"),
-#'   trace = 0
+#'   genotype = "gen",
+#'   trial = "county",
+#'   traits = c("yield"),
+#'   rep = "rep",
+#'   block = "block",
+#'   col = "col",
+#'   row = "row"
 #' )
+#' out <- single_trial_analysis(results, progress = FALSE)
+#' met_results <- met_analysis(out, vcov = "fa2", progress = FALSE)
 #'
-#' pp <- predict(model, classify = "county")$pvals
+#' pp <- met_results$trial_effects
+#' model <- met_results$met_models$yield
 #' fa_summary(
 #'   model = model,
-#'   trial = "county",
-#'   genotype = "gen",
+#'   trial = "trial",
+#'   genotype = "genotype",
 #'   BLUEs_trial = pp,
 #'   mult_fa1 = -1,
 #'   mult_fa2 = -1,

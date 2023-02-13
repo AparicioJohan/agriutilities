@@ -17,7 +17,6 @@
 #' @export
 #'
 #' @examples
-#' \donttest{
 #' library(agridat)
 #' library(agriutilities)
 #' data(besag.met)
@@ -32,7 +31,6 @@
 #'     return_matrix = FALSE
 #'   )
 #' )
-#' }
 #' @importFrom rlang .data
 #' @import dplyr tidyr tibble
 check_connectivity <- function(data = NULL,

@@ -23,10 +23,8 @@ A ggplot object showing the upper triangular elements of the matrix.
 Correlation Covariance Heatmap
 }
 \examples{
-\donttest{
 library(agriutilities)
 data(iris)
 M <- cor(iris[, -5])
 covcor_heat(matrix = M, corr = TRUE)
-}
 }

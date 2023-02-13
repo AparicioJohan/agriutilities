@@ -21,13 +21,13 @@ knitr::opts_chunk$set(
 
 <!-- badges: end -->
 
-`agriutilities` is an `R` package designed to make the analysis of
+agriutilities is an `R` package designed to make the analysis of
 field trials easier and more accessible for everyone working in plant breeding.
 It provides a simple and intuitive interface for conducting **single** and
 **multi-environmental** trial analysis, with minimal coding required. Whether 
-you're a beginner or an experienced user, agriUtilities will help you quickly
+you're a beginner or an experienced user, agriutilities will help you quickly
 and easily carry out complex analyses with confidence. With built-in functions
-for fitting Linear Mixed Models (**LMM**), agriUtilities is the ideal choice for
+for fitting Linear Mixed Models (**LMM**), agriutilities is the ideal choice for
 anyone who wants to save time and focus on interpreting their results.
 
 ## Installation
@@ -91,7 +91,7 @@ The results of the previous function are used in `met_analysis()` to
 fit multi-environmental trial models.
 
 ```{r}
-met_results <- met_analysis(obj)
+met_results <- met_analysis(obj, progress = FALSE)
 ```
 
 ### Inspect the Outputs

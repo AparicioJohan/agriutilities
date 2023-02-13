@@ -39,7 +39,6 @@
 #' @export
 #'
 #' @examples
-#' \donttest{
 #' library(agridat)
 #' library(agriutilities)
 #' data(besag.met)
@@ -55,11 +54,8 @@
 #'   row = "row"
 #' )
 #' print(results)
-#' # Plotting Connectivity Matrix
 #' plot(results, type = "connectivity")
-#' # Plotting Missing Data
 #' plot(results, type = "missing")
-#' }
 #' @import dplyr
 #' @importFrom stats sd median
 #' @importFrom utils type.convert

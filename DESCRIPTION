@@ -6,20 +6,20 @@ Authors@R:
     c(person(given = "Johan",
              family = "Aparicio",
              role = c("aut", "cre"),
-             email = "j.aparicio@cgiar.org"),
+             email = "johanstevenapa@gmail.com"),
       person(given = "Alexia",
              family = "Bornhorst",
              role = "aut",
              email = "alexiabornhorst@gmail.com"),
       person(given = "The Alliance of Bioversity International and CIAT",
              role = "cph"))
-Description: agriUtilities is an R package designed to make the analysis of
+Description: A package designed to make the analysis of
  field trials easier and more accessible for everyone working in plant breeding.
  It provides a simple and intuitive interface for conducting single and
  multi-environmental trial analysis, with minimal coding required. Whether 
- you're a beginner or an experienced user, agriUtilities will help you quickly
+ you're a beginner or an experienced user, 'agriutilities' will help you quickly
  and easily carry out complex analyses with confidence. With built-in functions
- for fitting Linear Mixed Models (LMM), agriUtilities is the ideal choice for
+ for fitting Linear Mixed Models (LMM), 'agriutilities' is the ideal choice for
  anyone who wants to save time and focus on interpreting their results.
 License: MIT + file LICENSE
 Imports:

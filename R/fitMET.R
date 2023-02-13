@@ -32,9 +32,8 @@
 #'   row = "row"
 #' )
 #' out <- single_trial_analysis(results, progress = FALSE)
-#' met_results <- met_analysis(out)
+#' met_results <- met_analysis(out, progress = FALSE)
 #'
-#' # Stability
 #' head(
 #'   stability(
 #'     predictions = met_results$BLUPs_GxE,
@@ -133,7 +132,7 @@ stability <- function(predictions = NULL,
 #'   row = "row"
 #' )
 #' out <- single_trial_analysis(results, progress = FALSE)
-#' met_results <- met_analysis(out)
+#' met_results <- met_analysis(out, progress = FALSE)
 #' print(met_results)
 #' covcor_heat(matrix = met_results$VCOV$yield$CORR)
 #' }

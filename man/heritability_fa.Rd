@@ -40,27 +40,28 @@ Heritability for Factor Analytic Models in ASReml-R
 }
 \examples{
 \donttest{
-library(dplyr)
-library(asreml)
 library(agridat)
 library(agriutilities)
 data(besag.met)
 dat <- besag.met
-
-dat <- dat \%>\% arrange(county)
-model <- asreml(
-  fixed = yield ~ 1 + county,
-  random = ~ fa(county, 2):gen + county:rep + diag(county):rep:block,
-  residual = ~ dsum(~ units | county),
+results <- check_design_met(
   data = dat,
-  na.action = list(x = "include", y = "include"),
-  trace = 0
+  genotype = "gen",
+  trial = "county",
+  traits = c("yield"),
+  rep = "rep",
+  block = "block",
+  col = "col",
+  row = "row"
 )
+out <- single_trial_analysis(results, progress = FALSE)
+met_results <- met_analysis(out, progress = FALSE)
+model <- met_results$met_models$yield
 # heritability_fa(
 #    model_fa = model,
-#    genotype = "gen",
-#    env = "county",
-#    vc_model = "fa2"
+#    genotype = "genotype",
+#    env = "trial",
+#    vc_model = "us"
 #  )
 }
 }

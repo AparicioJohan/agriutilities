@@ -59,18 +59,15 @@ VarE <- function(model) {
 #' @export
 #'
 #' @examples
-#' \donttest{
 #' library(lme4)
 #' library(agridat)
 #' library(agriutilities)
-#' # random genotype effect
-#' dat <- agridat::john.alpha
-#' g.ran <- lme4::lmer(
-#'   data = dat,
-#'   formula = yield ~ rep + (1 | gen) + (1 | rep:block)
+#' dat <- john.alpha
+#' g.ran <- lmer(
+#'   formula = yield ~ rep + (1 | gen) + (1 | rep:block),
+#'   data = dat
 #' )
 #' h_cullis(model = g.ran, genotype = "gen")
-#' }
 h_cullis <- function(model, genotype, re_MME = FALSE) {
   if (re_MME) {
     Gen_levels <- levels(model@frame[, genotype])

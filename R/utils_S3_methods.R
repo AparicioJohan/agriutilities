@@ -12,7 +12,6 @@
 #' @importFrom utils str
 #' @export
 #' @examples
-#' \donttest{
 #' library(agridat)
 #' library(agriutilities)
 #' data(besag.met)
@@ -28,7 +27,6 @@
 #'   row = "row"
 #' )
 #' print(results)
-#' }
 print.checkAgri <- function(x, ...) {
   cat("---------------------------------------------------------------------\n")
   cat("Summary Traits by Trial:\n")
@@ -75,7 +73,6 @@ print.checkAgri <- function(x, ...) {
 #' @importFrom utils head
 #' @export
 #' @examples
-#' \donttest{
 #' library(agridat)
 #' library(agriutilities)
 #' data(besag.met)
@@ -92,7 +89,6 @@ print.checkAgri <- function(x, ...) {
 #' )
 #' out <- single_trial_analysis(results, progress = FALSE)
 #' print(out)
-#' }
 print.smaAgri <- function(x, ...) {
   cat("---------------------------------------------------------------------\n")
   cat("Summary Fitted Models:\n")
@@ -143,7 +139,7 @@ print.smaAgri <- function(x, ...) {
 #'   row = "row"
 #' )
 #' out <- single_trial_analysis(results, progress = FALSE)
-#' met_results <- met_analysis(out)
+#' met_results <- met_analysis(out, progress = FALSE)
 #' print(met_results)
 #' }
 print.metAgri <- function(x, ...) {
@@ -201,7 +197,6 @@ print.metAgri <- function(x, ...) {
 #' @method plot checkAgri
 #' @export
 #' @examples
-#' \donttest{
 #' library(agridat)
 #' library(agriutilities)
 #' data(besag.met)
@@ -218,7 +213,6 @@ print.metAgri <- function(x, ...) {
 #' )
 #' plot(results, type = "missing")
 #' plot(results, type = "boxplot")
-#' }
 #'
 plot.checkAgri <- function(x,
                            type = c("connectivity", "missing", "boxplot"),

@@ -1,6 +1,6 @@
 #' Genetic Gain Parameters
 #'
-#' @param model Linear regression model (lm object)
+#' @param model Linear regression model (\code{lm} object)
 #' @param trait A character string indicating the column in data that contains
 #' trials.
 #'
@@ -9,10 +9,9 @@
 #' @export
 #'
 #' @examples
-#' \donttest{
 #' library(ggplot2)
 #' library(agridat)
-#' library(dplyr)
+#' library(magrittr)
 #' library(agriutilities)
 #'
 #' data(baker.barley.uniformity)
@@ -22,6 +21,7 @@
 #' model <- lm(yield ~ year, dat)
 #'
 #' dat %>%
+#'   na.omit() %>%
 #'   ggplot(
 #'     aes(x = year, y = yield)
 #'   ) +
@@ -30,7 +30,6 @@
 #'   theme_bw()
 #'
 #' parameters_gg(model = model, trait = "yield")
-#' }
 #'
 #' @importFrom stats anova
 parameters_gg <- function(model, trait = "trait") {

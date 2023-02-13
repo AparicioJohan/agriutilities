@@ -29,7 +29,6 @@ executing the function \code{check_design_met()}}
 Create several plots for an object of class \code{checkAgri}
 }
 \examples{
-\donttest{
 library(agridat)
 library(agriutilities)
 data(besag.met)
@@ -46,7 +45,6 @@ results <- check_design_met(
 )
 plot(results, type = "missing")
 plot(results, type = "boxplot")
-}
 
 }
 \author{

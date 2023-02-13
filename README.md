@@ -6,14 +6,14 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-`agriutilities` is an `R` package designed to make the analysis of field
+agriutilities is an `R` package designed to make the analysis of field
 trials easier and more accessible for everyone working in plant
 breeding. It provides a simple and intuitive interface for conducting
 **single** and **multi-environmental** trial analysis, with minimal
 coding required. Whether you’re a beginner or an experienced user,
-agriUtilities will help you quickly and easily carry out complex
+agriutilities will help you quickly and easily carry out complex
 analyses with confidence. With built-in functions for fitting Linear
-Mixed Models (**LMM**), agriUtilities is the ideal choice for anyone who
+Mixed Models (**LMM**), agriutilities is the ideal choice for anyone who
 wants to save time and focus on interpreting their results.
 
 ## Installation
@@ -67,7 +67,6 @@ Row-Column Designs (**res-Row-Col**).
 
 ``` r
 obj <- single_trial_analysis(results, progress = FALSE)
-Removing outliers...
 ```
 
 The returning object is a set of lists with trial summary, BLUEs, BLUPs,
@@ -80,10 +79,9 @@ The results of the previous function are used in `met_analysis()` to fit
 multi-environmental trial models.
 
 ``` r
-met_results <- met_analysis(obj)
-Online License checked out Thu Feb  9 15:18:54 2023
-Fitting MET model for yield.
-Online License checked out Thu Feb  9 15:18:54 2023
+met_results <- met_analysis(obj, progress = FALSE)
+Online License checked out Mon Feb 13 08:54:57 2023
+Online License checked out Mon Feb 13 08:54:58 2023
 ```
 
 ### Inspect the Outputs

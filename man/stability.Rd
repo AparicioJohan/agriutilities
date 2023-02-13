@@ -52,9 +52,8 @@ results <- check_design_met(
   row = "row"
 )
 out <- single_trial_analysis(results, progress = FALSE)
-met_results <- met_analysis(out)
+met_results <- met_analysis(out, progress = FALSE)
 
-# Stability
 head(
   stability(
     predictions = met_results$BLUPs_GxE,

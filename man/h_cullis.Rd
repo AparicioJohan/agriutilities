@@ -24,18 +24,15 @@ equations is returned.
 Cullis heritability for lme4 models
 }
 \examples{
-\donttest{
 library(lme4)
 library(agridat)
 library(agriutilities)
-# random genotype effect
-dat <- agridat::john.alpha
-g.ran <- lme4::lmer(
-  data = dat,
-  formula = yield ~ rep + (1 | gen) + (1 | rep:block)
+dat <- john.alpha
+g.ran <- lmer(
+  formula = yield ~ rep + (1 | gen) + (1 | rep:block),
+  data = dat
 )
 h_cullis(model = g.ran, genotype = "gen")
-}
 }
 \author{
 Paul Schmidt, Johan Aparicio.

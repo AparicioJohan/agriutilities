@@ -39,7 +39,6 @@ genotypes shared between each pair of trial.
 Check connectivity between trials
 }
 \examples{
-\donttest{
 library(agridat)
 library(agriutilities)
 data(besag.met)
@@ -54,5 +53,4 @@ head(
     return_matrix = FALSE
   )
 )
-}
 }

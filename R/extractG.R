@@ -17,7 +17,6 @@
 #' @examples
 #' \donttest{
 #' library(agridat)
-#' library(asreml)
 #' library(agriutilities)
 #'
 #' data(besag.met)
@@ -33,12 +32,11 @@
 #'  row = "row"
 #')
 #'out <- single_trial_analysis(results, progress = FALSE)
-#'met_results <- met_analysis(out)
-#'
-#'# Extract VCOV
-#'extract_vcov(model = met_results$met_models$yield,
-#'             vc_model = "us"
-#'             )
+#'met_results <- met_analysis(out, progress = FALSE)
+#'extract_vcov(
+#'  model = met_results$met_models$yield,
+#'  vc_model = "us"
+#')
 #' }
 #' @importFrom stats cov2cor
 extract_vcov <- function(model = NULL,

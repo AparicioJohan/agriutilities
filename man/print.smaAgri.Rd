@@ -16,7 +16,6 @@
 Prints information about \code{single_trial_analysis} function.
 }
 \examples{
-\donttest{
 library(agridat)
 library(agriutilities)
 data(besag.met)
@@ -33,7 +32,6 @@ results <- check_design_met(
 )
 out <- single_trial_analysis(results, progress = FALSE)
 print(out)
-}
 }
 \author{
 Johan Aparicio [aut]

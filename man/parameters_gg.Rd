@@ -7,7 +7,7 @@
 parameters_gg(model, trait = "trait")
 }
 \arguments{
-\item{model}{Linear regression model (lm object)}
+\item{model}{Linear regression model (\code{lm} object)}
 
 \item{trait}{A character string indicating the column in data that contains
 trials.}
@@ -20,10 +20,9 @@ se_Slope, Intercept, r2, Pr(>F)) and the percentage of Genetic Gain.
 Genetic Gain Parameters
 }
 \examples{
-\donttest{
 library(ggplot2)
 library(agridat)
-library(dplyr)
+library(magrittr)
 library(agriutilities)
 
 data(baker.barley.uniformity)
@@ -33,6 +32,7 @@ head(dat)
 model <- lm(yield ~ year, dat)
 
 dat \%>\%
+  na.omit() \%>\%
   ggplot(
     aes(x = year, y = yield)
   ) +
@@ -41,6 +41,5 @@ dat \%>\%
   theme_bw()
 
 parameters_gg(model = model, trait = "yield")
-}
 
 }

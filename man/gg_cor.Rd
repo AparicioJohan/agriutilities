@@ -65,7 +65,6 @@ Return a ggplot object to plot a triangular correlation figure
 between 2 or more variables.
 }
 \examples{
-\donttest{
 library(agriutilities)
 data(iris)
 gg_cor(
@@ -73,7 +72,6 @@ gg_cor(
   colours = c("#db4437", "white", "#4285f4"),
   label_size = 6
 )
-}
 }
 \author{
 Daniel Ariza, Johan Aparicio.

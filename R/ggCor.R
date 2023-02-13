@@ -33,7 +33,6 @@
 #' @export
 #'
 #' @examples
-#' \donttest{
 #' library(agriutilities)
 #' data(iris)
 #' gg_cor(
@@ -41,7 +40,6 @@
 #'   colours = c("#db4437", "white", "#4285f4"),
 #'   label_size = 6
 #' )
-#' }
 #' @author Daniel Ariza, Johan Aparicio.
 #' @importFrom stats na.omit
 gg_cor <- function(data,
