@@ -80,8 +80,8 @@ multi-environmental trial models.
 
 ``` r
 met_results <- met_analysis(obj, progress = FALSE)
-Online License checked out Mon Feb 13 08:54:57 2023
-Online License checked out Mon Feb 13 08:54:58 2023
+Online License checked out Mon Feb 13 09:09:21 2023
+Online License checked out Mon Feb 13 09:09:22 2023
 ```
 
 ### Inspect the Outputs
@@ -245,3 +245,10 @@ First Stability Coefficients:
 5 yield      G31    16.23001 31.89042 11.722935       101.66382
 6 yield      G10    15.75253 32.02994 11.499867       102.39802
 ```
+
+## Code of Conduct
+
+Please note that the agriutilities project is released with a
+[Contributor Code of
+Conduct](https://apariciojohan.github.io/agriutilities/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.
