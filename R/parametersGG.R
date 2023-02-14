@@ -9,6 +9,7 @@
 #' @export
 #'
 #' @examples
+#' \donttest{
 #' library(ggplot2)
 #' library(agridat)
 #' library(magrittr)
@@ -30,7 +31,7 @@
 #'   theme_bw()
 #'
 #' parameters_gg(model = model, trait = "yield")
-#'
+#' }
 #' @importFrom stats anova
 parameters_gg <- function(model, trait = "trait") {
   summ <- summary(model)
