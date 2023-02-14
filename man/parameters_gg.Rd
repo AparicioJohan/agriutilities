@@ -20,6 +20,7 @@ se_Slope, Intercept, r2, Pr(>F)) and the percentage of Genetic Gain.
 Genetic Gain Parameters
 }
 \examples{
+\donttest{
 library(ggplot2)
 library(agridat)
 library(magrittr)
@@ -41,5 +42,5 @@ dat \%>\%
   theme_bw()
 
 parameters_gg(model = model, trait = "yield")
-
+}
 }
