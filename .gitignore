@@ -1,5 +1,7 @@
 .Rproj.user
 .Rhistory
+.Rapp.history
 .RData
 .Ruserdata
 inst/doc
+.Rproj.user/
