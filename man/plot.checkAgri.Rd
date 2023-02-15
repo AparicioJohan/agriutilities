@@ -25,6 +25,9 @@ executing the function \code{check_design_met()}}
 
 \item{...}{Further graphical parameters. For future improvements.}
 }
+\value{
+A ggplot object.
+}
 \description{
 Create several plots for an object of class \code{checkAgri}
 }

@@ -9,6 +9,7 @@
 #' `tibble::print()` for more details.
 #' @author Johan Aparicio [aut]
 #' @method print checkAgri
+#' @return an object inheriting from class \code{checkAgri}.
 #' @importFrom utils str
 #' @export
 #' @examples
@@ -70,6 +71,7 @@ print.checkAgri <- function(x, ...) {
 #' `tibble::print()` for more details.
 #' @author Johan Aparicio [aut]
 #' @method print smaAgri
+#' @return an object inheriting from class \code{smaAgri}.
 #' @importFrom utils head
 #' @export
 #' @examples
@@ -122,6 +124,7 @@ print.smaAgri <- function(x, ...) {
 #' `tibble::print()` for more details.
 #' @author Johan Aparicio [aut]
 #' @method print metAgri
+#' @return an object inheriting from class \code{metAgri}.
 #' @importFrom utils head
 #' @export
 #' @examples
@@ -197,6 +200,7 @@ print.metAgri <- function(x, ...) {
 #' @param text_size Numeric input to define the text size.
 #' @author Johan Aparicio [aut]
 #' @method plot checkAgri
+#' @return A ggplot object.
 #' @export
 #' @examples
 #' library(agridat)

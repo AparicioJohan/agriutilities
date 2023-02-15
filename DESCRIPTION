@@ -15,15 +15,14 @@ Authors@R:
              role = "cph"))
 Description: Utilities designed to make the analysis of field trials easier and
  more accessible for everyone working in plant breeding. It provides a simple
- and intuitive interface for conducting single and multi-environmental trial 
- analysis, with minimal coding required. Whether you're a beginner or an 
- experienced user, 'agriutilities' will help you quickly and easily carry out 
- complex analyses with confidence. With built-in functions for fitting Linear 
+ and intuitive interface for conducting single and multi-environmental trial
+ analysis, with minimal coding required. Whether you're a beginner or an
+ experienced user, 'agriutilities' will help you quickly and easily carry out
+ complex analyses with confidence. With built-in functions for fitting Linear
  Mixed Models, 'agriutilities' is the ideal choice for anyone who wants to save
  time and focus on interpreting their results.
  Some of the functions require the R package 'asreml' for the 'ASReml' software,
- this can be obtained upon purchase from 'VSN' international 
- (<https://vsni.co.uk/software/asreml-r>).
+ this can be obtained upon purchase from 'VSN' international (<https://vsni.co.uk/software/asreml-r>).
 License: MIT + file LICENSE
 Imports:
     ggplot2,

@@ -12,6 +12,9 @@
 \item{...}{Options used by the tibble package to format the output. See
 `tibble::print()` for more details.}
 }
+\value{
+an object inheriting from class \code{metAgri}.
+}
 \description{
 Prints information about \code{met_analysis()} function.
 }
