@@ -16,11 +16,14 @@ navbar:
   - icon: fa-code
     text: Reference
     href: reference/index.html
-  - icon: fa-newspaper
+  - icon: fa-book
     text: Articles
     menu:
       - text: How to Start
         href: articles/how-to-start.html
+  - icon: fa-newspaper
+    text: News
+    href: news/index.html
   right:
   - icon: fa-github
     text: Github

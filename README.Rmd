@@ -32,13 +32,21 @@ anyone who wants to save time and focus on interpreting their results.
 
 ## Installation
 
+### From CRAN
+
+``` r
+install.packages("agriutilities")
+```
+
+### From GitHub
+
 You can install the development version of agriutilities from
 [GitHub](https://github.com/AparicioJohan/agriutilities) with:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("AparicioJohan/agriutilities")
+remotes::install_github("AparicioJohan/agriutilities")
 ```
+
 
 ## Automatic Data Analysis Pipeline 
 

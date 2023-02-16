@@ -51,7 +51,7 @@
     
     <a class="navbar-brand me-2" href="index.html">agriutilities</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,13 +76,20 @@
 </li>
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown--articles">
-    <span class="fa fa-newspaper"></span>
+    <span class="fa fa-book"></span>
      
     Articles
   </a>
   <div class="dropdown-menu" aria-labelledby="dropdown--articles">
     <a class="dropdown-item" href="articles/how-to-start.html">How to Start</a>
   </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="news/index.html">
+    <span class="fa fa-newspaper"></span>
+     
+    News
+  </a>
 </li>
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
@@ -109,14 +116,25 @@
 <img src="logo.png" class="logo" alt=""><h1 id="agriutilities-">agriutilities <a class="anchor" aria-label="anchor" href="#agriutilities-"></a>
 </h1>
 </div>
-<!-- badges: start --><!-- badges: end --><p>agriutilities is an <code>R</code> package designed to make the analysis of field trials easier and more accessible for everyone working in plant breeding. It provides a simple and intuitive interface for conducting <strong>single</strong> and <strong>multi-environmental</strong> trial analysis, with minimal coding required. Whether you’re a beginner or an experienced user, agriutilities will help you quickly and easily carry out complex analyses with confidence. With built-in functions for fitting Linear Mixed Models (<strong>LMM</strong>), agriutilities is the ideal choice for anyone who wants to save time and focus on interpreting their results.</p>
+<!-- badges: start -->
+<!-- badges: end -->
+<p>agriutilities is an <code>R</code> package designed to make the analysis of field trials easier and more accessible for everyone working in plant breeding. It provides a simple and intuitive interface for conducting <strong>single</strong> and <strong>multi-environmental</strong> trial analysis, with minimal coding required. Whether you’re a beginner or an experienced user, agriutilities will help you quickly and easily carry out complex analyses with confidence. With built-in functions for fitting Linear Mixed Models (<strong>LMM</strong>), agriutilities is the ideal choice for anyone who wants to save time and focus on interpreting their results.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the development version of agriutilities from <a href="https://github.com/AparicioJohan/agriutilities" class="external-link">GitHub</a> with:</p>
+<div class="section level3">
+<h3 id="from-cran">From CRAN<a class="anchor" aria-label="anchor" href="#from-cran"></a>
+</h3>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"AparicioJohan/agriutilities"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"agriutilities"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="from-github">From GitHub<a class="anchor" aria-label="anchor" href="#from-github"></a>
+</h3>
+<p>You can install the development version of agriutilities from <a href="https://github.com/AparicioJohan/agriutilities" class="external-link">GitHub</a> with:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"AparicioJohan/agriutilities"</span><span class="op">)</span></span></code></pre></div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="automatic-data-analysis-pipeline">Automatic Data Analysis Pipeline<a class="anchor" aria-label="anchor" href="#automatic-data-analysis-pipeline"></a>
@@ -126,7 +144,7 @@
 <h3 id="identify-the-experimental-design">Identify the Experimental Design<a class="anchor" aria-label="anchor" href="#identify-the-experimental-design"></a>
 </h3>
 <p>The function <code>check_design_met</code> helps us to check the quality of the data and also to identify the experimental design of the trials. This works as a quality check or quality control before we fit any model.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/AparicioJohan/agriutilities" class="external-link">agriutilities</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://kwstat.github.io/agridat/" class="external-link">agridat</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">besag.met</span><span class="op">)</span></span>
@@ -146,8 +164,10 @@
 <h3 id="single-trial-analysis-sta">Single Trial Analysis (STA)<a class="anchor" aria-label="anchor" href="#single-trial-analysis-sta"></a>
 </h3>
 <p>The results of the previous function are used in <code><a href="reference/single_trial_analysis.html">single_trial_analysis()</a></code> to fit single trial models. This function can fit, Completely Randomized Designs (<strong>CRD</strong>), Randomized Complete Block Designs (<strong>RCBD</strong>), Resolvable Incomplete Block Designs (<strong>res-IBD</strong>), Non-Resolvable Row-Column Designs (<strong>Row-Col</strong>) and Resolvable Row-Column Designs (<strong>res-Row-Col</strong>).</p>
-<blockquote><p><strong>NOTE</strong>: It fits models based on the randomization detected.</p></blockquote>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<blockquote>
+<p><strong>NOTE</strong>: It fits models based on the randomization detected.</p>
+</blockquote>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/single_trial_analysis.html">single_trial_analysis</a></span><span class="op">(</span><span class="va">results</span>, progress <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p>The returning object is a set of lists with trial summary, BLUEs, BLUPs, heritability, variance components, potential extreme observations, residuals, the models fitted and the data used.</p>
 </div>
@@ -155,162 +175,162 @@
 <h3 id="two-stage-analysis-met">Two-Stage Analysis (MET)<a class="anchor" aria-label="anchor" href="#two-stage-analysis-met"></a>
 </h3>
 <p>The results of the previous function are used in <code><a href="reference/met_analysis.html">met_analysis()</a></code> to fit multi-environmental trial models.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>met_results <span class="ot">&lt;-</span> <span class="fu">met_analysis</span>(obj, <span class="at">progress =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>Online License checked out Mon Feb <span class="dv">13</span> <span class="dv">09</span><span class="sc">:</span><span class="dv">09</span><span class="sc">:</span><span class="dv">21</span> <span class="dv">2023</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>Online License checked out Mon Feb <span class="dv">13</span> <span class="dv">09</span><span class="sc">:</span><span class="dv">09</span><span class="sc">:</span><span class="dv">22</span> <span class="dv">2023</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>met_results <span class="ot">&lt;-</span> <span class="fu">met_analysis</span>(obj, <span class="at">progress =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>Online License checked out Thu Feb <span class="dv">16</span> <span class="dv">11</span><span class="sc">:</span><span class="dv">50</span><span class="sc">:</span><span class="dv">00</span> <span class="dv">2023</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>Online License checked out Thu Feb <span class="dv">16</span> <span class="dv">11</span><span class="sc">:</span><span class="dv">50</span><span class="sc">:</span><span class="dv">01</span> <span class="dv">2023</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="inspect-the-outputs">Inspect the Outputs<a class="anchor" aria-label="anchor" href="#inspect-the-outputs"></a>
 </h3>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(results)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>Summary Traits by Trial<span class="sc">:</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 6 x 9</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  county traits  Mean Median    SD    CV     n n_miss miss_perc</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="sc">&lt;</span>fct<span class="sc">&gt;</span>  <span class="er">&lt;</span>chr<span class="sc">&gt;</span>  <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>  <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>int<span class="sc">&gt;</span>  <span class="er">&lt;</span>int<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> C1     yield  <span class="fl">149.</span>   <span class="fl">151.</span>   <span class="fl">17.7</span> <span class="fl">0.119</span>   <span class="dv">198</span>      <span class="dv">6</span>    <span class="fl">0.0303</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> C2     yield   <span class="fl">56.1</span>   <span class="fl">52.1</span>  <span class="fl">18.4</span> <span class="fl">0.328</span>   <span class="dv">198</span>      <span class="dv">6</span>    <span class="fl">0.0303</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> C3     yield   <span class="fl">87.9</span>   <span class="fl">89.2</span>  <span class="fl">19.7</span> <span class="fl">0.225</span>   <span class="dv">198</span>      <span class="dv">6</span>    <span class="fl">0.0303</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> C4     yield  <span class="fl">145.</span>   <span class="fl">143.</span>   <span class="fl">17.1</span> <span class="fl">0.118</span>   <span class="dv">198</span>      <span class="dv">6</span>    <span class="fl">0.0303</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> C5     yield  <span class="fl">115.</span>   <span class="fl">116.</span>   <span class="fl">16.4</span> <span class="fl">0.142</span>   <span class="dv">198</span>      <span class="dv">6</span>    <span class="fl">0.0303</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> C6     yield   <span class="fl">87.6</span>   <span class="fl">87.8</span>  <span class="fl">26.6</span> <span class="fl">0.304</span>   <span class="dv">198</span>      <span class="dv">6</span>    <span class="fl">0.0303</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>Experimental Design Detected<span class="sc">:</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  county exp_design</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>     C1    row_col</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>     C2    row_col</span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>     C3    row_col</span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>     C4    row_col</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>     C5    row_col</span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>     C6    row_col</span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>Summary Experimental Design<span class="sc">:</span></span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 6 x 9</span></span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>  county     n n_gen n_rep n_block n_col n_row num_of_reps num_of_gen</span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>  <span class="sc">&lt;</span>fct<span class="sc">&gt;</span>  <span class="er">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>int<span class="sc">&gt;</span>   <span class="er">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>fct<span class="sc">&gt;</span>       <span class="er">&lt;</span>fct<span class="sc">&gt;</span>     </span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> C1       <span class="dv">198</span>    <span class="dv">64</span>     <span class="dv">3</span>       <span class="dv">8</span>    <span class="dv">11</span>    <span class="dv">18</span> 3_9         63_1      </span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> C2       <span class="dv">198</span>    <span class="dv">64</span>     <span class="dv">3</span>       <span class="dv">8</span>    <span class="dv">11</span>    <span class="dv">18</span> 3_9         63_1      </span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> C3       <span class="dv">198</span>    <span class="dv">64</span>     <span class="dv">3</span>       <span class="dv">8</span>    <span class="dv">11</span>    <span class="dv">18</span> 3_9         63_1      </span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> C4       <span class="dv">198</span>    <span class="dv">64</span>     <span class="dv">3</span>       <span class="dv">8</span>    <span class="dv">11</span>    <span class="dv">18</span> 3_9         63_1      </span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> C5       <span class="dv">198</span>    <span class="dv">64</span>     <span class="dv">3</span>       <span class="dv">8</span>    <span class="dv">11</span>    <span class="dv">18</span> 3_9         63_1      </span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> C6       <span class="dv">198</span>    <span class="dv">64</span>     <span class="dv">3</span>       <span class="dv">8</span>    <span class="dv">11</span>    <span class="dv">18</span> 3_9         63_1      </span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>Connectivity Matrix<span class="sc">:</span></span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>   C1 C2 C3 C4 C5 C6</span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>C1 <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span></span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>C2 <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span></span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>C3 <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span></span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>C4 <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span></span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>C5 <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span></span>
-<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>C6 <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span></span>
-<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
-<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>Filters Applied<span class="sc">:</span></span>
-<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
-<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>List of <span class="dv">1</span></span>
-<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> yield<span class="sc">:</span>List of <span class="dv">4</span></span>
-<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>  ..<span class="sc">$</span> missing_50%     <span class="sc">:</span> <span class="fu">chr</span>(<span class="dv">0</span>) </span>
-<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>  ..<span class="sc">$</span> no_variation    <span class="sc">:</span> <span class="fu">chr</span>(<span class="dv">0</span>) </span>
-<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>  ..<span class="sc">$</span> row_col_dup     <span class="sc">:</span> <span class="fu">chr</span>(<span class="dv">0</span>) </span>
-<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>  ..<span class="sc">$</span> trials_to_remove<span class="sc">:</span> <span class="fu">chr</span>(<span class="dv">0</span>) </span></code></pre></div>
-<hr>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(obj)</span>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(results)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>Summary Fitted Models<span class="sc">:</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>Summary Traits by Trial<span class="sc">:</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>   trait trial heritability        CV    VarGen    VarErr  design</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span> yield    C1         <span class="fl">0.73</span>  <span class="fl">6.022489</span>  <span class="fl">87.39848</span>  <span class="fl">82.86095</span> row_col</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">:</span> yield    C2         <span class="fl">0.37</span> <span class="fl">17.104998</span>  <span class="fl">25.80684</span> <span class="fl">108.68546</span> row_col</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span><span class="sc">:</span> yield    C3         <span class="fl">0.64</span> <span class="fl">12.357202</span>  <span class="fl">83.57907</span> <span class="fl">118.55567</span> row_col</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span><span class="sc">:</span> yield    C4         <span class="fl">0.41</span>  <span class="fl">8.179408</span>  <span class="fl">35.75568</span> <span class="fl">136.21218</span> row_col</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span><span class="sc">:</span> yield    C5         <span class="fl">0.80</span>  <span class="fl">7.037586</span> <span class="fl">103.79822</span>  <span class="fl">66.97523</span> row_col</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span><span class="sc">:</span> yield    C6         <span class="fl">0.49</span> <span class="fl">16.632367</span>  <span class="fl">71.92232</span> <span class="fl">207.53073</span> row_col</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>Outliers Removed<span class="sc">:</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 6 x 9</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  county traits  Mean Median    SD    CV     n n_miss miss_perc</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="sc">&lt;</span>fct<span class="sc">&gt;</span>  <span class="er">&lt;</span>chr<span class="sc">&gt;</span>  <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>  <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>int<span class="sc">&gt;</span>  <span class="er">&lt;</span>int<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> C1     yield  <span class="fl">149.</span>   <span class="fl">151.</span>   <span class="fl">17.7</span> <span class="fl">0.119</span>   <span class="dv">198</span>      <span class="dv">6</span>    <span class="fl">0.0303</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> C2     yield   <span class="fl">56.1</span>   <span class="fl">52.1</span>  <span class="fl">18.4</span> <span class="fl">0.328</span>   <span class="dv">198</span>      <span class="dv">6</span>    <span class="fl">0.0303</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> C3     yield   <span class="fl">87.9</span>   <span class="fl">89.2</span>  <span class="fl">19.7</span> <span class="fl">0.225</span>   <span class="dv">198</span>      <span class="dv">6</span>    <span class="fl">0.0303</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> C4     yield  <span class="fl">145.</span>   <span class="fl">143.</span>   <span class="fl">17.1</span> <span class="fl">0.118</span>   <span class="dv">198</span>      <span class="dv">6</span>    <span class="fl">0.0303</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> C5     yield  <span class="fl">115.</span>   <span class="fl">116.</span>   <span class="fl">16.4</span> <span class="fl">0.142</span>   <span class="dv">198</span>      <span class="dv">6</span>    <span class="fl">0.0303</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> C6     yield   <span class="fl">87.6</span>   <span class="fl">87.8</span>  <span class="fl">26.6</span> <span class="fl">0.304</span>   <span class="dv">198</span>      <span class="dv">6</span>    <span class="fl">0.0303</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>   trait trial genotype id outlier</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span> yield    C1      G60 <span class="dv">50</span>    <span class="cn">TRUE</span></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>First Predicted Values and Standard <span class="fu">Errors</span> (BLUEs<span class="sc">/</span>BLUPs)<span class="sc">:</span></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>   trait genotype trial    BLUEs  seBLUEs    BLUPs  seBLUPs         wt</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span> yield      G01    C1 <span class="fl">141.4161</span> <span class="fl">6.078858</span> <span class="fl">143.5308</span> <span class="fl">5.249771</span> <span class="fl">0.02706176</span></span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">:</span> yield      G02    C1 <span class="fl">157.8110</span> <span class="fl">5.979708</span> <span class="fl">155.8037</span> <span class="fl">5.194547</span> <span class="fl">0.02796663</span></span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span><span class="sc">:</span> yield      G03    C1 <span class="fl">127.3836</span> <span class="fl">6.091534</span> <span class="fl">133.0256</span> <span class="fl">5.269999</span> <span class="fl">0.02694925</span></span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span><span class="sc">:</span> yield      G04    C1 <span class="fl">154.8445</span> <span class="fl">6.093866</span> <span class="fl">153.8364</span> <span class="fl">5.270427</span> <span class="fl">0.02692863</span></span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span><span class="sc">:</span> yield      G05    C1 <span class="fl">163.8950</span> <span class="fl">6.132141</span> <span class="fl">161.1831</span> <span class="fl">5.271809</span> <span class="fl">0.02659352</span></span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span><span class="sc">:</span> yield      G06    C1 <span class="fl">128.5168</span> <span class="fl">6.087902</span> <span class="fl">133.6857</span> <span class="fl">5.247130</span> <span class="fl">0.02698141</span></span></code></pre></div>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>Experimental Design Detected<span class="sc">:</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  county exp_design</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>     C1    row_col</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>     C2    row_col</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>     C3    row_col</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>     C4    row_col</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>     C5    row_col</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>     C6    row_col</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>Summary Experimental Design<span class="sc">:</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 6 x 9</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>  county     n n_gen n_rep n_block n_col n_row num_of_reps num_of_gen</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>  <span class="sc">&lt;</span>fct<span class="sc">&gt;</span>  <span class="er">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>int<span class="sc">&gt;</span>   <span class="er">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>fct<span class="sc">&gt;</span>       <span class="er">&lt;</span>fct<span class="sc">&gt;</span>     </span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> C1       <span class="dv">198</span>    <span class="dv">64</span>     <span class="dv">3</span>       <span class="dv">8</span>    <span class="dv">11</span>    <span class="dv">18</span> 3_9         63_1      </span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> C2       <span class="dv">198</span>    <span class="dv">64</span>     <span class="dv">3</span>       <span class="dv">8</span>    <span class="dv">11</span>    <span class="dv">18</span> 3_9         63_1      </span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> C3       <span class="dv">198</span>    <span class="dv">64</span>     <span class="dv">3</span>       <span class="dv">8</span>    <span class="dv">11</span>    <span class="dv">18</span> 3_9         63_1      </span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> C4       <span class="dv">198</span>    <span class="dv">64</span>     <span class="dv">3</span>       <span class="dv">8</span>    <span class="dv">11</span>    <span class="dv">18</span> 3_9         63_1      </span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> C5       <span class="dv">198</span>    <span class="dv">64</span>     <span class="dv">3</span>       <span class="dv">8</span>    <span class="dv">11</span>    <span class="dv">18</span> 3_9         63_1      </span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> C6       <span class="dv">198</span>    <span class="dv">64</span>     <span class="dv">3</span>       <span class="dv">8</span>    <span class="dv">11</span>    <span class="dv">18</span> 3_9         63_1      </span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>Connectivity Matrix<span class="sc">:</span></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>   C1 C2 C3 C4 C5 C6</span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>C1 <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span></span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>C2 <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span></span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>C3 <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span></span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>C4 <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span></span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>C5 <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span></span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>C6 <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span> <span class="dv">64</span></span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>Filters Applied<span class="sc">:</span></span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>List of <span class="dv">1</span></span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> yield<span class="sc">:</span>List of <span class="dv">4</span></span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a>  ..<span class="sc">$</span> missing_50%     <span class="sc">:</span> <span class="fu">chr</span>(<span class="dv">0</span>) </span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>  ..<span class="sc">$</span> no_variation    <span class="sc">:</span> <span class="fu">chr</span>(<span class="dv">0</span>) </span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a>  ..<span class="sc">$</span> row_col_dup     <span class="sc">:</span> <span class="fu">chr</span>(<span class="dv">0</span>) </span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a>  ..<span class="sc">$</span> trials_to_remove<span class="sc">:</span> <span class="fu">chr</span>(<span class="dv">0</span>) </span></code></pre></div>
 <hr>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(met_results)</span>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(obj)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>Trial <span class="fu">Effects</span> (BLUEs)<span class="sc">:</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>Summary Fitted Models<span class="sc">:</span></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  trait trial predicted.value std.error    status</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> yield    C1       <span class="fl">149.74946</span>  <span class="fl">1.358117</span> Estimable</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> yield    C2        <span class="fl">65.99561</span>  <span class="fl">1.141995</span> Estimable</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> yield    C3        <span class="fl">90.60825</span>  <span class="fl">1.449096</span> Estimable</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> yield    C4       <span class="fl">148.12392</span>  <span class="fl">1.202934</span> Estimable</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> yield    C5       <span class="fl">121.77612</span>  <span class="fl">1.429239</span> Estimable</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> yield    C6        <span class="fl">88.31194</span>  <span class="fl">1.532688</span> Estimable</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>   trait trial heritability        CV    VarGen    VarErr  design</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span> yield    C1         <span class="fl">0.73</span>  <span class="fl">6.022489</span>  <span class="fl">87.39848</span>  <span class="fl">82.86095</span> row_col</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">:</span> yield    C2         <span class="fl">0.37</span> <span class="fl">17.104998</span>  <span class="fl">25.80684</span> <span class="fl">108.68546</span> row_col</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span><span class="sc">:</span> yield    C3         <span class="fl">0.64</span> <span class="fl">12.357202</span>  <span class="fl">83.57907</span> <span class="fl">118.55567</span> row_col</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span><span class="sc">:</span> yield    C4         <span class="fl">0.41</span>  <span class="fl">8.179408</span>  <span class="fl">35.75568</span> <span class="fl">136.21218</span> row_col</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span><span class="sc">:</span> yield    C5         <span class="fl">0.80</span>  <span class="fl">7.037586</span> <span class="fl">103.79822</span>  <span class="fl">66.97523</span> row_col</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span><span class="sc">:</span> yield    C6         <span class="fl">0.49</span> <span class="fl">16.632367</span>  <span class="fl">71.92232</span> <span class="fl">207.53073</span> row_col</span>
 <span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>Heritability<span class="sc">:</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>Outliers Removed<span class="sc">:</span></span>
 <span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  trait        h2</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> yield <span class="fl">0.8239191</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>   trait trial genotype id outlier</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span> yield    C1      G60 <span class="dv">50</span>    <span class="cn">TRUE</span></span>
 <span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>First Overall Predicted Values and Standard <span class="fu">Errors</span> (BLUPs)<span class="sc">:</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>First Predicted Values and Standard <span class="fu">Errors</span> (BLUEs<span class="sc">/</span>BLUPs)<span class="sc">:</span></span>
 <span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>  trait genotype predicted.value std.error    status</span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> yield      G01        <span class="fl">110.4297</span>  <span class="fl">2.528111</span> Estimable</span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> yield      G02        <span class="fl">110.8617</span>  <span class="fl">2.537200</span> Estimable</span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> yield      G03        <span class="fl">102.6812</span>  <span class="fl">2.541066</span> Estimable</span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> yield      G04        <span class="fl">115.4946</span>  <span class="fl">2.533730</span> Estimable</span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> yield      G05        <span class="fl">120.6600</span>  <span class="fl">2.548344</span> Estimable</span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> yield      G06        <span class="fl">108.8297</span>  <span class="fl">2.555281</span> Estimable</span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>Variance<span class="sc">-</span>Covariance Matrix<span class="sc">:</span></span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>Correlation <span class="fu">Matrix</span> (<span class="st">'us'</span>)<span class="sc">:</span> yield</span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>     C1   C2   C3   C4   C5   C6</span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>C1 <span class="fl">1.00</span> <span class="fl">0.57</span> <span class="fl">0.58</span> <span class="fl">0.65</span> <span class="fl">0.95</span> <span class="fl">0.43</span></span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>C2 <span class="fl">0.57</span> <span class="fl">1.00</span> <span class="fl">0.55</span> <span class="fl">0.70</span> <span class="fl">0.52</span> <span class="fl">0.76</span></span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>C3 <span class="fl">0.58</span> <span class="fl">0.55</span> <span class="fl">1.00</span> <span class="fl">0.95</span> <span class="fl">0.72</span> <span class="fl">0.27</span></span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>C4 <span class="fl">0.65</span> <span class="fl">0.70</span> <span class="fl">0.95</span> <span class="fl">1.00</span> <span class="fl">0.75</span> <span class="fl">0.47</span></span>
-<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>C5 <span class="fl">0.95</span> <span class="fl">0.52</span> <span class="fl">0.72</span> <span class="fl">0.75</span> <span class="fl">1.00</span> <span class="fl">0.33</span></span>
-<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>C6 <span class="fl">0.43</span> <span class="fl">0.76</span> <span class="fl">0.27</span> <span class="fl">0.47</span> <span class="fl">0.33</span> <span class="fl">1.00</span></span>
-<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>Covariance <span class="fu">Matrix</span> (<span class="st">'us'</span>)<span class="sc">:</span> yield</span>
-<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>      C1    C2    C3    C4     C5    C6</span>
-<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>C1 <span class="fl">80.57</span> <span class="fl">27.36</span> <span class="fl">46.81</span> <span class="fl">31.67</span>  <span class="fl">85.61</span> <span class="fl">31.17</span></span>
-<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>C2 <span class="fl">27.36</span> <span class="fl">28.90</span> <span class="fl">26.44</span> <span class="fl">20.41</span>  <span class="fl">27.99</span> <span class="fl">33.51</span></span>
-<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>C3 <span class="fl">46.81</span> <span class="fl">26.44</span> <span class="fl">79.66</span> <span class="fl">45.84</span>  <span class="fl">64.54</span> <span class="fl">19.81</span></span>
-<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>C4 <span class="fl">31.67</span> <span class="fl">20.41</span> <span class="fl">45.84</span> <span class="fl">29.28</span>  <span class="fl">40.79</span> <span class="fl">20.76</span></span>
-<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>C5 <span class="fl">85.61</span> <span class="fl">27.99</span> <span class="fl">64.54</span> <span class="fl">40.79</span> <span class="fl">100.60</span> <span class="fl">27.13</span></span>
-<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>C6 <span class="fl">31.17</span> <span class="fl">33.51</span> <span class="fl">19.81</span> <span class="fl">20.76</span>  <span class="fl">27.13</span> <span class="fl">66.66</span></span>
-<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
-<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>First Stability Coefficients<span class="sc">:</span></span>
-<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
-<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>  trait genotype superiority   static    wricke predicted.value</span>
-<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> yield      G57    <span class="fl">22.67503</span> <span class="fl">32.45871</span> <span class="fl">13.962970</span>        <span class="fl">92.45997</span></span>
-<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> yield      G29    <span class="fl">17.27533</span> <span class="fl">34.41794</span>  <span class="fl">4.343501</span>        <span class="fl">99.38429</span></span>
-<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> yield      G34    <span class="fl">17.26249</span> <span class="fl">33.29276</span>  <span class="fl">8.514332</span>        <span class="fl">99.74688</span></span>
-<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> yield      G59    <span class="fl">16.94882</span> <span class="fl">34.39425</span>  <span class="fl">4.798863</span>        <span class="fl">99.87221</span></span>
-<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> yield      G31    <span class="fl">16.23001</span> <span class="fl">31.89042</span> <span class="fl">11.722935</span>       <span class="fl">101.66382</span></span>
-<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> yield      G10    <span class="fl">15.75253</span> <span class="fl">32.02994</span> <span class="fl">11.499867</span>       <span class="fl">102.39802</span></span></code></pre></div>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>   trait genotype trial    BLUEs  seBLUEs    BLUPs  seBLUPs         wt</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span> yield      G01    C1 <span class="fl">141.4161</span> <span class="fl">6.078858</span> <span class="fl">143.5308</span> <span class="fl">5.249771</span> <span class="fl">0.02706176</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">:</span> yield      G02    C1 <span class="fl">157.8110</span> <span class="fl">5.979708</span> <span class="fl">155.8037</span> <span class="fl">5.194547</span> <span class="fl">0.02796663</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span><span class="sc">:</span> yield      G03    C1 <span class="fl">127.3836</span> <span class="fl">6.091534</span> <span class="fl">133.0256</span> <span class="fl">5.269999</span> <span class="fl">0.02694925</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span><span class="sc">:</span> yield      G04    C1 <span class="fl">154.8445</span> <span class="fl">6.093866</span> <span class="fl">153.8364</span> <span class="fl">5.270427</span> <span class="fl">0.02692863</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span><span class="sc">:</span> yield      G05    C1 <span class="fl">163.8950</span> <span class="fl">6.132141</span> <span class="fl">161.1831</span> <span class="fl">5.271809</span> <span class="fl">0.02659352</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span><span class="sc">:</span> yield      G06    C1 <span class="fl">128.5168</span> <span class="fl">6.087902</span> <span class="fl">133.6857</span> <span class="fl">5.247130</span> <span class="fl">0.02698141</span></span></code></pre></div>
+<hr>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(met_results)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>Trial <span class="fu">Effects</span> (BLUEs)<span class="sc">:</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  trait trial predicted.value std.error    status</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> yield    C1       <span class="fl">149.74946</span>  <span class="fl">1.358117</span> Estimable</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> yield    C2        <span class="fl">65.99561</span>  <span class="fl">1.141995</span> Estimable</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> yield    C3        <span class="fl">90.60825</span>  <span class="fl">1.449096</span> Estimable</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> yield    C4       <span class="fl">148.12392</span>  <span class="fl">1.202934</span> Estimable</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> yield    C5       <span class="fl">121.77612</span>  <span class="fl">1.429239</span> Estimable</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> yield    C6        <span class="fl">88.31194</span>  <span class="fl">1.532688</span> Estimable</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>Heritability<span class="sc">:</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  trait        h2</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> yield <span class="fl">0.8239191</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>First Overall Predicted Values and Standard <span class="fu">Errors</span> (BLUPs)<span class="sc">:</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>  trait genotype predicted.value std.error    status</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> yield      G01        <span class="fl">110.4297</span>  <span class="fl">2.528111</span> Estimable</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> yield      G02        <span class="fl">110.8617</span>  <span class="fl">2.537200</span> Estimable</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> yield      G03        <span class="fl">102.6812</span>  <span class="fl">2.541066</span> Estimable</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> yield      G04        <span class="fl">115.4946</span>  <span class="fl">2.533730</span> Estimable</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> yield      G05        <span class="fl">120.6600</span>  <span class="fl">2.548344</span> Estimable</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> yield      G06        <span class="fl">108.8297</span>  <span class="fl">2.555281</span> Estimable</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>Variance<span class="sc">-</span>Covariance Matrix<span class="sc">:</span></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>Correlation <span class="fu">Matrix</span> (<span class="st">'us'</span>)<span class="sc">:</span> yield</span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>     C1   C2   C3   C4   C5   C6</span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>C1 <span class="fl">1.00</span> <span class="fl">0.57</span> <span class="fl">0.58</span> <span class="fl">0.65</span> <span class="fl">0.95</span> <span class="fl">0.43</span></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>C2 <span class="fl">0.57</span> <span class="fl">1.00</span> <span class="fl">0.55</span> <span class="fl">0.70</span> <span class="fl">0.52</span> <span class="fl">0.76</span></span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>C3 <span class="fl">0.58</span> <span class="fl">0.55</span> <span class="fl">1.00</span> <span class="fl">0.95</span> <span class="fl">0.72</span> <span class="fl">0.27</span></span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>C4 <span class="fl">0.65</span> <span class="fl">0.70</span> <span class="fl">0.95</span> <span class="fl">1.00</span> <span class="fl">0.75</span> <span class="fl">0.47</span></span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>C5 <span class="fl">0.95</span> <span class="fl">0.52</span> <span class="fl">0.72</span> <span class="fl">0.75</span> <span class="fl">1.00</span> <span class="fl">0.33</span></span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>C6 <span class="fl">0.43</span> <span class="fl">0.76</span> <span class="fl">0.27</span> <span class="fl">0.47</span> <span class="fl">0.33</span> <span class="fl">1.00</span></span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>Covariance <span class="fu">Matrix</span> (<span class="st">'us'</span>)<span class="sc">:</span> yield</span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a>      C1    C2    C3    C4     C5    C6</span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>C1 <span class="fl">80.57</span> <span class="fl">27.36</span> <span class="fl">46.81</span> <span class="fl">31.67</span>  <span class="fl">85.61</span> <span class="fl">31.17</span></span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a>C2 <span class="fl">27.36</span> <span class="fl">28.90</span> <span class="fl">26.44</span> <span class="fl">20.41</span>  <span class="fl">27.99</span> <span class="fl">33.51</span></span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a>C3 <span class="fl">46.81</span> <span class="fl">26.44</span> <span class="fl">79.66</span> <span class="fl">45.84</span>  <span class="fl">64.54</span> <span class="fl">19.81</span></span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a>C4 <span class="fl">31.67</span> <span class="fl">20.41</span> <span class="fl">45.84</span> <span class="fl">29.28</span>  <span class="fl">40.79</span> <span class="fl">20.76</span></span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a>C5 <span class="fl">85.61</span> <span class="fl">27.99</span> <span class="fl">64.54</span> <span class="fl">40.79</span> <span class="fl">100.60</span> <span class="fl">27.13</span></span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a>C6 <span class="fl">31.17</span> <span class="fl">33.51</span> <span class="fl">19.81</span> <span class="fl">20.76</span>  <span class="fl">27.13</span> <span class="fl">66.66</span></span>
+<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
+<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a>First Stability Coefficients<span class="sc">:</span></span>
+<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------------------------------------------------</span></span>
+<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a>  trait genotype superiority   static    wricke predicted.value</span>
+<span id="cb8-56"><a href="#cb8-56" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> yield      G57    <span class="fl">22.67503</span> <span class="fl">32.45871</span> <span class="fl">13.962970</span>        <span class="fl">92.45997</span></span>
+<span id="cb8-57"><a href="#cb8-57" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> yield      G29    <span class="fl">17.27533</span> <span class="fl">34.41794</span>  <span class="fl">4.343501</span>        <span class="fl">99.38429</span></span>
+<span id="cb8-58"><a href="#cb8-58" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> yield      G34    <span class="fl">17.26249</span> <span class="fl">33.29276</span>  <span class="fl">8.514332</span>        <span class="fl">99.74688</span></span>
+<span id="cb8-59"><a href="#cb8-59" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> yield      G59    <span class="fl">16.94882</span> <span class="fl">34.39425</span>  <span class="fl">4.798863</span>        <span class="fl">99.87221</span></span>
+<span id="cb8-60"><a href="#cb8-60" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> yield      G31    <span class="fl">16.23001</span> <span class="fl">31.89042</span> <span class="fl">11.722935</span>       <span class="fl">101.66382</span></span>
+<span id="cb8-61"><a href="#cb8-61" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> yield      G10    <span class="fl">15.75253</span> <span class="fl">32.02994</span> <span class="fl">11.499867</span>       <span class="fl">102.39802</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -322,6 +342,7 @@
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
+<li><a href="https://cloud.r-project.org/package=agriutilities" class="external-link">View on CRAN</a></li>
 <li><a href="https://github.com/AparicioJohan/agriutilities/" class="external-link">Browse source code</a></li>
 <li><a href="https://github.com/AparicioJohan/agriutilities/issues" class="external-link">Report a bug</a></li>
 </ul>

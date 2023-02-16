@@ -18,12 +18,19 @@ wants to save time and focus on interpreting their results.
 
 ## Installation
 
+### From CRAN
+
+``` r
+install.packages("agriutilities")
+```
+
+### From GitHub
+
 You can install the development version of agriutilities from
 [GitHub](https://github.com/AparicioJohan/agriutilities) with:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("AparicioJohan/agriutilities")
+remotes::install_github("AparicioJohan/agriutilities")
 ```
 
 ## Automatic Data Analysis Pipeline
@@ -80,8 +87,8 @@ multi-environmental trial models.
 
 ``` r
 met_results <- met_analysis(obj, progress = FALSE)
-Online License checked out Mon Feb 13 09:09:21 2023
-Online License checked out Mon Feb 13 09:09:22 2023
+Online License checked out Thu Feb 16 11:50:00 2023
+Online License checked out Thu Feb 16 11:50:01 2023
 ```
 
 ### Inspect the Outputs

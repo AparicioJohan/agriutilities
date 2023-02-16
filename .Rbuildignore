@@ -9,3 +9,8 @@
 ^cran-comments\.md$
 ^CODE_OF_CONDUCT\.md$
 ^CRAN-SUBMISSION$
+^NEWS\.Rmd$
+^NEWS\.md$
+^index\.md$
+^index\.Rmd$
+^cran-comments\.md$
