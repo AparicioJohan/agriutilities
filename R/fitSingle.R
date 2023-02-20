@@ -112,24 +112,10 @@ fit_STA <- function(results, trait, design, remove_outliers, engine, progress) {
     )
   }
   # Heritability
-  h2_cullis <- extractSTA(
-    STA = m_models,
-    what = "heritability"
-  )
-  # VarComps
-  var_gen <- extractSTA(
-    STA = m_models,
-    what = "varGen"
-  )
-  var_error <- extractSTA(
-    STA = m_models,
-    what = "varErr"
-  )
-  # CV
-  coef_var <- extractSTA(
-    STA = m_models,
-    what = "CV"
-  )
+  h2_cullis <- extractSTA(STA = m_models, what = "heritability")
+  var_gen <- extractSTA(STA = m_models, what = "varGen")
+  var_error <- extractSTA(STA = m_models, what = "varErr")
+  coef_var <- extractSTA(STA = m_models, what = "CV")
   names(h2_cullis)[2] <- "heritability"
   names(var_gen)[2] <- "VarGen"
   names(var_error)[2] <- "VarErr"
@@ -151,10 +137,7 @@ fit_STA <- function(results, trait, design, remove_outliers, engine, progress) {
   )
   blues_blups <- blues_td
   # standardized residuals
-  std_res <- extractSTA(
-    STA = m_models,
-    what = "stdResR"
-  )
+  std_res <- extractSTA(STA = m_models, what = "stdResR")
   std_residuals <- std_res
   out <- list(
     fitted_models = fitted_models,
