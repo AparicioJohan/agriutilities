@@ -45,8 +45,8 @@ extract_vcov <- function(model = NULL,
                          vc_model = "corv") {
   sites <- data.frame(model$mf)[, env]
   s <- nlevels(sites)
-
   vc <- summary(model)$varcomp
+
   VCOV <- matrix(0, ncol = s, nrow = s)
   CORR <- matrix(0, ncol = s, nrow = s)
   diag(CORR) <- rep(1, s)
@@ -179,6 +179,10 @@ extract_vcov <- function(model = NULL,
   colnames(CORR) <- levels(sites)
   rownames(VCOV) <- levels(sites)
   rownames(CORR) <- levels(sites)
-
-  return(list(VCOV = VCOV, CORR = CORR, vc_model = vc_model))
+  objt <- list(
+    VCOV = VCOV,
+    CORR = CORR,
+    vc_model = vc_model
+  )
+  return(objt)
 }
