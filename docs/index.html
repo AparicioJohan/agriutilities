@@ -116,9 +116,7 @@
 <img src="logo.png" class="logo" alt=""><h1 id="agriutilities-">agriutilities <a class="anchor" aria-label="anchor" href="#agriutilities-"></a>
 </h1>
 </div>
-<!-- badges: start -->
-<!-- badges: end -->
-<p>agriutilities is an <code>R</code> package designed to make the analysis of field trials easier and more accessible for everyone working in plant breeding. It provides a simple and intuitive interface for conducting <strong>single</strong> and <strong>multi-environmental</strong> trial analysis, with minimal coding required. Whether you’re a beginner or an experienced user, agriutilities will help you quickly and easily carry out complex analyses with confidence. With built-in functions for fitting Linear Mixed Models (<strong>LMM</strong>), agriutilities is the ideal choice for anyone who wants to save time and focus on interpreting their results.</p>
+<!-- badges: start --><!-- badges: end --><p>agriutilities is an <code>R</code> package designed to make the analysis of field trials easier and more accessible for everyone working in plant breeding. It provides a simple and intuitive interface for conducting <strong>single</strong> and <strong>multi-environmental</strong> trial analysis, with minimal coding required. Whether you’re a beginner or an experienced user, agriutilities will help you quickly and easily carry out complex analyses with confidence. With built-in functions for fitting Linear Mixed Models (<strong>LMM</strong>), agriutilities is the ideal choice for anyone who wants to save time and focus on interpreting their results.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -164,9 +162,7 @@
 <h3 id="single-trial-analysis-sta">Single Trial Analysis (STA)<a class="anchor" aria-label="anchor" href="#single-trial-analysis-sta"></a>
 </h3>
 <p>The results of the previous function are used in <code><a href="reference/single_trial_analysis.html">single_trial_analysis()</a></code> to fit single trial models. This function can fit, Completely Randomized Designs (<strong>CRD</strong>), Randomized Complete Block Designs (<strong>RCBD</strong>), Resolvable Incomplete Block Designs (<strong>res-IBD</strong>), Non-Resolvable Row-Column Designs (<strong>Row-Col</strong>) and Resolvable Row-Column Designs (<strong>res-Row-Col</strong>).</p>
-<blockquote>
-<p><strong>NOTE</strong>: It fits models based on the randomization detected.</p>
-</blockquote>
+<blockquote><p><strong>NOTE</strong>: It fits models based on the randomization detected.</p></blockquote>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/single_trial_analysis.html">single_trial_analysis</a></span><span class="op">(</span><span class="va">results</span>, progress <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p>The returning object is a set of lists with trial summary, BLUEs, BLUPs, heritability, variance components, potential extreme observations, residuals, the models fitted and the data used.</p>
@@ -176,8 +172,8 @@
 </h3>
 <p>The results of the previous function are used in <code><a href="reference/met_analysis.html">met_analysis()</a></code> to fit multi-environmental trial models.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>met_results <span class="ot">&lt;-</span> <span class="fu">met_analysis</span>(obj, <span class="at">progress =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>Online License checked out Thu Feb <span class="dv">16</span> <span class="dv">11</span><span class="sc">:</span><span class="dv">50</span><span class="sc">:</span><span class="dv">00</span> <span class="dv">2023</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>Online License checked out Thu Feb <span class="dv">16</span> <span class="dv">11</span><span class="sc">:</span><span class="dv">50</span><span class="sc">:</span><span class="dv">01</span> <span class="dv">2023</span></span></code></pre></div>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>Online License checked out Fri Feb <span class="dv">24</span> <span class="dv">09</span><span class="sc">:</span><span class="dv">01</span><span class="sc">:</span><span class="dv">24</span> <span class="dv">2023</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>Online License checked out Fri Feb <span class="dv">24</span> <span class="dv">09</span><span class="sc">:</span><span class="dv">01</span><span class="sc">:</span><span class="dv">25</span> <span class="dv">2023</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="inspect-the-outputs">Inspect the Outputs<a class="anchor" aria-label="anchor" href="#inspect-the-outputs"></a>
@@ -331,6 +327,7 @@
 <span id="cb8-59"><a href="#cb8-59" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> yield      G59    <span class="fl">16.94882</span> <span class="fl">34.39425</span>  <span class="fl">4.798863</span>        <span class="fl">99.87221</span></span>
 <span id="cb8-60"><a href="#cb8-60" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> yield      G31    <span class="fl">16.23001</span> <span class="fl">31.89042</span> <span class="fl">11.722935</span>       <span class="fl">101.66382</span></span>
 <span id="cb8-61"><a href="#cb8-61" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> yield      G10    <span class="fl">15.75253</span> <span class="fl">32.02994</span> <span class="fl">11.499867</span>       <span class="fl">102.39802</span></span></code></pre></div>
+<p>For more information and to learn more about what is describe here you may find useful the following sources: Isik, Holland, and Maltecca (2017); Rodriguez-Alvarez et al. (2018).</p>
 </div>
 </div>
 <div class="section level2">
@@ -339,6 +336,15 @@
 <p>Please note that the agriutilities project is released with a <a href="https://apariciojohan.github.io/agriutilities/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 </div>
 </div>
+<div class="section level1">
+<h1 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h1>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-isik2017genetic" class="csl-entry">Isik, Fikret, James Holland, and Christian Maltecca. 2017. <em>Genetic Data Analysis for Plant and Animal Breeding</em>. Vol. 400. Springer.</div>
+<div id="ref-rodriguez2018correcting" class="csl-entry">Rodriguez-Alvarez, Maria Xose, Martin P Boer, Fred A van Eeuwijk, and Paul HC Eilers. 2018. “Correcting for Spatial Heterogeneity in Plant Breeding Experiments with p-Splines.” <em>Spatial Statistics</em> 23: 52–71.</div>
+</div>
+</div>
+
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">

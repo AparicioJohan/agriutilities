@@ -1,5 +1,6 @@
 ---
 output: github_document
+bibliography: ./vignettes/bibliography.bib
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -120,7 +121,15 @@ print(obj)
 print(met_results)
 ```
 
+For more information and to learn more about what is describe here you may find 
+useful the following sources: @isik2017genetic; @rodriguez2018correcting.
+
 ## Code of Conduct
 
 Please note that the agriutilities project is released with a [Contributor Code of Conduct](https://apariciojohan.github.io/agriutilities/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
+
+# References
+
+
+
 

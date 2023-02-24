@@ -87,8 +87,8 @@ multi-environmental trial models.
 
 ``` r
 met_results <- met_analysis(obj, progress = FALSE)
-Online License checked out Thu Feb 16 11:50:00 2023
-Online License checked out Thu Feb 16 11:50:01 2023
+Online License checked out Fri Feb 24 09:01:24 2023
+Online License checked out Fri Feb 24 09:01:25 2023
 ```
 
 ### Inspect the Outputs
@@ -253,9 +253,34 @@ First Stability Coefficients:
 6 yield      G10    15.75253 32.02994 11.499867       102.39802
 ```
 
+For more information and to learn more about what is describe here you
+may find useful the following sources: Isik, Holland, and Maltecca
+(2017); Rodriguez-Alvarez et al. (2018).
+
 ## Code of Conduct
 
 Please note that the agriutilities project is released with a
 [Contributor Code of
 Conduct](https://apariciojohan.github.io/agriutilities/CODE_OF_CONDUCT.html).
 By contributing to this project, you agree to abide by its terms.
+
+# References
+
+<div id="refs" class="references csl-bib-body hanging-indent">
+
+<div id="ref-isik2017genetic" class="csl-entry">
+
+Isik, Fikret, James Holland, and Christian Maltecca. 2017. *Genetic Data
+Analysis for Plant and Animal Breeding*. Vol. 400. Springer.
+
+</div>
+
+<div id="ref-rodriguez2018correcting" class="csl-entry">
+
+Rodriguez-Alvarez, Maria Xose, Martin P Boer, Fred A van Eeuwijk, and
+Paul HC Eilers. 2018. “Correcting for Spatial Heterogeneity in Plant
+Breeding Experiments with p-Splines.” *Spatial Statistics* 23: 52–71.
+
+</div>
+
+</div>

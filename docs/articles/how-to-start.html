@@ -110,10 +110,7 @@
 <div class="section level2">
 <h2 id="identify-the-experimental-design">Identify the Experimental Design<a class="anchor" aria-label="anchor" href="#identify-the-experimental-design"></a>
 </h2>
-<p>The function <code>check_design_met</code> helps us to check the
-quality of the data and also to identify the experimental design of the
-trials. This works as a quality check or quality control before we fit
-any model.</p>
+<p>The function <code>check_design_met</code> helps us to check the quality of the data and also to identify the experimental design of the trials. This works as a quality check or quality control before we fit any model.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/AparicioJohan/agriutilities" class="external-link">agriutilities</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://kwstat.github.io/agridat/" class="external-link">agridat</a></span><span class="op">)</span></span>
@@ -193,8 +190,7 @@ any model.</p>
 <div class="section level2">
 <h2 id="single-trial-analysis">Single Trial Analysis<a class="anchor" aria-label="anchor" href="#single-trial-analysis"></a>
 </h2>
-<p>The results of the previous function are used in
-<code><a href="../reference/single_trial_analysis.html">single_trial_analysis()</a></code> to fit single trial models.</p>
+<p>The results of the previous function are used in <code><a href="../reference/single_trial_analysis.html">single_trial_analysis()</a></code> to fit single trial models.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/single_trial_analysis.html">single_trial_analysis</a></span><span class="op">(</span><span class="va">results</span>, progress <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span></span>
@@ -229,16 +225,15 @@ any model.</p>
 <div class="section level2">
 <h2 id="multi-environmental-trial-analysis">Multi-Environmental Trial Analysis<a class="anchor" aria-label="anchor" href="#multi-environmental-trial-analysis"></a>
 </h2>
-<p>The results of the previous function are used in
-<code><a href="../reference/met_analysis.html">met_analysis()</a></code> to fit multi-environmental trial models.</p>
+<p>The results of the previous function are used in <code><a href="../reference/met_analysis.html">met_analysis()</a></code> to fit multi-environmental trial models.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"asreml"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">met_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/met_analysis.html">met_analysis</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">met_results</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
-<span><span class="co">#&gt; Online License checked out Thu Feb 16 11:53:07 2023</span></span>
+<span><span class="co">#&gt; Online License checked out Fri Feb 24 09:02:30 2023</span></span>
 <span><span class="co">#&gt; Fitting MET model for yield.</span></span>
-<span><span class="co">#&gt; Online License checked out Thu Feb 16 11:53:08 2023</span></span>
+<span><span class="co">#&gt; Online License checked out Fri Feb 24 09:02:31 2023</span></span>
 <span><span class="co">#&gt; ---------------------------------------------------------------------</span></span>
 <span><span class="co">#&gt; Trial Effects (BLUEs):</span></span>
 <span><span class="co">#&gt; ---------------------------------------------------------------------</span></span>
