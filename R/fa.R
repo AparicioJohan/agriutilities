@@ -44,13 +44,15 @@ covcor_heat <- function(matrix, corr = TRUE, size = 4, digits = 3) {
     matrix <- reorder_cormat(matrix)
   }
   upper_tri <- as.data.frame(get_upper_tri(matrix))
-  upper_tri[, "col"] <- colnames(upper_tri)
+  col_names <- colnames(upper_tri)
+  upper_tri[, "col"] <- factor(x = col_names, levels = col_names)
   melted_cormat <- tidyr::gather(
     data = upper_tri,
     key = "row",
     value = "value",
     -col,
-    na.rm = TRUE
+    na.rm = TRUE,
+    factor_key = TRUE
   )
   colnames(melted_cormat) <- c("Var1", "Var2", "value")
 
