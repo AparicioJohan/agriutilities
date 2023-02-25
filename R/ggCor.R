@@ -43,7 +43,7 @@
 #' @author Daniel Ariza, Johan Aparicio.
 #' @importFrom stats na.omit
 gg_cor <- function(data,
-                   colours = c("#db4437", "white", "#FF9D00"),
+                   colours = c("#db4437", "white", "#4285f4"),
                    blackLabs = c(-0.7, 0.7),
                    showSignif = TRUE,
                    pBreaks = c(0, .001, .01, .05, Inf),
@@ -54,14 +54,11 @@ gg_cor <- function(data,
                    returnN = FALSE,
                    adjusted = TRUE,
                    label_size = 3) {
-
   # Drop non numeric columns in the dataset
   if (sum(!sapply(data, is.numeric))) {
     message(
       "Dropping non-numeric columns in the dataset:\n",
-      paste(names(which(!sapply(data, is.numeric))),
-        collapse = "\t"
-      )
+      paste(names(which(!sapply(data, is.numeric))), collapse = "\t")
     )
     data <- data[, sapply(data, is.numeric)]
   }
@@ -74,7 +71,10 @@ gg_cor <- function(data,
   cors <- cors[c(1, 2, 4)]
   # Make sure you have a full matrix of N shared samples
   if (is.vector(cors$n)) {
-    cors$n <- matrix(cors$n, ncol(cors$p), nrow(cors$p),
+    cors$n <- matrix(
+      data = cors$n,
+      ncol =  ncol(cors$p),
+      nrow = nrow(cors$p),
       dimnames = dimnames(cors$p)
     )
   }
@@ -86,7 +86,7 @@ gg_cor <- function(data,
     x <- as.data.frame(t(x))
     # Reshape the matrix to tidy format
     x[, "col"] <- colnames(x)
-    x <- reshape::melt(x, id = "col")
+    x <- tidyr::gather(data = x, key = "row", value = "value", -col)
     colnames(x) <- c("col", "row", "value")
     # Round coefficients
     x$name <- round(x$value, 2)
@@ -160,7 +160,7 @@ gg_cor <- function(data,
         "These elements in 'Diag' do not correspond to column names in
         'data':\n",
         paste(names(Diag)[!names(Diag) %in% colnames(data)],
-          collapse = "\t"
+              collapse = "\t"
         )
       )
     }

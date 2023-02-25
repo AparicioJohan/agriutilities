@@ -6,7 +6,7 @@
 \usage{
 gg_cor(
   data,
-  colours = c("#db4437", "white", "#FF9D00"),
+  colours = c("#db4437", "white", "#4285f4"),
   blackLabs = c(-0.7, 0.7),
   showSignif = TRUE,
   pBreaks = c(0, 0.001, 0.01, 0.05, Inf),

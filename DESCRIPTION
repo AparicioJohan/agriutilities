@@ -27,7 +27,6 @@ License: MIT + file LICENSE
 Imports:
     ggplot2,
     psych,
-    reshape,
     dplyr,
     tidyr,
     lme4,
