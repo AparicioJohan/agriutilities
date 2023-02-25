@@ -38,7 +38,6 @@ Imports:
     magrittr,
     emmeans,
     ggrepel,
-    reshape2,
     tibble,
     rlang,
     statgenSTA,
