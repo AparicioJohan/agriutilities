@@ -556,3 +556,68 @@ plot.smaAgri <- function(x,
 
   return(C)
 }
+
+
+#' Plot an object of class \code{metAgri}
+#'
+#' @description Create several plots for an object of class \code{metAgri}
+#' @aliases plot.metAgri
+#' @param x An object inheriting from class \code{metAgri} resulting of
+#' executing the function \code{met_analysis()}
+#' @param type A character string specifiying the type of plot. "corr" or "cov".
+#' @param ... Further graphical parameters passed to \code{covcor_heat()}.
+#' @author Johan Aparicio [aut]
+#' @method plot metAgri
+#' @return A ggplot object.
+#' @importFrom ggpubr ggarrange
+#' @export
+#' @examples
+#' \dontrun{
+#' library(agridat)
+#' library(agriutilities)
+#' data(besag.met)
+#' dat <- besag.met
+#' results <- check_design_met(
+#'   data = dat,
+#'   genotype = "gen",
+#'   trial = "county",
+#'   traits = c("yield"),
+#'   rep = "rep",
+#'   block = "block",
+#'   col = "col",
+#'   row = "row"
+#' )
+#' out <- single_trial_analysis(results, progress = FALSE)
+#' met_results <- met_analysis(out, progress = FALSE)
+#' print(met_results)
+#' plot(met_results, type = "corr")
+#' plot(met_results, type = "cov")
+#' }
+plot.metAgri <- function(x, type = c("corr", "cov"), ...) {
+  type <- match.arg(type)
+
+  if (type %in% c("corr", "cov")) {
+    vars <- names(x$VCOV)
+    plot_list <- list()
+    for (i in vars) {
+      if (type == "corr") {
+        mat <- x$VCOV[[i]]$CORR
+      } else {
+        mat <- x$VCOV[[i]]$VCOV
+      }
+      vcov <- x$VCOV[[i]]$vc_model
+      plot_list[[i]] <- covcor_heat(
+        matrix = mat,
+        corr = ifelse(test = type == "corr", yes = TRUE, no = FALSE),
+        ...
+      ) +
+        ggtitle(label = paste0(i, " ('", vcov, "')"))
+    }
+    out <- ggarrange(
+      plotlist = plot_list,
+      common.legend = TRUE,
+      legend = "none"
+    )
+  }
+  return(out)
+}

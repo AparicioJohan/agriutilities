@@ -2,6 +2,7 @@
 
 ## Minor changes/fixes
 
+  * Add S3 method to plot an object of class metAgri `plot.metAgri()`.
   * Add S3 method to plot an object of class smaAgri `plot.smaAgri()`.
   * Fix argument not working in `covcor_heat()`.
 
