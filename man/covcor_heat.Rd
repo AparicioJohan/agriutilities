@@ -4,7 +4,7 @@
 \alias{covcor_heat}
 \title{Correlation Covariance Heatmap}
 \usage{
-covcor_heat(matrix, corr = TRUE, size = 4, digits = 3)
+covcor_heat(matrix, corr = TRUE, size = 4, digits = 3, legend = c(0.6, 0.7))
 }
 \arguments{
 \item{matrix}{A numeric matrix.}
@@ -15,6 +15,9 @@ covcor_heat(matrix, corr = TRUE, size = 4, digits = 3)
 \item{size}{A numeric value to define the letter size.}
 
 \item{digits}{A numeric integer to define the number of digits to plot.}
+
+\item{legend}{the position of legends ("none", "left", "right", "bottom",
+"top", or two-element numeric vector)}
 }
 \value{
 A ggplot object showing the upper triangular elements of the matrix.
