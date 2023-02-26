@@ -26,7 +26,7 @@
 #' M <- cor(iris[, -5])
 #' covcor_heat(matrix = M, corr = TRUE)
 covcor_heat <- function(matrix, corr = TRUE, size = 4, digits = 3) {
-  matrix <- round(x = matrix, digits = 3)
+  matrix <- round(x = matrix, digits = digits)
 
   # Get upper triangle of the correlation matrix
   get_upper_tri <- function(cormat) {
