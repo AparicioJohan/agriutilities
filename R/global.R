@@ -71,6 +71,9 @@ utils::globalVariables(
     "trial_y",
     "trial_x",
     "size_reps",
-    "reps_equal"
+    "reps_equal",
+    "BLUPs",
+    "component",
+    "design"
   )
 )
