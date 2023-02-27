@@ -39,6 +39,8 @@ reference:
   - print.smaAgri
   - print.metAgri
   - plot.checkAgri
+  - plot.smaAgri
+  - plot.metAgri
 - title: Lme4
   desc: Additional functions for lme4 models
 - contents:
