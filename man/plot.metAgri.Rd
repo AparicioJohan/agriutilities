@@ -4,13 +4,24 @@
 \alias{plot.metAgri}
 \title{Plot an object of class \code{metAgri}}
 \usage{
-\method{plot}{metAgri}(x, type = c("corr", "cov"), ...)
+\method{plot}{metAgri}(
+  x,
+  type = c("correlation", "covariance", "multi_traits"),
+  filter_traits = NULL,
+  text_size = 4,
+  ...
+)
 }
 \arguments{
 \item{x}{An object inheriting from class \code{metAgri} resulting of
 executing the function \code{met_analysis()}}
 
-\item{type}{A character string specifiying the type of plot. "corr" or "cov".}
+\item{type}{A character string specifying the type of plot. "correlation",
+"covariance" or "multi_traits"}
+
+\item{filter_traits}{An optional character vector to filter traits.}
+
+\item{text_size}{Numeric input to define the text size.}
 
 \item{...}{Further graphical parameters passed to \code{covcor_heat()}.}
 }
@@ -39,8 +50,8 @@ results <- check_design_met(
 out <- single_trial_analysis(results, progress = FALSE)
 met_results <- met_analysis(out, progress = FALSE)
 print(met_results)
-plot(met_results, type = "corr")
-plot(met_results, type = "cov")
+plot(met_results, type = "correlation")
+plot(met_results, type = "covariance")
 }
 }
 \author{

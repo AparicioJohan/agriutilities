@@ -564,7 +564,10 @@ plot.smaAgri <- function(x,
 #' @aliases plot.metAgri
 #' @param x An object inheriting from class \code{metAgri} resulting of
 #' executing the function \code{met_analysis()}
-#' @param type A character string specifiying the type of plot. "corr" or "cov".
+#' @param type A character string specifying the type of plot. "correlation",
+#' "covariance" or "multi_traits"
+#' @param filter_traits An optional character vector to filter traits.
+#' @param text_size Numeric input to define the text size.
 #' @param ... Further graphical parameters passed to \code{covcor_heat()}.
 #' @author Johan Aparicio [aut]
 #' @method plot metAgri
@@ -590,17 +593,30 @@ plot.smaAgri <- function(x,
 #' out <- single_trial_analysis(results, progress = FALSE)
 #' met_results <- met_analysis(out, progress = FALSE)
 #' print(met_results)
-#' plot(met_results, type = "corr")
-#' plot(met_results, type = "cov")
+#' plot(met_results, type = "correlation")
+#' plot(met_results, type = "covariance")
 #' }
-plot.metAgri <- function(x, type = c("corr", "cov"), ...) {
+plot.metAgri <- function(x,
+                         type = c("correlation", "covariance", "multi_traits"),
+                         filter_traits = NULL,
+                         text_size = 4, ...) {
   type <- match.arg(type)
 
-  if (type %in% c("corr", "cov")) {
-    vars <- names(x$VCOV)
+  traits <- x$overall_BLUPs %>%
+    {
+      if (!is.null(filter_traits)) {
+        filter(.data = ., trait %in% filter_traits)
+      } else {
+        .
+      }
+    } %>%
+    pull(trait) %>%
+    unique()
+
+  if (type %in% c("correlation", "covariance")) {
     plot_list <- list()
-    for (i in vars) {
-      if (type == "corr") {
+    for (i in traits) {
+      if (type == "correlation") {
         mat <- x$VCOV[[i]]$CORR
       } else {
         mat <- x$VCOV[[i]]$VCOV
@@ -608,7 +624,8 @@ plot.metAgri <- function(x, type = c("corr", "cov"), ...) {
       vcov <- x$VCOV[[i]]$vc_model
       plot_list[[i]] <- covcor_heat(
         matrix = mat,
-        corr = ifelse(test = type == "corr", yes = TRUE, no = FALSE),
+        corr = ifelse(test = type == "correlation", yes = TRUE, no = FALSE),
+        size = text_size,
         ...
       ) +
         ggtitle(label = paste0(i, " ('", vcov, "')"))
@@ -618,6 +635,29 @@ plot.metAgri <- function(x, type = c("corr", "cov"), ...) {
       common.legend = TRUE,
       legend = "none"
     )
+  }
+
+  if (type %in% "multi_traits") {
+    if (length(traits) <= 1) {
+      stop("Plot only available when there is more than one trait.")
+    }
+    tmp <- x$overall_BLUPs %>%
+      filter(trait %in% traits) %>%
+      select(genotype, trait, predicted.value) %>%
+      spread(trait, predicted.value) %>%
+      select(-genotype)
+    h2 <- x$heritability %>%
+      filter(trait %in% traits) %>%
+      droplevels() %>%
+      pull(h2, name = trait) %>%
+      round(., 3)
+    out <- gg_cor(
+      data = tmp,
+      colours = c("#db4437", "white", "#4285f4"),
+      Diag = h2,
+      label_size = text_size
+    ) +
+      ggtitle("Correlation")
   }
   return(out)
 }
