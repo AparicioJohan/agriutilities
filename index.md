@@ -3,18 +3,6 @@
 
 # agriutilities <img src="man/figures/logo.png" align="right" width="160px"/></a>
 
-<!-- badges: start -->
-
-[![CRAN
-status](https://www.r-pkg.org/badges/version/agriutilities)](https://CRAN.R-project.org/package=agriutilities)
-[![Lifecycle:
-stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
-[![CRAN RStudio mirror
-downloads](https://cranlogs.r-pkg.org/badges/last-month/agriutilities?color=blue)](https://r-pkg.org/pkg/agriutilities)
-[![CRAN RStudio mirror
-downloads](https://cranlogs.r-pkg.org/badges/grand-total/agriutilities?color=blue)](https://r-pkg.org/pkg/agriutilities)
-<!-- badges: end -->
-
 agriutilities is an `R` package designed to make the analysis of field
 trials easier and more accessible for everyone working in plant
 breeding. It provides a simple and intuitive interface for conducting
@@ -120,8 +108,8 @@ multi-environmental trial models.
 
 ``` r
 met_results <- met_analysis(obj, progress = FALSE)
-Online License checked out Tue Mar  7 09:28:12 2023
-Online License checked out Tue Mar  7 09:28:15 2023
+Online License checked out Tue Mar  7 09:29:36 2023
+Online License checked out Tue Mar  7 09:29:37 2023
 ```
 
 ### Inspect the Outputs
