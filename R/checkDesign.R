@@ -148,8 +148,10 @@ check_design_met <- function(data = NULL,
     gather(data = ., key = "traits", value = "value", -.data[[trial]]) %>%
     group_by(.data[[trial]], traits) %>%
     summarise(
+      Min = min(value, na.rm = TRUE),
       Mean = mean(value, na.rm = TRUE),
       Median = median(value, na.rm = TRUE),
+      Max = max(value, na.rm = TRUE),
       SD = sd(value, na.rm = TRUE),
       CV = SD / Mean,
       n = n(),
@@ -171,6 +173,8 @@ check_design_met <- function(data = NULL,
       n_block = n_distinct(.data[[block]], na.rm = TRUE),
       n_col = n_distinct(.data[[col]], na.rm = TRUE),
       n_row = n_distinct(.data[[row]], na.rm = TRUE),
+      n_col = ifelse(n_col <= 3, NA, n_col),
+      n_row = ifelse(n_row <= 3, NA, n_row),
       num_of_reps = paste(sort(unique(gen_reps)), collapse = "_"),
       num_of_gen = paste(
         table(gen_reps) / sort(unique(gen_reps)),
