@@ -79,6 +79,12 @@ plot(results, type = "missing")
 ```
 
 
+Inspecting the output.
+
+```{r}
+print(results)
+```
+
 
 ### Single Trial Analysis (STA)
 
@@ -93,6 +99,13 @@ and Resolvable Row-Column Designs (**res-Row-Col**).
 ```{r}
 obj <- single_trial_analysis(results, progress = FALSE)
 ```
+
+Inspecting the output.
+
+```{r}
+print(obj)
+```
+
 ```{r}
 plot(obj, horizontal = TRUE, nudge_y_h2 = 0.12)
 plot(obj, type = "correlation")
@@ -106,26 +119,35 @@ the models fitted and the data used.
 The results of the previous function are used in `met_analysis()` to 
 fit multi-environmental trial models.
 
-```{r}
-met_results <- met_analysis(obj, progress = FALSE)
+```{r, message=FALSE, warning=FALSE}
+met_results <- met_analysis(obj, vcov = "fa2", progress = FALSE)
 ```
 
-### Inspect the Outputs
-
-```{r}
-print(results)
-```
-
-<hr>
-
-```{r}
-print(obj)
-```
-
-<hr>
+Inspecting the output.
 
 ```{r}
 print(met_results)
+```
+
+### Exploring Factor Analytic in MET analysis.
+
+```{r}
+pvals <- met_results$trial_effects
+model <- met_results$met_models$yield
+fa_objt <- fa_summary(
+  model = model,
+  trial = "trial",
+  genotype = "genotype",
+  BLUEs_trial = pvals,
+  k_biplot = 8,
+  size_label_var = 4,
+  filter_score = 1
+)
+```
+
+```{r}
+fa_objt$plots$loadings_c
+fa_objt$plots$biplot
 ```
 
 For more information and to learn more about what is describe here you may find 
@@ -133,10 +155,8 @@ useful the following sources: @isik2017genetic; @rodriguez2018correcting.
 
 ## Code of Conduct
 
-Please note that the agriutilities project is released with a [Contributor Code of Conduct](https://apariciojohan.github.io/agriutilities/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
+Please note that the agriutilities project is released with a [Contributor Code of Conduct](https://apariciojohan.github.io/agriutilities/CODE_OF_CONDUCT.html). 
+By contributing to this project, you agree to abide by its terms.
 
 # References
-
-
-
 

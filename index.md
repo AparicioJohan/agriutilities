@@ -70,64 +70,22 @@ plot(results, type = "missing")
 
 <img src="man/figures/README-unnamed-chunk-2-2.png" width="100%" />
 
-### Single Trial Analysis (STA)
-
-The results of the previous function are used in
-`single_trial_analysis()` to fit single trial models. This function can
-fit, Completely Randomized Designs (**CRD**), Randomized Complete Block
-Designs (**RCBD**), Resolvable Incomplete Block Designs (**res-IBD**),
-Non-Resolvable Row-Column Designs (**Row-Col**) and Resolvable
-Row-Column Designs (**res-Row-Col**).
-
-> **NOTE**: It fits models based on the randomization detected.
-
-``` r
-obj <- single_trial_analysis(results, progress = FALSE)
-```
-
-``` r
-plot(obj, horizontal = TRUE, nudge_y_h2 = 0.12)
-```
-
-<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
-
-``` r
-plot(obj, type = "correlation")
-```
-
-<img src="man/figures/README-unnamed-chunk-4-2.png" width="100%" />
-
-The returning object is a set of lists with trial summary, BLUEs, BLUPs,
-heritability, variance components, potential extreme observations,
-residuals, the models fitted and the data used.
-
-### Two-Stage Analysis (MET)
-
-The results of the previous function are used in `met_analysis()` to fit
-multi-environmental trial models.
-
-``` r
-met_results <- met_analysis(obj, progress = FALSE)
-Online License checked out Tue Mar  7 09:29:36 2023
-Online License checked out Tue Mar  7 09:29:37 2023
-```
-
-### Inspect the Outputs
+Inspecting the output.
 
 ``` r
 print(results)
 ---------------------------------------------------------------------
 Summary Traits by Trial:
 ---------------------------------------------------------------------
-# A tibble: 6 x 9
-  county traits  Mean Median    SD    CV     n n_miss miss_perc
-  <fct>  <chr>  <dbl>  <dbl> <dbl> <dbl> <int>  <int>     <dbl>
-1 C1     yield  149.   151.   17.7 0.119   198      6    0.0303
-2 C2     yield   56.1   52.1  18.4 0.328   198      6    0.0303
-3 C3     yield   87.9   89.2  19.7 0.225   198      6    0.0303
-4 C4     yield  145.   143.   17.1 0.118   198      6    0.0303
-5 C5     yield  115.   116.   16.4 0.142   198      6    0.0303
-6 C6     yield   87.6   87.8  26.6 0.304   198      6    0.0303
+# A tibble: 6 x 11
+  county traits   Min  Mean Median   Max    SD    CV     n n_miss miss_perc
+  <fct>  <chr>  <dbl> <dbl>  <dbl> <dbl> <dbl> <dbl> <int>  <int>     <dbl>
+1 C1     yield   87.9 149.   151.   200.  17.7 0.119   198      6    0.0303
+2 C2     yield   24.4  56.1   52.1  125.  18.4 0.328   198      6    0.0303
+3 C3     yield   28.2  87.9   89.2  137.  19.7 0.225   198      6    0.0303
+4 C4     yield  103.  145.   143.   190.  17.1 0.118   198      6    0.0303
+5 C5     yield   66.9 115.   116.   152.  16.4 0.142   198      6    0.0303
+6 C6     yield   29.2  87.6   87.8  148.  26.6 0.304   198      6    0.0303
 
 ---------------------------------------------------------------------
 Experimental Design Detected:
@@ -175,7 +133,22 @@ List of 1
   ..$ trials_to_remove: chr(0) 
 ```
 
-<hr>
+### Single Trial Analysis (STA)
+
+The results of the previous function are used in
+`single_trial_analysis()` to fit single trial models. This function can
+fit, Completely Randomized Designs (**CRD**), Randomized Complete Block
+Designs (**RCBD**), Resolvable Incomplete Block Designs (**res-IBD**),
+Non-Resolvable Row-Column Designs (**Row-Col**) and Resolvable
+Row-Column Designs (**res-Row-Col**).
+
+> **NOTE**: It fits models based on the randomization detected.
+
+``` r
+obj <- single_trial_analysis(results, progress = FALSE)
+```
+
+Inspecting the output.
 
 ``` r
 print(obj)
@@ -208,7 +181,34 @@ First Predicted Values and Standard Errors (BLUEs/BLUPs):
 6: yield      G06    C1 128.5168 6.087902 133.6857 5.247130 0.02698141
 ```
 
-<hr>
+``` r
+plot(obj, horizontal = TRUE, nudge_y_h2 = 0.12)
+```
+
+<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
+
+``` r
+plot(obj, type = "correlation")
+```
+
+<img src="man/figures/README-unnamed-chunk-6-2.png" width="100%" />
+
+The returning object is a set of lists with trial summary, BLUEs, BLUPs,
+heritability, variance components, potential extreme observations,
+residuals, the models fitted and the data used.
+
+### Two-Stage Analysis (MET)
+
+The results of the previous function are used in `met_analysis()` to fit
+multi-environmental trial models.
+
+``` r
+met_results <- met_analysis(obj, vcov = "fa2", progress = FALSE)
+Online License checked out Thu Mar 16 09:28:09 2023
+Online License checked out Thu Mar 16 09:28:10 2023
+```
+
+Inspecting the output.
 
 ``` r
 print(met_results)
@@ -216,63 +216,91 @@ print(met_results)
 Trial Effects (BLUEs):
 ---------------------------------------------------------------------
   trait trial predicted.value std.error    status
-1 yield    C1       149.74946  1.358117 Estimable
-2 yield    C2        65.99561  1.141995 Estimable
-3 yield    C3        90.60825  1.449096 Estimable
-4 yield    C4       148.12392  1.202934 Estimable
-5 yield    C5       121.77612  1.429239 Estimable
-6 yield    C6        88.31194  1.532688 Estimable
+1 yield    C1       149.75463  1.357203 Estimable
+2 yield    C2        65.99443  1.140633 Estimable
+3 yield    C3        90.60647  1.445419 Estimable
+4 yield    C4       148.12551  1.172065 Estimable
+5 yield    C5       121.77655  1.434386 Estimable
+6 yield    C6        88.31651  1.532150 Estimable
 
 ---------------------------------------------------------------------
 Heritability:
 ---------------------------------------------------------------------
   trait        h2
-1 yield 0.8239191
+1 yield 0.8253127
 
 ---------------------------------------------------------------------
 First Overall Predicted Values and Standard Errors (BLUPs):
 ---------------------------------------------------------------------
   trait genotype predicted.value std.error    status
-1 yield      G01        110.4297  2.528111 Estimable
-2 yield      G02        110.8617  2.537200 Estimable
-3 yield      G03        102.6812  2.541066 Estimable
-4 yield      G04        115.4946  2.533730 Estimable
-5 yield      G05        120.6600  2.548344 Estimable
-6 yield      G06        108.8297  2.555281 Estimable
+1 yield      G01        110.4107  2.524415 Estimable
+2 yield      G02        111.0488  2.534145 Estimable
+3 yield      G03        102.6031  2.538533 Estimable
+4 yield      G04        115.3953  2.530336 Estimable
+5 yield      G05        120.6700  2.545688 Estimable
+6 yield      G06        108.6678  2.552319 Estimable
 
 ---------------------------------------------------------------------
 Variance-Covariance Matrix:
 ---------------------------------------------------------------------
 
-Correlation Matrix ('us'): yield
+Correlation Matrix ('fa2'): yield
      C1   C2   C3   C4   C5   C6
-C1 1.00 0.57 0.58 0.65 0.95 0.43
-C2 0.57 1.00 0.55 0.70 0.52 0.76
-C3 0.58 0.55 1.00 0.95 0.72 0.27
-C4 0.65 0.70 0.95 1.00 0.75 0.47
-C5 0.95 0.52 0.72 0.75 1.00 0.33
-C6 0.43 0.76 0.27 0.47 0.33 1.00
+C1 1.00 0.54 0.67 0.81 0.93 0.35
+C2 0.54 1.00 0.60 0.90 0.52 0.68
+C3 0.67 0.60 1.00 0.73 0.70 0.40
+C4 0.81 0.90 0.73 1.00 0.83 0.60
+C5 0.93 0.52 0.70 0.83 1.00 0.34
+C6 0.35 0.68 0.40 0.60 0.34 1.00
 
-Covariance Matrix ('us'): yield
+Covariance Matrix ('fa2'): yield
       C1    C2    C3    C4     C5    C6
-C1 80.57 27.36 46.81 31.67  85.61 31.17
-C2 27.36 28.90 26.44 20.41  27.99 33.51
-C3 46.81 26.44 79.66 45.84  64.54 19.81
-C4 31.67 20.41 45.84 29.28  40.79 20.76
-C5 85.61 27.99 64.54 40.79 100.60 27.13
-C6 31.17 33.51 19.81 20.76  27.13 66.66
+C1 80.39 25.73 53.51 35.80  84.13 25.75
+C2 25.73 28.74 28.50 23.86  28.05 29.67
+C3 53.51 28.50 78.96 32.26  62.98 28.93
+C4 35.80 23.86 32.26 24.54  41.43 24.38
+C5 84.13 28.05 62.98 41.43 101.53 27.94
+C6 25.75 29.67 28.93 24.38  27.94 66.57
 
 ---------------------------------------------------------------------
 First Stability Coefficients:
 ---------------------------------------------------------------------
   trait genotype superiority   static    wricke predicted.value
-1 yield      G57    22.67503 32.45871 13.962970        92.45997
-2 yield      G29    17.27533 34.41794  4.343501        99.38429
-3 yield      G34    17.26249 33.29276  8.514332        99.74688
-4 yield      G59    16.94882 34.39425  4.798863        99.87221
-5 yield      G31    16.23001 31.89042 11.722935       101.66382
-6 yield      G10    15.75253 32.02994 11.499867       102.39802
+1 yield      G57    22.56100 33.35260 15.210394        92.44993
+2 yield      G29    16.98170 34.39632  4.243540        99.41798
+3 yield      G34    16.98545 33.64634  8.152888        99.81112
+4 yield      G59    16.68886 34.56884  5.361337        99.91280
+5 yield      G31    15.97985 31.29838 12.350068       101.69455
+6 yield      G10    15.61917 32.24828 11.747802       102.32827
 ```
+
+### Exploring Factor Analytic in MET analysis.
+
+``` r
+pvals <- met_results$trial_effects
+model <- met_results$met_models$yield
+fa_objt <- fa_summary(
+  model = model,
+  trial = "trial",
+  genotype = "genotype",
+  BLUEs_trial = pvals,
+  k_biplot = 8,
+  size_label_var = 4,
+  filter_score = 1
+)
+```
+
+``` r
+fa_objt$plots$loadings_c
+```
+
+<img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />
+
+``` r
+fa_objt$plots$biplot
+```
+
+<img src="man/figures/README-unnamed-chunk-10-2.png" width="100%" />
 
 For more information and to learn more about what is describe here you
 may find useful the following sources: Isik, Holland, and Maltecca

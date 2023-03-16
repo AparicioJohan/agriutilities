@@ -2,6 +2,8 @@
 
 ## Minor changes/fixes
 
+  * Add restriction when identifying row-column designs.
+  * Add minimum and maximum value when returning summary in `check_design_met()`.
   * Add S3 method to plot an object of class metAgri `plot.metAgri()`.
   * Add S3 method to plot an object of class smaAgri `plot.smaAgri()`.
   * Fix argument not working in `covcor_heat()`.
