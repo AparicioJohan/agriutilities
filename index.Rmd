@@ -150,7 +150,7 @@ fa_objt$plots$loadings_c
 fa_objt$plots$biplot
 ```
 
-For more information and to learn more about what is describe here you may find 
+For more information and to learn more about what is described here you may find 
 useful the following sources: @isik2017genetic; @rodriguez2018correcting.
 
 ## Code of Conduct

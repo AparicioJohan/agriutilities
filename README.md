@@ -216,8 +216,8 @@ multi-environmental trial models.
 
 ``` r
 met_results <- met_analysis(obj, vcov = "fa2", progress = FALSE)
-Online License checked out Thu Mar 16 09:26:23 2023
-Online License checked out Thu Mar 16 09:26:24 2023
+Online License checked out Fri Mar 17 08:56:02 2023
+Online License checked out Fri Mar 17 08:56:02 2023
 ```
 
 Inspecting the output.
@@ -314,7 +314,7 @@ fa_objt$plots$biplot
 
 <img src="man/figures/README-unnamed-chunk-10-2.png" width="100%" />
 
-For more information and to learn more about what is describe here you
+For more information and to learn more about what is described here you
 may find useful the following sources: Isik, Holland, and Maltecca
 (2017); Rodriguez-Alvarez et al. (2018).
 
