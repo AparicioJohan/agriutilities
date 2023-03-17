@@ -374,8 +374,8 @@ plot.checkAgri <- function(x,
 #' @aliases plot.smaAgri
 #' @param x An object inheriting from class \code{smaAgri} resulting of
 #' executing the function \code{single_trial_analysis()}
-#' @param type A character string specifiying the type of plot. "summary" or
-#' "correlation".
+#' @param type A character string specifiying the type of plot. "summary",
+#' "correlation" or "spatial".
 #' @param ... Further graphical parameters. For future improvements.
 #' @param filter_traits An optional character vector to filter traits.
 #' @param nudge_y_cv Vertical adjustment to nudge labels by when plotting CV
@@ -391,6 +391,7 @@ plot.checkAgri <- function(x,
 #' @method plot smaAgri
 #' @return A ggplot object.
 #' @importFrom ggpubr ggarrange
+#' @importFrom SpATS plot.SpATS
 #' @export
 #' @examples
 #' \donttest{
@@ -412,9 +413,10 @@ plot.checkAgri <- function(x,
 #' print(out)
 #' plot(out, type = "summary", horizontal = TRUE)
 #' plot(out, type = "correlation")
+#' plot(out, type = "spatial")
 #' }
 plot.smaAgri <- function(x,
-                         type = c("summary", "correlation"),
+                         type = c("summary", "correlation", "spatial"),
                          filter_traits = NULL,
                          nudge_y_cv = 3,
                          nudge_y_h2 = 0.07,
@@ -514,6 +516,7 @@ plot.smaAgri <- function(x,
       ylim(c(NA, 1.2))
 
     C <- ggarrange(A, B, ncol = 1)
+    return(C)
   }
 
   if (type == "correlation") {
@@ -552,9 +555,39 @@ plot.smaAgri <- function(x,
         ggtitle(i)
     }
     C <- ggarrange(plotlist = s)
+    return(C)
   }
 
-  return(C)
+  if (type == "spatial") {
+    vars <- x$resum_fitted_model %>%
+      filter(design %in% c("row_col", "res_row_col")) %>%
+      {
+        if (!is.null(filter_traits)) {
+          filter(.data = ., trait %in% filter_traits)
+        } else {
+          .
+        }
+      } %>%
+      droplevels() %>%
+      pull(trait) %>%
+      unique()
+    if (length(vars) == 0) {
+      stop("There are no trials with an Spatial Model.")
+    }
+    for (i in vars) {
+      trials <- x$resum_fitted_model %>%
+        filter(trait %in% i & design %in% c("row_col", "res_row_col")) %>%
+        droplevels() %>%
+        pull(trial) %>%
+        unique()
+      if (length(trials) >= 1) {
+        for (j in trials) {
+          m_plot <- x$fitted_models[[i]][[j]]$mRand[[i]]
+          plot.SpATS(m_plot, main = paste0("Trait: ", i, " - Trial: ", j))
+        }
+      }
+    }
+  }
 }
 
 

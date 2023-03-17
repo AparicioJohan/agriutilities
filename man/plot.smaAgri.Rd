@@ -6,7 +6,7 @@
 \usage{
 \method{plot}{smaAgri}(
   x,
-  type = c("summary", "correlation"),
+  type = c("summary", "correlation", "spatial"),
   filter_traits = NULL,
   nudge_y_cv = 3,
   nudge_y_h2 = 0.07,
@@ -21,8 +21,8 @@
 \item{x}{An object inheriting from class \code{smaAgri} resulting of
 executing the function \code{single_trial_analysis()}}
 
-\item{type}{A character string specifiying the type of plot. "summary" or
-"correlation".}
+\item{type}{A character string specifiying the type of plot. "summary",
+"correlation" or "spatial".}
 
 \item{filter_traits}{An optional character vector to filter traits.}
 
@@ -69,6 +69,7 @@ out <- single_trial_analysis(results, progress = FALSE)
 print(out)
 plot(out, type = "summary", horizontal = TRUE)
 plot(out, type = "correlation")
+plot(out, type = "spatial")
 }
 }
 \author{

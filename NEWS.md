@@ -2,6 +2,7 @@
 
 ## Minor changes/fixes
 
+  * Add `type = "spatial"` to `plot.smaAgri()` method.
   * Add restriction when identifying row-column designs.
   * Add minimum and maximum value when returning summary in `check_design_met()`.
   * Add S3 method to plot an object of class metAgri `plot.metAgri()`.
