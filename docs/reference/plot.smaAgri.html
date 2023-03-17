@@ -80,7 +80,7 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for smaAgri</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
-<span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"summary"</span>, <span class="st">"correlation"</span><span class="op">)</span>,</span>
+<span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"summary"</span>, <span class="st">"correlation"</span>, <span class="st">"spatial"</span><span class="op">)</span>,</span>
 <span>  filter_traits <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  nudge_y_cv <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>  nudge_y_h2 <span class="op">=</span> <span class="fl">0.07</span>,</span>
@@ -100,8 +100,8 @@ executing the function <code><a href="single_trial_analysis.html">single_trial_a
 
 
 <dt>type</dt>
-<dd><p>A character string specifiying the type of plot. "summary" or
-"correlation".</p></dd>
+<dd><p>A character string specifiying the type of plot. "summary",
+"correlation" or "spatial".</p></dd>
 
 
 <dt>filter_traits</dt>
@@ -201,6 +201,13 @@ vertically. If <code>TRUE</code>, the labels are plotted horizontally.</p></dd>
 <span class="r-plt img"><img src="plot.smaAgri-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">out</span>, type <span class="op">=</span> <span class="st">"correlation"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot.smaAgri-2.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">out</span>, type <span class="op">=</span> <span class="st">"spatial"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="plot.smaAgri-3.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="plot.smaAgri-4.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="plot.smaAgri-5.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="plot.smaAgri-6.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="plot.smaAgri-7.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="plot.smaAgri-8.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
