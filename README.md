@@ -216,8 +216,8 @@ multi-environmental trial models.
 
 ``` r
 met_results <- met_analysis(obj, vcov = "fa2", progress = FALSE)
-Online License checked out Fri Mar 17 08:56:02 2023
-Online License checked out Fri Mar 17 08:56:02 2023
+Online License checked out Fri Mar 17 10:52:52 2023
+Online License checked out Fri Mar 17 10:52:53 2023
 ```
 
 Inspecting the output.
