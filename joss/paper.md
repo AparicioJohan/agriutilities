@@ -15,8 +15,8 @@ authors:
   - name: Alexia N. Bornhorst
     orcid: 0009-0009-2512-5524
     affiliation: 1
-- name: Steve E. Beebe
-  orcid: 0000-0002-3742-9930
+  - name: Steve E. Beebe
+    orcid: 0000-0002-3742-9930
     affiliation: 1
 affiliations:
  - name: The Alliance of Bioversity International and CIAT, Palmira, Colombia
