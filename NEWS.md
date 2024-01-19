@@ -1,4 +1,8 @@
-# agriutilities (development version)
+# agriutilities 1.2.0
+
+  * Add `extract_rcov()` to extract variance-covariance matrices.
+  * Add `method` to be passed to cor function in `gg_cor()` function.
+  * Change style for naming the parameters in `gg_cor()`.
 
 # agriutilities 1.1.0
 
