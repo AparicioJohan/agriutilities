@@ -549,7 +549,7 @@ plot.smaAgri <- function(x,
       s[[i]] <- gg_cor(
         data = tmp,
         colours = c("#db4437", "white", "#4285f4"),
-        Diag = h2,
+        diag = h2,
         label_size = text_size
       ) +
         ggtitle(i)
@@ -687,7 +687,7 @@ plot.metAgri <- function(x,
     out <- gg_cor(
       data = tmp,
       colours = c("#db4437", "white", "#4285f4"),
-      Diag = h2,
+      diag = h2,
       label_size = text_size
     ) +
       ggtitle("Correlation")

@@ -9,26 +9,29 @@
 #' -1, 0 and 1.
 #' @param blackLabs A numeric vector of size two, with min and max correlation
 #' coefficient.
-#' @param showSignif Logical scalar. Display significance values ?
-#' @param pBreaks Passed to function 'cut'. Either a numeric vector of two or
+#' @param show_signif Logical scalar. Display significance values ?
+#' @param p_breaks Passed to function 'cut'. Either a numeric vector of two or
 #' more unique cut points or a single number (greater than or equal to 2) giving
 #' the number of intervals into which x is to be cut.
-#' @param pLabels Passed to function 'cut'. labels for the levels of the
+#' @param p_labels Passed to function 'cut'. labels for the levels of the
 #' resulting category. By default, labels are constructed using "(a,b]" interval
-#' notation. If \code{pLabels = FALSE}, simple integer codes are returned
+#' notation. If \code{p_labels = FALSE}, simple integer codes are returned
 #' instead of a factor.
-#' @param showDiagonal Logical scalar. Display main diagonal values ?
-#' @param Diag A named vector of labels to display in the main diagonal. The
+#' @param show_diagonal Logical scalar. Display main diagonal values ?
+#' @param diag A named vector of labels to display in the main diagonal. The
 #' names are used to place each value in the corresponding coordinates of the
 #' diagonal. Hence, these names must be the same as the colnames of data.
-#' @param returnTable Return the table to display instead of a ggplot object.
-#' @param returnN Return plot with shared information.
+#' @param return_table Return the table to display instead of a ggplot object.
+#' @param return_n Return plot with shared information.
 #' @param adjusted Use the adjusted p values for multiple testing instead of
 #' raw coeffs. \code{TRUE} by default.
 #' @param label_size Numeric value indicating the label size. 3 by default.
+#' @param method method="pearson" is the default value.
+#'  The alternatives to be passed to cor are "spearman" and "kendall".
+#'  These last two are much slower, particularly for big data sets.
 #'
 #' @return A ggplot object containing a triangular correlation figure with all
-#' numeric variables in data. If returnTable is \code{TRUE}, the table used to
+#' numeric variables in data. If return_table is \code{TRUE}, the table used to
 #' produce the figure is returned instead.
 #' @export
 #'
@@ -45,15 +48,16 @@
 gg_cor <- function(data,
                    colours = c("#db4437", "white", "#4285f4"),
                    blackLabs = c(-0.7, 0.7),
-                   showSignif = TRUE,
-                   pBreaks = c(0, .001, .01, .05, Inf),
-                   pLabels = c("***", "**", "*", "ns"),
-                   showDiagonal = FALSE,
-                   Diag = NULL,
-                   returnTable = FALSE,
-                   returnN = FALSE,
+                   show_signif = TRUE,
+                   p_breaks = c(0, .001, .01, .05, Inf),
+                   p_labels = c("***", "**", "*", "ns"),
+                   show_diagonal = FALSE,
+                   diag = NULL,
+                   return_table = FALSE,
+                   return_n = FALSE,
                    adjusted = TRUE,
-                   label_size = 3) {
+                   label_size = 3,
+                   method = "pearson") {
   # Drop non numeric columns in the dataset
   if (sum(!sapply(data, is.numeric))) {
     message(
@@ -63,7 +67,7 @@ gg_cor <- function(data,
     data <- data[, sapply(data, is.numeric)]
   }
   # Calculate corr-coeffs and p values
-  cors <- psych::corr.test(data, use = "pairwise.complete.obs")
+  cors <- psych::corr.test(data, use = "pairwise.complete.obs", method = method)
   # Use the adjusted p values for multiple testing instead of raw coeffs
   if (adjusted) cors$p <- t(cors$p)
   # Keep only the matrices with correlation coefficients, p values and N shared
@@ -73,7 +77,7 @@ gg_cor <- function(data,
   if (is.vector(cors$n)) {
     cors$n <- matrix(
       data = cors$n,
-      ncol =  ncol(cors$p),
+      ncol = ncol(cors$p),
       nrow = nrow(cors$p),
       dimnames = dimnames(cors$p)
     )
@@ -107,8 +111,8 @@ gg_cor <- function(data,
   # Keep x, y, p val and corr-coefficients columns
   cors <- cors[, c(1, 2, 4, 5, 7)]
 
-  if (returnN) {
-    if (returnTable) {
+  if (return_n) {
+    if (return_table) {
       return(cors)
     }
     cors$cols <- scale(cors$value, center = TRUE, scale = TRUE)
@@ -139,11 +143,11 @@ gg_cor <- function(data,
     return(p)
   }
 
-  if (showSignif) {
-    # Create a categorical variable for p values as defined by pBreaks
+  if (show_signif) {
+    # Create a categorical variable for p values as defined by p_breaks
     cors$signi <- cut(
       x = cors$value.y, right = FALSE,
-      breaks = pBreaks, labels = pLabels
+      breaks = p_breaks, labels = p_labels
     )
     # Join corr-coeff and p-value to display it as a label for each tile
     cors$label <- paste(cors$name.x, cors$sign, sep = "\n")
@@ -153,14 +157,14 @@ gg_cor <- function(data,
   }
 
   # If there are user-specified values to display in the diagonal
-  if (!is.null(Diag)) {
-    # Check the names in Diag are the same than colnames of data
-    if (sum(!names(Diag) %in% colnames(data))) {
+  if (!is.null(diag)) {
+    # Check the names in diag are the same than colnames of data
+    if (sum(!names(diag) %in% colnames(data))) {
       warning(
-        "These elements in 'Diag' do not correspond to column names in
+        "These elements in 'diag' do not correspond to column names in
         'data':\n",
-        paste(names(Diag)[!names(Diag) %in% colnames(data)],
-              collapse = "\t"
+        paste(names(diag)[!names(diag) %in% colnames(data)],
+          collapse = "\t"
         )
       )
     }
@@ -169,12 +173,12 @@ gg_cor <- function(data,
     # Get the name of x and y levels
     d <- as.character(cors[cors$col == cors$row, "row"])
     # Modify the elements of the diagonal and make sure they are displayed
-    cors[cors$col == cors$row, "label"] <- Diag[d]
-    showDiagonal <- TRUE
+    cors[cors$col == cors$row, "label"] <- diag[d]
+    show_diagonal <- TRUE
   }
 
   # Remove the elements of the main diagonal if you don't want to display
-  if (!showDiagonal) cors <- cors[cors$col != cors$row, ]
+  if (!show_diagonal) cors <- cors[cors$col != cors$row, ]
 
   # Show darker tiles with white labels for clarity
   cors$txtCol <- ifelse(
@@ -186,7 +190,7 @@ gg_cor <- function(data,
   # Make tile labels of the diagonal white
   cors$txtCol[is.na(cors$txtCol)] <- "white"
 
-  if (returnTable) {
+  if (return_table) {
     return(cors)
   }
 

@@ -18,6 +18,10 @@
 #' @param digits A numeric integer to define the number of digits to plot.
 #' @param legend the position of legends ("none", "left", "right", "bottom",
 #' "top", or two-element numeric vector)
+#' @param upper_tri A logical value to plot the Lower or Upper Triangular Part of
+#' the matrix. FALSE by default.
+#' @param reorder A logical value to reorder by a Hierarchical Clustering. FALSE
+#' by default.
 #'
 #' @return A ggplot object showing the upper triangular elements of the matrix.
 #' @export
@@ -31,12 +35,18 @@ covcor_heat <- function(matrix,
                         corr = TRUE,
                         size = 4,
                         digits = 3,
-                        legend = c(0.6, 0.7)) {
+                        legend = c(0.6, 0.7),
+                        upper_tri = FALSE,
+                        reorder = FALSE) {
   matrix <- round(x = matrix, digits = digits)
 
   # Get upper triangle of the correlation matrix
-  get_upper_tri <- function(cormat) {
-    cormat[lower.tri(cormat)] <- NA
+  get_upper_tri <- function(cormat, upper_tri = FALSE) {
+    if (upper_tri) {
+      cormat[upper.tri(cormat)] <- NA
+    } else {
+      cormat[lower.tri(cormat)] <- NA
+    }
     return(cormat)
   }
 
@@ -46,10 +56,10 @@ covcor_heat <- function(matrix,
     hc <- stats::hclust(dd)
     cormat <- cormat[hc$order, hc$order]
   }
-  if (corr) {
+  if (corr && reorder) {
     matrix <- reorder_cormat(matrix)
   }
-  upper_tri <- as.data.frame(get_upper_tri(matrix))
+  upper_tri <- as.data.frame(get_upper_tri(matrix, upper_tri))
   col_names <- colnames(upper_tri)
   upper_tri[, "col"] <- factor(x = col_names, levels = col_names)
   melted_cormat <- tidyr::gather(

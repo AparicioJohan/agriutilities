@@ -21,6 +21,8 @@ navbar:
     menu:
       - text: How to Start
         href: articles/how-to-start.html
+      - text: Repeated Measurements
+        href: articles/repeated_measurements.html
   - icon: fa-newspaper
     text: News
     href: news/index.html
@@ -49,6 +51,7 @@ reference:
   desc: Additional functions for ASReml models
 - contents:
   - extract_vcov
+  - extract_rcov
   - fa_summary
   - heritability_fa
 - title: Others

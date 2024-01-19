@@ -1,0 +1,253 @@
+---
+title: "Repeated Measurements"
+author: "Johan Aparicio"
+output: rmarkdown::html_vignette
+code_folding: hide
+vignette: >
+  %\VignetteIndexEntry{Repeated Measurements}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+The `extract_rcov()` function is a practical tool for extracting the residual variance-covariance matrix from a repeated measurement ASReml model. This function is particularly useful when dealing with various covariance structures, including but not limited to the uniform correlation (corv), power or exponential (expv), antedependence (ante), unstructured (US), and Autoregressive Correlation 1 (ar1).
+
+[Watch the tutorial](https://www.youtube.com/watch?v=BwvTFZDejXI): A good guide on fitting repeated measurement models in ASReml by VSNi. However, it might leave you wondering how to actually extract the fitted residual variance-covariance matrix. That's where `extract_rcov()` comes into play.
+
+This vignette utilizes the same dataset featured in the video and incorporates a segment of the code to showcase the functionality of `extract_rcov()`. Additionally, we provide insightful figures that aid in exploring the results.
+
+> To run this vignette, ensure you have an ASReml license.
+
+```{r, warning=FALSE, message=FALSE, fig.width = 9}
+library(ggpubr)
+library(agriutilities)
+library(tidyr)
+library(dplyr)
+library(tibble)
+
+if (requireNamespace("asreml", quietly = TRUE)) {
+  library(asreml)
+  head(grassUV) %>% print()
+  grassUV %>%
+    ggplot(
+      aes(x = Time, y = y, group = Plant, color = Plant)
+    ) +
+    geom_point() +
+    geom_line() +
+    facet_wrap(~Tmt) +
+    theme_minimal(base_size = 15)
+}
+```
+
+## Exploration
+
+```{r, warning=FALSE, message=FALSE, fig.width = 9}
+if (requireNamespace("asreml", quietly = TRUE)) {
+  tmp <- grassUV %>%
+    group_by(Time, Plant) %>%
+    summarise(mean = mean(y, na.rm = TRUE)) %>%
+    spread(Time, mean) %>%
+    column_to_rownames("Plant")
+
+  a <- covcor_heat(
+    matrix = cor(tmp),
+    legend = "none",
+    size = 4.5
+  ) +
+    ggtitle(label = "Pearson Correlation")
+
+  b <- tmp %>%
+    cor(use = "pairwise.complete.obs") %>%
+    as.data.frame() %>%
+    rownames_to_column(var = "Time") %>%
+    gather("DAP2", "corr", -1) %>%
+    type.convert(as.is = FALSE) %>%
+    mutate(corr = ifelse(Time < DAP2, NA, corr)) %>%
+    mutate(DAP2 = as.factor(DAP2)) %>%
+    ggplot(
+      aes(x = Time, y = corr, group = DAP2, color = DAP2)
+    ) +
+    geom_point() +
+    geom_line() +
+    theme_minimal(base_size = 15) +
+    color_palette(palette = "jco") +
+    labs(color = "Time", y = "Pearson Correlation") +
+    theme(legend.position = "top")
+  ggarrange(a, b)
+}
+```
+
+## Modeling
+
+Let's fit several models with different variance-covariance structures:
+
+```{r, warning=FALSE, message=FALSE}
+if (requireNamespace("asreml", quietly = TRUE)) {
+  # Identity variance model.
+  model_0 <- asreml(
+    fixed = y ~ Time + Tmt + Tmt:Time,
+    residual = ~ id(Plant):idv(Time),
+    data = grassUV
+  )
+
+  # Simple correlation model; homogeneous variance form.
+  model_1 <- asreml(
+    fixed = y ~ Time + Tmt + Tmt:Time,
+    residual = ~ id(Plant):corv(Time),
+    data = grassUV
+  )
+
+  # Exponential (or power) model; homogeneous variance form.
+  model_2 <- asreml(
+    fixed = y ~ Time + Tmt + Tmt:Time,
+    residual = ~ id(Plant):expv(Time),
+    data = grassUV
+  )
+
+  # Exponential (or power) model; heterogeneous variance form.
+  model_3 <- asreml(
+    fixed = y ~ Time + Tmt + Tmt:Time,
+    residual = ~ id(Plant):exph(Time),
+    data = grassUV
+  )
+
+  # Antedependence variance model of order 1
+  model_4 <- asreml(
+    fixed = y ~ Time + Tmt + Tmt:Time,
+    residual = ~ id(Plant):ante(Time),
+    data = grassUV
+  )
+
+  # Autoregressive model of order 1; homogeneous variance form.
+  model_5 <- asreml(
+    fixed = y ~ Time + Tmt + Tmt:Time,
+    residual = ~ id(Plant):ar1v(Time),
+    data = grassUV
+  )
+
+  # Autoregressive model of order 1; heterogeneous variance form.
+  model_6 <- asreml(
+    fixed = y ~ Time + Tmt + Tmt:Time,
+    residual = ~ id(Plant):ar1h(Time),
+    data = grassUV
+  )
+
+  # Unstructured variance model.
+  model_7 <- asreml(
+    fixed = y ~ Time + Tmt + Tmt:Time,
+    residual = ~ id(Plant):us(Time),
+    data = grassUV
+  )
+}
+```
+
+## Model Comparison
+
+We can use the Akaike Information Criterion (AIC)(Akaike, 1974) or the Bayesian Information Criterion (BIC)(Stone, 1979) for comparing the fitted models. A lower AIC or BIC value indicates a better fit.
+
+```{r, warning=FALSE, message=FALSE, fig.width = 9}
+if (requireNamespace("asreml", quietly = TRUE)) {
+  models <- list(
+    "idv" = model_0,
+    "corv" = model_1,
+    "expv" = model_2,
+    "exph" = model_3,
+    "ante" = model_4,
+    "ar1v" = model_5,
+    "ar1h" = model_6,
+    "us" = model_7
+  )
+
+  summary_models <- data.frame(
+    model = names(models),
+    aic = unlist(lapply(models, function(x) summary(x)$aic)),
+    bic = unlist(lapply(models, function(x) summary(x)$bic)),
+    loglik = unlist(lapply(models, function(x) summary(x)$loglik)),
+    nedf = unlist(lapply(models, function(x) summary(x)$nedf)),
+    param = unlist(lapply(models, function(x) attr(summary(x)$aic, "param"))),
+    row.names = NULL
+  )
+
+  summary_models %>% print()
+
+  summary_models %>%
+    ggplot(
+      aes(x = reorder(model, -bic), y = bic, group = 1)
+    ) +
+    geom_point(size = 2) +
+    geom_text(aes(x = model, y = bic + 5, label = param), size = 5) +
+    geom_line() +
+    theme_minimal(base_size = 15) +
+    labs(x = NULL, y = "BIC")
+}
+```
+
+In this specific scenario, the antedependence model emerges as the optimal choice, as indicated by the Bayesian Information Criteria (BIC). The 1-factor antedependence structure elegantly models the variance-covariance matrix $\Sigma^{\omega \times\omega}$ with the following decomposition:
+
+$$ \Sigma ^{-1} = UDU' $$
+where $U^{\omega \times\omega}$ is a unit upper triangular matrix and $D = diag(d_1, ..., d_{\omega})$. The `extract_rcov()` retrieves these matrices for a closer inspection of the results.
+
+## Extracting Variance Covariance Matrix
+
+As an example of extracting the variance-covariance matrix, let's take the best model according to the BIC, and run this line of code: `extract_rcov(model_4)`.
+
+```{r, warning=FALSE, message=FALSE, fig.width = 9}
+if (requireNamespace("asreml", quietly = TRUE)) {
+  mat <- extract_rcov(model_4, time = "Time", plot = "Plant")
+  print(mat)
+
+  # Plotting  Matrix
+  p1 <- covcor_heat(matrix = mat$corr, legend = "none", size = 4.5) +
+    ggtitle(label = "Correlation Matrix (ante)")
+  p1
+
+  p2 <- covcor_heat(
+    matrix = mat$vcov,
+    corr = FALSE,
+    legend = "none",
+    size = 4.5,
+    digits = 1
+  ) +
+    ggtitle(label = "Covariance Matrix (ante)")
+  p2
+  ggarrange(p1, p2)
+}
+```
+
+## Comparison
+
+The plot below unveils the correlation matrices, comparing the raw data matrix with the one derived post-application of the antedependence model.
+
+```{r, warning=FALSE, message=FALSE, fig.width = 9}
+if (requireNamespace("asreml", quietly = TRUE)) {
+  ggarrange(a, p1)
+}
+```
+
+## Final Results
+
+```{r, warning=FALSE, message=FALSE, fig.width = 9}
+if (requireNamespace("asreml", quietly = TRUE)) {
+  pvals <- predict(model_4, classify = "Tmt:Time")$pvals
+  grassUV %>%
+    ggplot(
+      aes(x = Time, y = y, group = Tmt, color = Tmt)
+    ) +
+    geom_point(alpha = 0.5, size = 3) +
+    geom_line(data = pvals, mapping = aes(y = predicted.value)) +
+    scale_color_manual(values = c("red", "grey50")) +
+    facet_wrap(~Tmt) +
+    theme_minimal(base_size = 15) +
+    theme(legend.position = "none")
+}
+```
+
+## References
+
+[ASReml-R Reference Manual](https://asreml.kb.vsni.co.uk/wp-content/uploads/sites/3/ASReml-R-Reference-Manual-4.2.pdf)

@@ -10,6 +10,9 @@
     <loc>https://apariciojohan.github.io/agriutilities/articles/index.html</loc>
   </url>
   <url>
+    <loc>https://apariciojohan.github.io/agriutilities/articles/repeated_measurements.html</loc>
+  </url>
+  <url>
     <loc>https://apariciojohan.github.io/agriutilities/authors.html</loc>
   </url>
   <url>
@@ -41,6 +44,9 @@
   </url>
   <url>
     <loc>https://apariciojohan.github.io/agriutilities/reference/covcor_heat.html</loc>
+  </url>
+  <url>
+    <loc>https://apariciojohan.github.io/agriutilities/reference/extract_rcov.html</loc>
   </url>
   <url>
     <loc>https://apariciojohan.github.io/agriutilities/reference/extract_vcov.html</loc>

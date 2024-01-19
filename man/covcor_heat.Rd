@@ -4,7 +4,15 @@
 \alias{covcor_heat}
 \title{Correlation Covariance Heatmap}
 \usage{
-covcor_heat(matrix, corr = TRUE, size = 4, digits = 3, legend = c(0.6, 0.7))
+covcor_heat(
+  matrix,
+  corr = TRUE,
+  size = 4,
+  digits = 3,
+  legend = c(0.6, 0.7),
+  upper_tri = FALSE,
+  reorder = FALSE
+)
 }
 \arguments{
 \item{matrix}{A numeric matrix.}
@@ -18,6 +26,12 @@ covcor_heat(matrix, corr = TRUE, size = 4, digits = 3, legend = c(0.6, 0.7))
 
 \item{legend}{the position of legends ("none", "left", "right", "bottom",
 "top", or two-element numeric vector)}
+
+\item{upper_tri}{A logical value to plot the Lower or Upper Triangular Part of
+the matrix. FALSE by default.}
+
+\item{reorder}{A logical value to reorder by a Hierarchical Clustering. FALSE
+by default.}
 }
 \value{
 A ggplot object showing the upper triangular elements of the matrix.

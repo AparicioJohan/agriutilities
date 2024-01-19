@@ -8,15 +8,16 @@ gg_cor(
   data,
   colours = c("#db4437", "white", "#4285f4"),
   blackLabs = c(-0.7, 0.7),
-  showSignif = TRUE,
-  pBreaks = c(0, 0.001, 0.01, 0.05, Inf),
-  pLabels = c("***", "**", "*", "ns"),
-  showDiagonal = FALSE,
-  Diag = NULL,
-  returnTable = FALSE,
-  returnN = FALSE,
+  show_signif = TRUE,
+  p_breaks = c(0, 0.001, 0.01, 0.05, Inf),
+  p_labels = c("***", "**", "*", "ns"),
+  show_diagonal = FALSE,
+  diag = NULL,
+  return_table = FALSE,
+  return_n = FALSE,
   adjusted = TRUE,
-  label_size = 3
+  label_size = 3,
+  method = "pearson"
 )
 }
 \arguments{
@@ -29,35 +30,39 @@ compared.}
 \item{blackLabs}{A numeric vector of size two, with min and max correlation
 coefficient.}
 
-\item{showSignif}{Logical scalar. Display significance values ?}
+\item{show_signif}{Logical scalar. Display significance values ?}
 
-\item{pBreaks}{Passed to function 'cut'. Either a numeric vector of two or
+\item{p_breaks}{Passed to function 'cut'. Either a numeric vector of two or
 more unique cut points or a single number (greater than or equal to 2) giving
 the number of intervals into which x is to be cut.}
 
-\item{pLabels}{Passed to function 'cut'. labels for the levels of the
+\item{p_labels}{Passed to function 'cut'. labels for the levels of the
 resulting category. By default, labels are constructed using "(a,b]" interval
-notation. If \code{pLabels = FALSE}, simple integer codes are returned
+notation. If \code{p_labels = FALSE}, simple integer codes are returned
 instead of a factor.}
 
-\item{showDiagonal}{Logical scalar. Display main diagonal values ?}
+\item{show_diagonal}{Logical scalar. Display main diagonal values ?}
 
-\item{Diag}{A named vector of labels to display in the main diagonal. The
+\item{diag}{A named vector of labels to display in the main diagonal. The
 names are used to place each value in the corresponding coordinates of the
 diagonal. Hence, these names must be the same as the colnames of data.}
 
-\item{returnTable}{Return the table to display instead of a ggplot object.}
+\item{return_table}{Return the table to display instead of a ggplot object.}
 
-\item{returnN}{Return plot with shared information.}
+\item{return_n}{Return plot with shared information.}
 
 \item{adjusted}{Use the adjusted p values for multiple testing instead of
 raw coeffs. \code{TRUE} by default.}
 
 \item{label_size}{Numeric value indicating the label size. 3 by default.}
+
+\item{method}{method="pearson" is the default value.
+The alternatives to be passed to cor are "spearman" and "kendall".
+These last two are much slower, particularly for big data sets.}
 }
 \value{
 A ggplot object containing a triangular correlation figure with all
-numeric variables in data. If returnTable is \code{TRUE}, the table used to
+numeric variables in data. If return_table is \code{TRUE}, the table used to
 produce the figure is returned instead.
 }
 \description{
