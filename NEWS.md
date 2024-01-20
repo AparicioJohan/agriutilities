@@ -3,6 +3,7 @@
   * Add `extract_rcov()` to extract variance-covariance matrices.
   * Add `method` to be passed to cor function in `gg_cor()` function.
   * Change style for naming the parameters in `gg_cor()`.
+  * Minor changes in the writing style.
 
 # agriutilities 1.1.0
 

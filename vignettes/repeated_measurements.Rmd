@@ -16,7 +16,17 @@ knitr::opts_chunk$set(
 )
 ```
 
-The `extract_rcov()` function is a practical tool for extracting the residual variance-covariance matrix from a repeated measurement ASReml model. This function is particularly useful when dealing with various covariance structures, including but not limited to the uniform correlation (corv), power or exponential (expv), antedependence (ante), unstructured (US), and Autoregressive Correlation 1 (ar1).
+The `extract_rcov()` function is a practical tool for extracting the residual variance-covariance matrix from a repeated measurement ASReml model. This function is particularly useful when dealing with various covariance structures, including but not limited to the uniform correlation (corv), power or exponential (expv), antedependence (ante) and unstructured (US).
+
+Currently, the structures available are: 
+
+1. Simple correlation model (`corv`); homogeneous variance form.
+2. Exponential (or power) model (`expv`); homogeneous variance form.
+3. Exponential (or power) model (`exph`); heterogeneous variance form.
+4. Autoregressive model of order 1 (`ar1v`); homogeneous variance form.
+5. Autoregressive model of order 1 (`ar1h`); heterogeneous variance form.
+6. Antedependence variance model of order 1 (`ante`).
+7. Unstructured variance model (`us`).
 
 [Watch the tutorial](https://www.youtube.com/watch?v=BwvTFZDejXI): A good guide on fitting repeated measurement models in ASReml by VSNi. However, it might leave you wondering how to actually extract the fitted residual variance-covariance matrix. That's where `extract_rcov()` comes into play.
 
@@ -191,7 +201,17 @@ if (requireNamespace("asreml", quietly = TRUE)) {
 In this specific scenario, the antedependence model emerges as the optimal choice, as indicated by the Bayesian Information Criteria (BIC). The 1-factor antedependence structure elegantly models the variance-covariance matrix $\Sigma^{\omega \times\omega}$ with the following decomposition:
 
 $$ \Sigma ^{-1} = UDU' $$
-where $U^{\omega \times\omega}$ is a unit upper triangular matrix and $D = diag(d_1, ..., d_{\omega})$. The `extract_rcov()` retrieves these matrices for a closer inspection of the results.
+where $U^{\omega \times\omega}$ is a unit upper triangular matrix and $D = diag(d_1, ..., d_{\omega})$ is a diagonal matrix. 
+
+\begin{array}{rcl}
+U_{ii} & = & 1 \\
+U_{ij} & = & u_{ij}, \;\; 1 \le j-i\le order \\
+U_{ij} & = & 0, \;\; i>j
+\end{array}
+
+and the order in our case is 1.
+
+The `extract_rcov()` retrieves these matrices for a closer inspection of the results.
 
 ## Extracting Variance Covariance Matrix
 
