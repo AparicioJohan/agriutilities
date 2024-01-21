@@ -54,5 +54,6 @@ Suggests:
     lattice,
     cluster,
     rmarkdown,
-    agridat
+    agridat,
+    gt
 VignetteBuilder: knitr

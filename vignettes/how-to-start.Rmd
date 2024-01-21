@@ -54,10 +54,15 @@ print(obj)
 The results of the previous function are used in `met_analysis()` to 
 fit multi-environmental trial models.
 
-```{r}
+```{r, eval=FALSE}
+met_results <- met_analysis(obj)
+print(met_results)
+```
+
+
+```{r, echo=FALSE}
 if (requireNamespace("asreml", quietly = TRUE)) {
   met_results <- met_analysis(obj)
   print(met_results)
 }
 ```
-
