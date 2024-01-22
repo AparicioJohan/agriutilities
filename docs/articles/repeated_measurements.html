@@ -120,6 +120,10 @@ antedependence (ante) and unstructured (US).</p>
 <ol style="list-style-type: decimal">
 <li>Simple correlation model (<code>corv</code>); homogeneous variance
 form.</li>
+<li>Simple correlation model (<code>corh</code>); heterogeneous variance
+form.</li>
+<li>General correlation model (<code>corgh</code>); heterogeneous
+variance form.</li>
 <li>Exponential (or power) model (<code>expv</code>); homogeneous
 variance form.</li>
 <li>Exponential (or power) model (<code>exph</code>); heterogeneous
@@ -151,8 +155,8 @@ that aid in exploring the results.</p>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tibble.tidyverse.org/" class="external-link">tibble</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">asreml</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">grassUV</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">grassUV</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">grassUV</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">grassUV</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Time</span>, y <span class="op">=</span> <span class="va">y</span>, group <span class="op">=</span> <span class="va">Plant</span>, color <span class="op">=</span> <span class="va">Plant</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
@@ -160,7 +164,7 @@ that aid in exploring the results.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">Tmt</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">15</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">#&gt; Online License checked out Sun Jan 21 11:07:45 2024</span></span>
+<pre><code><span><span class="co">#&gt; Online License checked out Mon Jan 22 10:33:24 2024</span></span>
 <span><span class="co">#&gt;   Tmt Plant Time HeightID    y</span></span>
 <span><span class="co">#&gt; 1 MAV     1    1       y1 21.0</span></span>
 <span><span class="co">#&gt; 2 MAV     1    3       y3 39.7</span></span>
@@ -173,10 +177,10 @@ that aid in exploring the results.</p>
 <h2 id="exploration">Exploration<a class="anchor" aria-label="anchor" href="#exploration"></a>
 </h2>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="va">grassUV</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Time</span>, <span class="va">Plant</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">y</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/spread.html" class="external-link">spread</a></span><span class="op">(</span><span class="va">Time</span>, <span class="va">mean</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="va">grassUV</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Time</span>, <span class="va">Plant</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">y</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/spread.html" class="external-link">spread</a></span><span class="op">(</span><span class="va">Time</span>, <span class="va">mean</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">column_to_rownames</a></span><span class="op">(</span><span class="st">"Plant"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/covcor_heat.html">covcor_heat</a></span><span class="op">(</span></span>
@@ -186,16 +190,16 @@ that aid in exploring the results.</p>
 <span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Pearson Correlation"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">b</span> <span class="op">&lt;-</span> <span class="va">tmp</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span>use <span class="op">=</span> <span class="st">"pairwise.complete.obs"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">rownames_to_column</a></span><span class="op">(</span>var <span class="op">=</span> <span class="st">"Time"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/gather.html" class="external-link">gather</a></span><span class="op">(</span><span class="st">"DAP2"</span>, <span class="st">"corr"</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/utils/type.convert.html" class="external-link">type.convert</a></span><span class="op">(</span>as.is <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>corr <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">Time</span> <span class="op">&lt;</span> <span class="va">DAP2</span>, <span class="cn">NA</span>, <span class="va">corr</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>DAP2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">DAP2</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="va">b</span> <span class="op">&lt;-</span> <span class="va">tmp</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span>use <span class="op">=</span> <span class="st">"pairwise.complete.obs"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">rownames_to_column</a></span><span class="op">(</span>var <span class="op">=</span> <span class="st">"Time"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/gather.html" class="external-link">gather</a></span><span class="op">(</span><span class="st">"Time2"</span>, <span class="st">"corr"</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/type.convert.html" class="external-link">type.convert</a></span><span class="op">(</span>as.is <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>corr <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">Time</span> <span class="op">&lt;</span> <span class="va">Time2</span>, <span class="cn">NA</span>, <span class="va">corr</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>Time2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">Time2</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Time</span>, y <span class="op">=</span> <span class="va">corr</span>, group <span class="op">=</span> <span class="va">DAP2</span>, color <span class="op">=</span> <span class="va">DAP2</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Time</span>, y <span class="op">=</span> <span class="va">corr</span>, group <span class="op">=</span> <span class="va">Time2</span>, color <span class="op">=</span> <span class="va">Time2</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -297,9 +301,9 @@ fitted models. A lower AIC or BIC value indicates a better fit.</p>
 <span>  row.names <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">summary_models</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">summary_models</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">summary_models</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="va">summary_models</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html" class="external-link">reorder</a></span><span class="op">(</span><span class="va">model</span>, <span class="op">-</span><span class="va">bic</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">bic</span>, group <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
@@ -341,23 +345,23 @@ inspection of the results.</p>
 </h2>
 <p>The table below shows the summary of Wald statistics for fixed
 effects for the models fitted.</p>
-<div id="utipoopesk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#utipoopesk table {
+<div id="monhvqwqlr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#monhvqwqlr table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#utipoopesk thead, #utipoopesk tbody, #utipoopesk tfoot, #utipoopesk tr, #utipoopesk td, #utipoopesk th {
+#monhvqwqlr thead, #monhvqwqlr tbody, #monhvqwqlr tfoot, #monhvqwqlr tr, #monhvqwqlr td, #monhvqwqlr th {
   border-style: none;
 }
 
-#utipoopesk p {
+#monhvqwqlr p {
   margin: 0;
   padding: 0;
 }
 
-#utipoopesk .gt_table {
+#monhvqwqlr .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -383,12 +387,12 @@ effects for the models fitted.</p>
   border-left-color: #D3D3D3;
 }
 
-#utipoopesk .gt_caption {
+#monhvqwqlr .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#utipoopesk .gt_title {
+#monhvqwqlr .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -400,7 +404,7 @@ effects for the models fitted.</p>
   border-bottom-width: 0;
 }
 
-#utipoopesk .gt_subtitle {
+#monhvqwqlr .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -412,7 +416,7 @@ effects for the models fitted.</p>
   border-top-width: 0;
 }
 
-#utipoopesk .gt_heading {
+#monhvqwqlr .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -424,13 +428,13 @@ effects for the models fitted.</p>
   border-right-color: #D3D3D3;
 }
 
-#utipoopesk .gt_bottom_border {
+#monhvqwqlr .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#utipoopesk .gt_col_headings {
+#monhvqwqlr .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -445,7 +449,7 @@ effects for the models fitted.</p>
   border-right-color: #D3D3D3;
 }
 
-#utipoopesk .gt_col_heading {
+#monhvqwqlr .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -465,7 +469,7 @@ effects for the models fitted.</p>
   overflow-x: hidden;
 }
 
-#utipoopesk .gt_column_spanner_outer {
+#monhvqwqlr .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -477,15 +481,15 @@ effects for the models fitted.</p>
   padding-right: 4px;
 }
 
-#utipoopesk .gt_column_spanner_outer:first-child {
+#monhvqwqlr .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#utipoopesk .gt_column_spanner_outer:last-child {
+#monhvqwqlr .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#utipoopesk .gt_column_spanner {
+#monhvqwqlr .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -497,11 +501,11 @@ effects for the models fitted.</p>
   width: 100%;
 }
 
-#utipoopesk .gt_spanner_row {
+#monhvqwqlr .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#utipoopesk .gt_group_heading {
+#monhvqwqlr .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -527,7 +531,7 @@ effects for the models fitted.</p>
   text-align: left;
 }
 
-#utipoopesk .gt_empty_group_heading {
+#monhvqwqlr .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -542,15 +546,15 @@ effects for the models fitted.</p>
   vertical-align: middle;
 }
 
-#utipoopesk .gt_from_md > :first-child {
+#monhvqwqlr .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#utipoopesk .gt_from_md > :last-child {
+#monhvqwqlr .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#utipoopesk .gt_row {
+#monhvqwqlr .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -569,7 +573,7 @@ effects for the models fitted.</p>
   overflow-x: hidden;
 }
 
-#utipoopesk .gt_stub {
+#monhvqwqlr .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -582,7 +586,7 @@ effects for the models fitted.</p>
   padding-right: 5px;
 }
 
-#utipoopesk .gt_stub_row_group {
+#monhvqwqlr .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -596,15 +600,15 @@ effects for the models fitted.</p>
   vertical-align: top;
 }
 
-#utipoopesk .gt_row_group_first td {
+#monhvqwqlr .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#utipoopesk .gt_row_group_first th {
+#monhvqwqlr .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#utipoopesk .gt_summary_row {
+#monhvqwqlr .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -614,16 +618,16 @@ effects for the models fitted.</p>
   padding-right: 5px;
 }
 
-#utipoopesk .gt_first_summary_row {
+#monhvqwqlr .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#utipoopesk .gt_first_summary_row.thick {
+#monhvqwqlr .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#utipoopesk .gt_last_summary_row {
+#monhvqwqlr .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -633,7 +637,7 @@ effects for the models fitted.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#utipoopesk .gt_grand_summary_row {
+#monhvqwqlr .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -643,7 +647,7 @@ effects for the models fitted.</p>
   padding-right: 5px;
 }
 
-#utipoopesk .gt_first_grand_summary_row {
+#monhvqwqlr .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -653,7 +657,7 @@ effects for the models fitted.</p>
   border-top-color: #D3D3D3;
 }
 
-#utipoopesk .gt_last_grand_summary_row_top {
+#monhvqwqlr .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -663,11 +667,11 @@ effects for the models fitted.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#utipoopesk .gt_striped {
+#monhvqwqlr .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#utipoopesk .gt_table_body {
+#monhvqwqlr .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -676,7 +680,7 @@ effects for the models fitted.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#utipoopesk .gt_footnotes {
+#monhvqwqlr .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -690,7 +694,7 @@ effects for the models fitted.</p>
   border-right-color: #D3D3D3;
 }
 
-#utipoopesk .gt_footnote {
+#monhvqwqlr .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -699,7 +703,7 @@ effects for the models fitted.</p>
   padding-right: 5px;
 }
 
-#utipoopesk .gt_sourcenotes {
+#monhvqwqlr .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -713,7 +717,7 @@ effects for the models fitted.</p>
   border-right-color: #D3D3D3;
 }
 
-#utipoopesk .gt_sourcenote {
+#monhvqwqlr .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -721,63 +725,63 @@ effects for the models fitted.</p>
   padding-right: 5px;
 }
 
-#utipoopesk .gt_left {
+#monhvqwqlr .gt_left {
   text-align: left;
 }
 
-#utipoopesk .gt_center {
+#monhvqwqlr .gt_center {
   text-align: center;
 }
 
-#utipoopesk .gt_right {
+#monhvqwqlr .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#utipoopesk .gt_font_normal {
+#monhvqwqlr .gt_font_normal {
   font-weight: normal;
 }
 
-#utipoopesk .gt_font_bold {
+#monhvqwqlr .gt_font_bold {
   font-weight: bold;
 }
 
-#utipoopesk .gt_font_italic {
+#monhvqwqlr .gt_font_italic {
   font-style: italic;
 }
 
-#utipoopesk .gt_super {
+#monhvqwqlr .gt_super {
   font-size: 65%;
 }
 
-#utipoopesk .gt_footnote_marks {
+#monhvqwqlr .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#utipoopesk .gt_asterisk {
+#monhvqwqlr .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#utipoopesk .gt_indent_1 {
+#monhvqwqlr .gt_indent_1 {
   text-indent: 5px;
 }
 
-#utipoopesk .gt_indent_2 {
+#monhvqwqlr .gt_indent_2 {
   text-indent: 10px;
 }
 
-#utipoopesk .gt_indent_3 {
+#monhvqwqlr .gt_indent_3 {
   text-indent: 15px;
 }
 
-#utipoopesk .gt_indent_4 {
+#monhvqwqlr .gt_indent_4 {
   text-indent: 20px;
 }
 
-#utipoopesk .gt_indent_5 {
+#monhvqwqlr .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -957,7 +961,7 @@ model.</p>
 </h2>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pvals</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">model_4</span>, classify <span class="op">=</span> <span class="st">"Tmt:Time"</span><span class="op">)</span><span class="op">$</span><span class="va">pvals</span></span>
-<span><span class="va">grassUV</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="va">grassUV</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Time</span>, y <span class="op">=</span> <span class="va">y</span>, group <span class="op">=</span> <span class="va">Tmt</span>, color <span class="op">=</span> <span class="va">Tmt</span>, shape <span class="op">=</span> <span class="va">Tmt</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>

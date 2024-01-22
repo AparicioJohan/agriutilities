@@ -1,13 +1,14 @@
 #' Extract Residual Variance-Covariance from ASReml-R
 #'
-#' This function is specially useful when running repeated measurements models.
+#' This function is specially useful for extracting residual variance covariance
+#' matrices from ASReml-R when running repeated measurements models.
 #'
 #' @param model An asreml object
 #' @param time A character string indicating the "Time"
 #' @param plot A character string indicating the "PlotID"
 #' @param vc_error An optional character string indicating the variance covariance.
-#'  Can be "corv", "us", "expv", "exph", "ar1v", "ar1h" or "ante". By using NULL
-#'  the function tries to guess which was the variance-covariance used.
+#'  Can be "corv", "corh", "corgh", "us", "expv", "exph", "ar1v", "ar1h" or "ante".
+#'  By using NULL the function tries to guess which was the variance-covariance used.
 #'
 #' @return An object with a list of:
 #' \item{corr_mat}{A matrix with the residual correlation between time points}
@@ -134,11 +135,11 @@
 #'
 #' summary_models <- data.frame(
 #'   model = names(models),
-#'   aic = unlist(lapply(models, function(x) summary(x)$aic)),
-#'   bic = unlist(lapply(models, function(x) summary(x)$bic)),
-#'   loglik = unlist(lapply(models, function(x) summary(x)$loglik)),
-#'   nedf = unlist(lapply(models, function(x) summary(x)$nedf)),
-#'   param = unlist(lapply(models, function(x) attr(summary(x)$aic, "param"))),
+#'   aic = unlist(lapply(models, \(x) summary(x)$aic)),
+#'   bic = unlist(lapply(models, \(x) summary(x)$bic)),
+#'   loglik = unlist(lapply(models, \(x) summary(x)$loglik)),
+#'   nedf = unlist(lapply(models, \(x) summary(x)$nedf)),
+#'   param = unlist(lapply(models, \(x) attr(summary(x)$aic, "param"))),
 #'   row.names = NULL
 #' )
 #'
@@ -153,6 +154,8 @@
 #'   labs(x = NULL)
 #'
 #' # Extracting Variance Covariance Matrix -----------------------------------
+#'
+#' extract_rcov(model_4, time = "Time", plot = "Plant")
 #'
 #' covcor_heat(
 #'   matrix = extract_rcov(model_1, time = "Time", plot = "Plant")$corr,
@@ -170,9 +173,15 @@ extract_rcov <- function(model = NULL,
                          plot = "Plot",
                          vc_error = NULL) {
   stopifnot(inherits(x = model, what = "asreml"))
-  options <- c("corv", "us", "expv", "exph", "ar1v", "ar1h", "ante")
+  options <- c(
+    "corv", "corh", "corgh",
+    "us", "expv", "exph",
+    "ar1v", "ar1h", "ante"
+  )
+  str_res <- as.character(model$call$residual)[2]
+  vc_check <- as.character(model$call$residual[[2]][[3]][[1]])
   if (is.null(vc_error)) {
-    vc_error <- as.character(model$call$residual[[2]][[3]][[1]])
+    vc_error <- vc_check
     if (!vc_error %in% options) {
       stop(
         "Variance covariance Not Available: \n\n\t",
@@ -182,6 +191,13 @@ extract_rcov <- function(model = NULL,
     }
   } else {
     stopifnot(vc_error %in% options)
+    if (vc_error != vc_check) {
+      stop(
+        "Check that the argument vc_error matches your structure: \n\n\t",
+        "vc_error = '", vc_error, "'\n\t",
+        "residual = ~", str_res
+      )
+    }
   }
   lvls <- levels(data.frame(model$mf)[, time])
   s <- length(lvls)
@@ -189,18 +205,36 @@ extract_rcov <- function(model = NULL,
   vc <- summary(model)$varcomp
   pt <- paste0(plot, ":", time, "!", time)
   vc <- vc[grep(pt, rownames(vc), fixed = TRUE), ]
-  str_res <- as.character(model$call$residual)[2]
-  if (!grepl(vc_error, str_res)) {
-    stop(
-      "Check that the argument vc_error matches your structure: \n\n\t",
-      "vc_error = '", vc_error, "'\n\t",
-      "residual = ~", str_res
-    )
-  }
   if (vc_error == "corv") {
     corr <- vc[1, 1] * corr
     diag(corr) <- rep(1, s)
     D <- diag(rep(vc[2, 1], s))
+    colnames(D) <- rownames(D) <- lvls
+    vcov <- sqrt(D) %*% corr %*% sqrt(D)
+    objt <- list(corr_mat = corr, vcov_mat = vcov, vc = vc_error)
+  }
+  if (vc_error == "corh") {
+    corr <- vc[1, 1] * corr
+    diag(corr) <- rep(1, s)
+    D <- diag(vc[2:(s + 1), 1])
+    colnames(D) <- rownames(D) <- lvls
+    vcov <- sqrt(D) %*% corr %*% sqrt(D)
+    objt <- list(corr_mat = corr, vcov_mat = vcov, vc = vc_error)
+  }
+  if (vc_error == "corgh") {
+    vc_corr <- vc[grep(".cor", rownames(vc)), ]
+    vc_var <- vc[-grep(".cor", rownames(vc)), ]
+    k <- 1
+    for (i in 1:s) {
+      for (j in 1:i) {
+        if (i != j) {
+          corr[i, j] <- vc_corr[k, 1]
+          corr[j, i] <- vc_corr[k, 1]
+          k <- k + 1
+        }
+      }
+    }
+    D <- diag(vc_var[1:s, 1])
     colnames(D) <- rownames(D) <- lvls
     vcov <- sqrt(D) %*% corr %*% sqrt(D)
     objt <- list(corr_mat = corr, vcov_mat = vcov, vc = vc_error)

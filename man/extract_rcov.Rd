@@ -14,8 +14,8 @@ extract_rcov(model = NULL, time = "Time", plot = "Plot", vc_error = NULL)
 \item{plot}{A character string indicating the "PlotID"}
 
 \item{vc_error}{An optional character string indicating the variance covariance.
-Can be "corv", "us", "expv", "exph", "ar1v", "ar1h" or "ante". By using NULL
-the function tries to guess which was the variance-covariance used.}
+Can be "corv", "corh", "corgh", "us", "expv", "exph", "ar1v", "ar1h" or "ante".
+By using NULL the function tries to guess which was the variance-covariance used.}
 }
 \value{
 An object with a list of:
@@ -24,7 +24,8 @@ An object with a list of:
 \item{vc}{A character string indicating the variance-covariance fitted.}
 }
 \description{
-This function is specially useful when running repeated measurements models.
+This function is specially useful for extracting residual variance covariance
+matrices from ASReml-R when running repeated measurements models.
 }
 \examples{
 \dontrun{
@@ -145,11 +146,11 @@ models <- list(
 
 summary_models <- data.frame(
   model = names(models),
-  aic = unlist(lapply(models, function(x) summary(x)$aic)),
-  bic = unlist(lapply(models, function(x) summary(x)$bic)),
-  loglik = unlist(lapply(models, function(x) summary(x)$loglik)),
-  nedf = unlist(lapply(models, function(x) summary(x)$nedf)),
-  param = unlist(lapply(models, function(x) attr(summary(x)$aic, "param"))),
+  aic = unlist(lapply(models, \(x) summary(x)$aic)),
+  bic = unlist(lapply(models, \(x) summary(x)$bic)),
+  loglik = unlist(lapply(models, \(x) summary(x)$loglik)),
+  nedf = unlist(lapply(models, \(x) summary(x)$nedf)),
+  param = unlist(lapply(models, \(x) attr(summary(x)$aic, "param"))),
   row.names = NULL
 )
 
@@ -164,6 +165,8 @@ summary_models \%>\%
   labs(x = NULL)
 
 # Extracting Variance Covariance Matrix -----------------------------------
+
+extract_rcov(model_4, time = "Time", plot = "Plant")
 
 covcor_heat(
   matrix = extract_rcov(model_1, time = "Time", plot = "Plant")$corr,

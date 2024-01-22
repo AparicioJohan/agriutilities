@@ -1,9 +1,10 @@
 # agriutilities 1.2.0
 
   * Add `extract_rcov()` to extract variance-covariance matrices.
-  * Add `method` to be passed to cor function in `gg_cor()` function.
+  * Add `method` to be passed to cor function in `gg_cor()`.
   * Change style for naming the parameters in `gg_cor()`.
   * Minor changes in the writing style.
+  * Add `reorder` a logical value to reorder by a Hierarchical Clustering in `covcor_heat()`.
 
 # agriutilities 1.1.0
 
