@@ -85,11 +85,7 @@ tmp <- grassUV |>
   spread(Time, mean) |>
   column_to_rownames("Plant")
 
-a <- covcor_heat(
-  matrix = cor(tmp),
-  legend = "none",
-  size = 4.5
-) +
+a <- covcor_heat(matrix = cor(tmp), legend = "none", size = 4.5) +
   ggtitle(label = "Pearson Correlation")
 
 b <- tmp |>
@@ -121,11 +117,7 @@ if (requireNamespace("asreml", quietly = TRUE)) {
     spread(Time, mean) |>
     column_to_rownames("Plant")
 
-  a <- covcor_heat(
-    matrix = cor(tmp),
-    legend = "none",
-    size = 4.5
-  ) +
+  a <- covcor_heat(matrix = cor(tmp), legend = "none", size = 4.5) +
     ggtitle(label = "Pearson Correlation")
 
   b <- tmp |>
@@ -413,20 +405,43 @@ if (requireNamespace("asreml", quietly = TRUE)) {
     )
 }
 ```
+## Variance Components
+
+At first glance, the table below looks challenging to interpret; however, the function translates the summary output into tangible forms—both the actual variance-covariance matrix and the correlation matrix. 
+
+```{r, eval=FALSE}
+summary(model_4)$varcomp
+```
+
+```{r, echo=FALSE}
+if (requireNamespace("asreml", quietly = TRUE)) {
+  summary(model_4)$varcomp |> print()
+}
+```
 
 ## Extracting Variance Covariance Matrix
 
-As an example of extracting the variance-covariance matrix, let's take the best model according to the BIC, and run this line of code: `extract_rcov(model_4)`.
+Finally, to extract the variance-covariance matrix, let's take the best model according to the BIC and run the code:
 
 ```{r, eval=FALSE}
 mat <- extract_rcov(model_4, time = "Time", plot = "Plant")
 print(mat)
+```
 
-# Plotting  Matrix
+```{r, warning=FALSE, message=FALSE, fig.width = 9, echo=FALSE}
+if (requireNamespace("asreml", quietly = TRUE)) {
+  mat <- extract_rcov(model_4, time = "Time", plot = "Plant")
+  print(mat)
+}
+```
+
+```{r, eval=FALSE}
+# Plot Correlation  Matrix
 p1 <- covcor_heat(matrix = mat$corr, legend = "none", size = 4.5) +
   ggtitle(label = "Correlation Matrix (ante)")
 p1
 
+# Plot Variance-Covariance Matrix
 p2 <- covcor_heat(
   matrix = mat$vcov,
   corr = FALSE,
@@ -442,14 +457,12 @@ ggarrange(p1, p2)
 
 ```{r, warning=FALSE, message=FALSE, fig.width = 9, echo=FALSE}
 if (requireNamespace("asreml", quietly = TRUE)) {
-  mat <- extract_rcov(model_4, time = "Time", plot = "Plant")
-  print(mat)
-
-  # Plotting  Matrix
+  # Plot Correlation  Matrix
   p1 <- covcor_heat(matrix = mat$corr, legend = "none", size = 4.5) +
     ggtitle(label = "Correlation Matrix (ante)")
   p1
 
+  # Plot Variance-Covariance Matrix
   p2 <- covcor_heat(
     matrix = mat$vcov,
     corr = FALSE,
@@ -463,9 +476,12 @@ if (requireNamespace("asreml", quietly = TRUE)) {
 }
 ```
 
-## Comparison
 
-The plot below unveils the correlation matrices, comparing the raw data matrix with the one derived post-application of the antedependence model.
+
+## Matrix Comparison
+
+The plot below compares the raw correlation matrix with the one derived
+post-application of the antedependence model.
 
 ```{r, eval=FALSE}
 ggarrange(a, p1)
