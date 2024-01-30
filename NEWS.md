@@ -1,5 +1,7 @@
 # agriutilities (development version)
 
+  * `extract_rcov()` does not require any other parameter but the model.
+
 # agriutilities 1.2.0
 
   * Add `extract_rcov()` to extract variance-covariance matrices.
