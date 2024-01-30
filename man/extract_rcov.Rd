@@ -4,28 +4,38 @@
 \alias{extract_rcov}
 \title{Extract Residual Variance-Covariance from ASReml-R}
 \usage{
-extract_rcov(model = NULL, time = "Time", plot = "Plot", vc_error = NULL)
+extract_rcov(model = NULL, time = NULL, plot = NULL, vc_error = NULL)
 }
 \arguments{
-\item{model}{An asreml object}
+\item{model}{An asreml object.}
 
-\item{time}{A character string indicating the "Time"}
+\item{time}{An optional character string indicating the "Time". By default the function
+identifies this parameter.}
 
-\item{plot}{A character string indicating the "PlotID"}
+\item{plot}{An optional character string indicating the "PlotID". By default the function
+identifies this parameter.}
 
 \item{vc_error}{An optional character string indicating the variance covariance.
-Can be "corv", "corh", "corgh", "us", "expv", "exph", "ar1v", "ar1h" or "ante".
+It can be "corv", "corh", "corgh", "us", "expv", "exph", "ar1v", "ar1h" or "ante".
 By using NULL the function tries to guess which was the variance-covariance used.}
 }
 \value{
 An object with a list of:
-\item{corr_mat}{A matrix with the residual correlation between time points}
-\item{vcov_mat}{A matrix of the estimated residual variance-covariance between time points}
+\item{corr_mat}{A matrix with the residual correlation between time points.}
+\item{vcov_mat}{A matrix of the estimated residual variance-covariance between time points.}
 \item{vc}{A character string indicating the variance-covariance fitted.}
 }
 \description{
 This function is specially useful for extracting residual variance covariance
-matrices from ASReml-R when running repeated measurements models.
+matrices from ASReml-R when running repeated measurements analysis.
+}
+\details{
+The expected residual variance covariance structure must be of the form:
+ `~id(Plot):corv(Time)`, where `Plot` is a unique identifier of each experimental unit,
+ and `Time`, represents the variable that contains the time when
+ the experimental units were measured. This form also requires that the levels of
+ the factor Time are nested in the levels of the factor Plot. If it is not in that form
+ you can sort the dataset by using the following  command `arrange(grassUV, Plant, Time)`.
 }
 \examples{
 \dontrun{
@@ -166,15 +176,15 @@ summary_models \%>\%
 
 # Extracting Variance Covariance Matrix -----------------------------------
 
-extract_rcov(model_4, time = "Time", plot = "Plant")
+extract_rcov(model_4)
 
 covcor_heat(
-  matrix = extract_rcov(model_1, time = "Time", plot = "Plant")$corr,
+  matrix = extract_rcov(model_1)$corr,
   legend = "none",
   size = 5
 ) + ggtitle(label = "Uniform Correlation (corv)")
 covcor_heat(
-  matrix = extract_rcov(model_2, time = "Time", plot = "Plant")$corr,
+  matrix = extract_rcov(model_2)$corr,
   legend = "none",
   size = 5
 ) + ggtitle(label = "Exponetial (expv)")

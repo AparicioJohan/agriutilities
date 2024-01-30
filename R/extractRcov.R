@@ -1,19 +1,29 @@
 #' Extract Residual Variance-Covariance from ASReml-R
 #'
 #' This function is specially useful for extracting residual variance covariance
-#' matrices from ASReml-R when running repeated measurements models.
+#' matrices from ASReml-R when running repeated measurements analysis.
 #'
-#' @param model An asreml object
-#' @param time A character string indicating the "Time"
-#' @param plot A character string indicating the "PlotID"
+#' @param model An asreml object.
+#' @param time An optional character string indicating the "Time". By default the function
+#' identifies this parameter.
+#' @param plot An optional character string indicating the "PlotID". By default the function
+#' identifies this parameter.
 #' @param vc_error An optional character string indicating the variance covariance.
-#'  Can be "corv", "corh", "corgh", "us", "expv", "exph", "ar1v", "ar1h" or "ante".
+#'  It can be "corv", "corh", "corgh", "us", "expv", "exph", "ar1v", "ar1h" or "ante".
 #'  By using NULL the function tries to guess which was the variance-covariance used.
 #'
 #' @return An object with a list of:
-#' \item{corr_mat}{A matrix with the residual correlation between time points}
-#' \item{vcov_mat}{A matrix of the estimated residual variance-covariance between time points}
+#' \item{corr_mat}{A matrix with the residual correlation between time points.}
+#' \item{vcov_mat}{A matrix of the estimated residual variance-covariance between time points.}
 #' \item{vc}{A character string indicating the variance-covariance fitted.}
+#'
+#' @details The expected residual variance covariance structure must be of the form:
+#'  `~id(Plot):corv(Time)`, where `Plot` is a unique identifier of each experimental unit,
+#'  and `Time`, represents the variable that contains the time when
+#'  the experimental units were measured. This form also requires that the levels of
+#'  the factor Time are nested in the levels of the factor Plot. If it is not in that form
+#'  you can sort the dataset by using the following  command `arrange(grassUV, Plant, Time)`.
+#'
 #' @export
 #'
 #' @examples
@@ -155,22 +165,22 @@
 #'
 #' # Extracting Variance Covariance Matrix -----------------------------------
 #'
-#' extract_rcov(model_4, time = "Time", plot = "Plant")
+#' extract_rcov(model_4)
 #'
 #' covcor_heat(
-#'   matrix = extract_rcov(model_1, time = "Time", plot = "Plant")$corr,
+#'   matrix = extract_rcov(model_1)$corr,
 #'   legend = "none",
 #'   size = 5
 #' ) + ggtitle(label = "Uniform Correlation (corv)")
 #' covcor_heat(
-#'   matrix = extract_rcov(model_2, time = "Time", plot = "Plant")$corr,
+#'   matrix = extract_rcov(model_2)$corr,
 #'   legend = "none",
 #'   size = 5
 #' ) + ggtitle(label = "Exponetial (expv)")
 #' }
 extract_rcov <- function(model = NULL,
-                         time = "Time",
-                         plot = "Plot",
+                         time = NULL,
+                         plot = NULL,
                          vc_error = NULL) {
   stopifnot(inherits(x = model, what = "asreml"))
   options <- c(
@@ -198,6 +208,10 @@ extract_rcov <- function(model = NULL,
         "residual = ~", str_res
       )
     }
+  }
+  if (is.null(plot) || is.null(time)) {
+    plot <- as.character(model$call$residual[[2]][[2]][[2]])
+    time <- as.character(model$call$residual[[2]][[3]][[2]])
   }
   lvls <- levels(data.frame(model$mf)[, time])
   s <- length(lvls)

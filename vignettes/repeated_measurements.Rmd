@@ -424,13 +424,13 @@ if (requireNamespace("asreml", quietly = TRUE)) {
 Finally, to extract the variance-covariance matrix, let's take the best model according to the BIC and run the code:
 
 ```{r, eval=FALSE}
-mat <- extract_rcov(model_4, time = "Time", plot = "Plant")
+mat <- extract_rcov(model_4)
 print(mat)
 ```
 
 ```{r, warning=FALSE, message=FALSE, fig.width = 9, echo=FALSE}
 if (requireNamespace("asreml", quietly = TRUE)) {
-  mat <- extract_rcov(model_4, time = "Time", plot = "Plant")
+  mat <- extract_rcov(model_4)
   print(mat)
 }
 ```
