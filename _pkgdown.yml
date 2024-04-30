@@ -54,6 +54,11 @@ reference:
   - extract_rcov
   - fa_summary
   - heritability_fa
+  - ic_reml_asr
+- title: SpATS
+  desc: Additional functions for SpATS models
+- contents:
+  - ic_reml_spt
 - title: Others
 - contents:
   - check_connectivity

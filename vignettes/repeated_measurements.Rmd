@@ -65,6 +65,7 @@ library(tibble)
 
 if (requireNamespace("asreml", quietly = TRUE)) {
   library(asreml)
+  asreml::asreml.options(trace = 0)
   head(grassUV) |> print()
   grassUV |>
     ggplot(
