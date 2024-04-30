@@ -18,6 +18,7 @@
 #' \item \code{logdet} : the log-determinant used in adjusting the residual
 #' log-likelihood for each model
 #' }
+#' @export
 #'
 #' @author Ari Verbyla (ari.verbyla at csiro.au)
 #' @references
@@ -101,6 +102,7 @@ ic_reml_asr <- function(fm, scale = 1) {
 #' \item \code{logdet} : the log-determinant used in adjusting the residual
 #' log-likelihood for each model
 #' }
+#' @export
 #'
 #' @author Johan Aparicio
 #' @references
