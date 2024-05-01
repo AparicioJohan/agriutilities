@@ -38,5 +38,5 @@ criteria for general linear models estimated using REML. Australian &
 New Zealand Journal of Statistics, 61(1), 39-50.
 }
 \author{
-Ari Verbyla (ari.verbyla at csiro.au)
+Ari Verbyla (averbyla at avdataanalytics.com.au)
 }

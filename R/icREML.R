@@ -25,7 +25,7 @@
 #' Verbyla, A. P. (2019). A note on model selection using information
 #' criteria for general linear models estimated using REML. Australian &
 #' New Zealand Journal of Statistics, 61(1), 39-50.
-ic_reml_asr <- function(fm, scale = 1, logdet = TRUE) {
+ic_reml_asr <- function(fm, scale = 1) {
   if (!is.list(fm)) stop(" Models need to be in a list\n")
   if (is.null(names(fm))) {
     namesfm <- paste("fm", 1:length(fm))
@@ -63,11 +63,11 @@ ic_reml_asr <- function(fm, scale = 1, logdet = TRUE) {
   vparam <- lapply(fm, function(el) summary(el)$varcomp)
   q.0 <- lapply(vparam, function(el) {
     sum(!(el$bound == "F" | el$bound == "B" | el$bound == "C")) +
-      sum(el$bound[!is.na(str_extract(dimnames(el)[[1]], "cor"))] == "B")
+      sum(el$bound[!is.na(stringr::str_extract(dimnames(el)[[1]], "cor"))] == "B")
   })
   b.0 <- lapply(vparam, function(el) {
     sum(el$bound == "F" | el$bound == "B") -
-      sum(el$bound[!is.na(str_extract(dimnames(el)[[1]], "cor"))] == "B")
+      sum(el$bound[!is.na(stringr::str_extract(dimnames(el)[[1]], "cor"))] == "B")
   })
   full.logl <- lapply(1:length(fm), function(el, logl, logdetC, p.0) {
     logl[[el]] - logdetC[[el]] / 2
