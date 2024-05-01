@@ -48,12 +48,16 @@ ic_reml_asr <- function(fm, scale = 1) {
   summ <- lapply(fm, function(el) summary(el, coef = TRUE)$coef.fixed)
   which.X0 <- lapply(summ, function(el) !is.na(el[, "z.ratio"]))
   p.0 <- lapply(which.X0, function(el) sum(el))
-  Cfixed <- lapply(fm, function(el) el$Cfixed)
+  Cfixed <- lapply(fm, function(el) {
+    ord <- rownames(summary(el, coef = TRUE)$coef.fixed)
+    el$Cfixed[ord, ord, drop = FALSE]
+  })
   logdet <- lapply(
     X = 1:length(fm),
     FUN = function(el, Cfixed, which.X0, scale) {
-    log(prod(svd(as.matrix(scale * Cfixed[[el]][which.X0[[el]], which.X0[[el]]]))$d))
-  }, Cfixed, which.X0, scale)
+      log(prod(svd(as.matrix(scale * Cfixed[[el]][which.X0[[el]], which.X0[[el]]]))$d))
+    }, Cfixed, which.X0, scale
+  )
   vparam <- lapply(fm, function(el) summary(el)$varcomp)
   q.0 <- lapply(vparam, function(el) sum(!(el$bound == "F" | el$bound == "B")))
   b.0 <- lapply(vparam, function(el) sum(el$bound == "F" | el$bound == "B"))
