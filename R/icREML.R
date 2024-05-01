@@ -20,12 +20,12 @@
 #' }
 #' @export
 #'
-#' @author Ari Verbyla (ari.verbyla at csiro.au)
+#' @author Ari Verbyla (averbyla at avdataanalytics.com.au)
 #' @references
 #' Verbyla, A. P. (2019). A note on model selection using information
 #' criteria for general linear models estimated using REML. Australian &
 #' New Zealand Journal of Statistics, 61(1), 39-50.
-ic_reml_asr <- function(fm, scale = 1) {
+ic_reml_asr <- function(fm, scale = 1, logdet = TRUE) {
   if (!is.list(fm)) stop(" Models need to be in a list\n")
   if (is.null(names(fm))) {
     namesfm <- paste("fm", 1:length(fm))
@@ -52,31 +52,41 @@ ic_reml_asr <- function(fm, scale = 1) {
     ord <- rownames(summary(el, coef = TRUE)$coef.fixed)
     el$Cfixed[ord, ord, drop = FALSE]
   })
-  logdet <- lapply(
+  logdetC <- lapply(
     X = 1:length(fm),
     FUN = function(el, Cfixed, which.X0, scale) {
-      log(prod(svd(as.matrix(scale * Cfixed[[el]][which.X0[[el]], which.X0[[el]]]))$d))
+      mysvdd <- svd(as.matrix(scale * Cfixed[[el]][which.X0[[el]], which.X0[[el]]]))$d
+      mysvdd <- mysvdd[mysvdd > 0]
+      sum(log(mysvdd))
     }, Cfixed, which.X0, scale
   )
   vparam <- lapply(fm, function(el) summary(el)$varcomp)
-  q.0 <- lapply(vparam, function(el) sum(!(el$bound == "F" | el$bound == "B")))
-  b.0 <- lapply(vparam, function(el) sum(el$bound == "F" | el$bound == "B"))
-  logl <- lapply(1:length(fm), function(el, logl, logdet, p.0) {
-    logl[[el]] - logdet[[el]] / 2
-  }, logl, logdet, p.0)
-  aic <- unlist(lapply(1:length(fm), function(el, logl, p.0, q.0) {
-    -2 * logl[[el]] + 2 * (p.0[[el]] + q.0[[el]])
-  }, logl, p.0, q.0))
+  q.0 <- lapply(vparam, function(el) {
+    sum(!(el$bound == "F" | el$bound == "B" | el$bound == "C")) +
+      sum(el$bound[!is.na(str_extract(dimnames(el)[[1]], "cor"))] == "B")
+  })
+  b.0 <- lapply(vparam, function(el) {
+    sum(el$bound == "F" | el$bound == "B") -
+      sum(el$bound[!is.na(str_extract(dimnames(el)[[1]], "cor"))] == "B")
+  })
+  full.logl <- lapply(1:length(fm), function(el, logl, logdetC, p.0) {
+    logl[[el]] - logdetC[[el]] / 2
+  }, logl, logdetC, p.0)
+  aic <- unlist(lapply(1:length(fm), function(el, full.logl, p.0, q.0) {
+    -2 * full.logl[[el]] + 2 * (p.0[[el]] + q.0[[el]])
+  }, full.logl, p.0, q.0))
   bic <- unlist(lapply(
-    1:length(fm), function(el, logl, p.0, q.0, fm) {
-      -2 * logl[[el]] + log(fm[[el]]$nedf + p.0[[el]]) * (p.0[[el]] + q.0[[el]])
+    1:length(fm), function(el, full.logl, p.0, q.0, fm) {
+      -2 * full.logl[[el]] + log(fm[[el]]$nedf + p.0[[el]]) * (p.0[[el]] + q.0[[el]])
     },
-    logl, p.0, q.0, fm
+    full.logl, p.0, q.0, fm
   ))
   results <- data.frame(
-    model = namesfm, loglik = unlist(logl),
+    model = namesfm,
+    res_loglik = unlist(logl),
+    full_loglik = unlist(full.logl),
     p = unlist(p.0), q = unlist(q.0), b = unlist(b.0),
-    AIC = aic, BIC = bic, logdet = unlist(logdet)
+    AIC = aic, BIC = bic, logdet = unlist(logdetC)
   )
   row.names(results) <- 1:dim(results)[1]
   return(results)
@@ -119,19 +129,24 @@ ic_reml_spt <- function(model, scale = 1, k = 2, label = "spats") {
   p_0 <- length(fixed_eff)
   nedf <- model$nobs - p_0 # obs - fixed effects
   cmat <- model$vcov$C22_inv[names(fixed_eff), names(fixed_eff)]
-  log_det <- log(prod(svd(as.matrix(scale * cmat))$d))
+  mysvdd <- svd(as.matrix(scale * cmat))$d
+  mysvdd <- mysvdd[mysvdd > 0]
+  logdetC <- sum(log(mysvdd))
   q_0 <- length(model$var.comp) + 1
   eff_dim <- model$eff.dim
   ids <- names(eff_dim)[!names(eff_dim) %in% names(fixed_eff)]
   b_0 <- sum(round(eff_dim[ids] / model$dim.nom[ids], k) == 0)
   q_0 <- q_0 - b_0
-  logl <- loglik - log_det / 2
+  full_logl <- loglik - logdetC / 2
   aic <- -2 * logl + 2 * (p_0 + q_0)
   bic <- -2 * logl + log(nedf + p_0) * (p_0 + q_0)
   results <- data.frame(
     model = label,
-    loglik = logl, p = p_0, q = q_0, b = b_0,
-    AIC = aic, BIC = bic, logdet = log_det
+    res_loglik = loglik,
+    full_loglik = full_logl,
+    p = p_0, q = q_0, b = b_0,
+    AIC = aic, BIC = bic,
+    logdet = logdetC
   )
   return(results)
 }
