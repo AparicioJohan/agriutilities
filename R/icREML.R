@@ -138,8 +138,8 @@ ic_reml_spt <- function(model, scale = 1, k = 2, label = "spats") {
   b_0 <- sum(round(eff_dim[ids] / model$dim.nom[ids], k) == 0)
   q_0 <- q_0 - b_0
   full_logl <- loglik - logdetC / 2
-  aic <- -2 * logl + 2 * (p_0 + q_0)
-  bic <- -2 * logl + log(nedf + p_0) * (p_0 + q_0)
+  aic <- -2 * full_logl + 2 * (p_0 + q_0)
+  bic <- -2 * full_logl + log(nedf + p_0) * (p_0 + q_0)
   results <- data.frame(
     model = label,
     res_loglik = loglik,
