@@ -63,11 +63,12 @@ ic_reml_asr <- function(fm, scale = 1) {
   vparam <- lapply(fm, function(el) summary(el)$varcomp)
   q.0 <- lapply(vparam, function(el) {
     sum(!(el$bound == "F" | el$bound == "B" | el$bound == "C")) +
-      sum(el$bound[!is.na(stringr::str_extract(dimnames(el)[[1]], "cor"))] == "B")
+      sum(el$bound[grepl("cor", dimnames(el)[[1]])] == "B")
   })
+  # sum(el$bound[!is.na(stringr::str_extract(dimnames(el)[[1]], "cor"))] == "B")
   b.0 <- lapply(vparam, function(el) {
     sum(el$bound == "F" | el$bound == "B") -
-      sum(el$bound[!is.na(stringr::str_extract(dimnames(el)[[1]], "cor"))] == "B")
+      sum(el$bound[grepl("cor", dimnames(el)[[1]])] == "B")
   })
   full.logl <- lapply(1:length(fm), function(el, logl, logdetC, p.0) {
     logl[[el]] - logdetC[[el]] / 2

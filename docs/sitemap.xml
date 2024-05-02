@@ -4,15 +4,6 @@
     <loc>https://apariciojohan.github.io/agriutilities/404.html</loc>
   </url>
   <url>
-    <loc>https://apariciojohan.github.io/agriutilities/CODE_OF_CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>https://apariciojohan.github.io/agriutilities/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://apariciojohan.github.io/agriutilities/LICENSE.html</loc>
-  </url>
-  <url>
     <loc>https://apariciojohan.github.io/agriutilities/articles/how-to-start.html</loc>
   </url>
   <url>
@@ -25,7 +16,16 @@
     <loc>https://apariciojohan.github.io/agriutilities/authors.html</loc>
   </url>
   <url>
+    <loc>https://apariciojohan.github.io/agriutilities/CODE_OF_CONDUCT.html</loc>
+  </url>
+  <url>
     <loc>https://apariciojohan.github.io/agriutilities/index.html</loc>
+  </url>
+  <url>
+    <loc>https://apariciojohan.github.io/agriutilities/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://apariciojohan.github.io/agriutilities/LICENSE.html</loc>
   </url>
   <url>
     <loc>https://apariciojohan.github.io/agriutilities/news/index.html</loc>
@@ -64,10 +64,10 @@
     <loc>https://apariciojohan.github.io/agriutilities/reference/gg_cor.html</loc>
   </url>
   <url>
-    <loc>https://apariciojohan.github.io/agriutilities/reference/h_cullis.html</loc>
+    <loc>https://apariciojohan.github.io/agriutilities/reference/heritability_fa.html</loc>
   </url>
   <url>
-    <loc>https://apariciojohan.github.io/agriutilities/reference/heritability_fa.html</loc>
+    <loc>https://apariciojohan.github.io/agriutilities/reference/h_cullis.html</loc>
   </url>
   <url>
     <loc>https://apariciojohan.github.io/agriutilities/reference/ic_reml_asr.html</loc>
