@@ -131,6 +131,55 @@ New Zealand Journal of Statistics, 61(1), 39-50.</p>
     <p>Johan Aparicio</p>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">SpATS</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/AparicioJohan/agriutilities" class="external-link">agriutilities</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">wheatdata</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">wheatdata</span><span class="op">$</span><span class="va">R</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">wheatdata</span><span class="op">$</span><span class="va">row</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">wheatdata</span><span class="op">$</span><span class="va">C</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">wheatdata</span><span class="op">$</span><span class="va">col</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/SpATS/man/SpATS.html" class="external-link">SpATS</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  response <span class="op">=</span> <span class="st">"yield"</span>,</span></span>
+<span class="r-in"><span>  spatial <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/pkg/SpATS/man/PSANOVA.html" class="external-link">PSANOVA</a></span><span class="op">(</span><span class="va">col</span>, <span class="va">row</span>, nseg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span><span class="op">)</span>, nest.div <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  genotype <span class="op">=</span> <span class="st">"geno"</span>,</span></span>
+<span class="r-in"><span>  genotype.as.random <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>  fixed <span class="op">=</span> <span class="op">~</span> <span class="va">colcode</span> <span class="op">+</span> <span class="va">rowcode</span>,</span></span>
+<span class="r-in"><span>  random <span class="op">=</span> <span class="op">~</span> <span class="va">R</span> <span class="op">+</span> <span class="va">C</span>,</span></span>
+<span class="r-in"><span>  data <span class="op">=</span> <span class="va">wheatdata</span>,</span></span>
+<span class="r-in"><span>  control <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>tolerance <span class="op">=</span> <span class="fl">1e-03</span>, monitoring <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">m2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/SpATS/man/SpATS.html" class="external-link">SpATS</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  response <span class="op">=</span> <span class="st">"yield"</span>,</span></span>
+<span class="r-in"><span>  spatial <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/pkg/SpATS/man/PSANOVA.html" class="external-link">PSANOVA</a></span><span class="op">(</span><span class="va">col</span>, <span class="va">row</span>, nseg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span><span class="op">)</span>, nest.div <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  genotype <span class="op">=</span> <span class="st">"geno"</span>,</span></span>
+<span class="r-in"><span>  genotype.as.random <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>  fixed <span class="op">=</span> <span class="op">~</span><span class="va">colcode</span>,</span></span>
+<span class="r-in"><span>  random <span class="op">=</span> <span class="op">~</span> <span class="va">R</span> <span class="op">+</span> <span class="va">C</span>,</span></span>
+<span class="r-in"><span>  data <span class="op">=</span> <span class="va">wheatdata</span>,</span></span>
+<span class="r-in"><span>  control <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>tolerance <span class="op">=</span> <span class="fl">1e-03</span>, monitoring <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind.data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu">ic_reml_spt</span><span class="op">(</span><span class="va">m1</span>, label <span class="op">=</span> <span class="st">"colcode_rowcode"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu">ic_reml_spt</span><span class="op">(</span><span class="va">m2</span>, label <span class="op">=</span> <span class="st">"colcode_no_rowcode"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                model res_loglik full_loglik p q b      AIC      BIC   logdet</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    colcode_rowcode  -1520.643   -1551.460 8 8 1 3134.920 3195.705 61.63441</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 colcode_no_rowcode  -1527.611   -1556.439 7 8 1 3142.878 3199.864 57.65614</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind.data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="h_cullis_spt.html">h_cullis_spt</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="h_cullis_spt.html">h_cullis_spt</a></span><span class="op">(</span><span class="va">m2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   trait  H2Cullis H2Oakey reBLUP_avg vdBLUP_avg</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 yield 0.7726571    0.77  0.7654360   1192.740</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 yield 0.7691996    0.77  0.7620109   1207.598</span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 

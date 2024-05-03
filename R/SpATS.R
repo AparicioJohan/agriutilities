@@ -427,6 +427,7 @@ coef_SpATS <- function(model) {
 #' @examples
 #' \donttest{
 #' library(SpATS)
+#' library(agriutilities)
 #' data(wheatdata)
 #' wheatdata$R <- as.factor(wheatdata$row)
 #' wheatdata$C <- as.factor(wheatdata$col)

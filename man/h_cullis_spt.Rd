@@ -22,6 +22,7 @@ Calculate Cullis heritabilities from SpATS objects
 \examples{
 \donttest{
 library(SpATS)
+library(agriutilities)
 data(wheatdata)
 wheatdata$R <- as.factor(wheatdata$row)
 wheatdata$C <- as.factor(wheatdata$col)

@@ -119,6 +119,46 @@ ic_reml_asr <- function(fm, scale = 1) {
 #' }
 #' @export
 #'
+#' @examples
+#' \donttest{
+#' library(SpATS)
+#' library(agriutilities)
+#' data(wheatdata)
+#' wheatdata$R <- as.factor(wheatdata$row)
+#' wheatdata$C <- as.factor(wheatdata$col)
+#'
+#' m1 <- SpATS(
+#'   response = "yield",
+#'   spatial = ~ PSANOVA(col, row, nseg = c(10, 20), nest.div = 2),
+#'   genotype = "geno",
+#'   genotype.as.random = TRUE,
+#'   fixed = ~ colcode + rowcode,
+#'   random = ~ R + C,
+#'   data = wheatdata,
+#'   control = list(tolerance = 1e-03, monitoring = 0)
+#' )
+#'
+#' m2 <- SpATS(
+#'   response = "yield",
+#'   spatial = ~ PSANOVA(col, row, nseg = c(10, 20), nest.div = 2),
+#'   genotype = "geno",
+#'   genotype.as.random = TRUE,
+#'   fixed = ~colcode,
+#'   random = ~ R + C,
+#'   data = wheatdata,
+#'   control = list(tolerance = 1e-03, monitoring = 0)
+#' )
+#'
+#' rbind.data.frame(
+#'   ic_reml_spt(m1, label = "colcode_rowcode"),
+#'   ic_reml_spt(m2, label = "colcode_no_rowcode")
+#' )
+#'
+#' rbind.data.frame(
+#'   h_cullis_spt(m1),
+#'   h_cullis_spt(m2)
+#' )
+#' }
 #' @author Johan Aparicio
 #' @references
 #' Verbyla, A. P. (2019). A note on model selection using information
