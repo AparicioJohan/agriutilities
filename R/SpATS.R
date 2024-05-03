@@ -1,3 +1,87 @@
+#' Calculate Cullis heritabilities from SpATS objects
+#'
+#' @param model an object of class SpATS as produced by SpATS()
+#'
+#' @return data frame including the following information:
+#' “trait”: the trait being analyzed; "H2Cullis: Generalized heritability
+#'  proposed by Cullis (2006); "H2Oakey": Generalized heritability proposed by
+#'  Oakey (2006). "reBLUP_avg": Average BLUP reliability. "vdBLUP_avg": Average
+#'  pairwise prediction error variance of genotype effects.
+#' @export
+#'
+#' @examples
+#' \donttest{
+#' library(SpATS)
+#' library(agriutilities)
+#' data(wheatdata)
+#' wheatdata$R <- as.factor(wheatdata$row)
+#' wheatdata$C <- as.factor(wheatdata$col)
+#'
+#' m1 <- SpATS(
+#'   response = "yield",
+#'   spatial = ~ PSANOVA(col, row, nseg = c(10, 20), nest.div = 2),
+#'   genotype = "geno",
+#'   genotype.as.random = TRUE,
+#'   fixed = ~ colcode + rowcode,
+#'   random = ~ R + C,
+#'   data = wheatdata,
+#'   control = list(tolerance = 1e-03, monitoring = 0)
+#' )
+#'
+#' h_cullis_spt(m1)
+#' }
+#' @author Johan Aparicio
+#' @references
+#' Cullis, B. R., Smith, A. B., & Coombes, N. E. (2006).
+#' On the design of early generation variety trials with correlated data.
+#' Journal of agricultural, biological, and environmental statistics, 11, 381-393.
+#'
+#' Oakey, H., A. Verbyla, W. Pitchford, B. Cullis, and H. Kuchel (2006).
+#' Joint modeling of additive and non-additive genetic line effects in single
+#' field trials. Theoretical and Applied Genetics, 113, 809 - 819.
+h_cullis_spt <- function(model) {
+  if (!inherits(model, "SpATS")) {
+    stop("The object should be of class SpATS")
+  }
+  if (!model$model$geno$as.random) {
+    stop("Heritability can only be calculated when genotype is random")
+  }
+  trait <- model$model$response
+  selected <- model$model$geno$genotype
+  lvls <- model$terms$geno$geno_names
+
+  # Cullis Heritability
+  C11_g <- model$vcov$C11_inv[lvls, lvls]
+  n_g <- as.numeric(model$dim[selected])
+  sigma_g2_SpATS <- model$var.comp[selected]
+
+  # Mean variance of BLUP-difference from C11 matrix of genotypic BLUPs
+  one <- t(t(rep(1, n_g)))
+  P_mu <- diag(n_g, n_g) - one %*% t(one)
+  vdBLUP_sum <- sum(diag(P_mu %*% C11_g))
+  vdBLUP_avg <- vdBLUP_sum * (2 / (n_g * (n_g - 1)))
+  H2Cullis <- 1 - (vdBLUP_avg / (2 * sigma_g2_SpATS))
+  H2Oakey <- SpATS::getHeritability(model)
+
+  # Alternative Way
+  one <- matrix(1, nrow = n_g, ncol = 1)
+  Att <- 2 / (n_g - 1) * (sum(diag(C11_g)) - (1 / n_g) * t(one) %*% C11_g %*% one)
+  H2Cullis_2 <- 1 - Att / (2 * sigma_g2_SpATS)
+
+  # BLUP Reliability
+  blp_rel_SpATS <- mean(1 - diag(C11_g) / sigma_g2_SpATS)
+
+  results <- data.frame(
+    trait = trait,
+    H2Cullis = H2Cullis,
+    H2Oakey = H2Oakey,
+    reBLUP_avg = blp_rel_SpATS,
+    vdBLUP_avg = vdBLUP_avg,
+    row.names = NULL
+  )
+  return(results)
+}
+
 #' pseudo r square SpATS
 #'
 #' @param model SpATS object
@@ -410,89 +494,4 @@ coef_SpATS <- function(model) {
     dplyr::arrange(coef_random)
   coef_spats <- coef_spats[, c("level", "solution", "std.error", "z.ratio", "coef_random")]
   return(coef_spats)
-}
-
-
-#' Calculate Cullis heritabilities from SpATS objects
-#'
-#' @param model an object of class SpATS as produced by SpATS()
-#'
-#' @return data frame including the following information:
-#' “trait”: the trait being analyzed; "H2Cullis: Generalized heritability
-#'  proposed by Cullis (2006); "H2Oakey": Generalized heritability proposed by
-#'  Oakey (2006). "reBLUP_avg": Average BLUP reliability. "vdBLUP_avg": Average
-#'  pairwise prediction error variance of genotype effects.
-#' @export
-#'
-#' @examples
-#' \donttest{
-#' library(SpATS)
-#' library(agriutilities)
-#' data(wheatdata)
-#' wheatdata$R <- as.factor(wheatdata$row)
-#' wheatdata$C <- as.factor(wheatdata$col)
-#'
-#' m1 <- SpATS(
-#'   response = "yield",
-#'   spatial = ~ PSANOVA(col, row, nseg = c(10, 20), nest.div = 2),
-#'   genotype = "geno",
-#'   genotype.as.random = TRUE,
-#'   fixed = ~ colcode + rowcode,
-#'   random = ~ R + C,
-#'   data = wheatdata,
-#'   control = list(tolerance = 1e-03, monitoring = 0)
-#' )
-#'
-#' h_cullis_spt(m1)
-#' }
-#' @author Johan Aparicio
-#' @references
-#' Cullis, B. R., Smith, A. B., & Coombes, N. E. (2006).
-#' On the design of early generation variety trials with correlated data.
-#' Journal of agricultural, biological, and environmental statistics, 11, 381-393.
-#'
-#' Oakey, H., A. Verbyla, W. Pitchford, B. Cullis, and H. Kuchel (2006).
-#' Joint modeling of additive and non-additive genetic line effects in single
-#' field trials. Theoretical and Applied Genetics, 113, 809 - 819.
-h_cullis_spt <- function(model) {
-  if (!inherits(model, "SpATS")) {
-    stop("The object should be of class SpATS")
-  }
-  if (!model$model$geno$as.random) {
-    stop("Heritability can only be calculated when genotype is random")
-  }
-  trait <- model$model$response
-  selected <- model$model$geno$genotype
-  lvls <- model$terms$geno$geno_names
-
-  # Cullis Heritability
-  C11_g <- model$vcov$C11_inv[lvls, lvls]
-  n_g <- as.numeric(model$dim[selected])
-  sigma_g2_SpATS <- model$var.comp[selected]
-
-  # Mean variance of BLUP-difference from C11 matrix of genotypic BLUPs
-  one <- t(t(rep(1, n_g)))
-  P_mu <- diag(n_g, n_g) - one %*% t(one)
-  vdBLUP_sum <- sum(diag(P_mu %*% C11_g))
-  vdBLUP_avg <- vdBLUP_sum * (2 / (n_g * (n_g - 1)))
-  H2Cullis <- 1 - (vdBLUP_avg / (2 * sigma_g2_SpATS))
-  H2Oakey <- SpATS::getHeritability(model)
-
-  # Alternative Way
-  one <- matrix(1, nrow = n_g, ncol = 1)
-  Att <- 2 / (n_g - 1) * (sum(diag(C11_g)) - (1 / n_g) * t(one) %*% C11_g %*% one)
-  H2Cullis_2 <- 1 - Att / (2 * sigma_g2_SpATS)
-
-  # BLUP Reliability
-  blp_rel_SpATS <- mean(1 - diag(C11_g) / sigma_g2_SpATS)
-
-  results <- data.frame(
-    trait = trait,
-    H2Cullis = H2Cullis,
-    H2Oakey = H2Oakey,
-    reBLUP_avg = blp_rel_SpATS,
-    vdBLUP_avg = vdBLUP_avg,
-    row.names = NULL
-  )
-  return(results)
 }
