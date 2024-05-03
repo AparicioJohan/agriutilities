@@ -2,11 +2,14 @@
 #'
 #' @param model an object of class SpATS as produced by SpATS()
 #'
-#' @return data frame including the following information:
-#' “trait”: the trait being analyzed; "H2Cullis: Generalized heritability
-#'  proposed by Cullis (2006); "H2Oakey": Generalized heritability proposed by
-#'  Oakey (2006). "reBLUP_avg": Average BLUP reliability. "vdBLUP_avg": Average
-#'  pairwise prediction error variance of genotype effects.
+#' @return A data frame.  The data frame has the following components
+#' \itemize{
+#' \item \code{trait} : Character string with the trait being analyzed
+#' \item \code{H2Cullis} : Generalized heritability proposed by Cullis (2006)
+#' \item \code{H2Oakey} :  Generalized heritability proposed by Oakey (2006)
+#' \item \code{reBLUP_avg} : Average BLUP reliability
+#' \item \code{vdBLUP_avg} : Average pairwise prediction error variance of genotype effects
+#' }
 #' @export
 #'
 #' @examples
