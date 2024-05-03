@@ -58,6 +58,7 @@ reference:
 - title: SpATS
   desc: Additional functions for SpATS models
 - contents:
+  - h_cullis_spt
   - ic_reml_spt
 - title: Others
 - contents:
