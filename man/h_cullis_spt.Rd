@@ -17,6 +17,8 @@ A data frame.  The data frame has the following components
 \item \code{H2Oakey} :  Generalized heritability proposed by Oakey (2006)
 \item \code{reBLUP_avg} : Average BLUP reliability
 \item \code{vdBLUP_avg} : Average pairwise prediction error variance of genotype effects
+\item \code{PEV_avg} : Average predictive error variance (PEV) of genotype effects
+\item \code{var_G} : Genotypic Variance
 }
 }
 \description{

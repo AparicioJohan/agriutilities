@@ -9,6 +9,8 @@
 #' \item \code{H2Oakey} :  Generalized heritability proposed by Oakey (2006)
 #' \item \code{reBLUP_avg} : Average BLUP reliability
 #' \item \code{vdBLUP_avg} : Average pairwise prediction error variance of genotype effects
+#' \item \code{PEV_avg} : Average predictive error variance (PEV) of genotype effects
+#' \item \code{var_G} : Genotypic Variance
 #' }
 #' @export
 #'
@@ -51,10 +53,9 @@ h_cullis_spt <- function(model) {
   }
   trait <- model$model$response
   selected <- model$model$geno$genotype
-  lvls <- model$terms$geno$geno_names
 
   # Cullis Heritability
-  C11_g <- model$vcov$C11_inv[lvls, lvls]
+  C11_g <- model$vcov$C11_inv
   n_g <- as.numeric(model$dim[selected])
   sigma_g2_SpATS <- model$var.comp[selected]
 
@@ -80,6 +81,8 @@ h_cullis_spt <- function(model) {
     H2Oakey = H2Oakey,
     reBLUP_avg = blp_rel_SpATS,
     vdBLUP_avg = vdBLUP_avg,
+    PEV_avg = mean(diag(C11_g)),
+    var_G = sigma_g2_SpATS,
     row.names = NULL
   )
   return(results)
