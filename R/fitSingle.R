@@ -116,6 +116,7 @@ fit_STA <- function(results, trait, design, remove_outliers, engine, progress) {
   var_gen <- extractSTA(STA = m_models, what = "varGen")
   var_error <- extractSTA(STA = m_models, what = "varErr")
   coef_var <- extractSTA(STA = m_models, what = "CV")
+  coef_var[, 2] <- abs(coef_var[, 2])
   names(h2_cullis)[2] <- "heritability"
   names(var_gen)[2] <- "VarGen"
   names(var_error)[2] <- "VarErr"
@@ -172,7 +173,7 @@ fit_STA <- function(results, trait, design, remove_outliers, engine, progress) {
 #' @param engine A character string specifying the name of the mixed modeling
 #' engine to use, either \code{lme4} or \code{asreml}. For spatial designs,
 #' \code{SpATS} is always used, for other designs \code{asreml} as a default.
-#' @param remove_outliers Should outliers be removed? \code{TRUE} by default.
+#' @param remove_outliers Should outliers be removed? \code{FALSE} by default.
 #'
 #' @return An object of class \code{smaAgri}, with a list of:
 #' \item{fitted_models}{A list containing the fitted models. (Both models, the
@@ -213,7 +214,7 @@ fit_STA <- function(results, trait, design, remove_outliers, engine, progress) {
 single_trial_analysis <- function(results = NULL,
                                   progress = TRUE,
                                   engine = "asreml",
-                                  remove_outliers = TRUE) {
+                                  remove_outliers = FALSE) {
   if (!inherits(results, "checkAgri")) {
     stop("The object should be of checkAgri class")
   }
@@ -226,7 +227,6 @@ single_trial_analysis <- function(results = NULL,
   std_residuals <- list()
 
   for (i in traits) {
-
     # Spatials - res_row_col ---------------------------------------------------
 
     if ("res_row_col" %in% results$exp_design_list$exp_design) {

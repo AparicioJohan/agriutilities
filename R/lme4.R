@@ -231,7 +231,7 @@ mult_summary <- function(models_fixed = NULL,
   ev <- unlist(lapply(models_rand, VarE))
   he <- unlist(lapply(models_rand, h_cullis, genotype))
   cv <- base::sapply(X = models_fixed, function(mf0) {
-    100 * summary(mf0)$sigma / mean(stats::fitted(mf0), na.rm = TRUE)
+    100 * summary(mf0)$sigma / abs(mean(stats::fitted(mf0), na.rm = TRUE))
   })
   summ <- data.frame(
     trial = trials,
