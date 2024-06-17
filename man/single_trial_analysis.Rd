@@ -8,7 +8,7 @@ single_trial_analysis(
   results = NULL,
   progress = TRUE,
   engine = "asreml",
-  remove_outliers = TRUE
+  remove_outliers = FALSE
 )
 }
 \arguments{
@@ -23,7 +23,7 @@ for the particular trial.}
 engine to use, either \code{lme4} or \code{asreml}. For spatial designs,
 \code{SpATS} is always used, for other designs \code{asreml} as a default.}
 
-\item{remove_outliers}{Should outliers be removed? \code{TRUE} by default.}
+\item{remove_outliers}{Should outliers be removed? \code{FALSE} by default.}
 }
 \value{
 An object of class \code{smaAgri}, with a list of:

@@ -64,7 +64,7 @@ The function `check_design_met` helps us to check the quality of the data and
 also to identify the experimental design of the trials. This works as a quality
 check or quality control before we fit any model.
 
-```{r example}
+```{r}
 library(agriutilities)
 library(agridat)
 data(besag.met)
@@ -80,7 +80,7 @@ results <- check_design_met(
   row = "row"
 )
 ```
-```{r}
+```{r,  fig.dpi=600}
 plot(results, type = "connectivity")
 plot(results, type = "missing")
 ```
@@ -113,7 +113,7 @@ Inspecting the output.
 print(obj)
 ```
 
-```{r}
+```{r, fig.dpi=600}
 plot(obj, horizontal = TRUE, nudge_y_h2 = 0.12)
 plot(obj, type = "correlation")
 ```
@@ -152,7 +152,7 @@ fa_objt <- fa_summary(
 )
 ```
 
-```{r}
+```{r, fig.dpi=600}
 fa_objt$plots$loadings_c
 fa_objt$plots$biplot
 ```

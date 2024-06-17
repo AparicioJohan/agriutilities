@@ -148,17 +148,20 @@ check_design_met <- function(data = NULL,
     gather(data = ., key = "traits", value = "value", -.data[[trial]]) %>%
     group_by(.data[[trial]], traits) %>%
     summarise(
-      Min = min(value, na.rm = TRUE),
+      Min = suppressWarnings(min(value, na.rm = TRUE)),
       Mean = mean(value, na.rm = TRUE),
       Median = median(value, na.rm = TRUE),
-      Max = max(value, na.rm = TRUE),
+      Max = suppressWarnings(max(value, na.rm = TRUE)),
       SD = sd(value, na.rm = TRUE),
-      CV = SD / Mean,
+      CV = SD / abs(Mean),
       n = n(),
       n_miss = sum(is.na(value)),
       miss_perc = n_miss / n,
       .groups = "drop"
     )
+
+  l <- which(is.infinite(summ_traits$Min))
+  summ_traits[l, c("Min", "Mean", "Max")] <- NA
 
   exp_design_resum <- data %>%
     group_by(.data[[trial]], .data[[genotype]]) %>%
@@ -219,7 +222,6 @@ check_design_met <- function(data = NULL,
   filters_summary <- list()
 
   for (i in traits) {
-
     # Filter missing trials
     trials_to_remove_miss <- summ_traits %>%
       filter(traits %in% i) %>%

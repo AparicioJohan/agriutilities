@@ -77,7 +77,7 @@ print(results)
 ---------------------------------------------------------------------
 Summary Traits by Trial:
 ---------------------------------------------------------------------
-# A tibble: 6 x 11
+# A tibble: 6 × 11
   county traits   Min  Mean Median   Max    SD    CV     n n_miss miss_perc
   <fct>  <chr>  <dbl> <dbl>  <dbl> <dbl> <dbl> <dbl> <int>  <int>     <dbl>
 1 C1     yield   87.9 149.   151.   200.  17.7 0.119   198      6    0.0303
@@ -101,7 +101,7 @@ Experimental Design Detected:
 ---------------------------------------------------------------------
 Summary Experimental Design:
 ---------------------------------------------------------------------
-# A tibble: 6 x 9
+# A tibble: 6 × 9
   county     n n_gen n_rep n_block n_col n_row num_of_reps num_of_gen
   <fct>  <int> <int> <int>   <int> <int> <int> <fct>       <fct>     
 1 C1       198    64     3       8    11    18 3_9         63_1      
@@ -155,30 +155,33 @@ print(obj)
 ---------------------------------------------------------------------
 Summary Fitted Models:
 ---------------------------------------------------------------------
-   trait trial heritability        CV    VarGen    VarErr  design
-1: yield    C1         0.73  6.022489  87.39848  82.86095 row_col
-2: yield    C2         0.37 17.104998  25.80684 108.68546 row_col
-3: yield    C3         0.64 12.357202  83.57907 118.55567 row_col
-4: yield    C4         0.41  8.179408  35.75568 136.21218 row_col
-5: yield    C5         0.80  7.037586 103.79822  66.97523 row_col
-6: yield    C6         0.49 16.632367  71.92232 207.53073 row_col
+    trait  trial heritability        CV    VarGen    VarErr  design
+   <char> <char>        <num>     <num>     <num>     <num>  <char>
+1:  yield     C1         0.73  6.022489  87.39848  82.86095 row_col
+2:  yield     C2         0.37 17.104998  25.80684 108.68546 row_col
+3:  yield     C3         0.64 12.357202  83.57907 118.55567 row_col
+4:  yield     C4         0.41  8.179408  35.75568 136.21218 row_col
+5:  yield     C5         0.80  7.037586 103.79822  66.97523 row_col
+6:  yield     C6         0.49 16.632367  71.92232 207.53073 row_col
 
 ---------------------------------------------------------------------
 Outliers Removed:
 ---------------------------------------------------------------------
-   trait trial genotype id outlier
-1: yield    C1      G60 50    TRUE
+    trait  trial genotype    id outlier
+   <char> <fctr>   <fctr> <int>  <lgcl>
+1:  yield     C1      G60    50    TRUE
 
 ---------------------------------------------------------------------
 First Predicted Values and Standard Errors (BLUEs/BLUPs):
 ---------------------------------------------------------------------
-   trait genotype trial    BLUEs  seBLUEs    BLUPs  seBLUPs         wt
-1: yield      G01    C1 141.4161 6.078858 143.5308 5.249771 0.02706176
-2: yield      G02    C1 157.8110 5.979708 155.8037 5.194547 0.02796663
-3: yield      G03    C1 127.3836 6.091534 133.0256 5.269999 0.02694925
-4: yield      G04    C1 154.8445 6.093866 153.8364 5.270427 0.02692863
-5: yield      G05    C1 163.8950 6.132141 161.1831 5.271809 0.02659352
-6: yield      G06    C1 128.5168 6.087902 133.6857 5.247130 0.02698141
+    trait genotype  trial    BLUEs  seBLUEs    BLUPs  seBLUPs         wt
+   <char>   <fctr> <fctr>    <num>    <num>    <num>    <num>      <num>
+1:  yield      G01     C1 141.4161 6.078858 143.5308 5.249771 0.02706176
+2:  yield      G02     C1 157.8110 5.979708 155.8037 5.194547 0.02796663
+3:  yield      G03     C1 127.3836 6.091534 133.0256 5.269999 0.02694925
+4:  yield      G04     C1 154.8445 6.093866 153.8364 5.270427 0.02692863
+5:  yield      G05     C1 163.8950 6.132141 161.1831 5.271809 0.02659352
+6:  yield      G06     C1 128.5168 6.087902 133.6857 5.247130 0.02698141
 ```
 
 ``` r
@@ -204,8 +207,7 @@ multi-environmental trial models.
 
 ``` r
 met_results <- met_analysis(obj, vcov = "fa2", progress = FALSE)
-Online License checked out Fri Mar 17 08:56:24 2023
-Online License checked out Fri Mar 17 08:56:25 2023
+Online License checked out Mon Jun 17 09:18:44 2024
 ```
 
 Inspecting the output.

@@ -73,7 +73,7 @@ results <- check_design_met(
   row = "row"
 )
 ```
-```{r}
+```{r, fig.dpi=600}
 plot(results, type = "connectivity")
 plot(results, type = "missing")
 ```
@@ -106,7 +106,7 @@ Inspecting the output.
 print(obj)
 ```
 
-```{r}
+```{r, fig.dpi=600}
 plot(obj, horizontal = TRUE, nudge_y_h2 = 0.12)
 plot(obj, type = "correlation")
 ```
@@ -145,7 +145,7 @@ fa_objt <- fa_summary(
 )
 ```
 
-```{r}
+```{r, fig.dpi=600}
 fa_objt$plots$loadings_c
 fa_objt$plots$biplot
 ```

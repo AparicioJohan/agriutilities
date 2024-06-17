@@ -3,6 +3,10 @@
   * `extract_rcov()` does not require any other parameter but the model.
   * `ic_reml_asr()` implementation of the information criteria proposed by Verbyla (2019).
   * `ic_reml_spt()` implementation of the information criteria proposed by Verbyla (2019) for SpATS models.
+  * Add `h_cullis_spt()` to calculate the generalized heritability proposed by Cullis (2006).
+  * `remove_outliers` FALSE by default in `single_trial_analysis()`.
+  * Minor changes in `check_design_met()`.
+  * Fix absolute value of the mean in CV for `single_trial_analysis()`.
 
 # agriutilities 1.2.0
 
