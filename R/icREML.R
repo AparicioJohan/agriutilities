@@ -49,13 +49,18 @@ ic_reml_asr <- function(fm, scale = 1) {
   which.X0 <- lapply(summ, function(el) !is.na(el[, "z.ratio"]))
   p.0 <- lapply(which.X0, function(el) sum(el))
   Cfixed <- lapply(fm, function(el) {
-    ord <- rownames(summary(el, coef = TRUE)$coef.fixed)
-    el$Cfixed[ord, ord, drop = FALSE]
+    # ord <- rownames(summary(el, coef = TRUE)$coef.fixed)
+    el$Cfixed
   })
   logdetC <- lapply(
     X = 1:length(fm),
     FUN = function(el, Cfixed, which.X0, scale) {
-      mysvdd <- svd(as.matrix(scale * Cfixed[[el]][which.X0[[el]], which.X0[[el]]]))$d
+      if (length(Cfixed[[el]]) == 1) {
+        mysvdd <- svd(as.matrix(scale * Cfixed[[el]]))$d
+      } else {
+        mysvdd <- svd(as.matrix(scale * Cfixed[[el]][which.X0[[el]], which.X0[[el]]]))$d
+      }
+
       mysvdd <- mysvdd[mysvdd > 0]
       sum(log(mysvdd))
     }, Cfixed, which.X0, scale
