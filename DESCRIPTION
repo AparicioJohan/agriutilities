@@ -22,7 +22,7 @@ Description: Utilities designed to make the analysis of field trials easier and
  Mixed Models, 'agriutilities' is the ideal choice for anyone who wants to save
  time and focus on interpreting their results.
  Some of the functions require the R package 'asreml' for the 'ASReml' software,
- this can be obtained upon purchase from 'VSN' international (https://vsni.co.uk/software/asreml-r/).
+ this can be obtained upon purchase from 'VSN' international <https://vsni.co.uk/software/asreml-r/>.
 License: MIT + file LICENSE
 Imports:
     ggplot2,
