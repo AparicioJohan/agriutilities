@@ -169,31 +169,29 @@ Summary Fitted Models:
 ---------------------------------------------------------------------
     trait  trial heritability        CV    VarGen    VarErr  design
    <char> <char>        <num>     <num>     <num>     <num>  <char>
-1:  yield     C1         0.73  6.022489  87.39848  82.86095 row_col
-2:  yield     C2         0.37 17.104998  25.80684 108.68546 row_col
-3:  yield     C3         0.64 12.357202  83.57907 118.55567 row_col
-4:  yield     C4         0.41  8.179408  35.75568 136.21218 row_col
-5:  yield     C5         0.80  7.037586 103.79822  66.97523 row_col
-6:  yield     C6         0.49 16.632367  71.92232 207.53073 row_col
+1:  yield     C1         0.70  6.370054  85.28086  92.70982 row_col
+2:  yield     C2         0.39 16.987235  26.87283 105.50494 row_col
+3:  yield     C3         0.64 12.366843  82.84379 118.86865 row_col
+4:  yield     C4         0.41  8.179794  35.75059 136.21686 row_col
+5:  yield     C5         0.80  7.042116 104.44077  66.96454 row_col
+6:  yield     C6         0.49 16.583972  72.16813 206.54020 row_col
 
 ---------------------------------------------------------------------
 Outliers Removed:
 ---------------------------------------------------------------------
-    trait  trial genotype    id outlier
-   <char> <fctr>   <fctr> <int>  <lgcl>
-1:  yield     C1      G60    50    TRUE
+Null data.table (0 rows and 0 cols)
 
 ---------------------------------------------------------------------
 First Predicted Values and Standard Errors (BLUEs/BLUPs):
 ---------------------------------------------------------------------
     trait genotype  trial    BLUEs  seBLUEs    BLUPs  seBLUPs         wt
    <char>   <fctr> <fctr>    <num>    <num>    <num>    <num>      <num>
-1:  yield      G01     C1 141.4161 6.078858 143.5308 5.249771 0.02706176
-2:  yield      G02     C1 157.8110 5.979708 155.8037 5.194547 0.02796663
-3:  yield      G03     C1 127.3836 6.091534 133.0256 5.269999 0.02694925
-4:  yield      G04     C1 154.8445 6.093866 153.8364 5.270427 0.02692863
-5:  yield      G05     C1 163.8950 6.132141 161.1831 5.271809 0.02659352
-6:  yield      G06     C1 128.5168 6.087902 133.6857 5.247130 0.02698141
+1:  yield      G01     C1 142.9316 6.380244 144.5151 5.421481 0.02456549
+2:  yield      G02     C1 156.7765 6.277083 155.0523 5.367425 0.02537957
+3:  yield      G03     C1 126.5654 6.402526 133.1766 5.444349 0.02439480
+4:  yield      G04     C1 155.7790 6.391590 154.2435 5.440070 0.02447836
+5:  yield      G05     C1 163.9856 6.443261 160.7620 5.444314 0.02408732
+6:  yield      G06     C1 129.5092 6.400364 134.7404 5.421543 0.02441129
 ```
 
 ``` r
@@ -219,7 +217,7 @@ multi-environmental trial models.
 
 ``` r
 met_results <- met_analysis(obj, vcov = "fa2", progress = FALSE)
-Online License checked out Mon Jun 17 09:16:16 2024
+Online License checked out Fri Jan 17 11:13:59 2025
 ```
 
 Inspecting the output.
@@ -230,29 +228,29 @@ print(met_results)
 Trial Effects (BLUEs):
 ---------------------------------------------------------------------
   trait trial predicted.value std.error    status
-1 yield    C1       149.75463  1.357203 Estimable
-2 yield    C2        65.99443  1.140633 Estimable
-3 yield    C3        90.60647  1.445419 Estimable
-4 yield    C4       148.12551  1.172065 Estimable
-5 yield    C5       121.77655  1.434386 Estimable
-6 yield    C6        88.31651  1.532150 Estimable
+1 yield    C1       149.59014  1.369766 Estimable
+2 yield    C2        67.20545  1.137972 Estimable
+3 yield    C3        90.79958  1.441812 Estimable
+4 yield    C4       148.12623  1.172130 Estimable
+5 yield    C5       122.40195  1.440843 Estimable
+6 yield    C6        88.35437  1.530165 Estimable
 
 ---------------------------------------------------------------------
 Heritability:
 ---------------------------------------------------------------------
   trait        h2
-1 yield 0.8253127
+1 yield 0.9020487
 
 ---------------------------------------------------------------------
 First Overall Predicted Values and Standard Errors (BLUPs):
 ---------------------------------------------------------------------
   trait genotype predicted.value std.error    status
-1 yield      G01        110.4107  2.524415 Estimable
-2 yield      G02        111.0488  2.534145 Estimable
-3 yield      G03        102.6031  2.538533 Estimable
-4 yield      G04        115.3953  2.530336 Estimable
-5 yield      G05        120.6700  2.545688 Estimable
-6 yield      G06        108.6678  2.552319 Estimable
+1 yield      G01        110.7742  1.928974 Estimable
+2 yield      G02        111.3121  1.937736 Estimable
+3 yield      G03        104.5498  1.941361 Estimable
+4 yield      G04        114.7022  1.936229 Estimable
+5 yield      G05        118.8321  1.947395 Estimable
+6 yield      G06        109.3629  1.954243 Estimable
 
 ---------------------------------------------------------------------
 Variance-Covariance Matrix:
@@ -260,32 +258,32 @@ Variance-Covariance Matrix:
 
 Correlation Matrix ('fa2'): yield
      C1   C2   C3   C4   C5   C6
-C1 1.00 0.54 0.67 0.81 0.93 0.35
-C2 0.54 1.00 0.60 0.90 0.52 0.68
-C3 0.67 0.60 1.00 0.73 0.70 0.40
-C4 0.81 0.90 0.73 1.00 0.83 0.60
-C5 0.93 0.52 0.70 0.83 1.00 0.34
-C6 0.35 0.68 0.40 0.60 0.34 1.00
+C1 1.00 0.64 0.71 0.86 0.95 0.42
+C2 0.64 1.00 0.58 0.86 0.53 0.70
+C3 0.71 0.58 1.00 0.70 0.71 0.39
+C4 0.86 0.86 0.70 1.00 0.83 0.58
+C5 0.95 0.53 0.71 0.83 1.00 0.34
+C6 0.42 0.70 0.39 0.58 0.34 1.00
 
 Covariance Matrix ('fa2'): yield
       C1    C2    C3    C4     C5    C6
-C1 80.39 25.73 53.51 35.80  84.13 25.75
-C2 25.73 28.74 28.50 23.86  28.05 29.67
-C3 53.51 28.50 78.96 32.26  62.98 28.93
-C4 35.80 23.86 32.26 24.54  41.43 24.38
-C5 84.13 28.05 62.98 41.43 101.53 27.94
-C6 25.75 29.67 28.93 24.38  27.94 66.57
+C1 78.93 29.35 55.78 38.05  85.20 30.76
+C2 29.35 26.42 26.61 21.93  27.81 29.68
+C3 55.78 26.61 78.65 30.97  63.27 28.46
+C4 38.05 21.93 30.97 24.55  41.49 23.89
+C5 85.20 27.81 63.27 41.49 102.30 28.28
+C6 30.76 29.68 28.46 23.89  28.28 67.99
 
 ---------------------------------------------------------------------
 First Stability Coefficients:
 ---------------------------------------------------------------------
   trait genotype superiority   static    wricke predicted.value
-1 yield      G57    22.56100 33.35260 15.210394        92.44993
-2 yield      G29    16.98170 34.39632  4.243540        99.41798
-3 yield      G34    16.98545 33.64634  8.152888        99.81112
-4 yield      G59    16.68886 34.56884  5.361337        99.91280
-5 yield      G31    15.97985 31.29838 12.350068       101.69455
-6 yield      G10    15.61917 32.24828 11.747802       102.32827
+1 yield      G57    22.64170 32.92556 15.484987        92.63362
+2 yield      G29    17.03322 33.66855  5.023783        99.67843
+3 yield      G34    17.02203 33.06040  8.545979       100.06674
+4 yield      G59    16.72402 34.06416  5.596864       100.14511
+5 yield      G31    15.77027 31.36932 10.740548       102.04249
+6 yield      G10    15.59219 32.03990 11.767180       102.64704
 ```
 
 ### Exploring Factor Analytic in MET analysis.
@@ -329,7 +327,8 @@ By contributing to this project, you agree to abide by its terms.
 
 # References
 
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent"
+entry-spacing="0">
 
 <div id="ref-isik2017genetic" class="csl-entry">
 

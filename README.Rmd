@@ -162,7 +162,8 @@ useful the following sources: @isik2017genetic; @rodriguez2018correcting.
 
 ## Code of Conduct
 
-Please note that the agriutilities project is released with a [Contributor Code of Conduct](https://apariciojohan.github.io/agriutilities/CODE_OF_CONDUCT.html). 
+Please note that the agriutilities project is released with a [Contributor Code
+of Conduct](https://apariciojohan.github.io/agriutilities/CODE_OF_CONDUCT.html). 
 By contributing to this project, you agree to abide by its terms.
 
 # References

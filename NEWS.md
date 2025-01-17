@@ -1,4 +1,4 @@
-# agriutilities (development version)
+# agriutilities 1.2.1
 
   * `extract_rcov()` does not require any other parameter but the model.
   * `ic_reml_asr()` implementation of the information criteria proposed by Verbyla (2019).
