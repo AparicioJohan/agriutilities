@@ -465,7 +465,7 @@ plot.smaAgri <- function(x,
       ) +
       geom_bar(stat = "identity", color = "black", alpha = 0.5) +
       facet_grid(
-        facets = component ~ trait,
+        rows = component ~ trait,
         scales = "free_y",
         switch = c("y")
       ) +
@@ -494,7 +494,7 @@ plot.smaAgri <- function(x,
       ) +
       geom_bar(stat = "identity", color = "black", alpha = 0.5) +
       facet_grid(
-        facets = component ~ trait,
+        rows = component ~ trait,
         scales = "free_y",
         switch = c("y")
       ) +
