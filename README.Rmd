@@ -85,13 +85,11 @@ plot(results, type = "connectivity")
 plot(results, type = "missing")
 ```
 
-
 Inspecting the output.
 
 ```{r}
 print(results)
 ```
-
 
 ### Single Trial Analysis (STA)
 

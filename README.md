@@ -217,7 +217,7 @@ multi-environmental trial models.
 
 ``` r
 met_results <- met_analysis(obj, vcov = "fa2", progress = FALSE)
-Online License checked out Fri Jan 17 11:13:59 2025
+Online License checked out Thu Oct 16 21:37:04 2025
 ```
 
 Inspecting the output.
@@ -239,18 +239,18 @@ Trial Effects (BLUEs):
 Heritability:
 ---------------------------------------------------------------------
   trait        h2
-1 yield 0.9020487
+1 yield 0.8261367
 
 ---------------------------------------------------------------------
 First Overall Predicted Values and Standard Errors (BLUPs):
 ---------------------------------------------------------------------
   trait genotype predicted.value std.error    status
-1 yield      G01        110.7742  1.928974 Estimable
-2 yield      G02        111.3121  1.937736 Estimable
-3 yield      G03        104.5498  1.941361 Estimable
-4 yield      G04        114.7022  1.936229 Estimable
-5 yield      G05        118.8321  1.947395 Estimable
-6 yield      G06        109.3629  1.954243 Estimable
+1 yield      G01        110.8429  2.536428 Estimable
+2 yield      G02        111.3836  2.548777 Estimable
+3 yield      G03        102.6612  2.551662 Estimable
+4 yield      G04        115.8775  2.546016 Estimable
+5 yield      G05        121.0640  2.558195 Estimable
+6 yield      G06        108.9498  2.570048 Estimable
 
 ---------------------------------------------------------------------
 Variance-Covariance Matrix:
