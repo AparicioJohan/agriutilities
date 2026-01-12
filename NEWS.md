@@ -1,5 +1,7 @@
 # agriutilities 1.2.3
 
+  * Fix issues with `dplyr`.
+
 # agriutilities 1.2.1
 
   * `extract_rcov()` does not require any other parameter but the model.
