@@ -74,6 +74,7 @@ utils::globalVariables(
     "reps_equal",
     "BLUPs",
     "component",
-    "design"
+    "design",
+    "id"
   )
 )
